@@ -1,0 +1,22 @@
+{
+  "id": "feature-scaling",
+  "name": "Feature Scaling",
+  "domain": "preprocessing",
+  "difficulty": "beginner",
+  "estimatedTime": 20,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand why feature scaling is important",
+    "Learn the difference between normalization and standardization",
+    "Know when to use each scaling method",
+    "Visualize the impact of scaling on data distributions"
+  ],
+  "interactive": {
+    "algorithm": "FeatureScaling",
+    "defaultParams": {
+      "method": "normalize",
+      "numSamples": 100,
+      "featureRange": 50
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "id": "decision-trees",
+  "name": "Decision Trees",
+  "domain": "classification",
+  "difficulty": "intermediate",
+  "estimatedTime": 30,
+  "prerequisites": ["knn"],
+  "learningObjectives": [
+    "Understand how decision trees make predictions using rules",
+    "Learn about splitting criteria (Gini impurity, entropy)",
+    "Explore the impact of tree depth on overfitting",
+    "Recognize the importance of pruning for generalization",
+    "Understand feature importance in decision trees"
+  ],
+  "keywords": [
+    "decision trees",
+    "classification",
+    "supervised learning",
+    "Gini impurity",
+    "entropy",
+    "information gain",
+    "tree depth",
+    "pruning",
+    "feature importance",
+    "interpretability"
+  ],
+  "interactive": {
+    "algorithm": "DecisionTree",
+    "defaultParams": {
+      "maxDepth": 5,
+      "minSamplesSplit": 2,
+      "criterion": "gini",
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a classification dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Multi-class Classification",
+            "value": "multi-class"
+          },
+          {
+            "label": "Non-linear Boundary",
+            "value": "non-linear"
+          }
+        ]
+      },
+      {
+        "id": "maxDepth",
+        "type": "slider",
+        "label": "Max Tree Depth",
+        "group": "Model Parameters",
+        "min": 1,
+        "max": 15,
+        "step": 1,
+        "tooltip": "Maximum depth of the tree. Deeper trees can model more complex patterns but may overfit."
+      },
+      {
+        "id": "minSamplesSplit",
+        "type": "slider",
+        "label": "Min Samples to Split",
+        "group": "Model Parameters",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Minimum number of samples required to split a node. Higher values prevent overfitting."
+      },
+      {
+        "id": "criterion",
+        "type": "select",
+        "label": "Split Criterion",
+        "group": "Model Parameters",
+        "tooltip": "Method to measure split quality",
+        "options": [
+          {
+            "label": "Gini Impurity",
+            "value": "gini"
+          },
+          {
+            "label": "Entropy (Information Gain)",
+            "value": "entropy"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "multi-class",
+      "non-linear"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "tree",
+      "title": "Decision Tree Structure",
+      "description": "Visual representation of the learned decision tree"
+    },
+    {
+      "type": "scatter2d",
+      "title": "Decision Boundary",
+      "description": "Scatter plot showing data points and tree decision regions"
+    },
+    {
+      "type": "bar",
+      "title": "Feature Importance",
+      "description": "Bar chart showing relative importance of each feature"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "accuracy",
+      "name": "Accuracy",
+      "description": "Percentage of correct predictions"
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "description": "Of predicted positives, how many are actually positive"
+    },
+    {
+      "id": "recall",
+      "name": "Recall",
+      "description": "Of actual positives, how many were correctly predicted"
+    },
+    {
+      "id": "f1Score",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall"
+    }
+  ]
+}

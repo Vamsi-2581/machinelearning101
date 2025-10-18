@@ -1,0 +1,140 @@
+{
+  "id": "tsne",
+  "name": "t-SNE Visualization",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 40,
+  "prerequisites": ["pca"],
+  "learningObjectives": [
+    "Understand how t-SNE differs from linear dimensionality reduction",
+    "Learn the role of perplexity in controlling local vs global structure",
+    "Interpret t-SNE visualizations correctly and avoid common pitfalls",
+    "Recognize when t-SNE is appropriate for data visualization",
+    "Understand the iterative optimization process"
+  ],
+  "keywords": [
+    "t-SNE",
+    "dimensionality reduction",
+    "visualization",
+    "non-linear",
+    "perplexity",
+    "KL divergence",
+    "manifold learning",
+    "clustering",
+    "unsupervised learning"
+  ],
+  "interactive": {
+    "algorithm": "TSNE",
+    "defaultParams": {
+      "nComponents": 2,
+      "perplexity": 30,
+      "learningRate": 200,
+      "maxIterations": 500,
+      "dataset": "mnist-sample"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a dataset to visualize",
+        "options": [
+          {
+            "label": "MNIST Sample (10D)",
+            "value": "mnist-sample"
+          },
+          {
+            "label": "Iris (4D)",
+            "value": "iris"
+          },
+          {
+            "label": "Swiss Roll (3D)",
+            "value": "swiss-roll"
+          }
+        ]
+      },
+      {
+        "id": "perplexity",
+        "type": "slider",
+        "label": "Perplexity",
+        "group": "t-SNE Parameters",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "tooltip": "Balance between local and global structure"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "t-SNE Parameters",
+        "min": 10,
+        "max": 1000,
+        "step": 10,
+        "tooltip": "Step size for gradient descent"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "group": "t-SNE Parameters",
+        "min": 250,
+        "max": 2000,
+        "step": 250,
+        "tooltip": "Number of optimization iterations"
+      },
+      {
+        "id": "nComponents",
+        "type": "select",
+        "label": "Output Dimensions",
+        "group": "t-SNE Parameters",
+        "tooltip": "Number of dimensions in output",
+        "options": [
+          {
+            "label": "2D",
+            "value": 2
+          },
+          {
+            "label": "3D",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "mnist-sample",
+      "iris",
+      "swiss-roll"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Optimization Progress",
+      "description": "KL divergence over iterations"
+    },
+    {
+      "type": "scatter2d",
+      "title": "2D Embedding",
+      "description": "Final t-SNE embedding in 2D"
+    },
+    {
+      "type": "scatter3d",
+      "title": "3D Embedding",
+      "description": "Final t-SNE embedding in 3D"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "finalCost",
+      "name": "Final Cost",
+      "description": "KL divergence at convergence"
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "description": "Effective number of neighbors"
+    }
+  ]
+}

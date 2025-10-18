@@ -1,0 +1,117 @@
+{
+  "id": "linear-regression",
+  "name": "Linear Regression",
+  "domain": "regression",
+  "difficulty": "beginner",
+  "estimatedTime": 30,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand how linear regression models relationships in data",
+    "Learn how gradient descent optimizes model parameters",
+    "Interpret key regression metrics (MSE, RMSE, R², MAE)",
+    "Recognize the impact of learning rate on model training",
+    "Visualize the relationship between data and the fitted line"
+  ],
+  "keywords": [
+    "linear regression",
+    "gradient descent",
+    "supervised learning",
+    "regression",
+    "optimization",
+    "MSE",
+    "RMSE",
+    "R² score",
+    "learning rate",
+    "epochs"
+  ],
+  "interactive": {
+    "algorithm": "LinearRegression",
+    "defaultParams": {
+      "learningRate": 0.01,
+      "epochs": 100,
+      "dataset": "simple-linear"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a dataset to train on",
+        "options": [
+          {
+            "label": "Simple Linear",
+            "value": "simple-linear"
+          },
+          {
+            "label": "Noisy Linear",
+            "value": "noisy-linear"
+          },
+          {
+            "label": "Polynomial",
+            "value": "polynomial"
+          }
+        ]
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "Training Parameters",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns. Too high may overshoot, too low may converge slowly."
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "group": "Training Parameters",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations. More epochs allow the model to learn better but take longer."
+      }
+    ],
+    "datasets": [
+      "simple-linear",
+      "noisy-linear",
+      "polynomial"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Data & Regression Line",
+      "description": "Scatter plot showing the data points and the fitted regression line"
+    },
+    {
+      "type": "line",
+      "title": "Training Loss",
+      "description": "Line chart showing how the loss decreases during training"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "mse",
+      "name": "Mean Squared Error",
+      "description": "Average squared difference between predictions and actual values"
+    },
+    {
+      "id": "rmse",
+      "name": "Root Mean Squared Error",
+      "description": "Square root of MSE, in the same units as the target"
+    },
+    {
+      "id": "r2Score",
+      "name": "R² Score",
+      "description": "Proportion of variance explained by the model (1.0 is perfect)"
+    },
+    {
+      "id": "mae",
+      "name": "Mean Absolute Error",
+      "description": "Average absolute difference between predictions and actual values"
+    }
+  ]
+}

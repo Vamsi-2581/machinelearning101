@@ -1,0 +1,77 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the primary purpose of feature scaling?",
+      "type": "multiple-choice",
+      "options": [
+        "To make all features have the same units",
+        "To transform features to a similar scale for better algorithm performance",
+        "To remove outliers from the data",
+        "To increase the number of features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature scaling transforms features to a similar scale, which helps many machine learning algorithms perform better and converge faster. It doesn't change units, remove outliers, or add features."
+    },
+    {
+      "id": "q2",
+      "text": "Which scaling method transforms features to the range [0, 1]?",
+      "type": "multiple-choice",
+      "options": [
+        "Standardization",
+        "Normalization",
+        "Z-score scaling",
+        "Log transformation"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Normalization (min-max scaling) transforms features to a fixed range, typically [0, 1], using the formula (x - min) / (max - min)."
+    },
+    {
+      "id": "q3",
+      "text": "Standardization transforms data to have a mean of 0 and standard deviation of 1.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Standardization (z-score normalization) uses the formula (x - mean) / std to transform data so it has mean = 0 and standard deviation = 1."
+    },
+    {
+      "id": "q4",
+      "text": "Which scaling method is more sensitive to outliers?",
+      "type": "multiple-choice",
+      "options": [
+        "Standardization",
+        "Normalization",
+        "Both are equally sensitive",
+        "Neither is sensitive to outliers"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Normalization is more sensitive to outliers because it uses min and max values. A single outlier can significantly affect the range and thus the scaled values. Standardization uses mean and standard deviation, which are less affected by individual outliers."
+    },
+    {
+      "id": "q5",
+      "text": "When should you apply feature scaling in your machine learning pipeline?",
+      "type": "multiple-choice",
+      "options": [
+        "Before splitting the data into train and test sets",
+        "After splitting, fit on training data and apply to both train and test",
+        "Only on the test data",
+        "It doesn't matter when you apply it"
+      ],
+      "correctAnswer": 1,
+      "explanation": "You should split your data first, then fit the scaler on the training data only and apply the same transformation to both training and test data. This prevents data leakage from the test set into the training process."
+    },
+    {
+      "id": "q6",
+      "text": "Which algorithms benefit most from feature scaling?",
+      "type": "multiple-choice",
+      "options": [
+        "Decision trees and random forests",
+        "Distance-based algorithms like KNN and SVM",
+        "Naive Bayes classifiers",
+        "Rule-based algorithms"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Distance-based algorithms (KNN, SVM, neural networks) benefit most from feature scaling because they use distance metrics that are sensitive to feature magnitudes. Tree-based algorithms are generally invariant to feature scaling."
+    }
+  ]
+}

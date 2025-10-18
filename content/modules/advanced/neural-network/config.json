@@ -1,0 +1,36 @@
+{
+  "id": "neural-network",
+  "name": "Neural Network Visualization",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 45,
+  "prerequisites": ["linear-regression", "logistic-regression"],
+  "learningObjectives": [
+    "Understand the architecture of feedforward neural networks",
+    "Learn how forward propagation computes predictions",
+    "Understand backpropagation and gradient computation",
+    "Recognize the role of activation functions",
+    "See how networks learn through gradient descent"
+  ],
+  "keywords": [
+    "neural networks",
+    "deep learning",
+    "backpropagation",
+    "forward propagation",
+    "activation functions",
+    "gradient descent",
+    "hidden layers",
+    "weights",
+    "biases"
+  ],
+  "interactive": {
+    "algorithm": "NeuralNetwork",
+    "defaultParams": {
+      "hiddenLayers": [4, 3],
+      "learningRate": 0.1,
+      "epochs": 100,
+      "activation": "sigmoid",
+      "dataset": "binary-classification"
+    }
+  }
+}

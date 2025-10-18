@@ -1,0 +1,196 @@
+{
+  "title": "K-Means Clustering Quiz",
+  "description": "Test your understanding of K-Means clustering concepts",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What type of learning is K-Means clustering?",
+      "options": [
+        "Supervised learning",
+        "Unsupervised learning",
+        "Reinforcement learning",
+        "Semi-supervised learning"
+      ],
+      "correctAnswer": 1,
+      "explanation": "K-Means is an unsupervised learning algorithm because it discovers patterns and groups in data without using labeled examples. Unlike supervised learning, we don't provide the algorithm with correct cluster assignments - it finds them on its own."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What are the two main steps that K-Means repeats iteratively?",
+      "options": [
+        "Training and testing",
+        "Forward pass and backward pass",
+        "Assignment and update",
+        "Initialization and convergence"
+      ],
+      "correctAnswer": 2,
+      "explanation": "K-Means alternates between two steps: (1) Assignment - assign each point to the nearest centroid, and (2) Update - recalculate centroids as the mean of assigned points. These steps repeat until convergence."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "How does K-Means++ improve upon random initialization?",
+      "options": [
+        "It uses more iterations",
+        "It spreads out initial centroids by choosing them with probability proportional to distance²",
+        "It always finds the global optimum",
+        "It uses a different distance metric"
+      ],
+      "correctAnswer": 1,
+      "explanation": "K-Means++ chooses initial centroids strategically: after picking the first centroid randomly, each subsequent centroid is chosen with probability proportional to the square of its distance from the nearest existing centroid. This spreads out the initial centroids, leading to better and more consistent results."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "What does inertia measure in K-Means?",
+      "options": [
+        "The number of iterations until convergence",
+        "The sum of squared distances from points to their cluster centroids",
+        "The number of points in each cluster",
+        "The distance between cluster centroids"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Inertia (also called within-cluster sum of squares) measures how tightly grouped the clusters are by summing the squared distances from each point to its assigned centroid. Lower inertia indicates more compact clusters, but it always decreases as k increases."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the range of the silhouette score?",
+      "options": [
+        "0 to 1",
+        "0 to 100",
+        "-1 to 1",
+        "Any positive number"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The silhouette score ranges from -1 to +1. A score close to +1 means points are well-matched to their cluster and far from others. A score close to 0 means points are on cluster borders. A negative score suggests points might be in the wrong cluster."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is the 'elbow method' used for?",
+      "options": [
+        "Choosing the learning rate",
+        "Determining the optimal number of clusters (k)",
+        "Deciding when to stop iterations",
+        "Selecting which features to use"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The elbow method helps choose the optimal k by plotting inertia vs k and looking for the 'elbow' - the point where inertia stops decreasing rapidly. This represents the k value where adding more clusters doesn't significantly improve the clustering."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "When does K-Means work best?",
+      "options": [
+        "With elongated or irregular cluster shapes",
+        "With spherical, well-separated clusters of similar size",
+        "With overlapping clusters",
+        "With clusters of very different densities"
+      ],
+      "correctAnswer": 1,
+      "explanation": "K-Means works best when clusters are roughly spherical (circular/round), well-separated, and have similar sizes and densities. It struggles with elongated shapes, overlapping clusters, or clusters with very different characteristics because it assumes clusters are convex and isotropic."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "How is a centroid updated in the update step?",
+      "options": [
+        "It moves toward the nearest data point",
+        "It is calculated as the mean (average) of all points in its cluster",
+        "It moves in the direction of the gradient",
+        "It stays in the same position"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In the update step, each centroid is recalculated as the mean (average) of all points assigned to that cluster. For example, if a cluster contains points (1,2), (3,4), and (5,6), the new centroid would be ((1+3+5)/3, (2+4+6)/3) = (3, 4)."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What happens to inertia as you increase k (number of clusters)?",
+      "options": [
+        "It always increases",
+        "It stays the same",
+        "It always decreases",
+        "It randomly fluctuates"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Inertia always decreases as k increases because with more clusters, points can be assigned to closer centroids, reducing the total distance. In the extreme case where k equals the number of points, inertia would be zero. This is why we can't just choose k based on minimizing inertia alone."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "Which of these is NOT a good application of K-Means?",
+      "options": [
+        "Customer segmentation",
+        "Image compression",
+        "Predicting house prices",
+        "Document clustering"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Predicting house prices is a supervised learning problem (regression) where we have labeled training data with known prices. K-Means is an unsupervised algorithm for clustering, not prediction. The other options are all valid clustering applications where we group similar items without predefined labels."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "Why should you standardize features before applying K-Means?",
+      "options": [
+        "To make the algorithm run faster",
+        "To prevent features with large values from dominating the distance calculation",
+        "To increase the number of clusters",
+        "To make the results easier to visualize"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Standardizing features (scaling them to similar ranges) prevents features with large values from dominating the distance calculation. For example, if one feature ranges from 0-1000 and another from 0-1, the first feature would have much more influence on cluster assignments. Standardization ensures all features contribute equally."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "What does it mean if K-Means converges?",
+      "options": [
+        "The algorithm has found the global optimum",
+        "The centroids have stopped moving (or moved less than a threshold)",
+        "All clusters have the same size",
+        "The silhouette score is maximized"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Convergence means the centroids have stopped moving (or moved less than a small tolerance threshold), indicating the clusters have stabilized. However, this doesn't guarantee the global optimum - K-Means can converge to local optima depending on initialization, which is why K-Means++ and multiple runs are recommended."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: K-Means requires you to specify the number of clusters (k) before running the algorithm.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 0,
+      "explanation": "True. K-Means requires you to specify k (the number of clusters) as a hyperparameter before running. This is one of its main limitations. You can use methods like the elbow method or silhouette analysis to help choose an appropriate k, but the algorithm itself doesn't determine the optimal number of clusters."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: A higher silhouette score always means better clustering.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 0,
+      "explanation": "True. The silhouette score ranges from -1 to +1, where higher values indicate better clustering. A score close to +1 means points are well-matched to their own cluster and poorly-matched to neighboring clusters. Scores above 0.5 generally indicate reasonable to strong cluster structure."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: K-Means can discover clusters of any shape, including crescents and rings.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. K-Means works best with spherical (circular/round) clusters and struggles with complex shapes like crescents, rings, or elongated clusters. This is because K-Means uses Euclidean distance and assumes clusters are convex and isotropic. For complex shapes, algorithms like DBSCAN or spectral clustering are more appropriate."
+    }
+  ]
+}

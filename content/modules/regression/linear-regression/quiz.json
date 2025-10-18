@@ -1,0 +1,159 @@
+{
+  "title": "Linear Regression Quiz",
+  "description": "Test your understanding of linear regression concepts",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the primary goal of linear regression?",
+      "options": [
+        "To classify data into categories",
+        "To model the linear relationship between features and a continuous target",
+        "To cluster similar data points together",
+        "To reduce the dimensionality of data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Linear regression models the relationship between independent variables (features) and a dependent variable (target) by fitting a linear equation to the observed data. It's used for predicting continuous values, not classification or clustering."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "In the equation y = w₁x + w₀, what does w₀ represent?",
+      "options": [
+        "The slope of the line",
+        "The learning rate",
+        "The bias or intercept",
+        "The error term"
+      ],
+      "correctAnswer": 2,
+      "explanation": "w₀ is the bias or intercept - it represents the predicted value of y when x equals zero. It shifts the line up or down on the y-axis. w₁ is the slope, which determines how steep the line is."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What happens if the learning rate is too large?",
+      "options": [
+        "Training will be very slow",
+        "The model will always converge to the optimal solution",
+        "The model may overshoot and fail to converge",
+        "The model will underfit the data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A learning rate that's too large causes the gradient descent algorithm to take steps that are too big, potentially overshooting the minimum of the loss function. This can cause the loss to oscillate or even increase, preventing convergence. A smaller learning rate would train more slowly but more reliably."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which metric measures the proportion of variance explained by the model?",
+      "options": [
+        "Mean Squared Error (MSE)",
+        "Root Mean Squared Error (RMSE)",
+        "R² Score",
+        "Mean Absolute Error (MAE)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The R² (R-squared) score, also called the coefficient of determination, measures how much of the variance in the target variable is explained by the model. An R² of 1.0 means perfect predictions, while 0.0 means the model is no better than predicting the mean."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the purpose of squaring the errors in Mean Squared Error (MSE)?",
+      "options": [
+        "To make the calculation faster",
+        "To make all errors positive and penalize larger errors more",
+        "To reduce the impact of outliers",
+        "To normalize the error values"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Squaring the errors serves two purposes: (1) it makes all errors positive so they don't cancel out, and (2) it penalizes larger errors more heavily than smaller ones. For example, an error of 2 contributes 4 to MSE, while an error of 4 contributes 16 - four times as much, not just twice."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is gradient descent?",
+      "options": [
+        "A method to visualize data",
+        "An optimization algorithm that iteratively adjusts parameters to minimize loss",
+        "A technique to add more features to the model",
+        "A way to split data into training and test sets"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Gradient descent is an optimization algorithm that iteratively adjusts the model's parameters (weights and bias) in the direction that reduces the loss function. It calculates the gradient (derivative) of the loss with respect to each parameter and updates them proportionally to the negative gradient."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "If your R² score is 0.85, what does this mean?",
+      "options": [
+        "The model is 85% accurate",
+        "The model explains 85% of the variance in the target variable",
+        "The model has an error rate of 85%",
+        "85% of predictions are exactly correct"
+      ],
+      "correctAnswer": 1,
+      "explanation": "An R² score of 0.85 means the model explains 85% of the variance in the target variable. The remaining 15% of variance is unexplained and could be due to noise, missing features, or non-linear relationships. This is generally considered a good score, though interpretation depends on the domain."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "Which metric is LEAST sensitive to outliers?",
+      "options": [
+        "Mean Squared Error (MSE)",
+        "Root Mean Squared Error (RMSE)",
+        "Mean Absolute Error (MAE)",
+        "All are equally sensitive"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Mean Absolute Error (MAE) is the least sensitive to outliers because it uses absolute values rather than squared values. MSE and RMSE square the errors, which means outliers (large errors) contribute disproportionately more to these metrics. For example, an error of 10 contributes 10 to MAE but 100 to MSE."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What does an epoch represent in gradient descent?",
+      "options": [
+        "A single update to the model parameters",
+        "One complete pass through the entire training dataset",
+        "The final trained model",
+        "The learning rate value"
+      ],
+      "correctAnswer": 1,
+      "explanation": "An epoch is one complete pass through the entire training dataset. During each epoch, the algorithm processes all training examples and updates the parameters multiple times (once per batch or once per example, depending on the variant of gradient descent used)."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "When is linear regression most appropriate?",
+      "options": [
+        "When the relationship between features and target is highly non-linear",
+        "When you need to classify data into categories",
+        "When the relationship is approximately linear and you need an interpretable model",
+        "When you have categorical target variables"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Linear regression is most appropriate when: (1) the relationship between features and target is approximately linear, (2) you need an interpretable model where you can understand how each feature affects the prediction, and (3) you're predicting continuous numerical values. For non-linear relationships, you'd need polynomial features or other algorithms."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: A lower RMSE always means a better model.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 0,
+      "explanation": "True. RMSE (Root Mean Squared Error) measures the average prediction error in the same units as the target variable. A lower RMSE indicates that predictions are closer to actual values on average, which means better model performance. An RMSE of 0 would indicate perfect predictions."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: Linear regression can only work with one feature (simple linear regression).",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Linear regression can work with multiple features (multiple linear regression). The model extends to y = w₁x₁ + w₂x₂ + ... + wₙxₙ + w₀, where each feature has its own weight. Simple linear regression (one feature) is just a special case of the more general multiple linear regression."
+    }
+  ]
+}

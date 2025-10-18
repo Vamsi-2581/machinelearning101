@@ -1,0 +1,159 @@
+{
+  "title": "K-Nearest Neighbors Quiz",
+  "description": "Test your understanding of KNN classification",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "Why is KNN called a 'lazy learner'?",
+      "options": [
+        "It takes a long time to make predictions",
+        "It doesn't learn a model during training, just stores the data",
+        "It requires less computational power than other algorithms",
+        "It only works with small datasets"
+      ],
+      "correctAnswer": 1,
+      "explanation": "KNN is called 'lazy' because it doesn't actually learn a model or parameters during the training phase. Instead, it simply stores all the training data and defers all computation until prediction time, when it calculates distances to find nearest neighbors."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "How does KNN make a classification prediction?",
+      "options": [
+        "By calculating the mean of all training examples",
+        "By finding the K nearest neighbors and using majority vote",
+        "By learning decision boundaries during training",
+        "By applying a sigmoid function to the features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "KNN classifies a new point by finding the K nearest training examples (based on distance), then assigning the most common class among those K neighbors through majority voting. For example, if K=5 and 3 neighbors are class A while 2 are class B, the prediction is class A."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What happens when K is very small (e.g., K=1)?",
+      "options": [
+        "The model becomes more stable and less sensitive to noise",
+        "The decision boundary becomes smoother",
+        "The model becomes more sensitive to noise and may overfit",
+        "The model always performs better"
+      ],
+      "correctAnswer": 2,
+      "explanation": "With K=1, the model only looks at the single nearest neighbor, making it extremely sensitive to noise and outliers. This creates a very complex, jagged decision boundary that can overfit the training data. While it has low bias (can fit complex patterns), it has high variance (unstable predictions)."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Why is feature scaling critical for KNN?",
+      "options": [
+        "It makes the algorithm run faster",
+        "It reduces memory usage",
+        "Features with larger scales will dominate the distance calculation",
+        "It's not actually necessary for KNN"
+      ],
+      "correctAnswer": 2,
+      "explanation": "KNN uses distance calculations to find nearest neighbors. If features are on different scales (e.g., age: 20-80 vs. income: $20,000-$200,000), the feature with the larger scale will dominate the distance, making other features nearly irrelevant. Scaling ensures all features contribute equally to the distance."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the Euclidean distance between points (1, 2) and (4, 6)?",
+      "options": [
+        "3",
+        "5",
+        "7",
+        "25"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Euclidean distance = √[(x₂-x₁)² + (y₂-y₁)²] = √[(4-1)² + (6-2)²] = √[9 + 16] = √25 = 5. This is the straight-line distance between the two points."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is the 'curse of dimensionality' in KNN?",
+      "options": [
+        "The algorithm becomes slower with more dimensions",
+        "As dimensions increase, points become sparse and distances become meaningless",
+        "The model requires more memory with more features",
+        "It's impossible to visualize high-dimensional data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The curse of dimensionality refers to the phenomenon where, as the number of features increases, the data becomes increasingly sparse in the high-dimensional space. All points become roughly equidistant from each other, making the concept of 'nearest' neighbor meaningless and degrading KNN's performance."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Which distance metric calculates distance as the sum of absolute differences?",
+      "options": [
+        "Euclidean distance",
+        "Manhattan distance",
+        "Cosine similarity",
+        "Hamming distance"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Manhattan distance (also called L1 distance or taxicab distance) calculates distance as the sum of absolute differences: d = |x₁-x₂| + |y₁-y₂|. It's called Manhattan distance because it's like walking on a city grid where you can only move horizontally or vertically."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is a good rule of thumb for choosing K?",
+      "options": [
+        "Always use K=1 for best accuracy",
+        "K should equal the number of features",
+        "Start with K = √n where n is the number of training samples",
+        "K should always be even"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A common rule of thumb is to start with K = √n (square root of the number of training samples). This provides a reasonable balance between bias and variance. You should then use cross-validation to fine-tune K. For binary classification, odd K values are preferred to avoid ties."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What is the main disadvantage of KNN for large datasets?",
+      "options": [
+        "It requires too much training time",
+        "It cannot handle multi-class problems",
+        "Prediction is slow because it must calculate distance to all training points",
+        "It cannot model non-linear relationships"
+      ],
+      "correctAnswer": 2,
+      "explanation": "KNN's main disadvantage for large datasets is slow prediction time. For each prediction, it must calculate the distance to every training point, sort them, and find the K nearest. With millions of training examples, this becomes computationally expensive. Training is fast (just storing data), but prediction is slow."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "In weighted KNN, how are closer neighbors treated?",
+      "options": [
+        "They are ignored to reduce overfitting",
+        "They are given more influence in the vote",
+        "They are given less influence to smooth the boundary",
+        "They are treated the same as distant neighbors"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In weighted KNN, closer neighbors are given more influence in the classification vote, typically using weights like 1/distance. This makes intuitive sense: a very close neighbor should have more say than a distant one. Weighted KNN often improves performance and allows using larger K values without over-smoothing."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: KNN requires a training phase where it learns model parameters.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. KNN is a 'lazy learner' that doesn't have a training phase where it learns parameters. It simply stores all the training data and defers all computation until prediction time. This makes 'training' very fast but predictions slower, especially for large datasets."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: Increasing K always improves KNN performance.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. There's a tradeoff: small K can overfit (high variance), while large K can underfit (high bias). Very large K may smooth out important patterns and blur class boundaries. The optimal K depends on the dataset and should be found through cross-validation. It's about finding the right balance."
+    }
+  ]
+}

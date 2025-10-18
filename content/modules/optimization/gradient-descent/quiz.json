@@ -1,0 +1,134 @@
+{
+  "questions": [
+    {
+      "id": "gd-q1",
+      "text": "What does the gradient ∇L(θ) represent in gradient descent?",
+      "type": "multiple-choice",
+      "options": [
+        "The direction of steepest descent",
+        "The direction of steepest ascent",
+        "The current loss value",
+        "The optimal parameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The gradient ∇L(θ) points in the direction of steepest ascent (uphill). That's why we use the negative gradient (-∇L(θ)) to move downhill toward lower loss."
+    },
+    {
+      "id": "gd-q2",
+      "text": "What happens if the learning rate is too large?",
+      "type": "multiple-choice",
+      "options": [
+        "The optimizer converges very slowly",
+        "The optimizer may overshoot the minimum or diverge",
+        "The optimizer gets stuck in local minima",
+        "The optimizer requires more iterations"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A learning rate that's too large causes the optimizer to take steps that are too big, potentially overshooting the minimum and even diverging (moving away from the optimal solution)."
+    },
+    {
+      "id": "gd-q3",
+      "text": "What is the main advantage of SGD with Momentum over basic SGD?",
+      "type": "multiple-choice",
+      "options": [
+        "It uses less memory",
+        "It requires fewer hyperparameters",
+        "It accelerates convergence and dampens oscillations",
+        "It always finds the global minimum"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Momentum accumulates gradients over time, which helps build speed in consistent directions and dampen oscillations in ravines. This leads to faster convergence, especially in ill-conditioned problems."
+    },
+    {
+      "id": "gd-q4",
+      "text": "What does RMSProp adapt during optimization?",
+      "type": "multiple-choice",
+      "options": [
+        "The momentum coefficient",
+        "The batch size",
+        "The learning rate for each parameter",
+        "The loss function"
+      ],
+      "correctAnswer": 2,
+      "explanation": "RMSProp adapts the learning rate for each parameter individually based on the magnitude of recent gradients. This helps handle ill-conditioned problems where different parameters need different learning rates."
+    },
+    {
+      "id": "gd-q5",
+      "text": "Which optimizer combines both momentum and adaptive learning rates?",
+      "type": "multiple-choice",
+      "options": [
+        "SGD",
+        "RMSProp",
+        "Adam",
+        "Momentum"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Adam (Adaptive Moment Estimation) combines the benefits of both momentum (first moment) and RMSProp (second moment), making it a robust choice for many optimization problems."
+    },
+    {
+      "id": "gd-q6",
+      "text": "In the update rule θ = θ - α∇L(θ), what does α represent?",
+      "type": "multiple-choice",
+      "options": [
+        "The momentum coefficient",
+        "The learning rate",
+        "The gradient",
+        "The loss value"
+      ],
+      "correctAnswer": 1,
+      "explanation": "α (alpha) is the learning rate, which controls the step size. It determines how far we move in the direction of the negative gradient during each iteration."
+    },
+    {
+      "id": "gd-q7",
+      "text": "What is a saddle point in a loss landscape?",
+      "type": "multiple-choice",
+      "options": [
+        "The global minimum of the loss function",
+        "A point where the gradient is zero but it's neither a minimum nor maximum",
+        "A point with very large gradients",
+        "The starting point of optimization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A saddle point is where the gradient is zero (flat), but it's neither a local minimum nor maximum—it's a minimum in some directions and a maximum in others, like a horse saddle. These can slow down optimization."
+    },
+    {
+      "id": "gd-q8",
+      "text": "Why is the Rosenbrock function (banana function) challenging for optimizers?",
+      "type": "multiple-choice",
+      "options": [
+        "It has many local minima",
+        "It has a narrow, curved valley that's hard to navigate",
+        "It has no minimum",
+        "It's a convex function"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Rosenbrock function has a narrow, curved valley leading to the minimum. Basic optimizers struggle because the gradient points away from the valley floor, causing oscillations. This tests an optimizer's ability to navigate non-convex landscapes."
+    },
+    {
+      "id": "gd-q9",
+      "text": "What is the typical value for the momentum coefficient β in SGD with Momentum?",
+      "type": "multiple-choice",
+      "options": [
+        "0.1",
+        "0.5",
+        "0.9",
+        "1.0"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The momentum coefficient β is typically set to 0.9 (or sometimes 0.99), meaning 90% of the previous velocity is retained. This provides a good balance between acceleration and stability."
+    },
+    {
+      "id": "gd-q10",
+      "text": "When should you stop gradient descent optimization?",
+      "type": "multiple-choice",
+      "options": [
+        "After exactly 100 iterations",
+        "When the gradient norm becomes very small or loss stops improving",
+        "When the loss reaches zero",
+        "When the learning rate becomes zero"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Common stopping criteria include: (1) gradient norm below a threshold (gradient is tiny), (2) loss improvement below a threshold (not making progress), or (3) maximum iterations reached. The loss rarely reaches exactly zero in practice."
+    }
+  ]
+}

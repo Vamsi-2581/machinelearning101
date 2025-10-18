@@ -1,0 +1,159 @@
+{
+  "title": "Decision Trees Quiz",
+  "description": "Test your understanding of decision tree classification",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the main advantage of decision trees over other algorithms?",
+      "options": [
+        "They always achieve the highest accuracy",
+        "They are highly interpretable and easy to visualize",
+        "They require the least amount of training data",
+        "They never overfit"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The main advantage of decision trees is their interpretability. You can easily visualize the tree structure and understand exactly which features and thresholds led to a prediction. This makes them excellent for explaining decisions to non-technical stakeholders, unlike black-box models like neural networks."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "How does a decision tree make a prediction for a new example?",
+      "options": [
+        "By calculating distances to training examples",
+        "By following decision rules from root to leaf",
+        "By applying learned weights to features",
+        "By voting among all nodes in the tree"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A decision tree makes predictions by starting at the root node and following the decision rules down the tree. At each internal node, it checks a feature value against a threshold and goes left or right accordingly. When it reaches a leaf node, it returns that leaf's class label."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What does Gini impurity measure?",
+      "options": [
+        "The depth of the tree",
+        "The probability of incorrectly classifying a randomly chosen element",
+        "The number of features used in the tree",
+        "The training time of the algorithm"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Gini impurity measures the probability of incorrectly classifying a randomly chosen element if it were randomly labeled according to the class distribution in the node. A Gini of 0 means the node is pure (all samples are the same class), while higher values indicate more mixed classes."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "What happens when you increase the maximum depth of a decision tree?",
+      "options": [
+        "The tree becomes simpler and may underfit",
+        "The tree becomes more complex and may overfit",
+        "The training time decreases",
+        "The tree becomes more interpretable"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Increasing maximum depth allows the tree to grow deeper and create more complex decision rules. While this can help model complex patterns, it also increases the risk of overfitting - the tree may memorize training data noise rather than learning generalizable patterns. Deeper trees are also harder to interpret."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the purpose of the 'minimum samples to split' parameter?",
+      "options": [
+        "To speed up training",
+        "To prevent creating nodes with too few samples, reducing overfitting",
+        "To increase the tree depth",
+        "To improve feature importance calculations"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The 'minimum samples to split' parameter prevents the tree from splitting nodes that have fewer than the specified number of samples. This acts as a regularization technique - it stops the tree from creating overly specific rules based on very few examples, which helps prevent overfitting and improves generalization."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What type of decision boundaries do decision trees create?",
+      "options": [
+        "Circular boundaries",
+        "Linear boundaries",
+        "Axis-aligned (rectangular) boundaries",
+        "Polynomial boundaries"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Decision trees create axis-aligned (rectangular) decision boundaries because each split is based on a single feature and a threshold (e.g., 'x₁ < 5' or 'x₂ > 3'). These splits are always parallel to the feature axes. To approximate diagonal or curved boundaries, the tree needs many horizontal and vertical splits, creating a staircase-like approximation."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Which statement about feature scaling and decision trees is correct?",
+      "options": [
+        "Decision trees require all features to be normalized",
+        "Decision trees require standardization before training",
+        "Decision trees don't require feature scaling",
+        "Decision trees only work with scaled features"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Decision trees don't require feature scaling because they make decisions based on individual feature thresholds, not distances or magnitudes. A split like 'age < 30' works regardless of whether other features are measured in thousands or decimals. This is a major advantage over algorithms like KNN or neural networks that are sensitive to feature scales."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is feature importance in decision trees?",
+      "options": [
+        "The number of times a feature appears in the tree",
+        "A measure of how much each feature contributes to reducing impurity",
+        "The correlation between features and the target",
+        "The depth at which a feature first appears"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature importance measures how much each feature contributes to reducing impurity (Gini or entropy) across all splits in the tree. It's calculated as the weighted sum of impurity decreases for all nodes where that feature is used. Features that create better splits (larger impurity reduction) and are used more frequently get higher importance scores."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What is pruning in decision trees?",
+      "options": [
+        "Removing irrelevant features before training",
+        "Removing branches of the tree to reduce overfitting",
+        "Adding more nodes to improve accuracy",
+        "Balancing the tree structure"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Pruning is the process of removing branches from a decision tree to reduce its complexity and prevent overfitting. This can be done during training (pre-pruning/early stopping) by setting constraints like maximum depth, or after training (post-pruning) by removing branches that don't improve validation performance. Pruned trees generalize better to new data."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "Why are decision trees considered 'greedy' algorithms?",
+      "options": [
+        "They use a lot of memory",
+        "They take a long time to train",
+        "They make locally optimal splits without considering future splits",
+        "They require many hyperparameters"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Decision trees use a greedy algorithm because at each node, they choose the best split based only on the current data, without considering how this choice affects future splits. This means they make locally optimal decisions but may not find the globally optimal tree structure. Despite this limitation, greedy tree building works well in practice and is computationally efficient."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: A decision tree with Gini impurity will always produce the same tree as one with entropy.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. While Gini impurity and entropy often produce similar trees, they can result in different splits because they measure impurity differently. Entropy is more sensitive to changes in node probabilities due to the logarithm, while Gini is computationally simpler. In practice, the differences are usually minor, but the trees won't always be identical."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: Deeper decision trees always perform better on test data.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. While deeper trees can model more complex patterns and may perform better on training data, they're more likely to overfit - memorizing noise and specific training examples rather than learning generalizable patterns. This typically leads to worse performance on test data. The optimal depth balances model complexity with generalization ability."
+    }
+  ]
+}

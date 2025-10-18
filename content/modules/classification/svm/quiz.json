@@ -1,0 +1,159 @@
+{
+  "title": "Support Vector Machines Quiz",
+  "description": "Test your understanding of SVM classification",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the main goal of Support Vector Machines?",
+      "options": [
+        "To minimize the number of support vectors",
+        "To find the hyperplane that maximizes the margin between classes",
+        "To create the most complex decision boundary possible",
+        "To classify data using nearest neighbors"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The main goal of SVM is to find the hyperplane that maximizes the margin - the distance between the decision boundary and the nearest data points from each class. This maximum margin approach provides better generalization and robustness to new data."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What are support vectors?",
+      "options": [
+        "All training data points",
+        "The data points closest to the decision boundary that define the margin",
+        "The weights of the model",
+        "The misclassified points"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Support vectors are the training data points that lie on the margin boundaries - they are the points closest to the decision boundary. These points are critical because they completely define the hyperplane. All other points (those far from the margin) don't affect the model at all."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What does a small C parameter (e.g., C=0.01) do in soft margin SVM?",
+      "options": [
+        "Creates a narrow margin with fewer violations",
+        "Creates a wide margin allowing more violations",
+        "Increases the number of support vectors",
+        "Makes the model train faster"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A small C parameter creates a wide margin and allows more violations (misclassifications or points inside the margin). This provides more regularization, leading to a simpler model that may have lower training accuracy but often generalizes better to test data. Small C prioritizes a wide margin over perfect classification."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "What is the kernel trick?",
+      "options": [
+        "A method to speed up training",
+        "A way to compute inner products in high-dimensional space without explicit mapping",
+        "A technique to reduce the number of features",
+        "A method to find optimal hyperparameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The kernel trick is a mathematical technique that allows SVM to compute inner products in a high-dimensional (even infinite-dimensional) feature space without explicitly computing the transformation. Instead of mapping x → φ(x) and computing φ(x)·φ(x'), kernels compute K(x,x') directly, which is much more efficient."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "Which kernel should you typically try first for a new problem?",
+      "options": [
+        "Linear kernel",
+        "RBF (Radial Basis Function) kernel",
+        "Polynomial kernel",
+        "Sigmoid kernel"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The RBF (Radial Basis Function) kernel is typically the best starting point for new problems because it works well in many scenarios and can handle non-linear relationships. It has good default behavior and only requires tuning two parameters (C and gamma). If RBF doesn't work well or you need speed, then try the linear kernel."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What happens when gamma is very large in the RBF kernel?",
+      "options": [
+        "The decision boundary becomes smoother and simpler",
+        "The decision boundary becomes more complex and wiggly",
+        "The model trains faster",
+        "The margin becomes wider"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A large gamma in the RBF kernel means each training point has a very local influence - only nearby points affect the decision. This creates a complex, wiggly decision boundary that closely follows the training data, which can lead to overfitting. Small gamma creates smoother, simpler boundaries with far-reaching influence."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Why is feature scaling critical for SVM?",
+      "options": [
+        "It makes training faster",
+        "Features with larger scales will dominate the distance calculations in kernels",
+        "It reduces the number of support vectors",
+        "It's not actually necessary for SVM"
+      ],
+      "correctAnswer": 1,
+      "explanation": "SVM is extremely sensitive to feature scales because kernel functions use distances or inner products. If one feature has a much larger scale than others (e.g., income in thousands vs. age in tens), it will dominate the calculations, making other features nearly irrelevant. Always standardize or normalize features before using SVM."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is the margin in SVM?",
+      "options": [
+        "The distance between the two classes",
+        "The distance between the decision boundary and the nearest points from each class",
+        "The number of misclassified points",
+        "The width of the decision boundary line"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The margin is the distance between the decision boundary (hyperplane) and the nearest data points from each class. SVM maximizes this margin to create a 'buffer zone' around the decision boundary. A larger margin generally leads to better generalization because the model has more room for error on new data."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "How does SVM handle multi-class classification?",
+      "options": [
+        "It naturally handles multiple classes",
+        "It uses strategies like One-vs-Rest or One-vs-One with multiple binary classifiers",
+        "It cannot handle multi-class problems",
+        "It requires a special multi-class kernel"
+      ],
+      "correctAnswer": 1,
+      "explanation": "SVM is inherently a binary classifier. For multi-class problems, it uses strategies like One-vs-Rest (train n classifiers, one per class) or One-vs-One (train n(n-1)/2 classifiers, one per pair). Most SVM libraries handle this automatically, so users don't need to implement it manually."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "What is an advantage of SVM over other algorithms?",
+      "options": [
+        "It's always the fastest algorithm",
+        "It works well in high-dimensional spaces even when features > samples",
+        "It never overfits",
+        "It doesn't require any hyperparameter tuning"
+      ],
+      "correctAnswer": 1,
+      "explanation": "One of SVM's key advantages is that it works well in high-dimensional spaces, even when the number of features exceeds the number of samples. This is because SVM's optimization depends on the support vectors (usually a small subset of data) rather than all training points, and the kernel trick allows efficient computation in high dimensions."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: Removing training points that are not support vectors will change the SVM model.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Only support vectors (points on the margin boundaries) define the SVM model. Points that are not support vectors - those far from the decision boundary - don't affect the model at all. You can remove them without changing the hyperplane, which is why SVM is memory efficient and only needs to store support vectors."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: The linear kernel is just a special case of the RBF kernel.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. The linear kernel (K(x,x') = x·x') and RBF kernel (K(x,x') = exp(-γ||x-x'||²)) are fundamentally different. The linear kernel creates linear decision boundaries, while RBF can create complex non-linear boundaries. They're not special cases of each other - they're different kernel functions with different properties and use cases."
+    }
+  ]
+}

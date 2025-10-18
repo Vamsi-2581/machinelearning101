@@ -1,0 +1,198 @@
+{
+  "title": "Neural Network Quiz",
+  "description": "Test your understanding of neural networks",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the purpose of an activation function in a neural network?",
+      "options": [
+        "To speed up training",
+        "To introduce non-linearity so the network can learn complex patterns",
+        "To reduce the number of parameters",
+        "To prevent overfitting"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Activation functions introduce non-linearity into the network. Without them, multiple layers would collapse into a single linear transformation, limiting the network to learning only linear relationships."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What does forward propagation compute?",
+      "options": [
+        "The gradients for weight updates",
+        "The predictions by passing inputs through the network",
+        "The optimal learning rate",
+        "The number of layers needed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Forward propagation is the process of computing predictions by passing inputs through the network layer by layer, applying weights, biases, and activation functions at each step."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What is backpropagation used for?",
+      "options": [
+        "Making predictions on new data",
+        "Computing gradients to update weights",
+        "Initializing network weights",
+        "Choosing the network architecture"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Backpropagation computes the gradients of the loss function with respect to each weight by propagating errors backward through the network using the chain rule."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which activation function is most commonly used in hidden layers of modern neural networks?",
+      "options": [
+        "Sigmoid",
+        "Linear",
+        "ReLU",
+        "Step function"
+      ],
+      "correctAnswer": 2,
+      "explanation": "ReLU (Rectified Linear Unit) is the most popular activation function for hidden layers because it's computationally efficient, helps avoid vanishing gradients, and works well in practice."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What happens if you set all weights to the same initial value?",
+      "options": [
+        "The network trains faster",
+        "All neurons in a layer learn the same features (symmetry problem)",
+        "The network becomes more accurate",
+        "Nothing, it works fine"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If all weights start with the same value, all neurons in a layer will compute the same output and receive the same gradients, causing them to learn identical features. Random initialization breaks this symmetry."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is the vanishing gradient problem?",
+      "options": [
+        "Gradients become too large and cause instability",
+        "Gradients become very small, making early layers learn slowly",
+        "The network stops learning entirely",
+        "The loss function becomes zero"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The vanishing gradient problem occurs when gradients become very small as they propagate backward through many layers, causing early layers to learn extremely slowly or not at all."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What does the learning rate control?",
+      "options": [
+        "The number of epochs",
+        "The size of weight updates during training",
+        "The number of hidden layers",
+        "The activation function"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The learning rate controls how much to adjust weights based on the computed gradients. It determines the step size in gradient descent: larger learning rates mean bigger steps."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is an epoch in neural network training?",
+      "options": [
+        "A single weight update",
+        "One complete pass through the entire training dataset",
+        "The final trained model",
+        "A single forward pass"
+      ],
+      "correctAnswer": 1,
+      "explanation": "An epoch is one complete pass through the entire training dataset. During each epoch, the network sees all training examples and updates its weights multiple times."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "Why do we use multiple hidden layers?",
+      "options": [
+        "To make training faster",
+        "To learn hierarchical representations of increasing complexity",
+        "To reduce the number of parameters",
+        "It's not necessary, one layer is always enough"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Multiple hidden layers allow the network to learn hierarchical representations: early layers learn simple features, while deeper layers combine these into more complex, abstract features."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "What is the purpose of the bias term in a neuron?",
+      "options": [
+        "To speed up training",
+        "To allow the activation function to shift left or right",
+        "To prevent overfitting",
+        "To reduce the number of weights"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The bias term allows the activation function to be shifted, giving the neuron more flexibility. Without bias, the activation function would always pass through the origin, limiting what the neuron can learn."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: A neural network with only linear activation functions can learn any function.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. A neural network with only linear activations, regardless of depth, can only learn linear functions. Multiple linear layers collapse into a single linear transformation. Non-linear activations are essential for learning complex patterns."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: Backpropagation and gradient descent are the same thing.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Backpropagation is the algorithm for computing gradients using the chain rule. Gradient descent is the optimization algorithm that uses those gradients to update weights. They work together but are different concepts."
+    },
+    {
+      "id": "q13",
+      "type": "multiple-choice",
+      "question": "What happens if the learning rate is too high?",
+      "options": [
+        "Training is very slow",
+        "The network may overshoot the minimum and fail to converge",
+        "The network becomes more accurate",
+        "Nothing, higher is always better"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If the learning rate is too high, weight updates are too large, causing the optimization to overshoot the minimum. This can lead to oscillation or divergence, where the loss increases instead of decreasing."
+    },
+    {
+      "id": "q14",
+      "type": "multiple-choice",
+      "question": "Which loss function is typically used for binary classification?",
+      "options": [
+        "Mean Squared Error",
+        "Binary Cross-Entropy",
+        "Mean Absolute Error",
+        "Hinge Loss"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Binary Cross-Entropy (also called log loss) is the standard loss function for binary classification. It measures how well predicted probabilities match the true binary labels."
+    },
+    {
+      "id": "q15",
+      "type": "multiple-choice",
+      "question": "What is the main advantage of ReLU over sigmoid activation?",
+      "options": [
+        "ReLU is more complex",
+        "ReLU helps avoid vanishing gradients and is computationally efficient",
+        "ReLU always produces better accuracy",
+        "ReLU requires less data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "ReLU's main advantages are: (1) it doesn't saturate for positive values, helping avoid vanishing gradients, and (2) it's computationally simple (just max(0,x)). This makes training faster and more effective, especially in deep networks."
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "title": "t-SNE Quiz",
+  "description": "Test your understanding of t-SNE visualization",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the primary purpose of t-SNE?",
+      "options": [
+        "To classify data into categories",
+        "To visualize high-dimensional data in 2D or 3D",
+        "To predict future values",
+        "To compress data for storage"
+      ],
+      "correctAnswer": 1,
+      "explanation": "t-SNE is specifically designed for visualizing high-dimensional data by reducing it to 2 or 3 dimensions while preserving local structure. It's not used for classification, prediction, or compression."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What does perplexity control in t-SNE?",
+      "options": [
+        "The speed of the algorithm",
+        "The balance between local and global structure",
+        "The number of output dimensions",
+        "The color of the visualization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Perplexity controls the balance between preserving local structure (low perplexity) and global structure (high perplexity). It can be thought of as the effective number of neighbors to consider for each point."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What is a typical range for perplexity values?",
+      "options": [
+        "1-5",
+        "5-50",
+        "100-1000",
+        "It doesn't matter"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Typical perplexity values range from 5 to 50, with 30 being a common default. Values that are too low fragment the data, while values that are too high may merge distinct clusters."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Why does t-SNE use a Student t-distribution in low dimensions?",
+      "options": [
+        "It's faster to compute",
+        "It has heavier tails, preventing the crowding problem",
+        "It's more accurate",
+        "It uses less memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Student t-distribution has heavier tails than a Gaussian, which allows moderate distances in high dimensions to become larger distances in low dimensions. This prevents the 'crowding problem' where too many points are forced close together."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What does the cost function (KL divergence) in t-SNE measure?",
+      "options": [
+        "The distance between all points",
+        "How well the low-dimensional embedding preserves high-dimensional similarities",
+        "The number of clusters",
+        "The accuracy of classification"
+      ],
+      "correctAnswer": 1,
+      "explanation": "KL (Kullback-Leibler) divergence measures how well the probability distribution in the low-dimensional space matches the probability distribution in the high-dimensional space. Lower KL divergence means better preservation of similarities."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "Which of the following CAN you interpret from a t-SNE plot?",
+      "options": [
+        "The exact distance between clusters",
+        "The presence of distinct groups or clusters",
+        "The importance of each cluster based on its size",
+        "The meaning of the axes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "You CAN interpret the presence of clusters in t-SNE plots - distinct groups indicate similar points. However, you CANNOT interpret distances between clusters, cluster sizes as importance, or axis meanings."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Why should you run t-SNE multiple times on the same data?",
+      "options": [
+        "To make it faster",
+        "Because it's stochastic and different runs may give different embeddings",
+        "To improve accuracy",
+        "It's not necessary to run it multiple times"
+      ],
+      "correctAnswer": 1,
+      "explanation": "t-SNE is stochastic due to random initialization, so different runs can produce different embeddings. Running multiple times helps verify that the patterns you see are consistent and not artifacts of a particular random initialization."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What happens if you set perplexity too low?",
+      "options": [
+        "The algorithm runs faster",
+        "The data may fragment into many small clusters",
+        "All points merge into one cluster",
+        "The visualization becomes more accurate"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Low perplexity focuses on very local structure, which can cause the data to fragment into many small clusters. This may over-emphasize minor variations and miss larger patterns in the data."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "How does t-SNE differ from PCA?",
+      "options": [
+        "t-SNE is linear, PCA is non-linear",
+        "t-SNE is non-linear and preserves local structure, PCA is linear and preserves global structure",
+        "They are the same algorithm",
+        "PCA is only for visualization, t-SNE is for classification"
+      ],
+      "correctAnswer": 1,
+      "explanation": "t-SNE is a non-linear method that excels at preserving local structure and revealing clusters. PCA is a linear method that preserves global structure and variance. They complement each other well."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "Can you use t-SNE to transform new data points after training?",
+      "options": [
+        "Yes, easily",
+        "No, t-SNE must be rerun on the entire dataset including new points",
+        "Yes, but only for 2D embeddings",
+        "Yes, but only if you use high perplexity"
+      ],
+      "correctAnswer": 1,
+      "explanation": "No, t-SNE is not a parametric method and doesn't learn a transformation function. To include new points, you must rerun t-SNE on the entire dataset. This is a key limitation compared to methods like PCA or UMAP."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: The distance between clusters in a t-SNE plot is meaningful and can be interpreted.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Distances between clusters in t-SNE plots are NOT meaningful. t-SNE preserves local structure (within clusters) but not global structure (between clusters). Two clusters far apart may be just as related as two close clusters."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: t-SNE is deterministic and will always produce the same result.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. t-SNE is stochastic due to random initialization of the low-dimensional embedding. Different runs will produce different (but hopefully similar) results. This is why it's important to run t-SNE multiple times."
+    },
+    {
+      "id": "q13",
+      "type": "multiple-choice",
+      "question": "What should you do before running t-SNE on very high-dimensional data (e.g., 1000+ dimensions)?",
+      "options": [
+        "Nothing special",
+        "Use PCA to reduce to ~50 dimensions first",
+        "Increase perplexity to 1000",
+        "Remove all features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "For very high-dimensional data, it's recommended to first use PCA to reduce to around 50 dimensions. This speeds up t-SNE significantly and can actually improve results by removing noise."
+    },
+    {
+      "id": "q14",
+      "type": "multiple-choice",
+      "question": "What is a major computational limitation of t-SNE?",
+      "options": [
+        "It requires labeled data",
+        "It has O(n²) complexity, making it slow for large datasets",
+        "It only works with 2D data",
+        "It requires a GPU"
+      ],
+      "correctAnswer": 1,
+      "explanation": "t-SNE has O(n²) time complexity in the number of samples, making it computationally expensive for large datasets (>10,000 points). For larger datasets, consider using UMAP or sampling the data first."
+    },
+    {
+      "id": "q15",
+      "type": "multiple-choice",
+      "question": "When would you choose UMAP over t-SNE?",
+      "options": [
+        "When you need to transform new data points",
+        "When you have a very large dataset",
+        "When you want better preservation of global structure",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "UMAP (Uniform Manifold Approximation and Projection) has several advantages over t-SNE: it's faster, better preserves global structure, and supports transforming new data points. It's becoming increasingly popular as an alternative to t-SNE."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# ML Simplified - Robots.txt
+# https://mlsimplified.com
+
+User-agent: *
+Allow: /
+
+# Disallow personal/user-specific pages
+Disallow: /progress
+Disallow: /bookmarks
+
+# Sitemap
+Sitemap: https://mlsimplified.com/sitemap.xml

@@ -1,0 +1,96 @@
+{
+  "id": "logistic-regression",
+  "name": "Logistic Regression",
+  "domain": "classification",
+  "difficulty": "beginner",
+  "estimatedTime": 35,
+  "prerequisites": ["linear-regression"],
+  "learningObjectives": [
+    "Understand how the sigmoid function transforms linear predictions into probabilities",
+    "Learn how binary cross-entropy loss guides the learning process",
+    "Interpret classification metrics: accuracy, precision, recall, and F1 score",
+    "Visualize decision boundaries that separate different classes",
+    "Recognize the impact of learning rate and regularization on model performance"
+  ],
+  "tags": ["classification", "supervised-learning", "binary-classification", "gradient-descent", "sigmoid"],
+  "interactive": {
+    "algorithm": "LogisticRegression",
+    "defaultParams": {
+      "learningRate": 0.1,
+      "epochs": 100,
+      "regularization": 0,
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          { "label": "Binary Classification", "value": "binary-classification" },
+          { "label": "Multi-Class Classification", "value": "multi-classification" }
+        ],
+        "tooltip": "Choose a binary classification dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 1.0,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns. Higher values converge faster but may be unstable.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations. More epochs allow better learning but take longer.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "regularization",
+        "type": "slider",
+        "label": "Regularization (L2)",
+        "min": 0,
+        "max": 1,
+        "step": 0.01,
+        "tooltip": "Prevents overfitting by penalizing large weights. Higher values create simpler models.",
+        "group": "Training Parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Classification Data & Decision Boundary",
+        "description": "Scatter plot showing the two classes and the decision boundary"
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary (Probability Heatmap)",
+        "description": "Heatmap showing the probability of class 1 across the feature space"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing true positives, false positives, true negatives, and false negatives"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Binary cross-entropy loss over training epochs"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Classification accuracy over training epochs"
+      }
+    ],
+    "datasets": ["binary-classification", "multi-classification"]
+  }
+}

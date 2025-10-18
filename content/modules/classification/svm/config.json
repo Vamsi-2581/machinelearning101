@@ -1,0 +1,168 @@
+{
+  "id": "svm",
+  "name": "Support Vector Machines (SVM)",
+  "domain": "classification",
+  "difficulty": "advanced",
+  "estimatedTime": 35,
+  "prerequisites": ["logistic-regression", "knn"],
+  "learningObjectives": [
+    "Understand how SVM finds the maximum margin hyperplane",
+    "Learn about support vectors and their role in classification",
+    "Explore kernel functions for non-linear classification",
+    "Recognize the impact of the C parameter on margin and overfitting",
+    "Understand the kernel trick and its computational benefits"
+  ],
+  "keywords": [
+    "support vector machines",
+    "SVM",
+    "classification",
+    "supervised learning",
+    "maximum margin",
+    "support vectors",
+    "kernel trick",
+    "RBF kernel",
+    "hyperplane",
+    "regularization"
+  ],
+  "interactive": {
+    "algorithm": "SVM",
+    "defaultParams": {
+      "C": 1.0,
+      "kernel": "rbf",
+      "gamma": "scale",
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a classification dataset",
+        "options": [
+          {
+            "label": "Linearly Separable",
+            "value": "linear-separable"
+          },
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Non-linear (Circles)",
+            "value": "circles"
+          },
+          {
+            "label": "Non-linear (Moons)",
+            "value": "moons"
+          }
+        ]
+      },
+      {
+        "id": "C",
+        "type": "slider",
+        "label": "C (Regularization)",
+        "group": "Model Parameters",
+        "min": 0.01,
+        "max": 10,
+        "step": 0.1,
+        "tooltip": "Regularization parameter. Small C = wider margin (more regularization), large C = narrower margin (less regularization)."
+      },
+      {
+        "id": "kernel",
+        "type": "select",
+        "label": "Kernel Function",
+        "group": "Model Parameters",
+        "tooltip": "Kernel function for non-linear classification",
+        "options": [
+          {
+            "label": "Linear",
+            "value": "linear"
+          },
+          {
+            "label": "RBF (Radial Basis Function)",
+            "value": "rbf"
+          },
+          {
+            "label": "Polynomial",
+            "value": "poly"
+          }
+        ]
+      },
+      {
+        "id": "gamma",
+        "type": "select",
+        "label": "Gamma (RBF/Poly)",
+        "group": "Model Parameters",
+        "tooltip": "Kernel coefficient. Higher gamma = more complex boundary.",
+        "options": [
+          {
+            "label": "Scale (1 / (n_features × X.var()))",
+            "value": "scale"
+          },
+          {
+            "label": "Auto (1 / n_features)",
+            "value": "auto"
+          },
+          {
+            "label": "0.1",
+            "value": "0.1"
+          },
+          {
+            "label": "1.0",
+            "value": "1.0"
+          },
+          {
+            "label": "10.0",
+            "value": "10.0"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "linear-separable",
+      "binary-classification",
+      "circles",
+      "moons"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Decision Boundary & Support Vectors",
+      "description": "Scatter plot showing data, decision boundary, margins, and support vectors"
+    },
+    {
+      "type": "confusion-matrix",
+      "title": "Confusion Matrix",
+      "description": "Matrix showing classification performance"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "accuracy",
+      "name": "Accuracy",
+      "description": "Percentage of correct predictions"
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "description": "Of predicted positives, how many are actually positive"
+    },
+    {
+      "id": "recall",
+      "name": "Recall",
+      "description": "Of actual positives, how many were correctly predicted"
+    },
+    {
+      "id": "f1Score",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall"
+    },
+    {
+      "id": "numSupportVectors",
+      "name": "Number of Support Vectors",
+      "description": "Number of training points that define the decision boundary"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "id": "hierarchical-clustering",
+  "name": "Hierarchical Clustering",
+  "domain": "clustering",
+  "difficulty": "intermediate",
+  "estimatedTime": 30,
+  "prerequisites": ["k-means"],
+  "learningObjectives": [
+    "Understand agglomerative and divisive hierarchical clustering",
+    "Learn about linkage criteria (single, complete, average, Ward)",
+    "Explore dendrograms for visualizing cluster hierarchies",
+    "Recognize how to determine optimal number of clusters",
+    "Understand the computational complexity of hierarchical methods"
+  ],
+  "keywords": [
+    "hierarchical clustering",
+    "agglomerative clustering",
+    "divisive clustering",
+    "dendrogram",
+    "linkage criteria",
+    "single linkage",
+    "complete linkage",
+    "average linkage",
+    "Ward's method",
+    "unsupervised learning"
+  ],
+  "interactive": {
+    "algorithm": "HierarchicalClustering",
+    "defaultParams": {
+      "nClusters": 3,
+      "linkage": "ward",
+      "dataset": "blobs"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blobs (Well-separated)",
+            "value": "blobs"
+          },
+          {
+            "label": "Circles (Nested)",
+            "value": "circles"
+          },
+          {
+            "label": "Moons (Non-convex)",
+            "value": "moons"
+          },
+          {
+            "label": "Anisotropic (Elongated)",
+            "value": "anisotropic"
+          }
+        ]
+      },
+      {
+        "id": "nClusters",
+        "type": "slider",
+        "label": "Number of Clusters",
+        "group": "Model Parameters",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of clusters to form by cutting the dendrogram"
+      },
+      {
+        "id": "linkage",
+        "type": "select",
+        "label": "Linkage Method",
+        "group": "Model Parameters",
+        "tooltip": "Method to calculate distance between clusters",
+        "options": [
+          {
+            "label": "Ward (Minimize variance)",
+            "value": "ward"
+          },
+          {
+            "label": "Complete (Maximum distance)",
+            "value": "complete"
+          },
+          {
+            "label": "Average (Mean distance)",
+            "value": "average"
+          },
+          {
+            "label": "Single (Minimum distance)",
+            "value": "single"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons",
+      "anisotropic"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Cluster Assignments",
+      "description": "Scatter plot showing data points colored by cluster"
+    },
+    {
+      "type": "dendrogram",
+      "title": "Dendrogram",
+      "description": "Tree diagram showing hierarchical cluster relationships"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measure of how similar points are to their own cluster vs. other clusters (-1 to 1, higher is better)"
+    },
+    {
+      "id": "daviesBouldinScore",
+      "name": "Davies-Bouldin Score",
+      "description": "Average similarity between clusters (lower is better)"
+    },
+    {
+      "id": "calinskiHarabaszScore",
+      "name": "Calinski-Harabasz Score",
+      "description": "Ratio of between-cluster to within-cluster variance (higher is better)"
+    }
+  ]
+}

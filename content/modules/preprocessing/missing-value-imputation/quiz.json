@@ -1,0 +1,90 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Why are missing values problematic for machine learning models?",
+      "type": "multiple-choice",
+      "options": [
+        "They make the dataset look incomplete",
+        "Most ML algorithms cannot process missing values directly",
+        "They always indicate data collection errors",
+        "They reduce the file size of the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Most machine learning algorithms cannot handle missing values directly and will either throw errors or produce incorrect results. Missing values must be handled before training models."
+    },
+    {
+      "id": "q2",
+      "text": "Which imputation method replaces missing values with the average of non-missing values?",
+      "type": "multiple-choice",
+      "options": [
+        "Median imputation",
+        "Mode imputation",
+        "Mean imputation",
+        "Forward fill"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Mean imputation replaces missing values with the arithmetic mean (average) of all non-missing values in that feature."
+    },
+    {
+      "id": "q3",
+      "text": "Median imputation is more robust to outliers than mean imputation.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. The median is less affected by extreme values (outliers) than the mean, making median imputation more robust when outliers are present in the data."
+    },
+    {
+      "id": "q4",
+      "text": "Which imputation method is most appropriate for time series data?",
+      "type": "multiple-choice",
+      "options": [
+        "Mean imputation",
+        "Mode imputation",
+        "Forward fill",
+        "Median imputation"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Forward fill is most appropriate for time series data because it preserves temporal patterns by using the last observed value. This makes sense when values change slowly over time."
+    },
+    {
+      "id": "q5",
+      "text": "What does MCAR stand for in the context of missing data?",
+      "type": "multiple-choice",
+      "options": [
+        "Missing Categorical At Random",
+        "Missing Completely At Random",
+        "Multiple Categorical Analysis Required",
+        "Mean Calculation And Replacement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "MCAR stands for Missing Completely At Random, which means the missing values are unrelated to any observed or unobserved data. This is the best-case scenario for missing data."
+    },
+    {
+      "id": "q6",
+      "text": "What is a major disadvantage of mean/median imputation?",
+      "type": "multiple-choice",
+      "options": [
+        "It's too computationally expensive",
+        "It only works for categorical data",
+        "It reduces the variance in the data",
+        "It cannot handle numerical features"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A major disadvantage of mean/median imputation is that it reduces variance in the data because all imputed values are the same (the mean or median). This can distort relationships between features and affect model performance."
+    },
+    {
+      "id": "q7",
+      "text": "Mode imputation is most suitable for which type of data?",
+      "type": "multiple-choice",
+      "options": [
+        "Continuous numerical data",
+        "Categorical or discrete data",
+        "Time series data",
+        "Image data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Mode imputation (using the most frequent value) is most suitable for categorical or discrete data where the concept of 'most common' is meaningful. It's not ideal for continuous numerical data with many unique values."
+    }
+  ]
+}

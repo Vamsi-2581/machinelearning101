@@ -1,0 +1,108 @@
+{
+  "id": "pca",
+  "name": "Principal Component Analysis (PCA)",
+  "domain": "advanced",
+  "difficulty": "intermediate",
+  "estimatedTime": 35,
+  "prerequisites": ["linear-regression"],
+  "learningObjectives": [
+    "Understand how PCA reduces dimensionality while preserving variance",
+    "Learn about eigenvalues and eigenvectors in the context of PCA",
+    "Interpret scree plots and explained variance ratios",
+    "Visualize high-dimensional data in lower dimensions",
+    "Recognize when PCA is appropriate for dimensionality reduction"
+  ],
+  "keywords": [
+    "PCA",
+    "dimensionality reduction",
+    "principal components",
+    "eigenvalues",
+    "eigenvectors",
+    "variance",
+    "scree plot",
+    "feature extraction",
+    "unsupervised learning"
+  ],
+  "interactive": {
+    "algorithm": "PCA",
+    "defaultParams": {
+      "nComponents": 2,
+      "standardize": true,
+      "dataset": "iris"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a high-dimensional dataset",
+        "options": [
+          {
+            "label": "Iris (4D)",
+            "value": "iris"
+          },
+          {
+            "label": "Wine (13D)",
+            "value": "wine"
+          },
+          {
+            "label": "Digits (64D)",
+            "value": "digits"
+          }
+        ]
+      },
+      {
+        "id": "nComponents",
+        "type": "slider",
+        "label": "Number of Components",
+        "group": "PCA Parameters",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Number of principal components to compute"
+      },
+      {
+        "id": "standardize",
+        "type": "toggle",
+        "label": "Standardize Features",
+        "group": "PCA Parameters",
+        "tooltip": "Standardize features to zero mean and unit variance before PCA"
+      }
+    ],
+    "datasets": [
+      "iris",
+      "wine",
+      "digits"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Scree Plot",
+      "description": "Shows explained variance ratio for each principal component"
+    },
+    {
+      "type": "scatter2d",
+      "title": "2D Projection",
+      "description": "Data projected onto first two principal components"
+    },
+    {
+      "type": "scatter3d",
+      "title": "3D Projection",
+      "description": "Data projected onto first three principal components"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "explainedVarianceRatio",
+      "name": "Explained Variance Ratio",
+      "description": "Proportion of variance explained by each component"
+    },
+    {
+      "id": "cumulativeVariance",
+      "name": "Cumulative Variance",
+      "description": "Total variance explained by all selected components"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "missing-value-imputation",
+  "name": "Missing Value Imputation",
+  "domain": "preprocessing",
+  "difficulty": "beginner",
+  "estimatedTime": 25,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand why missing values are problematic",
+    "Learn different imputation strategies",
+    "Know when to use each imputation method",
+    "Visualize the impact of imputation on data",
+    "Understand types of missing data (MCAR, MAR, MNAR)"
+  ],
+  "interactive": {
+    "algorithm": "MissingValueImputation",
+    "defaultParams": {
+      "method": "mean",
+      "numSamples": 20,
+      "numFeatures": 3,
+      "missingPercentage": 20
+    }
+  }
+}

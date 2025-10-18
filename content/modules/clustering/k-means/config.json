@@ -1,0 +1,145 @@
+{
+  "id": "k-means",
+  "name": "K-Means Clustering",
+  "domain": "clustering",
+  "difficulty": "beginner",
+  "estimatedTime": 35,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand how K-Means iteratively finds cluster centers",
+    "Learn why initialization matters (K-Means++ vs random)",
+    "Interpret clustering quality metrics (inertia, silhouette score)",
+    "Recognize the impact of choosing different values of k",
+    "Understand when K-Means works well and when it struggles",
+    "Visualize how clusters evolve during the algorithm's iterations"
+  ],
+  "keywords": [
+    "k-means",
+    "clustering",
+    "unsupervised learning",
+    "centroids",
+    "k-means++",
+    "inertia",
+    "silhouette score",
+    "elbow method",
+    "customer segmentation",
+    "pattern discovery"
+  ],
+  "interactive": {
+    "algorithm": "KMeans",
+    "defaultParams": {
+      "k": 3,
+      "maxIterations": 100,
+      "tolerance": 0.0001,
+      "initialization": "kmeans++",
+      "stepByStep": false,
+      "dataset": "blobs"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          }
+        ]
+      },
+      {
+        "id": "k",
+        "type": "slider",
+        "label": "Number of Clusters (k)",
+        "group": "Algorithm Parameters",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of clusters to find. Try different values to see how it affects the results."
+      },
+      {
+        "id": "initialization",
+        "type": "select",
+        "label": "Initialization Method",
+        "group": "Algorithm Parameters",
+        "tooltip": "K-Means++ provides better initial centroids than random initialization.",
+        "options": [
+          {
+            "label": "K-Means++",
+            "value": "kmeans++"
+          },
+          {
+            "label": "Random",
+            "value": "random"
+          }
+        ]
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "group": "Algorithm Parameters",
+        "min": 10,
+        "max": 300,
+        "step": 10,
+        "tooltip": "Maximum number of iterations before stopping."
+      },
+      {
+        "id": "stepByStep",
+        "type": "toggle",
+        "label": "Step-by-Step Mode",
+        "group": "Visualization",
+        "tooltip": "Enable to see how clusters evolve iteration by iteration."
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "K-Means Clustering",
+      "description": "Scatter plot showing data points colored by cluster assignment with centroids marked"
+    },
+    {
+      "type": "line",
+      "title": "Inertia Over Iterations",
+      "description": "Line chart showing how inertia (within-cluster sum of squares) decreases during training"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "inertia",
+      "name": "Inertia",
+      "description": "Sum of squared distances from points to their cluster centroids (lower is better)"
+    },
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "iterations",
+      "name": "Iterations",
+      "description": "Number of iterations until convergence"
+    },
+    {
+      "id": "clusterSizes",
+      "name": "Cluster Sizes",
+      "description": "Number of points assigned to each cluster"
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "title": "Logistic Regression Quiz",
+  "description": "Test your understanding of logistic regression and classification concepts",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the primary purpose of logistic regression?",
+      "options": [
+        "To predict continuous numerical values",
+        "To classify data into binary categories",
+        "To cluster similar data points together",
+        "To reduce the dimensionality of data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Despite its name, logistic regression is a classification algorithm used to predict binary outcomes (0 or 1). It uses the sigmoid function to transform a linear combination of features into a probability between 0 and 1, which is then used to classify data points."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What is the range of output values from the sigmoid function?",
+      "options": [
+        "Any real number from -∞ to +∞",
+        "Only integers 0 and 1",
+        "Between 0 and 1",
+        "Between -1 and 1"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The sigmoid function σ(z) = 1/(1 + e⁻ᶻ) always outputs values between 0 and 1, regardless of the input. This makes it perfect for representing probabilities. As z approaches infinity, σ(z) approaches 1, and as z approaches negative infinity, σ(z) approaches 0."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What loss function does logistic regression use?",
+      "options": [
+        "Mean Squared Error (MSE)",
+        "Mean Absolute Error (MAE)",
+        "Binary Cross-Entropy",
+        "Hinge Loss"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Logistic regression uses binary cross-entropy loss (also called log loss), which is defined as -[y·log(p) + (1-y)·log(1-p)]. This loss function is specifically designed for binary classification and heavily penalizes confident wrong predictions."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "In a confusion matrix, what does a False Positive (FP) represent?",
+      "options": [
+        "Correctly predicted class 1",
+        "Correctly predicted class 0",
+        "Predicted class 1 when actual was class 0",
+        "Predicted class 0 when actual was class 1"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A False Positive (FP), also known as a Type I error, occurs when the model predicts class 1 (positive) but the actual class is 0 (negative). For example, in spam detection, this would be classifying a legitimate email as spam."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What does the precision metric measure?",
+      "options": [
+        "The proportion of all predictions that are correct",
+        "Of all positive predictions, how many were actually positive",
+        "Of all actual positives, how many were correctly identified",
+        "The average of accuracy and recall"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Precision = TP/(TP + FP) measures the proportion of positive predictions that were actually correct. It answers: 'When the model predicts positive, how often is it right?' High precision means few false positives."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What does the recall metric measure?",
+      "options": [
+        "The proportion of all predictions that are correct",
+        "Of all positive predictions, how many were actually positive",
+        "Of all actual positives, how many were correctly identified",
+        "The harmonic mean of precision and accuracy"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Recall = TP/(TP + FN) measures the proportion of actual positives that were correctly identified. It answers: 'Of all the actual positive cases, how many did we catch?' High recall means few false negatives. Recall is also called sensitivity or true positive rate."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What is the F1 score?",
+      "options": [
+        "The arithmetic mean of precision and recall",
+        "The harmonic mean of precision and recall",
+        "The geometric mean of precision and recall",
+        "The maximum of precision and recall"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The F1 score is the harmonic mean of precision and recall: F1 = 2·(Precision·Recall)/(Precision + Recall). The harmonic mean is used because it penalizes extreme values - the F1 score is only high when both precision and recall are high. This makes it a good single metric for balancing both concerns."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What shape is the decision boundary in logistic regression for 2D data?",
+      "options": [
+        "A curved line",
+        "A straight line",
+        "A circle",
+        "Multiple disconnected regions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "For 2D data (two features), logistic regression creates a straight line as the decision boundary. This is because the decision boundary occurs where w₁x₁ + w₂x₂ + w₀ = 0, which is the equation of a line. For higher dimensions, it's a hyperplane. This is why logistic regression can only separate linearly separable classes."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What does regularization do in logistic regression?",
+      "options": [
+        "Increases the learning rate",
+        "Prevents overfitting by penalizing large weights",
+        "Adds more features to the model",
+        "Increases the number of epochs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Regularization (typically L2 regularization) adds a penalty term to the loss function that penalizes large weight values. This prevents the model from becoming too complex and overfitting to the training data. The regularization parameter λ controls the strength of this penalty - larger λ means simpler models."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "When would you prioritize recall over precision?",
+      "options": [
+        "When false positives are very costly",
+        "When false negatives are very costly",
+        "When you want the highest accuracy",
+        "When classes are perfectly balanced"
+      ],
+      "correctAnswer": 1,
+      "explanation": "You should prioritize recall when false negatives are costly - when missing a positive case is worse than having false alarms. For example, in disease screening, you want high recall to catch all sick patients, even if it means some false positives (healthy people flagged for further testing). Missing a sick patient (false negative) could be life-threatening."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "What happens to the sigmoid function output when the input z is 0?",
+      "options": ["σ(0) = 0", "σ(0) = 0.5", "σ(0) = 1", "σ(0) is undefined"],
+      "correctAnswer": 1,
+      "explanation": "When z = 0, the sigmoid function outputs 0.5: σ(0) = 1/(1 + e⁰) = 1/(1 + 1) = 0.5. This is the midpoint of the sigmoid curve and represents maximum uncertainty - the model is equally likely to predict either class. This is why 0.5 is typically used as the default classification threshold."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "Why is accuracy alone sometimes misleading for classification?",
+      "options": [
+        "It's too difficult to calculate",
+        "It doesn't work with binary classification",
+        "It can be high even with poor performance on imbalanced datasets",
+        "It requires too much training data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Accuracy can be misleading with imbalanced datasets. For example, if 95% of emails are not spam, a model that always predicts 'not spam' achieves 95% accuracy but is completely useless - it never catches any spam! This is why we also look at precision, recall, and F1 score, which give a more complete picture of performance."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: Logistic regression can only be used for binary classification.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. While logistic regression is primarily used for binary classification, it can be extended to multi-class classification using techniques like One-vs-Rest (OvR) or softmax regression (multinomial logistic regression). However, the basic form we typically learn first is for binary classification."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: The decision boundary in logistic regression is always linear.",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. The decision boundary in standard logistic regression is always linear (a straight line in 2D, a plane in 3D, or a hyperplane in higher dimensions). This is because it occurs where the linear combination of features equals zero. To create non-linear decision boundaries, you need to add polynomial or interaction features through feature engineering."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: A higher learning rate always leads to faster and better convergence.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. While a higher learning rate can lead to faster convergence initially, if it's too high, the model may overshoot the optimal solution and fail to converge at all. The loss might oscillate or even increase. The best learning rate is one that's high enough for efficient training but low enough to reliably converge to a good solution."
+    }
+  ]
+}

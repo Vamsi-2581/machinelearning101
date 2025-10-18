@@ -1,0 +1,159 @@
+{
+  "title": "Hierarchical Clustering Quiz",
+  "description": "Test your understanding of hierarchical clustering",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the main difference between agglomerative and divisive hierarchical clustering?",
+      "options": [
+        "Agglomerative is faster than divisive",
+        "Agglomerative starts with individual points and merges up, divisive starts with one cluster and splits down",
+        "Agglomerative requires specifying k, divisive doesn't",
+        "Agglomerative uses distance metrics, divisive uses similarity"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Agglomerative clustering is a bottom-up approach that starts with each point as its own cluster and repeatedly merges the closest pairs until all points are in one cluster. Divisive clustering is top-down, starting with all points in one cluster and repeatedly splitting until each point is its own cluster. Agglomerative is more commonly used."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What is a dendrogram?",
+      "options": [
+        "A scatter plot showing cluster assignments",
+        "A tree diagram showing the hierarchical relationship between clusters",
+        "A graph showing the optimal number of clusters",
+        "A matrix showing distances between points"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A dendrogram is a tree diagram that visualizes the hierarchical structure of clusters. The vertical axis shows the distance at which clusters merge, and the horizontal axis shows individual data points. By cutting the dendrogram at different heights, you can obtain different numbers of clusters."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "In single linkage, how is the distance between two clusters calculated?",
+      "options": [
+        "Average distance between all pairs of points",
+        "Distance between cluster centroids",
+        "Minimum distance between any two points in the clusters",
+        "Maximum distance between any two points in the clusters"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Single linkage (also called minimum linkage) calculates the distance between two clusters as the minimum distance between any pair of points, where one point is from each cluster. This can lead to 'chaining' where clusters are connected through intermediate points, creating elongated clusters."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which linkage method tends to create compact, spherical clusters?",
+      "options": [
+        "Single linkage",
+        "Complete linkage",
+        "Average linkage",
+        "All linkage methods create the same shapes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Complete linkage (maximum linkage) tends to create compact, spherical clusters because it uses the maximum distance between points in two clusters. This prevents elongated clusters from forming and favors well-separated, compact groups. It's less prone to the chaining effect of single linkage."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What does Ward's linkage method minimize?",
+      "options": [
+        "The maximum distance between clusters",
+        "The number of clusters",
+        "The within-cluster variance",
+        "The computational time"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Ward's method minimizes the within-cluster variance (sum of squared distances from points to cluster centroids) when merging clusters. This is similar to the K-means objective and tends to create compact, evenly-sized clusters. It's often the best choice for well-separated, spherical clusters."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is a major advantage of hierarchical clustering over K-means?",
+      "options": [
+        "It's faster for large datasets",
+        "It doesn't require specifying the number of clusters upfront",
+        "It always produces better clusters",
+        "It uses less memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A major advantage of hierarchical clustering is that you don't need to specify the number of clusters beforehand. The dendrogram shows the structure at all levels, and you can choose the number of clusters by cutting the tree at an appropriate height. This allows for exploratory analysis of the natural grouping structure."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What is the time complexity of naive agglomerative hierarchical clustering?",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n²)",
+        "O(n³)"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Naive agglomerative hierarchical clustering has O(n³) time complexity because for each of the n-1 merge steps, it must search through O(n²) pairwise distances. This makes it impractical for large datasets. Optimized implementations using priority queues can reduce this to O(n² log n), but it's still slower than K-means."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "In a dendrogram, what does the height of a merge indicate?",
+      "options": [
+        "The number of points in the cluster",
+        "The distance or dissimilarity at which clusters were merged",
+        "The order in which clusters were formed",
+        "The optimal number of clusters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In a dendrogram, the height (vertical position) at which two branches merge represents the distance or dissimilarity between those clusters at the time of merging. Taller merges indicate more dissimilar clusters. Long vertical lines suggest natural separations and are good places to cut the tree."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What is the 'chaining effect' in hierarchical clustering?",
+      "options": [
+        "When clusters form a chain-like structure due to single linkage",
+        "When the algorithm runs too slowly",
+        "When clusters are perfectly separated",
+        "When the dendrogram is too complex"
+      ],
+      "correctAnswer": 0,
+      "explanation": "The chaining effect occurs with single linkage, where clusters can be connected through intermediate points, creating long, chain-like clusters. This happens because single linkage only considers the minimum distance between clusters, so two distant groups can be merged if there's a chain of intermediate points connecting them."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "How do you determine the number of clusters from a dendrogram?",
+      "options": [
+        "Count the number of leaves",
+        "Cut the tree at a height that creates the desired number of clusters",
+        "Use the height of the tallest branch",
+        "Count the number of merges"
+      ],
+      "correctAnswer": 1,
+      "explanation": "To determine the number of clusters, you cut the dendrogram with a horizontal line at a chosen height. The number of vertical lines that the horizontal line crosses equals the number of clusters. Typically, you cut at a height where there's a large gap (long vertical line), indicating natural separation between clusters."
+    },
+    {
+      "id": "q11",
+      "type": "true-false",
+      "question": "True or False: Hierarchical clustering is more scalable than K-means for large datasets.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Hierarchical clustering is less scalable than K-means. It has O(n²) space complexity (must store distance matrix) and O(n³) time complexity for naive implementations. K-means has O(n) space and O(nki) time complexity (where k is clusters and i is iterations), making it much more suitable for large datasets."
+    },
+    {
+      "id": "q12",
+      "type": "true-false",
+      "question": "True or False: Once two clusters are merged in agglomerative clustering, they can be split again later.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Agglomerative hierarchical clustering makes irreversible decisions - once two clusters are merged, they cannot be split in subsequent steps. This is a limitation because early bad merges cannot be corrected later. This greedy approach is computationally efficient but may not find the globally optimal clustering."
+    }
+  ]
+}

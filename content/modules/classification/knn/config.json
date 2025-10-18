@@ -1,0 +1,123 @@
+{
+  "id": "knn",
+  "name": "K-Nearest Neighbors (KNN)",
+  "domain": "classification",
+  "difficulty": "beginner",
+  "estimatedTime": 25,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand how KNN makes predictions based on nearest neighbors",
+    "Learn the impact of K value on model performance",
+    "Explore different distance metrics (Euclidean, Manhattan)",
+    "Recognize the importance of feature scaling for KNN",
+    "Understand the bias-variance tradeoff with K"
+  ],
+  "keywords": [
+    "k-nearest neighbors",
+    "KNN",
+    "classification",
+    "instance-based learning",
+    "lazy learning",
+    "distance metrics",
+    "Euclidean distance",
+    "Manhattan distance",
+    "supervised learning"
+  ],
+  "interactive": {
+    "algorithm": "KNN",
+    "defaultParams": {
+      "k": 5,
+      "distanceMetric": "euclidean",
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a classification dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Multi-class Classification",
+            "value": "multi-class"
+          },
+          {
+            "label": "Noisy Data",
+            "value": "noisy-classification"
+          }
+        ]
+      },
+      {
+        "id": "k",
+        "type": "slider",
+        "label": "K (Number of Neighbors)",
+        "group": "Model Parameters",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Number of nearest neighbors to consider. Smaller K = more complex decision boundary, larger K = smoother boundary."
+      },
+      {
+        "id": "distanceMetric",
+        "type": "select",
+        "label": "Distance Metric",
+        "group": "Model Parameters",
+        "tooltip": "Method to calculate distance between points",
+        "options": [
+          {
+            "label": "Euclidean (L2)",
+            "value": "euclidean"
+          },
+          {
+            "label": "Manhattan (L1)",
+            "value": "manhattan"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "multi-class",
+      "noisy-classification"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Decision Boundary",
+      "description": "Scatter plot showing data points and KNN decision boundary"
+    },
+    {
+      "type": "confusion-matrix",
+      "title": "Confusion Matrix",
+      "description": "Matrix showing classification performance"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "accuracy",
+      "name": "Accuracy",
+      "description": "Percentage of correct predictions"
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "description": "Of predicted positives, how many are actually positive"
+    },
+    {
+      "id": "recall",
+      "name": "Recall",
+      "description": "Of actual positives, how many were correctly predicted"
+    },
+    {
+      "id": "f1Score",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall"
+    }
+  ]
+}
