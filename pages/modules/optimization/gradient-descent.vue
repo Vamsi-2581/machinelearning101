@@ -135,10 +135,30 @@
     </template>
 
     <!-- Quiz Section -->
+    <!-- Requirements: 3.1, 3.2, 3.3, 3.4 -->
     <template #quiz>
-      <ContentSection title="Test Your Knowledge">
-        <p class="text-gray-600">Quiz coming soon...</p>
-      </ContentSection>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
+      <Quiz
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
+      />
     </template>
   </ModuleLayout>
 </template>
@@ -160,6 +180,12 @@ import {
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { OptimizationState } from '~/algorithms/optimization/GradientDescentVisualization';
+import type { QuizResult } from '~/types/quiz';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+import { queryCollection, useAsyncData } from '#imports';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -332,6 +358,10 @@ const lossHistory = computed<LineSeries[]>(() => {
 let visualization = ref<GradientDescentVisualization | null>(null);
 let animationFrameId: number | null = null;
 
+// Quiz data with loading state
+// Requirements: 1.1, 2.1, 2.4
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
+
 /**
  * Initialize module
  */
@@ -341,6 +371,9 @@ onMounted(async () => {
   
   // Initialize visualization
   initializeVisualization();
+  
+  // Load quiz data
+  await loadQuiz('gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
 });
 
 /**
@@ -545,5 +578,20 @@ const handleResetOptimization = () => {
 const handleRetry = () => {
   error.value = null;
   handleStart();
+};
+
+/**
+ * Handle quiz completion
+ * Processes quiz results and verifies progress store integration
+ * 
+ * Requirements: 3.3, 3.4
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed:', result);
+  
+  // The Quiz component already handles:
+  // - Saving score to progress store
+  // - Marking module as complete if score >= 70%
+  // - Tracking analytics
 };
 </script>

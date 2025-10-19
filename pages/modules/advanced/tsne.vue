@@ -124,12 +124,27 @@
 
     <!-- Quiz Section -->
     <template #quiz>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
       <Quiz
-        v-if="quizData"
-        :questions="quizData.questions"
-        :title="quizData.title"
-        :passing-score="quizData.passingScore"
-        @complete="handleQuizComplete"
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
       />
     </template>
   </ModuleLayout>
@@ -144,10 +159,16 @@ import { TSNE } from '~/algorithms/advanced/TSNE';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
 import Plot3D from '~/components/visualizations/Plot3D.vue';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+import type { QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useAsyncData } from '#app';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -244,11 +265,21 @@ const currentFrame = ref(0);
 const isAnimating = ref(false);
 let animationInterval: any = null;
 
-// Quiz data
-const quizData = ref<any>(null);
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Algorithm instance
 let algorithm: TSNE | null = null;
+
+/**
+ * Initialize module
+ */
+/**
+ * Handle quiz completion
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed with score:', result.score);
+};
 
 /**
  * Initialize module
@@ -261,12 +292,7 @@ onMounted(async () => {
   await loadInitialDataset();
   
   // Load quiz data
-  try {
-    const quiz = await import('../../../content/modules/advanced/tsne/quiz.json');
-    quizData.value = quiz.default || quiz;
-  } catch (err) {
-    console.warn('Quiz data not found');
-  }
+  await loadQuiz('tsne', '/content/modules/advanced/tsne/quiz.json');
 });
 
 /**
@@ -542,14 +568,4 @@ const stopAnimation = () => {
   }
 };
 
-/**
- * Handle quiz completion
- */
-const handleQuizComplete = (score: number, answers: any[]) => {
-  progressStore.saveQuizScore('tsne', score);
-  
-  if (score >= (quizData.value?.passingScore || 70)) {
-    progressStore.markModuleComplete('tsne');
-  }
-};
 </script>

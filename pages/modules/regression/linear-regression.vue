@@ -88,10 +88,30 @@
     </template>
 
     <!-- Quiz Section -->
+    <!-- Requirements: 1.1, 3.1, 3.2, 3.5, 6.1, 6.6 -->
     <template #quiz>
-      <ContentSection title="Test Your Knowledge">
-        <p class="text-gray-600">Quiz coming soon...</p>
-      </ContentSection>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        :on-retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
+      <Quiz
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
+      />
     </template>
   </ModuleLayout>
 </template>
@@ -106,11 +126,17 @@ import { useTableOfContents } from '~/composables/useTableOfContents';
 import { LinearRegression } from '~/algorithms/regression/LinearRegression';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
+import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+import { queryCollection, useAsyncData } from '#imports';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -130,6 +156,9 @@ const { getNextModule, getPreviousModule } = useModules();
 const previousModule = ref<ModuleNavItem | null>(null);
 const nextModule = ref<ModuleNavItem | null>(null);
 const suggestedModule = ref<ModuleNavItem | null>(null);
+
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Parameters
 const parameters = ref({
@@ -206,6 +235,10 @@ onMounted(async () => {
   // For now, suggested module is the same as next module
   // In the future, this could be based on prerequisites or user progress
   suggestedModule.value = nextModule.value;
+
+  // Load quiz data with loading state and error handling
+  // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2, 6.6
+  await loadQuiz('linear-regression', '/content/modules/regression/linear-regression/quiz.json');
 });
 
 /**
@@ -366,6 +399,38 @@ const handleTrain = async () => {
 const handleRetry = () => {
   error.value = null;
   handleTrain();
+};
+
+/**
+ * Handle quiz completion
+ * Processes quiz results and verifies progress store integration
+ * 
+ * Requirements: 3.3, 3.4, 5.1, 5.2, 5.4
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed:', result);
+  
+  // The Quiz component already handles:
+  // - Saving score to progress store (Requirement 5.1, 5.2)
+  // - Marking module as complete if score >= 70% (Requirement 3.4, 5.4)
+  // - Tracking analytics (Requirement 3.3)
+  
+  // Verify the score was saved
+  const savedScore = moduleStore.progress?.quizScores?.['linear-regression'];
+  if (savedScore !== undefined) {
+    console.log('Quiz score saved to progress store:', savedScore);
+  }
+  
+  // Verify module completion if passing score
+  if (result.score >= 70) {
+    const isComplete = moduleStore.progress?.completedModules?.includes('linear-regression');
+    if (isComplete) {
+      console.log('Module marked as complete in progress store');
+    }
+  }
+  
+  // Optional: Show success message or navigate to next module
+  // For now, the Quiz component handles the UI feedback
 };
 
 // SEO

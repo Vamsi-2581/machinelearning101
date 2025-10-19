@@ -113,13 +113,29 @@
     </template>
 
     <!-- Quiz Section -->
+    <!-- Requirements: 1.1, 3.1, 3.2, 3.5 -->
     <template #quiz>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
       <Quiz
-        v-if="quizData"
-        :questions="quizData.questions"
-        :title="quizData.title"
-        :passing-score="quizData.passingScore"
-        @complete="handleQuizComplete"
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
       />
     </template>
   </ModuleLayout>
@@ -135,11 +151,16 @@ import { PCA } from '~/algorithms/advanced/PCA';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
 import Plot3D from '~/components/visualizations/Plot3D.vue';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
-import { queryCollection } from '~/imports';
+import type { QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+
 import { useAsyncData } from '#app';
 
 // Load content from Nuxt Content
@@ -206,8 +227,8 @@ const screeSeries = ref<LineSeries[]>([]);
 const projectionSeries = ref<ScatterSeries[]>([]);
 const projection3D = ref<any>(null);
 
-// Quiz data
-const quizData = ref<any>(null);
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Algorithm instance
 let algorithm: PCA | null = null;
@@ -223,12 +244,8 @@ onMounted(async () => {
   await loadInitialDataset();
   
   // Load quiz data
-  try {
-    const quiz = await import('../../../content/modules/advanced/pca/quiz.json');
-    quizData.value = quiz.default || quiz;
-  } catch (err) {
-    console.warn('Quiz data not found');
-  }
+  // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
+  await loadQuiz('pca', '/content/modules/advanced/pca/quiz.json');
 });
 
 /**
@@ -435,12 +452,21 @@ const handleRetry = () => {
 
 /**
  * Handle quiz completion
+ * Processes quiz results and verifies progress store integration
+ * 
+ * Requirements: 3.3, 3.4, 5.1, 5.2, 5.4
  */
-const handleQuizComplete = (score: number, answers: any[]) => {
-  progressStore.saveQuizScore('pca', score);
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed:', result);
   
-  if (score >= (quizData.value?.passingScore || 70)) {
-    progressStore.markModuleComplete('pca');
+  // The Quiz component already handles:
+  // - Saving score to progress store (Requirement 5.1, 5.2)
+  // - Marking module as complete if score >= 70% (Requirement 3.4, 5.4)
+  // - Tracking analytics (Requirement 3.3)
+  
+  // Optional: Show success message or navigate to next module
+  if (result.score >= 70) {
+    console.log('Quiz passed! Module marked as complete.');
   }
 };
 </script>

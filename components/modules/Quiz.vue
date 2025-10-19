@@ -2,13 +2,11 @@
   <div class="quiz-container" role="region" aria-label="Quiz">
     <div class="quiz-header">
       <h2 class="quiz-title" id="quiz-title">{{ quiz.title }}</h2>
-      <div 
-        class="quiz-progress" 
-        role="status" 
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        Question {{ currentQuestionIndex + 1 }} of {{ quiz.questions.length }}
+      <div v-if="quizStarted && !quizCompleted" class="quiz-progress" 
+        aria-atomic="true">
+        <div class="progress-text">
+          <span class="progress-current">Question {{ currentQuestionIndex + 1 }} of {{ quiz.questions.length }}</span>
+        </div>
       </div>
     </div>
 
@@ -27,44 +25,25 @@
 
     <!-- Quiz in progress -->
     <div v-else-if="quizStarted && !quizCompleted" class="quiz-content">
-      <QuizQuestion
-        :question="currentQuestion"
-        :selected-answer="userAnswers[currentQuestion.id]"
-        :show-feedback="showFeedback"
-        @answer-selected="handleAnswerSelected"
-      />
+      <QuizQuestion :question="currentQuestion" :selected-answer="userAnswers[currentQuestion.id]"
+        :show-feedback="showFeedback" @answer-selected="handleAnswerSelected" />
 
       <div class="quiz-navigation">
-        <Button
-          v-if="currentQuestionIndex > 0"
-          @click="previousQuestion"
-          variant="secondary"
-          :disabled="showFeedback"
-        >
+        <Button v-if="currentQuestionIndex > 0" @click="previousQuestion" variant="secondary" :disabled="showFeedback">
           Previous
         </Button>
 
         <div class="nav-spacer"></div>
 
-        <Button
-          v-if="!showFeedback"
-          @click="submitAnswer"
-          :disabled="userAnswers[currentQuestion.id] === undefined"
-        >
+        <Button v-if="!showFeedback" @click="submitAnswer" :disabled="userAnswers[currentQuestion.id] === undefined">
           Submit Answer
         </Button>
 
-        <Button
-          v-else-if="currentQuestionIndex < quiz.questions.length - 1"
-          @click="nextQuestion"
-        >
+        <Button v-else-if="currentQuestionIndex < quiz.questions.length - 1" @click="nextQuestion">
           Next Question
         </Button>
 
-        <Button
-          v-else
-          @click="completeQuiz"
-        >
+        <Button v-else @click="completeQuiz">
           Complete Quiz
         </Button>
       </div>
@@ -74,19 +53,10 @@
     <div v-else-if="quizCompleted" class="quiz-results" role="region" aria-labelledby="results-title">
       <div class="results-header" role="status" aria-live="polite" aria-atomic="true">
         <div class="completion-badge" aria-hidden="true">
-          <svg
-            class="badge-icon"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
+          <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
         <h3 class="results-title" id="results-title">Quiz Completed!</h3>
@@ -100,17 +70,10 @@
 
       <div class="results-feedback">
         <h4 class="feedback-title">Review Your Answers</h4>
-        <div
-          v-for="(question, index) in quiz.questions"
-          :key="question.id"
-          class="answer-review"
-        >
+        <div v-for="(question, index) in quiz.questions" :key="question.id" class="answer-review">
           <div class="review-header">
             <span class="review-number">Question {{ index + 1 }}</span>
-            <span
-              class="review-status"
-              :class="getAnswerResult(question.id) ? 'correct' : 'incorrect'"
-            >
+            <span class="review-status" :class="getAnswerResult(question.id) ? 'correct' : 'incorrect'">
               {{ getAnswerResult(question.id) ? '✓ Correct' : '✗ Incorrect' }}
             </span>
           </div>
@@ -184,6 +147,10 @@ const estimatedTime = computed(() => {
   return props.quiz.questions.length;
 });
 
+const questionsRemaining = computed(() => {
+  return props.quiz.questions.length - currentQuestionIndex.value - 1;
+});
+
 /**
  * Start the quiz
  */
@@ -210,7 +177,7 @@ const handleAnswerSelected = (answerIndex: number) => {
  */
 const submitAnswer = () => {
   showFeedback.value = true;
-  
+
   // Track quiz answer
   const selectedAnswer = userAnswers.value[currentQuestion.value.id];
   const isCorrect = selectedAnswer === currentQuestion.value.correctAnswer;
@@ -248,7 +215,7 @@ const completeQuiz = () => {
   const answers: QuizAnswer[] = props.quiz.questions.map((question) => {
     const selectedAnswer = userAnswers.value[question.id];
     const isCorrect = selectedAnswer === question.correctAnswer;
-    
+
     return {
       questionId: question.id,
       selectedAnswer,
@@ -330,6 +297,23 @@ const getAnswerResult = (questionId: string): boolean => {
   font-size: 0.875rem;
   color: #6b7280;
   font-weight: 500;
+}
+
+.progress-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.progress-current {
+  font-weight: 600;
+  color: #111827;
+}
+
+.progress-remaining {
+  font-size: 0.75rem;
+  color: #9ca3af;
 }
 
 /* Quiz Intro */

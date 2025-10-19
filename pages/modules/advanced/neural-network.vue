@@ -96,8 +96,28 @@
 
     <!-- Quiz Section -->
     <template #quiz>
-      <Quiz v-if="quizData" :questions="quizData.questions" :title="quizData.title"
-        :passing-score="quizData.passingScore" @complete="handleQuizComplete" />
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
+      <Quiz
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
+      />
     </template>
   </ModuleLayout>
 </template>
@@ -112,9 +132,14 @@ import { NeuralNetwork } from '~/algorithms/advanced/NeuralNetwork';
 import NetworkDiagram from '~/components/visualizations/NetworkDiagram.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
 import ConfusionMatrix from '~/components/visualizations/ConfusionMatrix.vue';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+import type { QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
 
 import { useAsyncData } from '#app';
 
@@ -201,8 +226,8 @@ const networkArchitecture = ref<number[]>([]);
 const networkWeights = ref<number[][][]>([]);
 const networkActivations = ref<number[][]>([]);
 
-// Quiz data
-const quizData = ref<any>(null);
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Algorithm instance
 let algorithm: NeuralNetwork | null = null;
@@ -228,6 +253,16 @@ const totalParameters = computed(() => {
 /**
  * Initialize module
  */
+/**
+ * Handle quiz completion
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed with score:', result.score);
+};
+
+/**
+ * Initialize module
+ */
 onMounted(async () => {
   moduleStore.setCurrentModule('neural-network');
   moduleStore.setParameters(parameters.value);
@@ -236,12 +271,7 @@ onMounted(async () => {
   await loadInitialDataset();
 
   // Load quiz data
-  try {
-    const quiz = await import('../../../content/modules/advanced/neural-network/quiz.json');
-    quizData.value = quiz.default || quiz;
-  } catch (err) {
-    console.warn('Quiz data not found');
-  }
+  await loadQuiz('neural-network', '/content/modules/advanced/neural-network/quiz.json');
 });
 
 /**
@@ -430,14 +460,4 @@ const handleRetry = () => {
   handleTrain();
 };
 
-/**
- * Handle quiz completion
- */
-const handleQuizComplete = (score: number, answers: any[]) => {
-  progressStore.saveQuizScore('neural-network', score);
-
-  if (score >= (quizData.value?.passingScore || 70)) {
-    progressStore.markModuleComplete('neural-network');
-  }
-};
 </script>

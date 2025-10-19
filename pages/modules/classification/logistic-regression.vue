@@ -95,10 +95,30 @@
     </template>
 
     <!-- Quiz Section -->
+    <!-- Requirements: 1.1, 3.1, 3.2, 3.5 -->
     <template #quiz>
-      <ContentSection title="Test Your Knowledge">
-        <p class="text-gray-600">Quiz coming soon...</p>
-      </ContentSection>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
+      <Quiz
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
+      />
     </template>
   </ModuleLayout>
 </template>
@@ -112,12 +132,17 @@ import { LogisticRegression } from '~/algorithms/classification/LogisticRegressi
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
 import Heatmap from '~/components/visualizations/Heatmap.vue';
+import Quiz from '~/components/modules/Quiz.vue';
+import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
+import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app';
+import { useAsyncData } from '#app'; 
 
 const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/classification/logistic-regression/content').first())
 
@@ -197,6 +222,9 @@ const confusionMatrixData = ref<number[][] | null>(null);
 // Algorithm instance
 let algorithm: LogisticRegression | null = null;
 
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
+
 /**
  * Initialize module
  */
@@ -206,6 +234,10 @@ onMounted(async () => {
 
   // Load default dataset
   await loadInitialDataset();
+  
+  // Load quiz data
+  // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
+  await loadQuiz('logistic-regression', '/content/modules/classification/logistic-regression/quiz.json');
 });
 
 /**
@@ -405,5 +437,25 @@ const handleTrain = async () => {
 const handleRetry = () => {
   error.value = null;
   handleTrain();
+};
+
+/**
+ * Handle quiz completion
+ * Processes quiz results and verifies progress store integration
+ * 
+ * Requirements: 3.3, 3.4, 5.1, 5.2, 5.4
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed:', result);
+  
+  // The Quiz component already handles:
+  // - Saving score to progress store (Requirement 5.1, 5.2)
+  // - Marking module as complete if score >= 70% (Requirement 3.4, 5.4)
+  // - Tracking analytics (Requirement 3.3)
+  
+  // Optional: Show success message or navigate to next module
+  if (result.score >= 70) {
+    console.log('Quiz passed! Module marked as complete.');
+  }
 };
 </script>

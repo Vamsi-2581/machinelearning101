@@ -1,198 +1,109 @@
 {
-  "title": "PCA Quiz",
-  "description": "Test your understanding of Principal Component Analysis",
-  "passingScore": 70,
+  "id": "pca-quiz",
+  "moduleId": "pca",
+  "title": "Principal Component Analysis Quiz",
   "questions": [
     {
-      "id": "q1",
+      "id": "pca-q1",
+      "text": "What is the primary purpose of Principal Component Analysis (PCA)?",
       "type": "multiple-choice",
-      "question": "What is the primary goal of PCA?",
       "options": [
-        "To classify data into categories",
+        "To classify data into different categories",
         "To reduce dimensionality while preserving maximum variance",
-        "To cluster similar data points",
-        "To predict future values"
+        "To cluster similar data points together",
+        "To predict future values based on historical data"
       ],
       "correctAnswer": 1,
-      "explanation": "PCA's primary goal is dimensionality reduction - transforming high-dimensional data into a lower-dimensional space while preserving as much variance (information) as possible. It's an unsupervised technique that doesn't classify or predict."
+      "explanation": "PCA is a dimensionality reduction technique that transforms high-dimensional data into a lower-dimensional space while preserving as much variance (information) as possible. It finds new axes (principal components) that capture the directions of maximum variance in the data, allowing you to represent complex data with fewer features."
     },
     {
-      "id": "q2",
+      "id": "pca-q2",
+      "text": "What are principal components in PCA?",
       "type": "multiple-choice",
-      "question": "What do the eigenvectors in PCA represent?",
       "options": [
-        "The amount of variance in each direction",
-        "The directions of the principal components",
-        "The original features",
-        "The data points"
+        "The original features of the dataset",
+        "New orthogonal axes that capture maximum variance",
+        "The mean values of each feature",
+        "The outliers in the dataset"
       ],
       "correctAnswer": 1,
-      "explanation": "Eigenvectors define the directions of the principal components - they point in the directions of maximum variance in the data. The eigenvalues (not eigenvectors) represent the amount of variance along each direction."
+      "explanation": "Principal components are new orthogonal (perpendicular) axes created by PCA that point in the directions of maximum variance in the data. The first principal component captures the most variance, the second captures the second most (orthogonal to the first), and so on. These components are linear combinations of the original features."
     },
     {
-      "id": "q3",
+      "id": "pca-q3",
+      "text": "Why is feature scaling (standardization) important before applying PCA?",
       "type": "multiple-choice",
-      "question": "Why should you standardize features before applying PCA?",
       "options": [
-        "To make the algorithm run faster",
-        "To ensure features with larger scales don't dominate the analysis",
-        "To remove outliers from the data",
-        "It's not necessary to standardize"
+        "It makes the algorithm run faster",
+        "It prevents features with larger scales from dominating the principal components",
+        "It is required for the mathematical calculations to work",
+        "It improves the accuracy of predictions"
       ],
       "correctAnswer": 1,
-      "explanation": "Standardization ensures all features are on the same scale (zero mean, unit variance). Without it, features with larger scales would dominate the principal components simply due to their magnitude, not their importance."
+      "explanation": "PCA is sensitive to the scale of features because it finds directions of maximum variance. Features with larger scales (e.g., income in thousands vs. age in tens) will naturally have larger variance and dominate the principal components. Standardizing features to zero mean and unit variance ensures all features contribute equally to the analysis."
     },
     {
-      "id": "q4",
+      "id": "pca-q4",
+      "text": "What does the explained variance ratio tell you?",
       "type": "multiple-choice",
-      "question": "What does a scree plot show?",
       "options": [
-        "The correlation between features",
-        "The explained variance ratio for each principal component",
-        "The distribution of data points",
-        "The classification accuracy"
+        "The error rate of the PCA transformation",
+        "The proportion of total variance captured by each principal component",
+        "The correlation between original features",
+        "The number of components needed"
       ],
       "correctAnswer": 1,
-      "explanation": "A scree plot displays the explained variance ratio (or eigenvalue) for each principal component. It helps determine how many components to keep by showing where variance drops off sharply (the 'elbow')."
+      "explanation": "The explained variance ratio indicates what proportion of the total variance in the data is captured by each principal component. For example, if PC1 has an explained variance ratio of 0.7, it captures 70% of the total variance. This helps you understand how much information each component preserves and decide how many components to keep."
     },
     {
-      "id": "q5",
+      "id": "pca-q5",
+      "text": "What is a scree plot used for in PCA?",
       "type": "multiple-choice",
-      "question": "If PC1 explains 40% variance and PC2 explains 30% variance, what is the cumulative variance explained by both?",
       "options": [
-        "10%",
-        "35%",
-        "70%",
-        "100%"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Cumulative variance is the sum of individual variances: 40% + 30% = 70%. This means the first two principal components together capture 70% of the total variance in the data."
-    },
-    {
-      "id": "q6",
-      "type": "multiple-choice",
-      "question": "What is the 'curse of dimensionality'?",
-      "options": [
-        "Having too few data points",
-        "Problems that arise as the number of features increases",
-        "Errors in data collection",
-        "Slow computer processing"
+        "To visualize the original data distribution",
+        "To show the explained variance for each principal component",
+        "To display the correlation matrix",
+        "To plot the decision boundary"
       ],
       "correctAnswer": 1,
-      "explanation": "The curse of dimensionality refers to various problems that arise when working with high-dimensional data: data becomes sparse, distances become less meaningful, computational costs increase, and visualization becomes impossible. PCA helps address this."
+      "explanation": "A scree plot displays the explained variance (or eigenvalues) for each principal component in descending order. It helps you decide how many components to keep by looking for an 'elbow' where the explained variance drops off significantly. Components before the elbow capture most of the variance, while those after add little additional information."
     },
     {
-      "id": "q7",
+      "id": "pca-q6",
+      "text": "If you have a dataset with 100 features and apply PCA to reduce it to 3 components that explain 95% of the variance, what have you achieved?",
       "type": "multiple-choice",
-      "question": "Are principal components orthogonal (perpendicular) to each other?",
       "options": [
-        "Yes, always",
-        "No, never",
-        "Only sometimes",
-        "Only if the data is normalized"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Yes, principal components are always orthogonal (perpendicular) to each other. This is a fundamental property of PCA - each component captures variance in a direction independent of all other components."
-    },
-    {
-      "id": "q8",
-      "type": "multiple-choice",
-      "question": "Which component typically explains the most variance?",
-      "options": [
-        "The last component",
-        "The middle component",
-        "The first component (PC1)",
-        "All components explain equal variance"
-      ],
-      "correctAnswer": 2,
-      "explanation": "The first principal component (PC1) always explains the most variance - it's the direction of maximum variance in the data. PC2 explains the next most, PC3 the next, and so on in decreasing order."
-    },
-    {
-      "id": "q9",
-      "type": "multiple-choice",
-      "question": "What is a limitation of PCA?",
-      "options": [
-        "It's too slow for large datasets",
-        "It only captures linear relationships",
-        "It requires labeled data",
-        "It can only reduce to 2 dimensions"
+        "Lost 95% of the information",
+        "Reduced dimensionality by 97% while retaining 95% of the information",
+        "Improved the accuracy by 95%",
+        "Removed 5% of the outliers"
       ],
       "correctAnswer": 1,
-      "explanation": "PCA only captures linear relationships between features. For non-linear relationships, you'd need techniques like kernel PCA, t-SNE, or autoencoders. PCA is actually quite fast, doesn't require labels, and can reduce to any number of dimensions."
+      "explanation": "You've reduced the dimensionality from 100 to 3 features (a 97% reduction) while retaining 95% of the variance (information) in the data. This is the power of PCA - it can dramatically reduce the number of features needed to represent your data while preserving most of the important patterns and structure."
     },
     {
-      "id": "q10",
+      "id": "pca-q7",
+      "text": "When is PCA most appropriate to use?",
       "type": "multiple-choice",
-      "question": "How many principal components can you extract at most from a dataset?",
       "options": [
-        "Unlimited",
-        "Always 3 (for 3D visualization)",
-        "The minimum of the number of features or number of samples",
-        "Exactly equal to the number of features"
+        "When you need to interpret individual feature importance",
+        "When you have high-dimensional data with correlated features",
+        "When you want to improve classification accuracy",
+        "When your data has many categorical variables"
       ],
-      "correctAnswer": 2,
-      "explanation": "The maximum number of principal components is min(n_features, n_samples). If you have 100 samples and 50 features, you can extract at most 50 components. If you have 50 samples and 100 features, you can extract at most 50 components."
+      "correctAnswer": 1,
+      "explanation": "PCA is most useful when you have high-dimensional data with correlated features. It can reduce redundancy, speed up algorithms, help with visualization, and mitigate the curse of dimensionality. However, PCA creates new features that are combinations of original ones, making interpretation harder. It also works best with continuous numerical data, not categorical variables."
     },
     {
-      "id": "q11",
+      "id": "pca-q8",
+      "text": "True or False: PCA is a supervised learning technique that uses labels to find principal components.",
       "type": "true-false",
-      "question": "True or False: PCA is a supervised learning technique.",
       "options": [
         "True",
         "False"
       ],
       "correctAnswer": 1,
-      "explanation": "False. PCA is an unsupervised learning technique - it doesn't use labels or target variables. It only looks at the structure and variance in the features themselves to find principal components."
-    },
-    {
-      "id": "q12",
-      "type": "true-false",
-      "question": "True or False: You should typically aim for 80-95% cumulative explained variance when selecting components.",
-      "options": [
-        "True",
-        "False"
-      ],
-      "correctAnswer": 0,
-      "explanation": "True. A common rule of thumb is to keep enough components to explain 80-95% of the total variance. This balances dimensionality reduction with information preservation. The exact threshold depends on your specific application."
-    },
-    {
-      "id": "q13",
-      "type": "multiple-choice",
-      "question": "What does a high loading value for a feature on a principal component indicate?",
-      "options": [
-        "The feature is not important",
-        "The feature contributes strongly to that component",
-        "The feature should be removed",
-        "The feature is an outlier"
-      ],
-      "correctAnswer": 1,
-      "explanation": "A high loading (positive or negative) indicates that the feature contributes strongly to that principal component. High positive means the feature increases with the component; high negative means it decreases. Near-zero loadings mean the feature doesn't contribute much."
-    },
-    {
-      "id": "q14",
-      "type": "multiple-choice",
-      "question": "When is PCA NOT appropriate?",
-      "options": [
-        "When you need to visualize high-dimensional data",
-        "When relationships between features are highly non-linear",
-        "When you want to reduce computational costs",
-        "When you want to remove noise"
-      ],
-      "correctAnswer": 1,
-      "explanation": "PCA is not appropriate when relationships are highly non-linear, as it only captures linear combinations of features. For non-linear dimensionality reduction, consider techniques like t-SNE, UMAP, or kernel PCA."
-    },
-    {
-      "id": "q15",
-      "type": "multiple-choice",
-      "question": "What happens to the interpretability of features after PCA?",
-      "options": [
-        "Features become more interpretable",
-        "Interpretability stays the same",
-        "Features become less interpretable (they're now combinations)",
-        "Only the first component is interpretable"
-      ],
-      "correctAnswer": 2,
-      "explanation": "After PCA, features become less interpretable because principal components are linear combinations of original features. For example, PC1 might be 0.5*height + 0.3*weight - 0.2*age, which is harder to interpret than the original features."
+      "explanation": "False. PCA is an unsupervised learning technique that finds principal components based solely on the variance structure of the features, without using any labels. It doesn't know or care about class labels - it simply finds the directions of maximum variance in the data. This is different from supervised techniques like Linear Discriminant Analysis (LDA) that do use labels."
     }
   ]
 }

@@ -8,5 +8,7 @@ export { default as ContentSection } from './ContentSection.vue';
 export { default as InteractiveSection } from './InteractiveSection.vue';
 export { default as ControlPanel } from './ControlPanel.vue';
 export { default as VisualizationPanel } from './VisualizationPanel.vue';
+export { default as QuizErrorDisplay } from './QuizErrorDisplay.vue';
+export { default as QuizLoadingState } from './QuizLoadingState.vue';
 
 export type { ControlConfig } from './ControlPanel.vue';

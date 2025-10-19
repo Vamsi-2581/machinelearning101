@@ -12,7 +12,7 @@
         <div class="breadcrumb-wrapper">
           <Breadcrumb :items="breadcrumbs" />
         </div>
-        
+
         <div class="header-content">
           <div>
             <h1 class="module-title">{{ title }}</h1>
@@ -36,32 +36,20 @@
         <nav class="section-nav" aria-label="Module sections">
           <ul class="nav-list">
             <li>
-              <button
-                @click="activeTab = 'content'"
-                :class="{ active: activeTab === 'content' }"
-                class="nav-button"
-                type="button"
-              >
+              <button @click="activeTab = 'content'" :class="{ active: activeTab === 'content' }" class="nav-button"
+                type="button">
                 Content
               </button>
             </li>
             <li>
-              <button
-                @click="activeTab = 'interactive'"
-                :class="{ active: activeTab === 'interactive' }"
-                class="nav-button"
-                type="button"
-              >
+              <button @click="activeTab = 'interactive'" :class="{ active: activeTab === 'interactive' }"
+                class="nav-button" type="button">
                 Interactive
               </button>
             </li>
             <li>
-              <button
-                @click="activeTab = 'quiz'"
-                :class="{ active: activeTab === 'quiz' }"
-                class="nav-button"
-                type="button"
-              >
+              <button @click="activeTab = 'quiz'" :class="{ active: activeTab === 'quiz' }" class="nav-button"
+                type="button">
                 Quiz
               </button>
             </li>
@@ -80,17 +68,9 @@
               <h3 class="toc-title">On this page</h3>
               <nav class="toc-nav" aria-label="Table of contents">
                 <ul class="toc-list">
-                  <li
-                    v-for="link in tableOfContents"
-                    :key="link.id"
-                    :class="['toc-item', `toc-depth-${link.depth}`]"
-                  >
-                    <a
-                      :href="`#${link.id}`"
-                      :class="{ active: activeTocId === link.id }"
-                      class="toc-link"
-                      @click.prevent="scrollToHeading(link.id)"
-                    >
+                  <li v-for="link in tableOfContents" :key="link.id" :class="['toc-item', `toc-depth-${link.depth}`]">
+                    <a :href="`#${link.id}`" :class="{ active: activeTocId === link.id }" class="toc-link"
+                      @click.prevent="scrollToHeading(link.id)">
                       {{ link.text }}
                     </a>
                   </li>
@@ -119,11 +99,8 @@
         </div>
 
         <!-- Module Navigation -->
-        <ModuleNavigation
-          :previous-module="previousModule"
-          :next-module="nextModule"
-          :suggested-module="suggestedModule"
-        />
+        <ModuleNavigation :previous-module="previousModule" :next-module="nextModule"
+          :suggested-module="suggestedModule" />
       </div>
     </main>
   </div>
@@ -236,12 +213,12 @@ const updateActiveToc = () => {
   }
 
   const scrollPosition = window.scrollY + 150;
-  
+
   // Find the current heading
   for (let i = props.tableOfContents.length - 1; i >= 0; i--) {
     const link = props.tableOfContents[i];
     const element = document.getElementById(link.id);
-    
+
     if (element && element.offsetTop <= scrollPosition) {
       activeTocId.value = link.id;
       break;
@@ -458,12 +435,14 @@ onBeforeUnmount(() => {
 .toc-sidebar {
   width: 240px;
   flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky !important;
+  top: 120px !important;
+  height: fit-content;
 }
 
 .toc-sticky {
-  position: sticky;
-  top: 200px;
-  max-height: calc(100vh - 220px);
+  max-height: calc(100vh - 140px);
   overflow-y: auto;
   padding: 1rem;
   background: white;
@@ -539,6 +518,7 @@ onBeforeUnmount(() => {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -137,15 +137,36 @@
 
     <!-- Quiz Section -->
     <template #quiz>
-      <ContentSection title="Test Your Knowledge">
-        <p class="text-gray-600">Quiz coming soon...</p>
-      </ContentSection>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
+      <Quiz
+        v-else
+        :quiz="quizData"
+        @quiz-completed="handleQuizComplete"
+      />
     </template>
   </ModuleLayout>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useDataset } from '~/composables/useDataset';
 import { useTableOfContents } from '~/composables/useTableOfContents';
@@ -251,12 +272,25 @@ const clusterHistory = ref<any[]>([]);
 // Algorithm instance
 let algorithm: KMeans | null = null;
 
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
+
+/**
+ * Handle quiz completion
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed with score:', result.score);
+};
+
 /**
  * Initialize module
  */
 onMounted(async () => {
   moduleStore.setCurrentModule('k-means');
   moduleStore.setParameters(parameters.value);
+  
+  // Load quiz data
+  await loadQuiz('k-means', '/content/modules/clustering/k-means/quiz.json');
   
   // Load default dataset
   await loadInitialDataset();

@@ -1,11 +1,6 @@
 <template>
-  <ModuleLayout
-    module-id="feature-scaling"
-    title="Feature Scaling"
-    domain="preprocessing"
-    difficulty="beginner"
-    :table-of-contents="tableOfContents"
-  >
+  <ModuleLayout module-id="feature-scaling" title="Feature Scaling" domain="preprocessing" difficulty="beginner"
+    :table-of-contents="tableOfContents">
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
@@ -13,12 +8,7 @@
     <template #interactive>
       <InteractiveSection>
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="params"
-            @change="handleParamChange"
-            @reset="resetModule"
-          >
+          <ControlPanel :controls="controls" :values="params" @change="handleParamChange" @reset="resetModule">
             <template #actions>
               <Button @click="applyScaling" :disabled="isProcessing">
                 {{ isProcessing ? 'Processing...' : 'Apply Scaling' }}
@@ -34,19 +24,13 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h3 class="text-lg font-semibold mb-2">Original Data</h3>
-                  <BaseChart
-                    v-if="originalDistribution"
-                    :data="originalDistribution"
-                    :layout="chartLayout('Original Distribution')"
-                  />
+                  <BaseChart v-if="originalDistribution" :data="originalDistribution"
+                    :layout="chartLayout('Original Distribution')" />
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold mb-2">Scaled Data</h3>
-                  <BaseChart
-                    v-if="scaledDistribution"
-                    :data="scaledDistribution"
-                    :layout="chartLayout('Scaled Distribution')"
-                  />
+                  <BaseChart v-if="scaledDistribution" :data="scaledDistribution"
+                    :layout="chartLayout('Scaled Distribution')" />
                 </div>
               </div>
 
@@ -76,10 +60,7 @@
               <!-- Scatter Plot Comparison -->
               <div v-if="scatterData">
                 <h3 class="text-lg font-semibold mb-2">Data Visualization</h3>
-                <BaseChart
-                  :data="scatterData"
-                  :layout="scatterLayout"
-                />
+                <BaseChart :data="scatterData" :layout="scatterLayout" />
               </div>
             </div>
           </VisualizationPanel>
@@ -88,11 +69,17 @@
     </template>
 
     <template #quiz>
-      <Quiz
-        v-if="quizData"
-        :quiz="quizData"
-        @quiz-completed="handleQuizComplete"
-      />
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+
+      <!-- Error state with retry -->
+      <QuizErrorDisplay v-else-if="quizError" :error="quizError" @retry="retryQuizLoad" />
+
+      <!-- Coming soon state -->
+      <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
+
+      <!-- Quiz component -->
+      <Quiz v-else :quiz="quizData" @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -101,9 +88,12 @@
 import { ref, computed, onMounted } from 'vue';
 import { useTableOfContents } from '~/composables/useTableOfContents';
 import { FeatureScaling, type ScalingMethod } from '~/algorithms/preprocessing/FeatureScaling';
+import { useQuizLoader } from '~/composables/useQuizLoader';
+import type { QuizResult } from '~/types/quiz';
+import { useAsyncData } from '#app';
 
 // Load content from Nuxt Content
-const { data: content } = await useAsyncData(() => 
+const { data: content } = await useAsyncData(() =>
   queryCollection('content').path('/modules/preprocessing/feature-scaling/content').first()
 );
 
@@ -120,7 +110,9 @@ const params = ref({
 const isProcessing = ref(false);
 const scaler = ref<FeatureScaling | null>(null);
 const result = ref<any>(null);
-const quizData = ref<any>(null);
+
+// Quiz data with loading state
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Controls configuration
 const controls = computed(() => [
@@ -159,25 +151,25 @@ const generateData = () => {
   const data: number[][] = [];
   const n = params.value.numSamples;
   const range = params.value.featureRange;
-  
+
   for (let i = 0; i < n; i++) {
     // Generate two features with different scales
     const feature1 = Math.random() * range;
     const feature2 = Math.random() * range * 2 + range; // Different scale
     data.push([feature1, feature2]);
   }
-  
+
   return data;
 };
 
 // Apply scaling
 const applyScaling = () => {
   isProcessing.value = true;
-  
+
   try {
     const data = generateData();
     scaler.value = new FeatureScaling(data);
-    
+
     if (params.value.method === 'normalize') {
       result.value = scaler.value.normalize();
     } else if (params.value.method === 'standardize') {
@@ -215,10 +207,10 @@ const scaledStats = computed(() => {
 
 const originalDistribution = computed(() => {
   if (!result.value) return null;
-  
+
   const feature1 = result.value.original.map((row: number[]) => row[0]);
   const feature2 = result.value.original.map((row: number[]) => row[1]);
-  
+
   return [
     {
       x: feature1,
@@ -239,10 +231,10 @@ const originalDistribution = computed(() => {
 
 const scaledDistribution = computed(() => {
   if (!result.value) return null;
-  
+
   const feature1 = result.value.scaled.map((row: number[]) => row[0]);
   const feature2 = result.value.scaled.map((row: number[]) => row[1]);
-  
+
   return [
     {
       x: feature1,
@@ -263,7 +255,7 @@ const scaledDistribution = computed(() => {
 
 const scatterData = computed(() => {
   if (!result.value) return null;
-  
+
   return [
     {
       x: result.value.original.map((row: number[]) => row[0]),
@@ -300,6 +292,7 @@ const scatterLayout = {
   margin: { t: 40, r: 20, b: 40, l: 50 },
 };
 
+
 // Event handlers
 const handleParamChange = (key: string, value: any) => {
   params.value[key as keyof typeof params.value] = value;
@@ -313,22 +306,18 @@ const resetModule = () => {
   };
   result.value = null;
   scaler.value = null;
+  applyScaling();
 };
 
-const handleQuizComplete = (score: number) => {
-  console.log('Quiz completed with score:', score);
-  // Save to progress store when implemented
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed with score:', result.score);
 };
 
 // Load content on mount
 onMounted(async () => {
-  try {
-    const quizResponse = await fetch('/content/modules/preprocessing/feature-scaling/quiz.json');
-    quizData.value = await quizResponse.json();
-  } catch (error) {
-    console.error('Error loading quiz:', error);
-  }
-  
+  // Load quiz data
+  await loadQuiz('feature-scaling', '/content/modules/preprocessing/feature-scaling/quiz.json');
+
   // Apply initial scaling
   applyScaling();
 });

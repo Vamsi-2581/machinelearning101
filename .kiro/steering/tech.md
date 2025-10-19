@@ -34,6 +34,10 @@ npm install
 # Production build (should also be used after making changes to confirm no errors were introduced)
 npm run build
 
+
+# Run unit test using vitest (should also be used after making changes to confirm no errors were introduced)
+npm run test
+
 # Preview production build
 npm run preview
 

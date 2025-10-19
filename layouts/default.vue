@@ -19,7 +19,7 @@
       <!-- Main content -->
       <main
         id="main-content"
-        class="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto"
+        class="flex-1 p-4 md:p-6 lg:p-8"
         tabindex="-1"
       >
         <slot />

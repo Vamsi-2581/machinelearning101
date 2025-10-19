@@ -154,8 +154,25 @@
     </template>
 
     <template #quiz>
+      <!-- Loading state -->
+      <QuizLoadingState v-if="quizLoading" />
+      
+      <!-- Error state with retry -->
+      <QuizErrorDisplay
+        v-else-if="quizError"
+        :error="quizError"
+        @retry="retryQuizLoad"
+      />
+      
+      <!-- Coming soon state -->
+      <QuizErrorDisplay
+        v-else-if="!quizData"
+        :coming-soon="true"
+      />
+      
+      <!-- Quiz component -->
       <Quiz
-        v-if="quizData"
+        v-else
         :quiz="quizData"
         @quiz-completed="handleQuizComplete"
       />
@@ -164,9 +181,12 @@
 </template>
 
 <script setup lang="ts">
+import { useAsyncData, queryCollection } from '#imports';
 import { ref, computed, onMounted } from 'vue';
 import { MissingValueImputation, type ImputationMethod } from '~/algorithms/preprocessing/MissingValueImputation';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import type { QuizResult } from '~/types/quiz';
+import { useQuizLoader } from '~/composables/useQuizLoader';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -187,7 +207,10 @@ const params = ref({
 const isProcessing = ref(false);
 const imputer = ref<MissingValueImputation | null>(null);
 const result = ref<any>(null);
-const quizData = ref<any>(null);
+
+// Quiz data with loading state
+// Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
+const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
 
 // Controls configuration
 const controls = computed(() => [
@@ -372,18 +395,20 @@ const resetModule = () => {
   generateNewData();
 };
 
-const handleQuizComplete = (score: number) => {
-  console.log('Quiz completed with score:', score);
+/**
+ * Handle quiz completion
+ * Requirements: 3.3, 3.4, 5.1, 5.2, 5.4
+ */
+const handleQuizComplete = (result: QuizResult) => {
+  console.log('Quiz completed with score:', result.score);
+  // Quiz component handles progress store updates internally
 };
 
 // Load content on mount
 onMounted(async () => {
-  try {
-    const quizResponse = await fetch('/content/modules/preprocessing/missing-value-imputation/quiz.json');
-    quizData.value = await quizResponse.json();
-  } catch (error) {
-    console.error('Error loading quiz:', error);
-  }
+  // Load quiz data
+  // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
+  await loadQuiz('missing-value-imputation', '/content/modules/preprocessing/missing-value-imputation/quiz.json');
   
   // Generate initial data
   generateNewData();
