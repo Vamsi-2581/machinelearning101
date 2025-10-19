@@ -4,19 +4,11 @@
     description="Learn how t-SNE reveals structure in high-dimensional data through non-linear dimensionality reduction"
     difficulty="advanced"
     :estimated-time="40"
+    :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
@@ -147,6 +139,7 @@
 import { ref, onMounted } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useProgressStore } from '~/stores/progress';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { TSNE } from '~/algorithms/advanced/TSNE';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -156,100 +149,13 @@ import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/advanced/tsne/content').first()
+);
 
-// Content
-const contentMarkdown = `
-# t-SNE (t-Distributed Stochastic Neighbor Embedding)
-
-t-SNE is a powerful non-linear dimensionality reduction technique specifically designed for visualizing high-dimensional data. Unlike PCA, which preserves global structure, t-SNE excels at preserving local structure and revealing clusters.
-
-## What You'll Learn
-
-- How t-SNE differs from linear methods like PCA
-- The role of perplexity in controlling local vs global structure
-- How to interpret t-SNE visualizations correctly
-- When t-SNE is appropriate and its limitations
-- How the optimization process works iteratively
-`;
-
-const howItWorksMarkdown = `
-## The t-SNE Algorithm
-
-t-SNE works through these key steps:
-
-1. **Compute pairwise similarities in high-dimensional space**: Using Gaussian distributions
-2. **Initialize random low-dimensional embedding**: Start with random positions
-3. **Compute pairwise similarities in low-dimensional space**: Using Student t-distribution
-4. **Minimize KL divergence**: Iteratively adjust positions to match similarity distributions
-5. **Converge to final embedding**: Stop when cost stabilizes
-
-## Key Concepts
-
-### Perplexity
-
-Perplexity is the most important hyperparameter:
-
-- **Low perplexity (5-15)**: Focuses on very local structure, may create many small clusters
-- **Medium perplexity (30-50)**: Balanced view, typical default
-- **High perplexity (50-100)**: Emphasizes global structure, may merge clusters
-
-Think of perplexity as the number of nearest neighbors to consider.
-
-### Student t-Distribution
-
-t-SNE uses a Student t-distribution (heavy-tailed) in low dimensions:
-
-- Allows moderate distances in high dimensions to become larger distances in low dimensions
-- Prevents "crowding problem" where points are forced too close together
-- Creates clearer separation between clusters
-
-### KL Divergence
-
-The cost function measures how well the low-dimensional embedding preserves similarities:
-
-- Lower cost = better preservation of structure
-- Cost decreases during optimization
-- Final cost value is not directly interpretable across different datasets
-
-## Interpreting t-SNE Plots
-
-### What t-SNE Shows
-
-✅ **Cluster structure**: Groups of similar points
-✅ **Local relationships**: Nearby points are similar
-✅ **Relative cluster sizes**: Larger clusters have more points
-
-### What t-SNE Doesn't Show
-
-❌ **Distances between clusters**: Not meaningful
-❌ **Global structure**: Overall shape may be arbitrary
-❌ **Cluster sizes**: Visual size doesn't indicate importance
-❌ **Axes**: Dimensions have no inherent meaning
-
-## Important Considerations
-
-### Multiple Runs
-
-t-SNE is stochastic (random initialization):
-- Different runs produce different embeddings
-- All may be valid representations
-- Run multiple times to check consistency
-
-### Perplexity Sensitivity
-
-Try different perplexity values:
-- Too low: Fragments data into many clusters
-- Too high: Merges distinct clusters
-- Typical range: 5-50 for most datasets
-
-### Computational Cost
-
-t-SNE is computationally expensive:
-- O(n²) complexity in number of samples
-- Can be slow for large datasets (>10,000 points)
-- Consider using PCA first to reduce to ~50 dimensions
-`;
-
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();

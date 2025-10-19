@@ -8,19 +8,11 @@
     :previous-module="previousModule"
     :next-module="nextModule"
     :suggested-module="suggestedModule"
+    :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
@@ -110,6 +102,7 @@ import { useModuleStore } from '~/stores/module';
 import { useAnalyticsStore } from '~/stores/analytics';
 import { useDataset } from '~/composables/useDataset';
 import { useModules } from '~/composables/useModules';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { LinearRegression } from '~/algorithms/regression/LinearRegression';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -119,52 +112,13 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
 
-// Content
-const contentMarkdown = `
-# Linear Regression
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/regression/linear-regression/content').first()
+);
 
-Linear regression is one of the simplest and most widely used machine learning algorithms. It models the relationship between a dependent variable (target) and one or more independent variables (features) by fitting a linear equation to the observed data.
-
-## What You'll Learn
-
-- How gradient descent optimizes the model parameters
-- The impact of learning rate on convergence
-- How to interpret regression metrics (MSE, RMSE, R²)
-- The relationship between data and the fitted line
-`;
-
-const howItWorksMarkdown = `
-## The Linear Model
-
-For simple linear regression with one feature, the model is:
-
-\`\`\`
-y = w₀ + w₁x
-\`\`\`
-
-Where:
-- **y** is the predicted value
-- **x** is the input feature
-- **w₁** is the weight (slope)
-- **w₀** is the bias (intercept)
-
-## Gradient Descent
-
-The algorithm uses gradient descent to find the best weights:
-
-1. Start with random weights
-2. Calculate predictions for all data points
-3. Compute the error (loss) using Mean Squared Error
-4. Update weights in the direction that reduces the error
-5. Repeat for a specified number of epochs
-
-## Key Metrics
-
-- **MSE (Mean Squared Error)**: Average squared difference between predictions and actual values
-- **RMSE (Root Mean Squared Error)**: Square root of MSE, in the same units as the target
-- **R² Score**: Proportion of variance explained by the model (1.0 is perfect, 0.0 is no better than mean)
-- **MAE (Mean Absolute Error)**: Average absolute difference between predictions and actual values
-`;
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();

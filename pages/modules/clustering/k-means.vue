@@ -4,19 +4,11 @@
     description="Learn how K-Means groups similar data points into clusters using iterative centroid updates"
     difficulty="beginner"
     :estimated-time="35"
+    :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
@@ -156,6 +148,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useDataset } from '~/composables/useDataset';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { KMeans } from '~/algorithms/clustering/KMeans';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -165,79 +158,13 @@ import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
-// Content
-const contentMarkdown = `
-# K-Means Clustering
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/clustering/k-means/content').first()
+);
 
-K-Means is one of the most popular unsupervised learning algorithms for clustering. It groups similar data points together by iteratively assigning points to the nearest cluster center (centroid) and updating the centroids based on the assigned points.
-
-## What You'll Learn
-
-- How K-Means iteratively finds cluster centers
-- The importance of initialization (K-Means++)
-- How to interpret clustering metrics (inertia, silhouette score)
-- The impact of the number of clusters (k) on results
-- When K-Means works well and when it struggles
-`;
-
-const howItWorksMarkdown = `
-## The K-Means Algorithm
-
-K-Means follows a simple iterative process:
-
-1. **Initialize**: Choose k initial cluster centers (centroids)
-2. **Assign**: Assign each point to the nearest centroid
-3. **Update**: Recalculate centroids as the mean of assigned points
-4. **Repeat**: Continue steps 2-3 until convergence
-
-## K-Means++ Initialization
-
-Standard random initialization can lead to poor results. K-Means++ improves this by:
-
-1. Choose first centroid randomly
-2. For each remaining centroid:
-   - Calculate distance from each point to nearest existing centroid
-   - Choose next centroid with probability proportional to distance²
-3. This spreads out initial centroids for better coverage
-
-## Convergence
-
-The algorithm stops when:
-- Centroids stop moving (change < tolerance)
-- Maximum iterations reached
-
-## Clustering Metrics
-
-- **Inertia**: Sum of squared distances from points to their cluster centroid
-  - Lower is better
-  - Decreases as k increases
-  
-- **Silhouette Score**: Measures how similar points are to their own cluster vs other clusters
-  - Range: [-1, 1]
-  - Higher is better
-  - Close to 1: Well-clustered
-  - Close to 0: Overlapping clusters
-  - Negative: Points may be in wrong cluster
-
-## Choosing K
-
-The "elbow method" helps choose k:
-- Plot inertia vs k
-- Look for the "elbow" where inertia stops decreasing rapidly
-- That k value often provides good clustering
-
-## Limitations
-
-K-Means works best when:
-- Clusters are roughly spherical
-- Clusters have similar sizes
-- Clusters are well-separated
-
-It struggles with:
-- Non-spherical shapes (moons, rings)
-- Clusters of very different sizes
-- Overlapping clusters
-`;
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();

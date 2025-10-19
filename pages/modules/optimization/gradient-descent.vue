@@ -4,19 +4,11 @@
     description="Visualize how different optimization algorithms navigate loss landscapes to find optimal parameters"
     difficulty="intermediate"
     :estimated-time="45"
+    :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
@@ -154,6 +146,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import { useModuleStore } from '~/stores/module';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { GradientDescentVisualization } from '~/algorithms/optimization/GradientDescentVisualization';
 import { getLossFunction, getAvailableLossFunctions } from '~/algorithms/optimization/LossFunctions';
 import {
@@ -168,62 +161,13 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { OptimizationState } from '~/algorithms/optimization/GradientDescentVisualization';
 
-// Content
-const contentMarkdown = `
-# Gradient Descent Optimization
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/optimization/gradient-descent/content').first()
+);
 
-Gradient descent is the fundamental optimization algorithm used to train machine learning models. It iteratively adjusts parameters to minimize a loss function by following the negative gradient direction.
-
-## What You'll Learn
-
-- How different optimizers navigate loss landscapes
-- The impact of learning rate on convergence
-- How momentum accelerates optimization
-- How adaptive methods (Adam, RMSProp) adjust learning rates
-- The challenges of local minima and saddle points
-`;
-
-const howItWorksMarkdown = `
-## The Optimization Process
-
-Gradient descent updates parameters using the gradient of the loss function:
-
-\`\`\`
-θ = θ - α∇L(θ)
-\`\`\`
-
-Where:
-- **θ** are the parameters
-- **α** is the learning rate
-- **∇L(θ)** is the gradient of the loss function
-
-## Optimizer Variants
-
-### SGD (Stochastic Gradient Descent)
-Basic gradient descent with fixed learning rate.
-
-### SGD with Momentum
-Adds momentum to accelerate convergence and dampen oscillations:
-\`\`\`
-v = βv + ∇L(θ)
-θ = θ - αv
-\`\`\`
-
-### RMSProp
-Adapts learning rate based on recent gradient magnitudes:
-\`\`\`
-E[g²] = βE[g²] + (1-β)g²
-θ = θ - α·g / √(E[g²] + ε)
-\`\`\`
-
-### Adam
-Combines momentum and RMSProp for robust optimization:
-\`\`\`
-m = β₁m + (1-β₁)g
-v = β₂v + (1-β₂)g²
-θ = θ - α·m̂ / (√v̂ + ε)
-\`\`\`
-`;
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores
 const moduleStore = useModuleStore();

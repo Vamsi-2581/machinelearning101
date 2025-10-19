@@ -4,11 +4,10 @@
     title="Feature Scaling"
     domain="preprocessing"
     difficulty="beginner"
+    :table-of-contents="tableOfContents"
   >
     <template #content>
-      <ContentSection title="Feature Scaling">
-        <div v-html="content" />
-      </ContentSection>
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <template #interactive>
@@ -100,7 +99,16 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { FeatureScaling, type ScalingMethod } from '~/algorithms/preprocessing/FeatureScaling';
+
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/preprocessing/feature-scaling/content').first()
+);
+
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Component state
 const params = ref({
@@ -112,7 +120,6 @@ const params = ref({
 const isProcessing = ref(false);
 const scaler = ref<FeatureScaling | null>(null);
 const result = ref<any>(null);
-const content = ref('');
 const quizData = ref<any>(null);
 
 // Controls configuration
@@ -316,14 +323,10 @@ const handleQuizComplete = (score: number) => {
 // Load content on mount
 onMounted(async () => {
   try {
-    // Load content using fetch instead of dynamic import
-    const contentResponse = await fetch('/content/modules/preprocessing/feature-scaling/content.md');
-    content.value = await contentResponse.text();
-    
     const quizResponse = await fetch('/content/modules/preprocessing/feature-scaling/quiz.json');
     quizData.value = await quizResponse.json();
   } catch (error) {
-    console.error('Error loading content:', error);
+    console.error('Error loading quiz:', error);
   }
   
   // Apply initial scaling

@@ -1,45 +1,21 @@
 <template>
-  <ModuleLayout
-    title="Neural Network Visualization"
-    description="Learn how neural networks learn through forward propagation and backpropagation"
-    difficulty="advanced"
-    :estimated-time="45"
-  >
+  <ModuleLayout title="Neural Network Visualization"
+    description="Learn how neural networks learn through forward propagation and backpropagation" difficulty="advanced"
+    :estimated-time="45" :table-of-contents="tableOfContents">
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
     <template #interactive>
-      <InteractiveSection
-        :loading="isTraining"
-        :progress="trainingProgress"
-        loading-message="Training neural network..."
-        :error="error"
-        :on-retry="handleRetry"
-      >
+      <InteractiveSection :loading="isTraining" :progress="trainingProgress"
+        loading-message="Training neural network..." :error="error" :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="parameters"
-            :loading="isTraining"
-            submit-label="Train Network"
-            @change="handleParameterChange"
-            @reset="handleReset"
-            @submit="handleTrain"
-          />
-          
+          <ControlPanel :controls="controls" :values="parameters" :loading="isTraining" submit-label="Train Network"
+            @change="handleParameterChange" @reset="handleReset" @submit="handleTrain" />
+
           <!-- Architecture Builder -->
           <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <h3 class="text-sm font-semibold text-blue-700 mb-3">Network Architecture</h3>
@@ -64,7 +40,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Metrics Display -->
           <div v-if="metrics" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Training Results</h3>
@@ -100,43 +76,19 @@
         <!-- Visualization -->
         <template #visualization>
           <div class="space-y-4">
-            <NetworkDiagram
-              v-if="networkArchitecture.length > 0"
-              :architecture="networkArchitecture"
-              :weights="networkWeights"
-              :activations="networkActivations"
-              :width="800"
-              :height="400"
-            />
-            
+            <NetworkDiagram v-if="networkArchitecture.length > 0" :architecture="networkArchitecture"
+              :weights="networkWeights" :activations="networkActivations" :width="800" :height="400" />
+
             <div class="grid grid-cols-2 gap-4">
-              <LineChart
-                v-if="lossSeries && lossSeries.length > 0"
-                :series="lossSeries"
-                title="Training Loss"
-                x-label="Epoch"
-                y-label="Loss"
-                :show-legend="false"
-                height="300px"
-              />
-              
-              <LineChart
-                v-if="accuracySeries && accuracySeries.length > 0"
-                :series="accuracySeries"
-                title="Training Accuracy"
-                x-label="Epoch"
-                y-label="Accuracy"
-                :show-legend="false"
-                height="300px"
-              />
+              <LineChart v-if="lossSeries && lossSeries.length > 0" :series="lossSeries" title="Training Loss"
+                x-label="Epoch" y-label="Loss" :show-legend="false" height="300px" />
+
+              <LineChart v-if="accuracySeries && accuracySeries.length > 0" :series="accuracySeries"
+                title="Training Accuracy" x-label="Epoch" y-label="Accuracy" :show-legend="false" height="300px" />
             </div>
-            
-            <ConfusionMatrix
-              v-if="metrics && metrics.confusionMatrix"
-              :matrix="metrics.confusionMatrix"
-              :labels="['Class 0', 'Class 1']"
-              title="Confusion Matrix"
-            />
+
+            <ConfusionMatrix v-if="metrics && metrics.confusionMatrix" :matrix="metrics.confusionMatrix"
+              :labels="['Class 0', 'Class 1']" title="Confusion Matrix" />
           </div>
         </template>
       </InteractiveSection>
@@ -144,13 +96,8 @@
 
     <!-- Quiz Section -->
     <template #quiz>
-      <Quiz
-        v-if="quizData"
-        :questions="quizData.questions"
-        :title="quizData.title"
-        :passing-score="quizData.passingScore"
-        @complete="handleQuizComplete"
-      />
+      <Quiz v-if="quizData" :questions="quizData.questions" :title="quizData.title"
+        :passing-score="quizData.passingScore" @complete="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -160,6 +107,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useProgressStore } from '~/stores/progress';
 import { useDataset } from '~/composables/useDataset';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { NeuralNetwork } from '~/algorithms/advanced/NeuralNetwork';
 import NetworkDiagram from '~/components/visualizations/NetworkDiagram.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -168,74 +116,15 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
+import { useAsyncData } from '#app';
 
-// Content
-const contentMarkdown = `
-# Neural Networks
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() =>
+  queryCollection('content').path('/modules/advanced/neural-network/content').first()
+);
 
-Neural networks are computing systems inspired by biological neural networks. They consist of interconnected nodes (neurons) organized in layers that can learn to perform tasks by considering examples.
-
-## What You'll Learn
-
-- How neurons process information through weighted connections
-- The forward propagation process
-- How backpropagation computes gradients
-- The role of activation functions
-- How networks learn from data through gradient descent
-`;
-
-const howItWorksMarkdown = `
-## Network Architecture
-
-A feedforward neural network consists of:
-
-1. **Input Layer**: Receives the input features
-2. **Hidden Layers**: Process information through weighted connections
-3. **Output Layer**: Produces the final prediction
-
-## Forward Propagation
-
-For each neuron, the forward pass computes:
-
-\`\`\`
-z = w₁x₁ + w₂x₂ + ... + wₙxₙ + b
-a = activation(z)
-\`\`\`
-
-Where:
-- **z** is the weighted sum (pre-activation)
-- **w** are the weights
-- **x** are the inputs
-- **b** is the bias
-- **a** is the activation (output)
-
-## Activation Functions
-
-Common activation functions:
-
-- **Sigmoid**: σ(x) = 1 / (1 + e^(-x)) - Outputs between 0 and 1
-- **ReLU**: f(x) = max(0, x) - Most popular for hidden layers
-- **Tanh**: tanh(x) - Outputs between -1 and 1
-
-## Backpropagation
-
-Backpropagation computes gradients by:
-
-1. Computing output error
-2. Propagating error backwards through layers
-3. Computing gradient for each weight
-4. Updating weights using gradient descent
-
-## Learning Process
-
-1. **Initialize** weights randomly
-2. **Forward pass** to compute predictions
-3. **Compute loss** (error)
-4. **Backward pass** to compute gradients
-5. **Update weights** to reduce loss
-6. **Repeat** for many epochs
-`;
-
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();
@@ -326,7 +215,7 @@ const inputSize = computed(() => {
 
 const totalParameters = computed(() => {
   if (networkArchitecture.value.length === 0) return 0;
-  
+
   let total = 0;
   for (let i = 1; i < networkArchitecture.value.length; i++) {
     const prevSize = networkArchitecture.value[i - 1];
@@ -342,10 +231,10 @@ const totalParameters = computed(() => {
 onMounted(async () => {
   moduleStore.setCurrentModule('neural-network');
   moduleStore.setParameters(parameters.value);
-  
+
   // Load default dataset
   await loadInitialDataset();
-  
+
   // Load quiz data
   try {
     const quiz = await import('../../../content/modules/advanced/neural-network/quiz.json');
@@ -361,10 +250,10 @@ onMounted(async () => {
 const generateSyntheticData = (datasetType: string) => {
   const n = 100;
   const data = [];
-  
+
   for (let i = 0; i < n; i++) {
     let x1, x2, label;
-    
+
     if (datasetType === 'xor') {
       // XOR problem
       x1 = Math.random() > 0.5 ? 1 : 0;
@@ -387,14 +276,14 @@ const generateSyntheticData = (datasetType: string) => {
       x2 = cluster * 2 + (Math.random() - 0.5) * 1.5;
       label = cluster;
     }
-    
+
     data.push({
       features: [x1, x2],
       label,
       id: `point-${i}`
     });
   }
-  
+
   return data;
 };
 
@@ -413,7 +302,7 @@ const loadInitialDataset = async () => {
 const handleParameterChange = async (id: string, value: any) => {
   parameters.value[id] = value;
   moduleStore.setParameter(id, value);
-  
+
   // Reload dataset if changed
   if (id === 'dataset') {
     await loadInitialDataset();
@@ -439,9 +328,9 @@ const handleReset = async () => {
     dataset: 'binary-classification',
   };
   moduleStore.setParameters(parameters.value);
-  
+
   await loadInitialDataset();
-  
+
   metrics.value = null;
   lossSeries.value = [];
   accuracySeries.value = [];
@@ -465,11 +354,11 @@ const handleTrain = async () => {
     if (!dataset || dataset.length === 0) {
       throw new Error('No dataset loaded');
     }
-    
+
     // Prepare data
     const X = dataset.map(d => d.features);
     const y = dataset.map(d => d.label as number);
-    
+
     // Create and train algorithm
     algorithm = new NeuralNetwork({
       hiddenLayers: parameters.value.hiddenLayers,
@@ -477,24 +366,24 @@ const handleTrain = async () => {
       epochs: parameters.value.epochs,
       activation: parameters.value.activation as 'sigmoid' | 'relu' | 'tanh'
     });
-    
+
     // Train
     const startTime = Date.now();
     await algorithm.fit(X, y);
     const endTime = Date.now();
-    
+
     console.log(`Neural network training completed in ${endTime - startTime}ms`);
-    
+
     // Get results
     metrics.value = algorithm.getMetrics();
     const visualizations = algorithm.getVisualizationData();
-    
+
     // Get network state
     const state = algorithm.getNetworkState();
     networkArchitecture.value = [X[0].length, ...parameters.value.hiddenLayers, 1];
     networkWeights.value = state.weights;
     networkActivations.value = state.activations.map(la => la.activations);
-    
+
     // Process visualizations
     if (visualizations.length > 0) {
       // Loss curve
@@ -508,7 +397,7 @@ const handleTrain = async () => {
           width: lossViz.data.loss.line?.width || 2,
         }];
       }
-      
+
       // Accuracy curve
       if (visualizations.length > 1) {
         const accViz = visualizations[1];
@@ -523,7 +412,7 @@ const handleTrain = async () => {
         }
       }
     }
-    
+
     trainingProgress.value = 1;
   } catch (err) {
     console.error('Neural network training error:', err);
@@ -546,7 +435,7 @@ const handleRetry = () => {
  */
 const handleQuizComplete = (score: number, answers: any[]) => {
   progressStore.saveQuizScore('neural-network', score);
-  
+
   if (score >= (quizData.value?.passingScore || 70)) {
     progressStore.markModuleComplete('neural-network');
   }

@@ -1,45 +1,21 @@
 <template>
-  <ModuleLayout
-    title="Logistic Regression"
+  <ModuleLayout title="Logistic Regression"
     description="Learn how logistic regression classifies data using the sigmoid function and gradient descent"
-    difficulty="beginner"
-    :estimated-time="35"
-  >
+    difficulty="beginner" :estimated-time="35" :table-of-contents="tableOfContents">
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
     <template #interactive>
-      <InteractiveSection
-        :loading="isTraining"
-        :progress="trainingProgress"
-        loading-message="Training model..."
-        :error="error"
-        :on-retry="handleRetry"
-      >
+      <InteractiveSection :loading="isTraining" :progress="trainingProgress" loading-message="Training model..."
+        :error="error" :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="parameters"
-            :loading="isTraining"
-            submit-label="Train Model"
-            @change="handleParameterChange"
-            @reset="handleReset"
-            @submit="handleTrain"
-          />
-          
+          <ControlPanel :controls="controls" :values="parameters" :loading="isTraining" submit-label="Train Model"
+            @change="handleParameterChange" @reset="handleReset" @submit="handleTrain" />
+
           <!-- Metrics Display -->
           <div v-if="metrics" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Model Performance</h3>
@@ -50,7 +26,8 @@
               </div>
               <div>
                 <div class="text-xs text-gray-500">Precision</div>
-                <div class="text-lg font-semibold text-gray-900">{{ ((metrics.precision || 0) * 100).toFixed(2) }}%</div>
+                <div class="text-lg font-semibold text-gray-900">{{ ((metrics.precision || 0) * 100).toFixed(2) }}%
+                </div>
               </div>
               <div>
                 <div class="text-xs text-gray-500">Recall</div>
@@ -61,7 +38,7 @@
                 <div class="text-lg font-semibold text-gray-900">{{ ((metrics.f1Score || 0) * 100).toFixed(2) }}%</div>
               </div>
             </div>
-            
+
             <!-- Confusion Matrix -->
             <div v-if="metrics.confusionMatrix" class="mt-4">
               <h4 class="text-xs font-semibold text-gray-700 mb-2">Confusion Matrix</h4>
@@ -91,62 +68,26 @@
         <template #visualization>
           <div class="space-y-4">
             <div class="relative">
-              <Scatter2D
-                v-if="scatterSeries && scatterSeries.length > 0"
-                :series="scatterSeries"
-                title="Classification Data & Decision Boundary"
-                x-label="Feature 1"
-                y-label="Feature 2"
-                :show-legend="true"
-                height="500px"
-              />
-              
+              <Scatter2D v-if="scatterSeries && scatterSeries.length > 0" :series="scatterSeries"
+                title="Classification Data & Decision Boundary" x-label="Feature 1" y-label="Feature 2"
+                :show-legend="true" height="500px" />
+
               <!-- Overlay heatmap for decision boundary if available -->
-              <Heatmap
-                v-if="heatmapData"
-                :data="heatmapData.z"
-                :x-labels="heatmapData.x.map(v => v.toFixed(1))"
-                :y-labels="heatmapData.y.map(v => v.toFixed(1))"
-                title="Decision Boundary (Probability Heatmap)"
-                colorscale="RdBu"
-                :show-annotations="false"
-                :reverse-y="false"
-                height="500px"
-                class="mt-4"
-              />
+              <Heatmap v-if="heatmapData" :data="heatmapData.z" :x-labels="heatmapData.x.map(v => v.toFixed(1))"
+                :y-labels="heatmapData.y.map(v => v.toFixed(1))" title="Decision Boundary (Probability Heatmap)"
+                colorscale="RdBu" :show-annotations="false" :reverse-y="false" height="500px" class="mt-4" />
             </div>
-            
-            <Heatmap
-              v-if="confusionMatrixData"
-              :data="confusionMatrixData"
-              :x-labels="['Predicted 0', 'Predicted 1']"
-              :y-labels="['Actual 0', 'Actual 1']"
-              title="Confusion Matrix"
-              colorscale="Greens"
-              :show-annotations="true"
-              height="350px"
-            />
-            
+
+            <Heatmap v-if="confusionMatrixData" :data="confusionMatrixData" :x-labels="['Predicted 0', 'Predicted 1']"
+              :y-labels="['Actual 0', 'Actual 1']" title="Confusion Matrix" colorscale="Greens" :show-annotations="true"
+              height="350px" />
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <LineChart
-                v-if="lossSeries && lossSeries.length > 0"
-                :series="lossSeries"
-                title="Training Loss"
-                x-label="Epoch"
-                y-label="Loss"
-                :show-legend="false"
-                height="300px"
-              />
-              
-              <LineChart
-                v-if="accuracySeries && accuracySeries.length > 0"
-                :series="accuracySeries"
-                title="Training Accuracy"
-                x-label="Epoch"
-                y-label="Accuracy"
-                :show-legend="false"
-                height="300px"
-              />
+              <LineChart v-if="lossSeries && lossSeries.length > 0" :series="lossSeries" title="Training Loss"
+                x-label="Epoch" y-label="Loss" :show-legend="false" height="300px" />
+
+              <LineChart v-if="accuracySeries && accuracySeries.length > 0" :series="accuracySeries"
+                title="Training Accuracy" x-label="Epoch" y-label="Accuracy" :show-legend="false" height="300px" />
             </div>
           </div>
         </template>
@@ -166,6 +107,7 @@
 import { ref, onMounted } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useDataset } from '~/composables/useDataset';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { LogisticRegression } from '~/algorithms/classification/LogisticRegression';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -175,79 +117,12 @@ import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
-// Content
-const contentMarkdown = `
-# Logistic Regression
+import { useAsyncData } from '#app';
 
-Logistic regression is a fundamental classification algorithm that predicts the probability of a binary outcome. Despite its name, it's used for classification, not regression. It uses the sigmoid function to map predictions to probabilities between 0 and 1.
+const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/classification/logistic-regression/content').first())
 
-## What You'll Learn
-- How the sigmoid function transforms linear predictions into probabilities 
-- How binary cross-entropy loss guides the learning process
-- The impact of learning rate and regularization on model performance
-- How to interpret classification metrics (accuracy, precision, recall, F1)
-- How decision boundaries separate different classes
-`;
-
-const howItWorksMarkdown = `
-## The Logistic Model
-
-For binary classification, the model predicts the probability of class 1:
-
-\`\`\`
-P(y=1|x) = σ(w₀ + w₁x₁ + w₂x₂ + ...)
-\`\`\`
-
-Where:
-- **σ** is the sigmoid function: σ(z) = 1 / (1 + e⁻ᶻ)
-- **w** are the weights
-- **x** are the input features
-
-## Sigmoid Function
-
-The sigmoid function squashes any real number into the range (0, 1):
-- When z → ∞, σ(z) → 1
-- When z → -∞, σ(z) → 0
-- When z = 0, σ(z) = 0.5
-
-This makes it perfect for representing probabilities!
-
-## Binary Cross-Entropy Loss
-
-The loss function measures how well the predicted probabilities match the actual labels:
-
-\`\`\`
-Loss = -[y·log(p) + (1-y)·log(1-p)]
-\`\`\`
-
-Where:
-- **y** is the true label (0 or 1)
-- **p** is the predicted probability
-
-## Gradient Descent
-
-Similar to linear regression, we use gradient descent to minimize the loss:
-
-1. Start with random weights
-2. Calculate probabilities for all data points using sigmoid
-3. Compute the binary cross-entropy loss
-4. Update weights to reduce the loss
-5. Repeat for a specified number of epochs
-
-## Classification Metrics
-
-- **Accuracy**: Percentage of correct predictions
-- **Precision**: Of predicted positives, how many are actually positive
-- **Recall**: Of actual positives, how many did we predict correctly
-- **F1 Score**: Harmonic mean of precision and recall
-- **Confusion Matrix**: Shows true positives, false positives, true negatives, false negatives
-
-## Regularization
-
-L2 regularization (optional) helps prevent overfitting by penalizing large weights:
-- Higher regularization → simpler model, may underfit
-- Lower regularization → more complex model, may overfit
-`;
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();
@@ -328,7 +203,7 @@ let algorithm: LogisticRegression | null = null;
 onMounted(async () => {
   moduleStore.setCurrentModule('logistic-regression');
   moduleStore.setParameters(parameters.value);
-  
+
   // Load default dataset
   await loadInitialDataset();
 });
@@ -349,7 +224,7 @@ const loadInitialDataset = async () => {
 const handleParameterChange = async (id: string, value: any) => {
   parameters.value[id] = value;
   moduleStore.setParameter(id, value);
-  
+
   // Reload dataset if changed
   if (id === 'dataset') {
     const dataset = await loadDataset(value);
@@ -377,9 +252,9 @@ const handleReset = async () => {
     dataset: 'binary-classification',
   };
   moduleStore.setParameters(parameters.value);
-  
+
   await loadInitialDataset();
-  
+
   metrics.value = null;
   scatterSeries.value = [];
   lossSeries.value = [];
@@ -403,17 +278,17 @@ const handleTrain = async () => {
     if (!dataset || dataset.length === 0) {
       throw new Error('No dataset loaded');
     }
-    
+
     // Prepare data
     const X = dataset.map(d => d.features);
     const y = dataset.map(d => d.label as number);
-    
+
     // Validate binary labels
     const uniqueLabels = [...new Set(y)];
     if (uniqueLabels.length !== 2 || !uniqueLabels.includes(0) || !uniqueLabels.includes(1)) {
       throw new Error('Dataset must have exactly 2 classes labeled as 0 and 1');
     }
-    
+
     // Create and train algorithm
     algorithm = new LogisticRegression({
       learningRate: parameters.value.learningRate,
@@ -421,30 +296,30 @@ const handleTrain = async () => {
       regularization: parameters.value.regularization,
       normalize: false
     });
-    
+
     // Train with progress updates
     const startTime = Date.now();
     await algorithm.fit(X, y);
     const endTime = Date.now();
-    
+
     console.log(`Training completed in ${endTime - startTime}ms`);
-    
+
     // Get results
     metrics.value = algorithm.getMetrics();
     const visualizations = algorithm.getVisualizationData();
-    
+
     // Set confusion matrix data
     if (metrics.value.confusionMatrix) {
       confusionMatrixData.value = metrics.value.confusionMatrix;
     }
-    
+
     // Process visualizations
     if (visualizations.length > 0) {
       // Scatter plot with classes
       const scatterViz = visualizations[0];
       if (scatterViz.type === 'scatter2d' && scatterViz.data) {
         const series: ScatterSeries[] = [];
-        
+
         // Add class 0 points
         if (scatterViz.data.class0) {
           series.push({
@@ -459,7 +334,7 @@ const handleTrain = async () => {
             }
           });
         }
-        
+
         // Add class 1 points
         if (scatterViz.data.class1) {
           series.push({
@@ -474,10 +349,10 @@ const handleTrain = async () => {
             }
           });
         }
-        
+
         scatterSeries.value = series;
       }
-      
+
       // Heatmap for decision boundary
       const heatmapViz = visualizations.find(v => v.type === 'heatmap');
       if (heatmapViz && heatmapViz.data) {
@@ -487,7 +362,7 @@ const handleTrain = async () => {
           z: heatmapViz.data.z
         };
       }
-      
+
       // Loss curve
       if (visualizations.length > 1) {
         const lossViz = visualizations.find(v => v.data.name === 'Training Loss');
@@ -500,7 +375,7 @@ const handleTrain = async () => {
             width: lossViz.data.line?.width || 2,
           }];
         }
-        
+
         // Accuracy curve
         const accuracyViz = visualizations.find(v => v.data.name === 'Training Accuracy');
         if (accuracyViz && accuracyViz.type === 'line' && accuracyViz.data) {
@@ -514,7 +389,7 @@ const handleTrain = async () => {
         }
       }
     }
-    
+
     trainingProgress.value = 1;
   } catch (err) {
     console.error('Training error:', err);

@@ -4,19 +4,11 @@
     description="Learn how PCA reduces dimensionality while preserving variance in data"
     difficulty="intermediate"
     :estimated-time="35"
+    :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
     <template #content>
-      <ContentSection
-        title="Introduction"
-        :markdown-content="contentMarkdown"
-      />
-      
-      <ContentSection
-        title="How It Works"
-        collapsible
-        :markdown-content="howItWorksMarkdown"
-      />
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <!-- Interactive Section -->
@@ -138,6 +130,7 @@ import { ref, onMounted } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useProgressStore } from '~/stores/progress';
 import { useDataset } from '~/composables/useDataset';
+import { useTableOfContents } from '~/composables/useTableOfContents';
 import { PCA } from '~/algorithms/advanced/PCA';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -146,59 +139,16 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+import { queryCollection } from '~/imports';
+import { useAsyncData } from '#app';
 
-// Content
-const contentMarkdown = `
-# Principal Component Analysis (PCA)
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/advanced/pca/content').first()
+);
 
-PCA is a dimensionality reduction technique that transforms high-dimensional data into a lower-dimensional space while preserving as much variance as possible. It identifies the directions (principal components) along which the data varies the most.
-
-## What You'll Learn
-
-- How PCA finds principal components using eigenvalue decomposition
-- How to interpret explained variance and scree plots
-- How to visualize high-dimensional data in 2D or 3D
-- When to use PCA for dimensionality reduction
-- The trade-off between dimensionality and information preservation
-`;
-
-const howItWorksMarkdown = `
-## The PCA Algorithm
-
-PCA works through these steps:
-
-1. **Standardize the data**: Center and scale features to have zero mean and unit variance
-2. **Compute covariance matrix**: Measure how features vary together
-3. **Find eigenvectors and eigenvalues**: These define the principal components
-4. **Sort by eigenvalue**: Larger eigenvalues indicate more important components
-5. **Project data**: Transform data onto the principal component space
-
-## Principal Components
-
-Principal components are orthogonal (perpendicular) directions in the feature space:
-
-- **PC1**: Direction of maximum variance
-- **PC2**: Direction of maximum remaining variance (orthogonal to PC1)
-- **PC3**: Direction of maximum remaining variance (orthogonal to PC1 and PC2)
-- And so on...
-
-## Explained Variance
-
-The explained variance ratio tells you how much information each component captures:
-
-- A component with 40% explained variance captures 40% of the total data variance
-- Cumulative variance shows total information retained
-- Typically aim for 80-95% cumulative variance
-
-## Scree Plot
-
-The scree plot shows explained variance for each component:
-
-- Look for an "elbow" where variance drops off
-- Components before the elbow are usually kept
-- Components after contribute little additional information
-`;
-
+// Extract table of contents from content
+const tableOfContents = useTableOfContents(content);
 
 // Stores and composables
 const moduleStore = useModuleStore();

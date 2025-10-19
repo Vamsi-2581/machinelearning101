@@ -4,11 +4,10 @@
     title="Missing Value Imputation"
     domain="preprocessing"
     difficulty="beginner"
+    :table-of-contents="tableOfContents"
   >
     <template #content>
-      <ContentSection title="Missing Value Imputation">
-        <div v-html="content" />
-      </ContentSection>
+      <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
 
     <template #interactive>
@@ -167,6 +166,15 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { MissingValueImputation, type ImputationMethod } from '~/algorithms/preprocessing/MissingValueImputation';
+import { useTableOfContents } from '~/composables/useTableOfContents';
+
+// Load content from Nuxt Content
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/preprocessing/missing-value-imputation/content').first()
+);
+
+// Extract table of contents
+const tableOfContents = useTableOfContents(content);
 
 // Component state
 const params = ref({
@@ -179,7 +187,6 @@ const params = ref({
 const isProcessing = ref(false);
 const imputer = ref<MissingValueImputation | null>(null);
 const result = ref<any>(null);
-const content = ref('');
 const quizData = ref<any>(null);
 
 // Controls configuration
@@ -372,14 +379,10 @@ const handleQuizComplete = (score: number) => {
 // Load content on mount
 onMounted(async () => {
   try {
-    // Load content using fetch instead of dynamic import
-    const contentResponse = await fetch('/content/modules/preprocessing/missing-value-imputation/content.md');
-    content.value = await contentResponse.text();
-    
     const quizResponse = await fetch('/content/modules/preprocessing/missing-value-imputation/quiz.json');
     quizData.value = await quizResponse.json();
   } catch (error) {
-    console.error('Error loading content:', error);
+    console.error('Error loading quiz:', error);
   }
   
   // Generate initial data
