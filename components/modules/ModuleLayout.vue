@@ -1,9 +1,5 @@
 <template>
   <div class="module-layout">
-    <!-- Skip to content link for accessibility -->
-    <a href="#main-content" class="skip-link">
-      Skip to main content
-    </a>
 
     <!-- Module Header (Sticky) -->
     <header class="module-header" :class="{ 'is-sticky': isHeaderSticky }">
@@ -103,6 +99,9 @@
           :suggested-module="suggestedModule" />
       </div>
     </main>
+
+    <!-- Footer -->
+    <Footer />
   </div>
 </template>
 
@@ -113,6 +112,7 @@ import { useBreadcrumbs } from '~/composables/useBreadcrumbs';
 import { useKeyboardShortcuts } from '../../composables/useKeyboardShortcuts';
 import Breadcrumb from '~/components/shared/Breadcrumb.vue';
 import ModuleNavigation from '~/components/modules/ModuleNavigation.vue';
+import Footer from '../layout/Footer.vue';
 import type { ModuleNavItem } from '~/types/module';
 
 interface TocLink {

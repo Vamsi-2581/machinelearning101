@@ -29,6 +29,7 @@
             to="/"
             class="flex items-center space-x-2 text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
           >
+            <Icon name="mdi:brain" class="w-8 h-8 text-blue-600" />
             <span>ML Simplified</span>
           </NuxtLink>
         </div>
