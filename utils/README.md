@@ -1,11 +1,12 @@
-# localStorage Utilities
+# Utilities
 
-This directory contains utilities for managing browser localStorage with robust error handling, quota management, and state persistence.
+This directory contains utilities for managing browser localStorage, API communication, and other common functionality with robust error handling.
 
 ## Files
 
 - **storage.ts** - Core storage service with quota handling and data migration
 - **storage.example.ts** - Usage examples and patterns
+- **api-client.ts** - HTTP client for backend API communication with authentication
 - **pinia-persistence.ts** (in plugins/) - Pinia plugin for automatic state persistence
 
 ## Features
@@ -35,6 +36,25 @@ This directory contains utilities for managing browser localStorage with robust 
 - `keys()` - Get all keys
 - `getStorageInfo()` - Get storage usage info
 
+### API Client (`api-client.ts`)
+
+#### ✅ Authentication
+- Automatic JWT token injection from auth store
+- Bearer token authentication
+- Automatic logout on 401 Unauthorized
+
+#### ✅ HTTP Methods
+- `get<T>(endpoint)` - GET request with authentication
+- `post<T>(endpoint, data?)` - POST request with authentication
+- `put<T>(endpoint, data?)` - PUT request with authentication
+- `delete<T>(endpoint)` - DELETE request with authentication
+
+#### ✅ Error Handling
+- Automatic 401 handling with logout and redirect
+- Error response parsing
+- Network error handling
+- Console logging for debugging
+
 ### Pinia Persistence Plugin (`plugins/pinia-persistence.ts`)
 
 #### ✅ Auto-Save
@@ -55,6 +75,40 @@ This directory contains utilities for managing browser localStorage with robust 
 - Custom event emission for user notification
 
 ## Usage
+
+### API Client
+
+```typescript
+import { useApiClient } from '~/utils/api-client';
+
+// Get singleton instance
+const apiClient = useApiClient();
+
+// GET request (authenticated if token exists)
+const user = await apiClient.get('/api/auth/me');
+
+// POST request with data
+const result = await apiClient.post('/api/progress/sync', {
+  modules: [{ id: 'linear-regression', completed: true }],
+  quizzes: [],
+  bookmarks: []
+});
+
+// PUT request
+await apiClient.put('/api/users/profile', { name: 'New Name' });
+
+// DELETE request
+await apiClient.delete('/api/bookmarks/123');
+
+// Error handling
+try {
+  const data = await apiClient.get('/api/protected');
+} catch (error) {
+  // 401 errors automatically logout and redirect
+  // Other errors can be handled here
+  console.error('API request failed:', error);
+}
+```
 
 ### Basic Storage Operations
 
@@ -188,8 +242,15 @@ type StorageErrorType =
 
 ## Requirements Satisfied
 
+### Storage
 - ✅ 9.1: Save state to browser local storage
 - ✅ 9.2: Restore session state on return
 - ✅ 9.5: Handle storage quota exceeded with user notification
 - ✅ Data migration for version updates
 - ✅ Debouncing to prevent excessive writes
+
+### API Client
+- ✅ 3.1: JWT token validation and authentication
+- ✅ 8.6: Automatic logout on 401 errors
+- ✅ HTTP methods with authentication headers
+- ✅ Error handling and logging

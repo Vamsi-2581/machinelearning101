@@ -32,7 +32,8 @@
 ├── stores/            # Pinia stores
 ├── types/             # TypeScript type definitions
 ├── utils/             # Utility functions
-└── workers/           # Web Workers for computation
+└── service-workers/   # Web Workers for computation
+└── worker/           # Cloudflare workers for backend infra
 ```
 
 ## Key Patterns

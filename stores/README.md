@@ -91,6 +91,44 @@ if (analyticsStore.isEnabled) {
 }
 ```
 
+### Auth Store (`auth.ts`)
+
+Manages user authentication state with localStorage persistence.
+
+**Usage:**
+
+```typescript
+const authStore = useAuthStore();
+
+// Set user and token
+authStore.setUser({
+  id: '123',
+  email: 'user@example.com',
+  name: 'John Doe',
+  picture_url: 'https://example.com/pic.jpg',
+});
+authStore.setToken('jwt-token-here');
+
+// Update user profile
+authStore.updateUser({ name: 'Jane Doe' });
+
+// Set loading state
+authStore.setLoading(true);
+
+// Access state
+const isAuthenticated = authStore.isAuthenticated;
+const userName = authStore.displayName;
+const userEmail = authStore.userEmail;
+const profilePic = authStore.profilePicture;
+const hasToken = authStore.hasValidToken;
+
+// Logout
+authStore.clearAuth();
+
+// Initialize (loads from localStorage)
+authStore.initialize();
+```
+
 ## Initialization
 
 Stores are automatically initialized by the Pinia plugin (`plugins/pinia.ts`):
@@ -105,7 +143,7 @@ Stores are automatically initialized by the Pinia plugin (`plugins/pinia.ts`):
 Use the `useStores` composable for convenient access to all stores:
 
 ```typescript
-const { moduleStore, progressStore, analyticsStore } = useStores();
+const { moduleStore, progressStore, analyticsStore, authStore } = useStores();
 ```
 
 ## Type Safety
@@ -116,6 +154,7 @@ All stores are fully typed with TypeScript. Import types from the store files:
 import type { ModuleState } from '~/stores/module';
 import type { ProgressState } from '~/stores/progress';
 import type { AnalyticsState } from '~/stores/analytics';
+import type { AuthState, User } from '~/stores/auth';
 ```
 
 ## Requirements Mapping
@@ -123,3 +162,4 @@ import type { AnalyticsState } from '~/stores/analytics';
 - **Module Store**: Requirements 14.2, 2.6
 - **Progress Store**: Requirements 9.1, 9.2, 9.4, 9.6
 - **Analytics Store**: Requirements 11.1, 11.2, 11.3, 11.6
+- **Auth Store**: Requirements 8.4

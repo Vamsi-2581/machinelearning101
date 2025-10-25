@@ -77,6 +77,11 @@ export default defineNuxtConfig({
       // NUXT_PUBLIC_PLAUSIBLE_HOST=https://plausible.io (optional)
       plausibleDomain: "",
       plausibleHost: "https://plausible.io",
+      
+      // API URL for authentication backend
+      // Set via environment variable:
+      // NUXT_PUBLIC_API_URL=https://api.yourdomain.com
+      apiUrl: "",
     },
   },
 

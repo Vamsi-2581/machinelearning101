@@ -111,7 +111,7 @@ Heavy computations run in Web Workers to avoid blocking the UI:
 
 ```typescript
 // Main thread
-const worker = new Worker('/workers/algorithm-worker.ts');
+const worker = new Worker('/service-workers/algorithm-worker.ts');
 worker.postMessage({ type: 'train', data, params });
 
 // Worker thread

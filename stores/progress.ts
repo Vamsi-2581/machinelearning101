@@ -5,9 +5,10 @@ import type { Bookmark } from '~/types/progress';
  * Progress Store
  * 
  * Manages user progress tracking including completed modules,
- * quiz scores, bookmarks, and session data. Persists to localStorage.
+ * quiz scores, bookmarks, and session data. Persists to localStorage
+ * and syncs to cloud when user is authenticated.
  * 
- * Requirements: 9.1, 9.2, 9.4, 9.6
+ * Requirements: 9.1, 9.2, 9.4, 9.6, 8.7, 4.1, 4.2, 4.3
  */
 
 export interface ProgressState {
@@ -92,12 +93,47 @@ export const useProgressStore = defineStore('progress', {
 
   actions: {
     /**
+     * Trigger cloud sync if user is authenticated
+     * Requirements: 8.7, 4.1, 4.2, 4.3
+     */
+    async triggerSync(): Promise<void> {
+      // Only run in browser environment
+      if (typeof window === 'undefined') return;
+      
+      try {
+        // Dynamically import to avoid circular dependency
+        const { useAuth } = await import('~/composables/useAuth');
+        const { syncProgress, isAuthenticated } = useAuth();
+        
+        // Only sync if user is authenticated
+        if (isAuthenticated.value) {
+          // Use setTimeout to avoid blocking the UI
+          setTimeout(() => {
+            syncProgress().catch(error => {
+              // Silently fail - sync is a background operation
+              console.error('Background sync failed:', error);
+            });
+          }, 100);
+        }
+      } catch (error) {
+        // Silently fail in test environments or when composable is not available
+        // This is expected behavior when running tests
+        if (process.env.NODE_ENV !== 'test') {
+          console.error('Failed to trigger sync:', error);
+        }
+      }
+    },
+
+    /**
      * Mark a module as completed
+     * Requirements: 4.1
      */
     markModuleComplete(moduleId: string): void {
       if (!this.completedModules.includes(moduleId)) {
         this.completedModules.push(moduleId);
         this.saveToStorage();
+        // Sync to cloud if authenticated
+        this.triggerSync();
       }
     },
 
@@ -114,14 +150,18 @@ export const useProgressStore = defineStore('progress', {
 
     /**
      * Save quiz score for a module
+     * Requirements: 4.2
      */
     saveQuizScore(moduleId: string, score: number): void {
       this.quizScores[moduleId] = score;
       this.saveToStorage();
+      // Sync to cloud if authenticated
+      this.triggerSync();
     },
 
     /**
      * Add a bookmark
+     * Requirements: 4.3
      */
     addBookmark(bookmark: Omit<Bookmark, 'id' | 'timestamp'>): void {
       const newBookmark: Bookmark = {
@@ -131,16 +171,21 @@ export const useProgressStore = defineStore('progress', {
       };
       this.bookmarks.push(newBookmark);
       this.saveToStorage();
+      // Sync to cloud if authenticated
+      this.triggerSync();
     },
 
     /**
      * Remove a bookmark by ID
+     * Requirements: 4.3
      */
     removeBookmark(bookmarkId: string): void {
       const index = this.bookmarks.findIndex(b => b.id === bookmarkId);
       if (index > -1) {
         this.bookmarks.splice(index, 1);
         this.saveToStorage();
+        // Sync to cloud if authenticated
+        this.triggerSync();
       }
     },
 

@@ -31,7 +31,7 @@ export class WorkerManager {
     
     try {
       this.worker = new Worker(
-        new URL('~/workers/algorithm-worker.ts', import.meta.url),
+        new URL('~/service-workers/algorithm-worker.ts', import.meta.url),
         { type: 'module' }
       );
       
