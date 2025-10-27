@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
+    "nuxt-gtag",
+    '@pinia/nuxt', // required
+    'pinia-plugin-persistedstate/nuxt',
   ],
 
   // Component auto-import configuration
@@ -68,16 +71,30 @@ export default defineNuxtConfig({
     },
   },
 
+  // Google Analytics configuration
+  gtag: {
+    // Set via environment variable: NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
+    id: process.env.NUXT_PUBLIC_GTAG_ID || "",
+    initMode: "manual", // Manual initialization for GDPR compliance
+    initCommands: [
+      // Setup consent mode v2 - default to denied
+      [
+        "consent",
+        "default",
+        {
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          ad_storage: "denied",
+          analytics_storage: "denied",
+          wait_for_update: 500,
+        },
+      ],
+    ],
+  },
+
   // Runtime configuration
   runtimeConfig: {
     public: {
-      // Plausible Analytics configuration
-      // Set via environment variables:
-      // NUXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com
-      // NUXT_PUBLIC_PLAUSIBLE_HOST=https://plausible.io (optional)
-      plausibleDomain: "",
-      plausibleHost: "https://plausible.io",
-      
       // API URL for authentication backend
       // Set via environment variable:
       // NUXT_PUBLIC_API_URL=https://api.yourdomain.com

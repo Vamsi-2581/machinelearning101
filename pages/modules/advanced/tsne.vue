@@ -144,6 +144,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -169,6 +171,7 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -292,7 +295,7 @@ onMounted(async () => {
   await loadInitialDataset();
   
   // Load quiz data
-  await loadQuiz('tsne', '/content/modules/advanced/tsne/quiz.json');
+  await loadQuiz('advanced/tsne', '/content/modules/advanced/tsne/quiz.json');
 });
 
 /**

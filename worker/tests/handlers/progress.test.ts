@@ -113,7 +113,7 @@ describe('Progress Handlers', () => {
       
       // Verify database operations were called
       expect(database.saveProgress).toHaveBeenCalledWith(
-        mockEnv.DB,
+        mockenv.ml_platform_db,
         'user-123',
         'linear-regression',
         true,
@@ -121,7 +121,7 @@ describe('Progress Handlers', () => {
       )
       
       expect(database.saveQuizScore).toHaveBeenCalledWith(
-        mockEnv.DB,
+        mockenv.ml_platform_db,
         'user-123',
         'linear-regression',
         8,
@@ -130,7 +130,7 @@ describe('Progress Handlers', () => {
       )
       
       expect(database.saveBookmark).toHaveBeenCalledWith(
-        mockEnv.DB,
+        mockenv.ml_platform_db,
         'user-123',
         'linear-regression',
         1234567890
@@ -369,7 +369,7 @@ describe('Progress Handlers', () => {
       
       // Verify saveProgress was called with the newer timestamp
       expect(database.saveProgress).toHaveBeenCalledWith(
-        mockEnv.DB,
+        mockenv.ml_platform_db,
         'user-123',
         'linear-regression',
         true,
@@ -474,9 +474,9 @@ describe('Progress Handlers', () => {
       expect(result.bookmarks).toEqual(mockBookmarks)
       
       // Verify database operations were called
-      expect(database.getProgressByUserId).toHaveBeenCalledWith(mockEnv.DB, 'user-123')
-      expect(database.getQuizScoresByUserId).toHaveBeenCalledWith(mockEnv.DB, 'user-123')
-      expect(database.getBookmarksByUserId).toHaveBeenCalledWith(mockEnv.DB, 'user-123')
+      expect(database.getProgressByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
+      expect(database.getQuizScoresByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
+      expect(database.getBookmarksByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
     })
     
     it('should return empty arrays when user has no progress', async () => {

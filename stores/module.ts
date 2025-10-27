@@ -28,7 +28,7 @@ export const useModuleStore = defineStore('module', {
     isTraining: false,
     trainingProgress: 0,
   }),
-
+ 
   getters: {
     /**
      * Get current parameters

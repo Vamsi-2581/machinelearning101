@@ -4,9 +4,9 @@ compatibility_date = "2024-01-01"
 
 # D1 Database binding
 [[d1_databases]]
-binding = "DB"
+binding = "ml_platform_db"
 database_name = "ml-platform-db"
-database_id = "" # Will be set after creating the database
+database_id = "a881d481-2635-44d9-8bcc-ed0723177e47"
 
 # Environment variables (secrets should be set via wrangler secret put)
 [vars]

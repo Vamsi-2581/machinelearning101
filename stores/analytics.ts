@@ -6,6 +6,7 @@ import type { AnalyticsEvent, AnalyticsEventType } from '~/types/analytics';
  * 
  * Manages usage tracking and analytics with privacy controls.
  * All tracking is anonymous and respects user opt-in/opt-out preferences.
+ * Uses Pinia persistence plugin for localStorage.
  * 
  * Requirements: 11.1, 11.2, 11.3, 11.6
  */
@@ -18,7 +19,6 @@ export interface AnalyticsState {
   initialized: boolean;
 }
 
-const STORAGE_KEY = 'ml-platform-analytics-config';
 const MAX_EVENTS = 100; // Keep only recent events in memory
 
 export const useAnalyticsStore = defineStore('analytics', {
@@ -29,6 +29,11 @@ export const useAnalyticsStore = defineStore('analytics', {
     anonymousId: '',
     initialized: false,
   }),
+
+  persist: {
+      key: 'ml-platform-analytics-config',
+      storage: piniaPluginPersistedstate.localStorage(), 
+  },
 
   getters: {
     /**
@@ -191,7 +196,7 @@ export const useAnalyticsStore = defineStore('analytics', {
      */
     setOptIn(value: boolean): void {
       this.optedIn = value;
-      this.saveConfig();
+      // Persistence handled automatically by plugin
 
       // Track opt-in/opt-out event (only if opting in)
       if (value) {
@@ -208,7 +213,7 @@ export const useAnalyticsStore = defineStore('analytics', {
      * Generate anonymous ID
      */
     generateAnonymousId(): string {
-      return `anon-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      return `anon-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
     },
 
     /**
@@ -217,11 +222,10 @@ export const useAnalyticsStore = defineStore('analytics', {
     initialize(): void {
       if (this.initialized) return;
 
-      this.loadConfig();
-      
+      // Persistence plugin handles loading from localStorage
       if (!this.anonymousId) {
         this.anonymousId = this.generateAnonymousId();
-        this.saveConfig();
+        // Persistence handled automatically by plugin
       }
 
       this.sessionStart = Date.now();
@@ -236,46 +240,8 @@ export const useAnalyticsStore = defineStore('analytics', {
     },
 
     /**
-     * Save configuration to localStorage
-     */
-    saveConfig(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const config = {
-          optedIn: this.optedIn,
-          anonymousId: this.anonymousId,
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-      } catch (error) {
-        console.error('Failed to save analytics config:', error);
-      }
-    },
-
-    /**
-     * Load configuration from localStorage
-     */
-    loadConfig(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const config = JSON.parse(stored);
-          this.optedIn = config.optedIn ?? false;
-          this.anonymousId = config.anonymousId || this.generateAnonymousId();
-        } else {
-          this.anonymousId = this.generateAnonymousId();
-        }
-      } catch (error) {
-        console.error('Failed to load analytics config:', error);
-        this.anonymousId = this.generateAnonymousId();
-      }
-    },
-
-    /**
      * Send event to analytics service
-     * Integrates with Plausible Analytics
+     * Integrates with Google Analytics via nuxt-gtag
      */
     sendToAnalyticsService(event: AnalyticsEvent): void {
       // Log in development
@@ -283,52 +249,52 @@ export const useAnalyticsStore = defineStore('analytics', {
         console.log('[Analytics]', event.type, event.data);
       }
 
-      // Send to Plausible if available (client-side only)
-      if (typeof window !== 'undefined' && (window as any).plausible) {
+      // Send to Google Analytics if available (client-side only)
+      if (typeof window !== 'undefined') {
         try {
-          const plausible = (window as any).plausible;
+          // Access gtag from window (injected by nuxt-gtag)
+          const gtag = (window as any).gtag;
           
-          // Map event types to Plausible event names
-          const eventName = this.mapEventTypeToPlausibleName(event.type);
-          
-          // Extract relevant props (Plausible only accepts string, number, boolean)
-          const props = this.extractPlausibleProps(event.data);
-          
-          if (Object.keys(props).length > 0) {
-            plausible(eventName, { props });
-          } else {
-            plausible(eventName);
+          if (gtag) {
+            // Map event types to GA4 event names
+            const eventName = this.mapEventTypeToGA4Name(event.type);
+            
+            // Extract relevant params for GA4
+            const params = this.extractGA4Params(event.data);
+            
+            // Send event to GA4
+            gtag('event', eventName, params);
           }
         } catch (error) {
-          console.error('[Analytics] Error sending to Plausible:', error);
+          console.error('[Analytics] Error sending to Google Analytics:', error);
         }
       }
     },
 
     /**
-     * Map internal event types to Plausible-friendly names
+     * Map internal event types to GA4-friendly names
      */
-    mapEventTypeToPlausibleName(type: AnalyticsEventType): string {
+    mapEventTypeToGA4Name(type: AnalyticsEventType): string {
       const mapping: Record<AnalyticsEventType, string> = {
-        page_view: 'pageview',
-        module_visit: 'Module Visit',
-        parameter_change: 'Parameter Change',
-        algorithm_run: 'Algorithm Run',
-        quiz_complete: 'Quiz Complete',
-        quiz_answer: 'Quiz Answer',
-        bookmark_add: 'Bookmark Add',
-        module_complete: 'Module Complete',
-        interaction: 'Interaction',
+        page_view: 'page_view',
+        module_visit: 'module_visit',
+        parameter_change: 'parameter_change',
+        algorithm_run: 'algorithm_run',
+        quiz_complete: 'quiz_complete',
+        quiz_answer: 'quiz_answer',
+        bookmark_add: 'bookmark_add',
+        module_complete: 'module_complete',
+        interaction: 'interaction',
       };
       return mapping[type] || type;
     },
 
     /**
-     * Extract Plausible-compatible props from event data
-     * Plausible only accepts string, number, and boolean values
+     * Extract GA4-compatible params from event data
+     * GA4 accepts string, number, and boolean values
      */
-    extractPlausibleProps(data: Record<string, any>): Record<string, string | number | boolean> {
-      const props: Record<string, string | number | boolean> = {};
+    extractGA4Params(data: Record<string, unknown>): Record<string, string | number | boolean> {
+      const params: Record<string, string | number | boolean> = {};
       
       for (const [key, value] of Object.entries(data)) {
         // Skip sessionId and sessionDuration as they're internal
@@ -336,14 +302,14 @@ export const useAnalyticsStore = defineStore('analytics', {
         
         // Only include primitive types
         if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-          props[key] = value;
+          params[key] = value;
         } else if (value !== null && value !== undefined) {
           // Convert objects/arrays to JSON strings
-          props[key] = JSON.stringify(value);
+          params[key] = JSON.stringify(value);
         }
       }
       
-      return props;
+      return params;
     },
 
     /**
@@ -360,7 +326,7 @@ export const useAnalyticsStore = defineStore('analytics', {
       this.events = [];
       this.anonymousId = this.generateAnonymousId();
       this.sessionStart = Date.now();
-      this.saveConfig();
+      // Persistence handled automatically by plugin
     },
   },
 });

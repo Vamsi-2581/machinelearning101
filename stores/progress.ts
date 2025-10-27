@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 import type { Bookmark } from '~/types/progress';
-
+import { useAuth } from '~/composables/useAuth'
 /**
  * Progress Store
  * 
  * Manages user progress tracking including completed modules,
- * quiz scores, bookmarks, and session data. Persists to localStorage
- * and syncs to cloud when user is authenticated.
+ * quiz scores, bookmarks, and session data. Uses Pinia persistence plugin
+ * for localStorage. Backend API is the source of truth for authenticated users.
  * 
  * Requirements: 9.1, 9.2, 9.4, 9.6, 8.7, 4.1, 4.2, 4.3
  */
@@ -18,9 +18,9 @@ export interface ProgressState {
   lastVisited: string | null;
   totalTimeSpent: number;
   sessionStart: number;
+  lastSyncedAt: number | null;
+  isSyncing: boolean;
 }
-
-const STORAGE_KEY = 'ml-platform-progress';
 
 export const useProgressStore = defineStore('progress', {
   state: (): ProgressState => ({
@@ -30,16 +30,25 @@ export const useProgressStore = defineStore('progress', {
     lastVisited: null,
     totalTimeSpent: 0,
     sessionStart: Date.now(),
+    lastSyncedAt: null,
+    isSyncing: false,
   }),
+
+  persist: {
+    key: 'ml-platform-progress',
+    storage: piniaPluginPersistedstate.localStorage(),
+  },
 
   getters: {
     /**
      * Calculate overall completion percentage
-     * Assumes a total number of modules (can be made dynamic)
+     * Note: This getter is deprecated. Use computed values with MODULE_REGISTRY instead.
+     * Kept for backward compatibility.
      */
     completionPercentage: (state): number => {
-      // This will be updated when we know the total number of modules
-      const totalModules = 20; // Placeholder
+      // Dynamic calculation should be done in components using MODULE_REGISTRY
+      // This is a fallback that assumes 9 modules based on current registry
+      const totalModules = 9;
       return state.completedModules.length > 0
         ? Math.round((state.completedModules.length / totalModules) * 100)
         : 0;
@@ -98,21 +107,29 @@ export const useProgressStore = defineStore('progress', {
      */
     async triggerSync(): Promise<void> {
       // Only run in browser environment
-      if (typeof window === 'undefined') return;
+      if (typeof window === 'undefined' || this.isSyncing) return;
       
       try {
         // Dynamically import to avoid circular dependency
-        const { useAuth } = await import('~/composables/useAuth');
+        
         const { syncProgress, isAuthenticated } = useAuth();
         
         // Only sync if user is authenticated
         if (isAuthenticated.value) {
+          this.isSyncing = true;
           // Use setTimeout to avoid blocking the UI
           setTimeout(() => {
-            syncProgress().catch(error => {
-              // Silently fail - sync is a background operation
-              console.error('Background sync failed:', error);
-            });
+            syncProgress()
+              .then(() => {
+                this.lastSyncedAt = Date.now();
+              })
+              .catch((error: Error) => {
+                // Silently fail - sync is a background operation
+                console.error('Background sync failed:', error);
+              })
+              .finally(() => {
+                this.isSyncing = false;
+              });
           }, 100);
         }
       } catch (error) {
@@ -121,7 +138,64 @@ export const useProgressStore = defineStore('progress', {
         if (process.env.NODE_ENV !== 'test') {
           console.error('Failed to trigger sync:', error);
         }
+        this.isSyncing = false;
       }
+    },
+
+    /**
+     * Load progress from backend API (for authenticated users)
+     * Requirements: 8.7
+     */
+    async loadFromBackend(): Promise<boolean> {
+      if (typeof window === 'undefined') return false;
+
+      try { 
+        const { fetchProgress, isAuthenticated } = useAuth();
+
+        if (isAuthenticated.value) {
+          const success = await fetchProgress();
+          if (success) {
+            this.lastSyncedAt = Date.now();
+          }
+          return success;
+        }
+        return false;
+      } catch (error) {
+        console.error('Failed to load progress from backend:', error);
+        return false;
+      }
+    },
+
+    /**
+     * Merge backend data with local data
+     * Backend is the source of truth for authenticated users
+     */
+    mergeBackendData(backendData: {
+      completedModules: string[];
+      quizScores: Record<string, number>;
+      bookmarks: Bookmark[];
+    }): void {
+      // For completed modules: union of both sets
+      const allCompleted = new Set([...this.completedModules, ...backendData.completedModules]);
+      this.completedModules = Array.from(allCompleted);
+
+      // For quiz scores: use higher score
+      for (const [moduleId, score] of Object.entries(backendData.quizScores)) {
+        const localScore = this.quizScores[moduleId];
+        if (!localScore || score > localScore) {
+          this.quizScores[moduleId] = score;
+        }
+      }
+
+      // For bookmarks: merge by moduleId (avoid duplicates)
+      const bookmarkMap = new Map(this.bookmarks.map(b => [b.moduleId, b]));
+      for (const bookmark of backendData.bookmarks) {
+        if (!bookmarkMap.has(bookmark.moduleId)) {
+          this.bookmarks.push(bookmark);
+        }
+      }
+
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -131,7 +205,7 @@ export const useProgressStore = defineStore('progress', {
     markModuleComplete(moduleId: string): void {
       if (!this.completedModules.includes(moduleId)) {
         this.completedModules.push(moduleId);
-        this.saveToStorage();
+        // Persistence handled automatically by plugin
         // Sync to cloud if authenticated
         this.triggerSync();
       }
@@ -144,7 +218,8 @@ export const useProgressStore = defineStore('progress', {
       const index = this.completedModules.indexOf(moduleId);
       if (index > -1) {
         this.completedModules.splice(index, 1);
-        this.saveToStorage();
+        // Persistence handled automatically by plugin
+        this.triggerSync();
       }
     },
 
@@ -154,7 +229,7 @@ export const useProgressStore = defineStore('progress', {
      */
     saveQuizScore(moduleId: string, score: number): void {
       this.quizScores[moduleId] = score;
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
       // Sync to cloud if authenticated
       this.triggerSync();
     },
@@ -166,11 +241,11 @@ export const useProgressStore = defineStore('progress', {
     addBookmark(bookmark: Omit<Bookmark, 'id' | 'timestamp'>): void {
       const newBookmark: Bookmark = {
         ...bookmark,
-        id: `bookmark-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        id: `bookmark-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
         timestamp: Date.now(),
       };
       this.bookmarks.push(newBookmark);
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
       // Sync to cloud if authenticated
       this.triggerSync();
     },
@@ -180,11 +255,10 @@ export const useProgressStore = defineStore('progress', {
      * Requirements: 4.3
      */
     removeBookmark(bookmarkId: string): void {
-      const index = this.bookmarks.findIndex(b => b.id === bookmarkId);
+      const index = this.bookmarks.findIndex((b: Bookmark) => b.id === bookmarkId);
       if (index > -1) {
         this.bookmarks.splice(index, 1);
-        this.saveToStorage();
-        // Sync to cloud if authenticated
+        // Persistence handled automatically by plugin
         this.triggerSync();
       }
     },
@@ -194,7 +268,7 @@ export const useProgressStore = defineStore('progress', {
      */
     setLastVisited(moduleId: string): void {
       this.lastVisited = moduleId;
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -202,7 +276,7 @@ export const useProgressStore = defineStore('progress', {
      */
     addTimeSpent(minutes: number): void {
       this.totalTimeSpent += minutes;
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -215,73 +289,8 @@ export const useProgressStore = defineStore('progress', {
       this.lastVisited = null;
       this.totalTimeSpent = 0;
       this.sessionStart = Date.now();
-      this.clearStorage();
-    },
-
-    /**
-     * Save state to localStorage
-     */
-    saveToStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const data = {
-          completedModules: this.completedModules,
-          quizScores: this.quizScores,
-          bookmarks: this.bookmarks,
-          lastVisited: this.lastVisited,
-          totalTimeSpent: this.totalTimeSpent,
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (error) {
-        console.error('Failed to save progress to localStorage:', error);
-        // Handle quota exceeded or other storage errors
-        if (error instanceof Error && error.name === 'QuotaExceededError') {
-          console.warn('localStorage quota exceeded. Consider clearing old data.');
-        }
-      }
-    },
-
-    /**
-     * Load state from localStorage
-     */
-    loadFromStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const data = JSON.parse(stored);
-          this.completedModules = data.completedModules || [];
-          this.quizScores = data.quizScores || {};
-          this.bookmarks = data.bookmarks || [];
-          this.lastVisited = data.lastVisited || null;
-          this.totalTimeSpent = data.totalTimeSpent || 0;
-        }
-      } catch (error) {
-        console.error('Failed to load progress from localStorage:', error);
-      }
-    },
-
-    /**
-     * Clear localStorage
-     */
-    clearStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (error) {
-        console.error('Failed to clear localStorage:', error);
-      }
-    },
-
-    /**
-     * Initialize the store (call on app mount)
-     */
-    initialize(): void {
-      this.loadFromStorage();
-      this.sessionStart = Date.now();
+      this.lastSyncedAt = null;
+      // Persistence handled automatically by plugin
     },
   },
 });

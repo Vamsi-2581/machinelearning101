@@ -157,6 +157,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -373,7 +375,7 @@ onMounted(async () => {
   initializeVisualization();
   
   // Load quiz data
-  await loadQuiz('gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
+  await loadQuiz('optimization/gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
 });
 
 /**

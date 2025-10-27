@@ -14,8 +14,8 @@
               Privacy & Analytics
             </h3>
             <p id="cookie-consent-description" class="banner-description">
-              We use privacy-focused analytics to understand how you use our platform and improve your learning experience. 
-              No personal data is collected, and no cookies are used for tracking. 
+              We use Google Analytics to understand how you use our platform and improve your learning experience. 
+              Only anonymous usage data is collected. No personal information is tracked. 
               <NuxtLink to="/privacy" class="privacy-link">Learn more</NuxtLink>
             </p>
           </div>
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useAnalyticsStore } from '~/stores/analytics';
+import { useGtag } from '#imports';
 import Button from '~/components/shared/Button.vue';
 
 /**
@@ -52,11 +53,13 @@ import Button from '~/components/shared/Button.vue';
  * 
  * Displays a banner on first visit asking users to opt in to analytics.
  * Respects user preferences and doesn't show again after choice is made.
+ * Integrates with Google Consent Mode v2.
  * 
  * Requirements: 11.6, 11.7
  */
 
 const analyticsStore = useAnalyticsStore();
+const { gtag, initialize } = useGtag();
 const showBanner = ref(false);
 
 const CONSENT_KEY = 'ml-platform-consent-shown';
@@ -73,6 +76,18 @@ onMounted(() => {
     setTimeout(() => {
       showBanner.value = true;
     }, 1000);
+  } else {
+    // If user previously accepted, initialize analytics
+    const optedIn = analyticsStore.optedIn;
+    if (optedIn) {
+      initialize();
+      gtag('consent', 'update', {
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        ad_storage: 'denied',
+        analytics_storage: 'granted',
+      });
+    }
   }
 });
 
@@ -82,6 +97,16 @@ onMounted(() => {
 const handleAccept = () => {
   analyticsStore.setOptIn(true);
   localStorage.setItem(CONSENT_KEY, 'true');
+  
+  // Initialize Google Analytics and grant consent
+  initialize();
+  gtag('consent', 'update', {
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    ad_storage: 'denied',
+    analytics_storage: 'granted',
+  });
+  
   showBanner.value = false;
 };
 

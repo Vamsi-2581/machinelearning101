@@ -59,12 +59,7 @@
       "id": "q5",
       "type": "multiple-choice",
       "question": "What is the range of the silhouette score?",
-      "options": [
-        "0 to 1",
-        "0 to 100",
-        "-1 to 1",
-        "Any positive number"
-      ],
+      "options": ["0 to 1", "0 to 100", "-1 to 1", "Any positive number"],
       "correctAnswer": 2,
       "explanation": "The silhouette score ranges from -1 to +1. A score close to +1 means points are well-matched to their cluster and far from others. A score close to 0 means points are on cluster borders. A negative score suggests points might be in the wrong cluster."
     },
@@ -163,10 +158,7 @@
       "id": "q13",
       "type": "true-false",
       "question": "True or False: K-Means requires you to specify the number of clusters (k) before running the algorithm.",
-      "options": [
-        "True",
-        "False"
-      ],
+      "options": ["True", "False"],
       "correctAnswer": 0,
       "explanation": "True. K-Means requires you to specify k (the number of clusters) as a hyperparameter before running. This is one of its main limitations. You can use methods like the elbow method or silhouette analysis to help choose an appropriate k, but the algorithm itself doesn't determine the optimal number of clusters."
     },
@@ -174,10 +166,7 @@
       "id": "q14",
       "type": "true-false",
       "question": "True or False: A higher silhouette score always means better clustering.",
-      "options": [
-        "True",
-        "False"
-      ],
+      "options": ["True", "False"],
       "correctAnswer": 0,
       "explanation": "True. The silhouette score ranges from -1 to +1, where higher values indicate better clustering. A score close to +1 means points are well-matched to their own cluster and poorly-matched to neighboring clusters. Scores above 0.5 generally indicate reasonable to strong cluster structure."
     },
@@ -185,10 +174,7 @@
       "id": "q15",
       "type": "true-false",
       "question": "True or False: K-Means can discover clusters of any shape, including crescents and rings.",
-      "options": [
-        "True",
-        "False"
-      ],
+      "options": ["True", "False"],
       "correctAnswer": 1,
       "explanation": "False. K-Means works best with spherical (circular/round) clusters and struggles with complex shapes like crescents, rings, or elongated clusters. This is because K-Means uses Euclidean distance and assumes clusters are convex and isotropic. For complex shapes, algorithms like DBSCAN or spectral clustering are more appropriate."
     }

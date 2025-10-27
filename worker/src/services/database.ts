@@ -78,6 +78,7 @@ export async function getUserByGoogleId(db: D1Database, googleId: string): Promi
 
     return result
   } catch (error) {
+    console.error(error)
     throw {
       code: ErrorCode.DATABASE_ERROR,
       message: 'Failed to get user by Google ID',

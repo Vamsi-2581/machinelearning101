@@ -124,18 +124,18 @@ export async function handleOAuthCallback(
     const userProfile = await fetchUserProfile(tokenResponse.access_token)
     
     // Check if user exists in database
-    let user = await getUserByGoogleId(env.DB, userProfile.id)
+    let user = await getUserByGoogleId(env.ml_platform_db, userProfile.id)
     
     if (user) {
       // Update existing user with latest profile data
-      user = await updateUser(env.DB, user.id, {
+      user = await updateUser(env.ml_platform_db, user.id, {
         email: userProfile.email,
         name: userProfile.name,
         picture_url: userProfile.picture
       })
     } else {
       // Create new user
-      user = await createUser(env.DB, {
+      user = await createUser(env.ml_platform_db, {
         google_id: userProfile.id,
         email: userProfile.email,
         name: userProfile.name,
@@ -195,8 +195,9 @@ export async function handleGetUserProfile(
     const authContext = await authenticateRequest(request, env)
     
     // Fetch user from database
-    const user = await getUserById(env.DB, authContext.user.id)
+    const user = await getUserById(env.ml_platform_db, authContext.user.id)
     
+    console.log(JSON.stringify(user))
     if (!user) {
       throw createNotFoundError('User not found')
     }
@@ -208,6 +209,8 @@ export async function handleGetUserProfile(
       name: user.name,
       picture_url: user.picture_url
     }
+
+    console.log(JSON.stringify(profileResponse))
     
     return new Response(JSON.stringify(profileResponse), {
       status: 200,

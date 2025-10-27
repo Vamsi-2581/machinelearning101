@@ -117,6 +117,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -142,7 +144,8 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app'; 
+import { useAsyncData } from '#app';  
+
 
 const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/classification/logistic-regression/content').first())
 
@@ -237,7 +240,7 @@ onMounted(async () => {
   
   // Load quiz data
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
-  await loadQuiz('logistic-regression', '/content/modules/classification/logistic-regression/quiz.json');
+  await loadQuiz('classification/logistic-regression', '/content/modules/classification/logistic-regression/quiz.json');
 });
 
 /**

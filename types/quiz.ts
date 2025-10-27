@@ -18,6 +18,7 @@ export interface Quiz {
   moduleId: string;
   title: string;
   questions: QuizQuestion[];
+  passingScore?: number;
 }
 
 export interface QuizAnswer {

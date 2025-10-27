@@ -135,6 +135,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -162,6 +164,7 @@ import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
 import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -245,7 +248,7 @@ onMounted(async () => {
   
   // Load quiz data
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
-  await loadQuiz('pca', '/content/modules/advanced/pca/quiz.json');
+  await loadQuiz('advanced/pca', '/content/modules/advanced/pca/quiz.json');
 });
 
 /**

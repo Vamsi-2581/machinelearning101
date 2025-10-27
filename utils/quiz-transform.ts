@@ -179,6 +179,7 @@ export function transformQuizData(rawData: any, moduleId: string): Quiz {
     moduleId: moduleId,
     title: rawData.title,
     questions: rawData.questions.map(transformQuestion),
+    passingScore: rawData.passingScore,
   };
 
   return quiz;

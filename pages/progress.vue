@@ -204,13 +204,24 @@ useSEO({
 })
 
 const progressStore = useProgressStore();
-const { getAllModuleNavItems, getDomainCompletionStats, DOMAINS } = useModules();
+const { getAllModuleNavItems, getDomainCompletionStats, DOMAINS, MODULE_REGISTRY } = useModules();
 
 // Computed properties
-const completionPercentage = computed(() => progressStore.completionPercentage);
 const averageQuizScore = computed(() => progressStore.averageQuizScore);
 const completedCount = computed(() => progressStore.completedModules.length);
 const quizCount = computed(() => Object.keys(progressStore.quizScores).length);
+
+// Total modules count from registry
+const totalModules = computed(() => {
+  return Object.keys(MODULE_REGISTRY).length;
+});
+
+// Calculate completion percentage based on actual module count
+const completionPercentage = computed(() => {
+  const total = totalModules.value;
+  const completed = completedCount.value;
+  return total > 0 ? Math.round((completed / total) * 100) : 0;
+});
 
 // Format time spent
 const formattedTimeSpent = computed(() => {
@@ -221,11 +232,6 @@ const formattedTimeSpent = computed(() => {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
-});
-
-// Total modules count
-const totalModules = computed(() => {
-  return Object.keys(useModules().MODULE_REGISTRY).length;
 });
 
 // Completed modules with metadata

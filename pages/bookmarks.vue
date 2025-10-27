@@ -276,8 +276,5 @@ const deleteBookmark = (bookmarkId: string) => {
   }
 };
 
-// Initialize
-onMounted(() => {
-  progressStore.initialize();
-});
+// No initialization needed - Pinia persistence plugin handles it automatically
 </script>

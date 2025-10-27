@@ -116,6 +116,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -142,6 +144,7 @@ import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
 import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -271,7 +274,7 @@ onMounted(async () => {
   await loadInitialDataset();
 
   // Load quiz data
-  await loadQuiz('neural-network', '/content/modules/advanced/neural-network/quiz.json');
+  await loadQuiz('advanced/neural-network', '/content/modules/advanced/neural-network/quiz.json');
 });
 
 /**

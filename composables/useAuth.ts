@@ -304,24 +304,21 @@ export const useAuth = () => {
         }
       });
 
-      // For quizzes: use the higher score
-      data.quizzes.forEach(quiz => {
-        const localScore = progressStore.quizScores[quiz.module_id];
-        if (!localScore || quiz.score > localScore) {
-          progressStore.saveQuizScore(quiz.module_id, quiz.score);
-        }
-      });
-
-      // For bookmarks: add any bookmarks from cloud that aren't local
-      data.bookmarks.forEach(bookmark => {
-        const exists = progressStore.bookmarks.some(b => b.moduleId === bookmark.module_id);
-        if (!exists) {
-          progressStore.addBookmark({
-            moduleId: bookmark.module_id,
-            name: `Bookmark for ${bookmark.module_id}`,
-            parameters: {},
-          });
-        }
+      // Use the new mergeBackendData method
+      progressStore.mergeBackendData({
+        completedModules: data.modules
+          .filter((m: { completed: boolean }) => m.completed)
+          .map((m: { module_id: string }) => m.module_id),
+        quizScores: Object.fromEntries(
+          data.quizzes.map((q: { module_id: string; score: number }) => [q.module_id, q.score])
+        ),
+        bookmarks: data.bookmarks.map((b: { module_id: string; created_at: number }) => ({
+          id: `bookmark-${b.created_at}`,
+          moduleId: b.module_id,
+          name: `Bookmark for ${b.module_id}`,
+          parameters: {},
+          timestamp: b.created_at,
+        })),
       });
 
       console.log('Progress fetched and merged successfully');
@@ -340,15 +337,13 @@ export const useAuth = () => {
    */
   const initializeAuth = async (): Promise<void> => {
     try {
-      // Load auth state from localStorage
-      authStore.initialize();
-
+      // Pinia persistence plugin handles loading from localStorage automatically
       // If we have a token, verify it's still valid by fetching user profile
       if (authStore.token) {
         const user = await fetchUserProfile();
         if (user) {
           authStore.setUser(user);
-          // Fetch progress from cloud
+          // Fetch progress from cloud and merge with local
           await fetchProgress();
         } else {
           // Token is invalid, clear auth

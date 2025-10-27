@@ -245,8 +245,16 @@
         </h2>
         <div class="flex flex-col md:flex-row items-center gap-8">
           <div class="flex-shrink-0">
-            <div class="w-48 h-48 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center">
-              <Icon name="mdi:account" class="w-32 h-32 text-white" />
+            <div class=" rounded-full flex items-center justify-center"> 
+                <NuxtImg
+                  src="https://avatars.githubusercontent.com/u/56586020?v=4" 
+                  alt="Author"
+                  class="rounded-full "
+                  width="160px"
+                  height="160px"
+                  loading="lazy" 
+                />
+
             </div>
           </div>
           <div class="flex-1">
@@ -315,16 +323,13 @@
         </NuxtLink>
       </div>
     </section>
-
-    <!-- Footer -->
-    <Footer />
+ 
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useSEO, useWebsiteStructuredData, useOrganizationStructuredData } from '~/composables/useSEO';
-import Footer from '~/components/layout/Footer.vue';
 
 // SEO
 useSEO({

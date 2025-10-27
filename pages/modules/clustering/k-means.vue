@@ -157,6 +157,8 @@
       <Quiz
         v-else
         :quiz="quizData"
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -178,6 +180,8 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+
+import { useAsyncData } from '#app'; 
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -290,7 +294,7 @@ onMounted(async () => {
   moduleStore.setParameters(parameters.value);
   
   // Load quiz data
-  await loadQuiz('k-means', '/content/modules/clustering/k-means/quiz.json');
+  await loadQuiz('clustering/k-means', '/content/modules/clustering/k-means/quiz.json');
   
   // Load default dataset
   await loadInitialDataset();

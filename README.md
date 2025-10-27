@@ -150,29 +150,29 @@ The platform works fully without the authentication backend - progress is stored
 
 ## Analytics Setup
 
-This project uses privacy-focused analytics with Plausible. To enable analytics:
+This project uses Google Analytics 4 for usage tracking. To enable analytics:
 
-1. Create a [Plausible Analytics](https://plausible.io) account
-2. Add your domain to Plausible
+1. Create a [Google Analytics 4](https://analytics.google.com) account
+2. Create a new GA4 property and get your Measurement ID (format: G-XXXXXXXXXX)
 3. Set environment variables:
 
 ```bash
 # Copy the example file (if not already done)
 cp .env.example .env
 
-# Edit .env and add your domain
-NUXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com
+# Edit .env and add your Measurement ID
+NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 ```
 
 For detailed setup instructions, see [docs/ANALYTICS_SETUP.md](docs/ANALYTICS_SETUP.md).
 
 ### Privacy & User Control
 
-- Analytics are **opt-in by default** - users must explicitly consent
-- No personal data is collected
-- No cookies are used for tracking
+- Analytics are **opt-in by default** - users must explicitly consent via a banner
+- Only anonymous usage data is collected (no personal information)
+- Complies with Google Consent Mode v2
 - Users can opt out at any time via the privacy settings page
-- Fully GDPR, CCPA, and PECR compliant
+- GDPR and privacy-focused implementation
 
 ## Documentation
 
@@ -189,7 +189,7 @@ For detailed setup instructions, see [docs/ANALYTICS_SETUP.md](docs/ANALYTICS_SE
 - [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Complete deployment instructions
 
 ### Technical Documentation
-- [Analytics Setup Guide](docs/ANALYTICS_SETUP.md) - Configure Plausible Analytics
+- [Analytics Setup Guide](docs/ANALYTICS_SETUP.md) - Configure Google Analytics
 - [Analytics Integration Guide](docs/ANALYTICS_INTEGRATION.md) - Add tracking to new modules
 - [Project Structure](.kiro/steering/structure.md) - Understand the codebase
 - [Technology Stack](.kiro/steering/tech.md) - Technologies used
@@ -203,8 +203,7 @@ For detailed setup instructions, see [docs/ANALYTICS_SETUP.md](docs/ANALYTICS_SE
 
 | Variable | Required | Description | Default |
 |----------|----------|-------------|---------|
-| `NUXT_PUBLIC_PLAUSIBLE_DOMAIN` | No | Your domain for Plausible analytics | - |
-| `NUXT_PUBLIC_PLAUSIBLE_HOST` | No | Plausible instance URL | `https://plausible.io` |
+| `NUXT_PUBLIC_GTAG_ID` | No | Google Analytics 4 Measurement ID | - |
 | `NUXT_PUBLIC_API_URL` | No | Cloudflare Worker URL for auth | - |
 
 ### Worker Secrets (Cloudflare)

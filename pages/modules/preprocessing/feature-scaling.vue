@@ -79,7 +79,13 @@
       <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
 
       <!-- Quiz component -->
-      <Quiz v-else :quiz="quizData" @quiz-completed="handleQuizComplete" />
+      <Quiz 
+        v-else 
+        :quiz="quizData" 
+        :passing-score="quizData.passingScore || 70"
+        :next-module-path="nextModule?.path"
+        @quiz-completed="handleQuizComplete" 
+      />
     </template>
   </ModuleLayout>
 </template>
@@ -91,6 +97,7 @@ import { FeatureScaling, type ScalingMethod } from '~/algorithms/preprocessing/F
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -316,7 +323,7 @@ const handleQuizComplete = (result: QuizResult) => {
 // Load content on mount
 onMounted(async () => {
   // Load quiz data
-  await loadQuiz('feature-scaling', '/content/modules/preprocessing/feature-scaling/quiz.json');
+  await loadQuiz('preprocessing/feature-scaling', '/content/modules/preprocessing/feature-scaling/quiz.json');
 
   // Apply initial scaling
   applyScaling();

@@ -150,8 +150,8 @@ describe('Authentication Handlers', () => {
         mockEnv.GOOGLE_REDIRECT_URI
       )
       expect(fetchUserProfile).toHaveBeenCalledWith(mockAccessToken)
-      expect(getUserByGoogleId).toHaveBeenCalledWith(mockEnv.DB, mockUserProfile.id)
-      expect(createUser).toHaveBeenCalledWith(mockEnv.DB, {
+      expect(getUserByGoogleId).toHaveBeenCalledWith(mockenv.ml_platform_db, mockUserProfile.id)
+      expect(createUser).toHaveBeenCalledWith(mockenv.ml_platform_db, {
         google_id: mockUserProfile.id,
         email: mockUserProfile.email,
         name: mockUserProfile.name,
@@ -224,7 +224,7 @@ describe('Authentication Handlers', () => {
       const response = await handleOAuthCallback(request, mockEnv)
       
       expect(response.status).toBe(302)
-      expect(updateUser).toHaveBeenCalledWith(mockEnv.DB, existingUser.id, {
+      expect(updateUser).toHaveBeenCalledWith(mockenv.ml_platform_db, existingUser.id, {
         email: mockUserProfile.email,
         name: mockUserProfile.name,
         picture_url: mockUserProfile.picture
@@ -346,7 +346,7 @@ describe('Authentication Handlers', () => {
       })
       
       expect(authenticateRequest).toHaveBeenCalledWith(request, mockEnv)
-      expect(getUserById).toHaveBeenCalledWith(mockEnv.DB, mockUser.id)
+      expect(getUserById).toHaveBeenCalledWith(mockenv.ml_platform_db, mockUser.id)
     })
     
     it('should handle user not found', async () => {

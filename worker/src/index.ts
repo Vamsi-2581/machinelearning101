@@ -16,7 +16,7 @@ import { ApiErrorClass, createErrorResponse, logError } from "./utils/errors";
 
 // Environment bindings interface
 export interface Env {
-  DB: D1Database;
+  ml_platform_db: D1Database;
   GOOGLE_CLIENT_ID: string;
   GOOGLE_CLIENT_SECRET: string;
   GOOGLE_REDIRECT_URI: string;
@@ -69,7 +69,7 @@ app.get("/api/auth/google", async (c) => {
  * Handles OAuth callback from Google
  * Requirements: 5.2
  */
-app.get("/api/auth/google/callback", async (c) => {
+app.get("/api/auth/google/callback", async (c) => { 
   return handleOAuthCallback(c.req.raw, c.env);
 });
 

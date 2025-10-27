@@ -137,27 +137,7 @@ storage.clear();
 
 ### Pinia Store Persistence
 
-The Pinia persistence plugin is automatically configured in `plugins/pinia-persistence.ts`. All stores are persisted by default with the following configuration:
-
-```typescript
-// Excluded from persistence:
-// - module.isTraining
-// - module.trainingProgress
-// - analytics.events
-```
-
-To customize persistence for your store:
-
-```typescript
-// In plugins/pinia-persistence.ts
-const persistencePlugin = createPersistedState({
-  exclude: ['myTransientStore'], // Don't persist this store
-  excludePaths: {
-    myStore: ['temporaryField'], // Don't persist this field
-  },
-  debounce: 300, // Debounce delay in ms
-});
-```
+The Pinia persistence plugin is  used
 
 ### Data Migration
 

@@ -18,6 +18,9 @@
       <p class="intro-details">
         {{ quiz.questions.length }} questions • {{ estimatedTime }} minutes
       </p>
+      <p class="passing-score-info">
+        Passing score: {{ passingScore }}%
+      </p>
       <Button @click="startQuiz" size="lg" aria-label="Start quiz">
         Start Quiz
       </Button>
@@ -88,7 +91,7 @@
         <Button @click="retakeQuiz" variant="secondary">
           Retake Quiz
         </Button>
-        <Button @click="$emit('quiz-completed', quizResult)">
+        <Button @click="handleContinueLearning">
           Continue Learning
         </Button>
       </div>
@@ -98,6 +101,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import type { Quiz, QuizAnswer, QuizResult } from '~/types/quiz';
 import QuizQuestion from './QuizQuestion.vue';
 import Button from '~/components/shared/Button.vue';
@@ -116,14 +120,20 @@ import { useAnalyticsStore } from '~/stores/analytics';
 
 interface Props {
   quiz: Quiz;
+  passingScore?: number;
+  nextModulePath?: string;
 }
 
 interface Emits {
   (e: 'quiz-completed', result: QuizResult): void;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  passingScore: 70,
+});
 const emit = defineEmits<Emits>();
+
+const router = useRouter();
 
 // Stores
 const progressStore = useProgressStore();
@@ -239,14 +249,17 @@ const completeQuiz = () => {
   quizStarted.value = false;
 
   // Save score to progress store
+  console.log("Saving to progress store...")
   progressStore.saveQuizScore(props.quiz.moduleId, score);
 
-  // Mark module as completed if score is passing (e.g., >= 70%)
-  if (score >= 70) {
+  // Mark module as completed if score is passing
+  if (score >= props.passingScore) {
+      console.log("Marking module as completed...")
     progressStore.markModuleComplete(props.quiz.moduleId);
   }
 
   // Track quiz completion
+  console.log("Updating analytics store...")
   analyticsStore.trackQuizComplete(props.quiz.moduleId, score, props.quiz.questions.length);
 
   // Emit the result
@@ -266,6 +279,18 @@ const retakeQuiz = () => {
 const getAnswerResult = (questionId: string): boolean => {
   const answer = quizResult.value?.answers.find(a => a.questionId === questionId);
   return answer?.isCorrect ?? false;
+};
+
+/**
+ * Handle continue learning button
+ * Navigates to next module if available, otherwise emits quiz-completed event
+ */
+const handleContinueLearning = () => {
+  if (props.nextModulePath) {
+    router.push(props.nextModulePath);
+  } else {
+    emit('quiz-completed', quizResult.value!);
+  }
 };
 </script>
 
@@ -331,6 +356,13 @@ const getAnswerResult = (questionId: string): boolean => {
 .intro-details {
   font-size: 0.875rem;
   color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.passing-score-info {
+  font-size: 0.875rem;
+  color: #059669;
+  font-weight: 600;
   margin-bottom: 2rem;
 }
 

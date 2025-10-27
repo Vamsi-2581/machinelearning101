@@ -4,7 +4,8 @@ import { defineStore } from 'pinia';
  * Auth Store
  * 
  * Manages user authentication state including user profile, JWT token,
- * and authentication status. Persists to localStorage.
+ * and authentication status. Uses Pinia persistence plugin for localStorage.
+ * Backend API is the source of truth for user data.
  * 
  * Requirements: 8.4
  */
@@ -23,8 +24,6 @@ export interface AuthState {
   isLoading: boolean;
 }
 
-const STORAGE_KEY = 'ml-platform-auth';
-
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
     user: null,
@@ -32,6 +31,11 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: false,
     isLoading: false,
   }),
+
+  persist: {
+    key: 'ml-platform-auth',
+    storage: piniaPluginPersistedstate.localStorage(), 
+  },
 
   getters: {
     /**
@@ -70,7 +74,7 @@ export const useAuthStore = defineStore('auth', {
     setUser(user: User): void {
       this.user = user;
       this.isAuthenticated = true;
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -79,7 +83,7 @@ export const useAuthStore = defineStore('auth', {
     setToken(token: string): void {
       this.token = token;
       this.isAuthenticated = true;
-      this.saveToStorage();
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -97,7 +101,7 @@ export const useAuthStore = defineStore('auth', {
       this.token = null;
       this.isAuthenticated = false;
       this.isLoading = false;
-      this.clearStorage();
+      // Persistence handled automatically by plugin
     },
 
     /**
@@ -106,71 +110,8 @@ export const useAuthStore = defineStore('auth', {
     updateUser(updates: Partial<User>): void {
       if (this.user) {
         this.user = { ...this.user, ...updates };
-        this.saveToStorage();
+        // Persistence handled automatically by plugin
       }
-    },
-
-    /**
-     * Save state to localStorage
-     */
-    saveToStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const data = {
-          user: this.user,
-          token: this.token,
-          isAuthenticated: this.isAuthenticated,
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (error) {
-        console.error('Failed to save auth state to localStorage:', error);
-        // Handle quota exceeded or other storage errors
-        if (error instanceof Error && error.name === 'QuotaExceededError') {
-          console.warn('localStorage quota exceeded. Consider clearing old data.');
-        }
-      }
-    },
-
-    /**
-     * Load state from localStorage
-     */
-    loadFromStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          const data = JSON.parse(stored);
-          this.user = data.user || null;
-          this.token = data.token || null;
-          this.isAuthenticated = data.isAuthenticated || false;
-        }
-      } catch (error) {
-        console.error('Failed to load auth state from localStorage:', error);
-        // Clear corrupted data
-        this.clearStorage();
-      }
-    },
-
-    /**
-     * Clear localStorage
-     */
-    clearStorage(): void {
-      if (typeof window === 'undefined') return;
-
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (error) {
-        console.error('Failed to clear localStorage:', error);
-      }
-    },
-
-    /**
-     * Initialize the store (call on app mount)
-     */
-    initialize(): void {
-      this.loadFromStorage();
     },
   },
-});
+} );

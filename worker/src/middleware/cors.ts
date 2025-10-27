@@ -7,16 +7,14 @@ import { Context, Next } from "hono";
 import type { Env } from "../types";
 
 /**
- * CORS configuration headers
+ * CORS configuration headers - Very permissive for development
  */
-export const getCorsHeaders = (origin: string, allowedOrigin: string) => {
-  // Validate origin against FRONTEND_URL
-  const isAllowedOrigin = origin === allowedOrigin;
-  
+export const getCorsHeaders = (origin: string) => {
   return {
-    "Access-Control-Allow-Origin": isAllowedOrigin ? origin : allowedOrigin,
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Origin": origin || "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept, Origin",
+    "Access-Control-Allow-Credentials": "true",
     "Access-Control-Max-Age": "86400",
   };
 };
@@ -26,12 +24,11 @@ export const getCorsHeaders = (origin: string, allowedOrigin: string) => {
  * and handles preflight requests
  */
 export const corsMiddleware = async (c: Context<{ Bindings: Env }>, next: Next) => {
-  const origin = c.req.header("Origin") || "";
-  const allowedOrigin = c.env.FRONTEND_URL;
+  const origin = c.req.header("Origin") || "*";
 
   // Handle preflight requests
   if (c.req.method === "OPTIONS") {
-    const headers = getCorsHeaders(origin, allowedOrigin);
+    const headers = getCorsHeaders(origin);
     return new Response(null, {
       status: 204,
       headers,
@@ -42,7 +39,7 @@ export const corsMiddleware = async (c: Context<{ Bindings: Env }>, next: Next) 
   await next();
 
   // Add CORS headers to response
-  const headers = getCorsHeaders(origin, allowedOrigin);
+  const headers = getCorsHeaders(origin);
   Object.entries(headers).forEach(([key, value]) => {
     c.res.headers.set(key, value);
   });

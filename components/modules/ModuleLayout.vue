@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
   padding: 2rem 0 0 0;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 5;
   transition: box-shadow 0.2s, padding 0.2s;
 }
 

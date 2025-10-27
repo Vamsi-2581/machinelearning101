@@ -38,6 +38,7 @@
         <template #visualization>
           <Quiz
             :quiz="demoQuiz"
+            :passing-score="demoQuiz.passingScore || 70"
             @quiz-completed="handleQuizCompleted"
           />
         </template>
@@ -68,6 +69,7 @@ const demoQuiz: QuizType = {
   id: 'demo-quiz',
   moduleId: 'quiz-demo',
   title: 'Machine Learning Basics Quiz',
+  passingScore: 70,
   questions: [
     {
       id: 'q1',
