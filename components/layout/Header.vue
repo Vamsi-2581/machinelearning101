@@ -23,7 +23,7 @@
         <nav class="hidden md:flex items-center space-x-6" aria-label="Main navigation">
           <NuxtLink v-for="item in navItems" :key="item.path" :to="item.path"
             class="text-sm font-medium transition-colors" :class="isActive(item.path)
-              ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+              ? 'text-blue-600 border-b-2 border-blue-600'
               : 'text-gray-600 hover:text-gray-900'">
             {{ item.label }}
           </NuxtLink>
@@ -35,12 +35,7 @@
           <NuxtLink to="/progress"
             class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all group"
             :title="`${completedModulesCount} of ${totalModulesCount} modules completed`">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div class="flex items-center space-x-2"> 
               <div class="flex flex-col">
                 <div class="flex items-center space-x-2">
                   <div class="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -48,7 +43,7 @@
                       :style="{ width: `${completionPercentage}%` }" role="progressbar"
                       :aria-valuenow="completionPercentage" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
-                  <!-- <span class="text-sm font-semibold text-gray-900">{{ completionPercentage }}%</span> -->
+                 <span class="text-sm font-semibold text-gray-900">{{ completionPercentage }}%</span>
                 </div>
                 <!-- <span class="text-xs text-gray-500 mt-0.5">{{ completedModulesCount }}/{{ totalModulesCount }} modules</span> -->
               </div>

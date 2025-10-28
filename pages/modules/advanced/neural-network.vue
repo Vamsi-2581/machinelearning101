@@ -98,28 +98,16 @@
     <template #quiz>
       <!-- Loading state -->
       <QuizLoadingState v-if="quizLoading" />
-      
+
       <!-- Error state with retry -->
-      <QuizErrorDisplay
-        v-else-if="quizError"
-        :error="quizError"
-        @retry="retryQuizLoad"
-      />
-      
+      <QuizErrorDisplay v-else-if="quizError" :error="quizError" @retry="retryQuizLoad" />
+
       <!-- Coming soon state -->
-      <QuizErrorDisplay
-        v-else-if="!quizData"
-        :coming-soon="true"
-      />
-      
+      <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
+
       <!-- Quiz component -->
-      <Quiz
-        v-else
-        :quiz="quizData"
-        :passing-score="quizData.passingScore || 70"
-        :next-module-path="nextModule?.path"
-        @quiz-completed="handleQuizComplete"
-      />
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" :next-module-path="nextModule?.path"
+        @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -144,6 +132,7 @@ import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
 import { useAsyncData } from '#app';
+
 
 
 // Load content from Nuxt Content
@@ -274,7 +263,7 @@ onMounted(async () => {
   await loadInitialDataset();
 
   // Load quiz data
-  await loadQuiz('advanced/neural-network', '/content/modules/advanced/neural-network/quiz.json');
+  await loadQuiz('neural-network', '/content/modules/advanced/neural-network/quiz.json');
 });
 
 /**

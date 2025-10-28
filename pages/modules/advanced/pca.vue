@@ -248,7 +248,7 @@ onMounted(async () => {
   
   // Load quiz data
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
-  await loadQuiz('advanced/pca', '/content/modules/advanced/pca/quiz.json');
+  await loadQuiz('pca', '/content/modules/advanced/pca/quiz.json');
 });
 
 /**

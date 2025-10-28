@@ -240,7 +240,7 @@ onMounted(async () => {
 
   // Load quiz data with loading state and error handling
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2, 6.6
-  await loadQuiz('regression/linear-regression', '/content/modules/regression/linear-regression/quiz.json');
+  await loadQuiz('linear-regression', '/content/modules/regression/linear-regression/quiz.json');
 });
 
 /**

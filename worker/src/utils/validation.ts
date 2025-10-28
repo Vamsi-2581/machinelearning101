@@ -111,7 +111,7 @@ export function isValidModuleId(moduleId: string): boolean {
   }
   
   // Module ID pattern: domain/module-name (kebab-case)
-  const moduleIdRegex = /^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$/
+  const moduleIdRegex = /^[a-z]+(?:-[a-z0-9]+)*$/
   
   if (!moduleIdRegex.test(moduleId)) {
     return false

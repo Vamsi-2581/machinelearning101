@@ -294,7 +294,7 @@ onMounted(async () => {
   moduleStore.setParameters(parameters.value);
   
   // Load quiz data
-  await loadQuiz('clustering/k-means', '/content/modules/clustering/k-means/quiz.json');
+  await loadQuiz('k-means', '/content/modules/clustering/k-means/quiz.json');
   
   // Load default dataset
   await loadInitialDataset();

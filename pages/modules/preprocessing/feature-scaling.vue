@@ -99,6 +99,7 @@ import type { QuizResult } from '~/types/quiz';
 import { useAsyncData } from '#app';
 
 
+
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
   queryCollection('content').path('/modules/preprocessing/feature-scaling/content').first()
@@ -323,7 +324,7 @@ const handleQuizComplete = (result: QuizResult) => {
 // Load content on mount
 onMounted(async () => {
   // Load quiz data
-  await loadQuiz('preprocessing/feature-scaling', '/content/modules/preprocessing/feature-scaling/quiz.json');
+  await loadQuiz('feature-scaling', '/content/modules/preprocessing/feature-scaling/quiz.json');
 
   // Apply initial scaling
   applyScaling();

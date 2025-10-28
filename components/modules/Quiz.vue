@@ -1,9 +1,11 @@
 <template>
   <div class="quiz-container" role="region" aria-label="Quiz">
+    <!-- Confetti Canvas -->
+    <canvas ref="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
     <div class="quiz-header">
       <h2 class="quiz-title" id="quiz-title">{{ quiz.title }}</h2>
-      <div v-if="quizStarted && !quizCompleted" class="quiz-progress" 
-        aria-atomic="true">
+      <div v-if="quizStarted && !quizCompleted" class="quiz-progress" aria-atomic="true">
         <div class="progress-text">
           <span class="progress-current">Question {{ currentQuestionIndex + 1 }} of {{ quiz.questions.length }}</span>
         </div>
@@ -21,8 +23,14 @@
       <p class="passing-score-info">
         Passing score: {{ passingScore }}%
       </p>
+      <div v-if="previousScore !== undefined" class="previous-score-info">
+        <p class="previous-score-label">Your previous score:</p>
+        <p class="previous-score-value" :class="previousScore >= passingScore ? 'passed' : 'failed'">
+          {{ previousScore }}%
+        </p>
+      </div>
       <Button @click="startQuiz" size="lg" aria-label="Start quiz">
-        Start Quiz
+         {{  previousScore !== undefined ? 'Retake Quiz' : 'Start Quiz' }}
       </Button>
     </div>
 
@@ -55,19 +63,28 @@
     <!-- Quiz completed -->
     <div v-else-if="quizCompleted" class="quiz-results" role="region" aria-labelledby="results-title">
       <div class="results-header" role="status" aria-live="polite" aria-atomic="true">
-        <div class="completion-badge" aria-hidden="true">
-          <svg class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        <div class="completion-badge" :class="isPassed ? 'passed' : 'failed'" aria-hidden="true">
+          <svg v-if="isPassed" class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
+          <svg v-else class="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
         </div>
-        <h3 class="results-title" id="results-title">Quiz Completed!</h3>
-        <p class="results-score">
+        <h3 class="results-title" id="results-title">
+          {{ isPassed ? 'Quiz Completed!' : 'Quiz Failed' }}
+        </h3>
+        <p class="results-score" :class="isPassed ? 'passed' : 'failed'">
           Your Score: {{ quizResult?.score }}%
         </p>
         <p class="results-details">
           {{ quizResult?.correctAnswers }} out of {{ quizResult?.totalQuestions }} correct
+        </p>
+        <p v-if="!isPassed" class="retry-message">
+          You need {{ passingScore }}% to pass. Review the explanations below and try again!
         </p>
       </div>
 
@@ -91,7 +108,7 @@
         <Button @click="retakeQuiz" variant="secondary">
           Retake Quiz
         </Button>
-        <Button @click="handleContinueLearning">
+        <Button v-if="isPassed" @click="handleContinueLearning">
           Continue Learning
         </Button>
       </div>
@@ -100,7 +117,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Quiz, QuizAnswer, QuizResult } from '~/types/quiz';
 import QuizQuestion from './QuizQuestion.vue';
@@ -146,6 +163,12 @@ const currentQuestionIndex = ref(0);
 const userAnswers = ref<Record<string, number>>({});
 const showFeedback = ref(false);
 const quizResult = ref<QuizResult | null>(null);
+const confettiCanvas = ref<HTMLCanvasElement | null>(null);
+
+// Get previous score from progress store
+const previousScore = computed(() => {
+  return progressStore.getQuizScore(props.quiz.moduleId);
+});
 
 // Computed properties
 const currentQuestion = computed(() => {
@@ -157,8 +180,8 @@ const estimatedTime = computed(() => {
   return props.quiz.questions.length;
 });
 
-const questionsRemaining = computed(() => {
-  return props.quiz.questions.length - currentQuestionIndex.value - 1;
+const isPassed = computed(() => {
+  return quizResult.value ? quizResult.value.score >= props.passingScore : false;
 });
 
 /**
@@ -171,6 +194,12 @@ const startQuiz = () => {
   showFeedback.value = false;
   quizCompleted.value = false;
   quizResult.value = null;
+
+  window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth'
+});
 };
 
 /**
@@ -221,7 +250,7 @@ const previousQuestion = () => {
  * 
  * Requirements: 7.5, 9.4
  */
-const completeQuiz = () => {
+const completeQuiz = async () => {
   const answers: QuizAnswer[] = props.quiz.questions.map((question) => {
     const selectedAnswer = userAnswers.value[question.id];
     const isCorrect = selectedAnswer === question.correctAnswer;
@@ -254,8 +283,16 @@ const completeQuiz = () => {
 
   // Mark module as completed if score is passing
   if (score >= props.passingScore) {
-      console.log("Marking module as completed...")
+    console.log("Marking module as completed...")
     progressStore.markModuleComplete(props.quiz.moduleId);
+
+    // Trigger confetti animation for passing
+    await nextTick();
+    triggerConfetti();
+  } else {
+    // Trigger shake animation for failing
+    await nextTick();
+    triggerShakeAnimation();
   }
 
   // Track quiz completion
@@ -292,6 +329,102 @@ const handleContinueLearning = () => {
     emit('quiz-completed', quizResult.value!);
   }
 };
+
+/**
+ * Trigger confetti animation when quiz is passed
+ */
+const triggerConfetti = () => {
+  if (!confettiCanvas.value) return;
+
+  const canvas = confettiCanvas.value;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Set canvas size
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Confetti particles
+  const particles: Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    color: string;
+    size: number;
+    rotation: number;
+    rotationSpeed: number;
+  }> = [];
+
+  const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+
+  // Create particles
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20,
+      vx: (Math.random() - 0.5) * 4,
+      vy: Math.random() * 3 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: Math.random() * 8 + 4,
+      rotation: Math.random() * 360,
+      rotationSpeed: (Math.random() - 0.5) * 10,
+    });
+  }
+
+  let animationId: number;
+  const animate = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((particle, index) => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vy += 0.1; // Gravity
+      particle.rotation += particle.rotationSpeed;
+
+      ctx.save();
+      ctx.translate(particle.x, particle.y);
+      ctx.rotate((particle.rotation * Math.PI) / 180);
+      ctx.fillStyle = particle.color;
+      ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
+      ctx.restore();
+
+      // Remove particles that are off screen
+      if (particle.y > canvas.height) {
+        particles.splice(index, 1);
+      }
+    });
+
+    if (particles.length > 0) {
+      animationId = requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  };
+
+  animate();
+
+  // Clean up after 5 seconds
+  setTimeout(() => {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }, 5000);
+};
+
+/**
+ * Trigger shake animation when quiz is failed
+ */
+const triggerShakeAnimation = () => {
+  const resultsElement = document.querySelector('.quiz-results');
+  if (resultsElement) {
+    resultsElement.classList.add('shake-animation');
+    setTimeout(() => {
+      resultsElement.classList.remove('shake-animation');
+    }, 500);
+  }
+};
 </script>
 
 <style scoped>
@@ -300,6 +433,17 @@ const handleContinueLearning = () => {
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 .quiz-header {
@@ -363,7 +507,35 @@ const handleContinueLearning = () => {
   font-size: 0.875rem;
   color: #059669;
   font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.previous-score-info {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 1rem;
   margin-bottom: 2rem;
+  text-align: center;
+}
+
+.previous-score-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.previous-score-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.previous-score-value.passed {
+  color: #059669;
+}
+
+.previous-score-value.failed {
+  color: #dc2626;
 }
 
 /* Quiz Content */
@@ -403,15 +575,43 @@ const handleContinueLearning = () => {
   justify-content: center;
   width: 64px;
   height: 64px;
-  background-color: #d1fae5;
   border-radius: 50%;
   margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.completion-badge.passed {
+  background-color: #d1fae5;
+  animation: bounce 0.6s ease;
+}
+
+.completion-badge.failed {
+  background-color: #fee2e2;
 }
 
 .badge-icon {
   width: 40px;
   height: 40px;
+}
+
+.completion-badge.passed .badge-icon {
   color: #059669;
+}
+
+.completion-badge.failed .badge-icon {
+  color: #dc2626;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .results-title {
@@ -424,8 +624,22 @@ const handleContinueLearning = () => {
 .results-score {
   font-size: 2rem;
   font-weight: 700;
-  color: #3b82f6;
   margin: 0.5rem 0;
+}
+
+.results-score.passed {
+  color: #059669;
+}
+
+.results-score.failed {
+  color: #dc2626;
+}
+
+.retry-message {
+  font-size: 0.9375rem;
+  color: #dc2626;
+  margin-top: 1rem;
+  font-weight: 500;
 }
 
 .results-details {
@@ -502,6 +716,34 @@ const handleContinueLearning = () => {
   gap: 1rem;
   justify-content: center;
   padding-top: 1rem;
+}
+
+/* Shake Animation */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+.shake-animation {
+  animation: shake 0.5s ease;
 }
 
 /* Responsive Design */

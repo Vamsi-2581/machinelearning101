@@ -295,7 +295,7 @@ onMounted(async () => {
   await loadInitialDataset();
   
   // Load quiz data
-  await loadQuiz('advanced/tsne', '/content/modules/advanced/tsne/quiz.json');
+  await loadQuiz('tsne', '/content/modules/advanced/tsne/quiz.json');
 });
 
 /**

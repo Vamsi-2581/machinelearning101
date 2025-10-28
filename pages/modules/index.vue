@@ -50,7 +50,7 @@
               :class="`bg-${domain.color}-100`"
             >
               <Icon 
-                :name="`heroicons:${domain.icon}`" 
+                :name="`${domain.icon}`" 
                 :class="`w-7 h-7 text-${domain.color}-600`"
               />
             </div>

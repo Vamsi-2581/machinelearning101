@@ -410,7 +410,7 @@ const handleQuizComplete = (result: QuizResult) => {
 onMounted(async () => {
   // Load quiz data
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2
-  await loadQuiz('preprocessing/missing-value-imputation', '/content/modules/preprocessing/missing-value-imputation/quiz.json');
+  await loadQuiz('missing-value-imputation', '/content/modules/preprocessing/missing-value-imputation/quiz.json');
   
   // Generate initial data
   generateNewData();

@@ -375,7 +375,7 @@ onMounted(async () => {
   initializeVisualization();
   
   // Load quiz data
-  await loadQuiz('optimization/gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
+  await loadQuiz('gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
 });
 
 /**
