@@ -5,9 +5,6 @@
     difficulty="beginner"
     :estimated-time="30"
     module-id="linear-regression"
-    :previous-module="previousModule"
-    :next-module="nextModule"
-    :suggested-module="suggestedModule"
     :table-of-contents="tableOfContents"
   >
     <!-- Content Section -->
@@ -111,7 +108,6 @@
         v-else
         :quiz="quizData"
         :passing-score="quizData.passingScore || 70"
-        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>
@@ -123,7 +119,6 @@ import { ref, onMounted } from 'vue';
 import { useModuleStore } from '~/stores/module';
 import { useAnalyticsStore } from '~/stores/analytics';
 import { useDataset } from '~/composables/useDataset';
-import { useModules } from '~/composables/useModules';
 import { useTableOfContents } from '~/composables/useTableOfContents';
 import { LinearRegression } from '~/algorithms/regression/LinearRegression';
 import Scatter2D from '~/components/visualizations/Scatter2D.vue';
@@ -135,8 +130,7 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
-import type { ModuleNavItem } from '~/types/module';
-import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
+import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import { queryCollection, useAsyncData } from '#imports';
 
@@ -152,12 +146,6 @@ const tableOfContents = useTableOfContents(content);
 const moduleStore = useModuleStore();
 const analyticsStore = useAnalyticsStore();
 const { loadDataset, getDatasetsByType } = useDataset();
-const { getNextModule, getPreviousModule } = useModules();
-
-// Navigation
-const previousModule = ref<ModuleNavItem | null>(null);
-const nextModule = ref<ModuleNavItem | null>(null);
-const suggestedModule = ref<ModuleNavItem | null>(null);
 
 // Quiz data with loading state
 const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retryQuizLoad } = useQuizLoader();
@@ -229,14 +217,6 @@ onMounted(async () => {
   
   // Load default dataset
   await loadInitialDataset();
-
-  // Load navigation
-  previousModule.value = await getPreviousModule('linear-regression');
-  nextModule.value = await getNextModule('linear-regression');
-  
-  // For now, suggested module is the same as next module
-  // In the future, this could be based on prerequisites or user progress
-  suggestedModule.value = nextModule.value;
 
   // Load quiz data with loading state and error handling
   // Requirements: 1.1, 2.1, 2.4, 6.1, 6.2, 6.6

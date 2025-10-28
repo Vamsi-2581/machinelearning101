@@ -95,8 +95,7 @@
         </div>
 
         <!-- Module Navigation -->
-        <ModuleNavigation :previous-module="previousModule" :next-module="nextModule"
-          :suggested-module="suggestedModule" />
+        <ModuleNavigation />
       </div>
     </main>
 
@@ -110,10 +109,10 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useBreadcrumbs } from '~/composables/useBreadcrumbs';
 import { useKeyboardShortcuts } from '../../composables/useKeyboardShortcuts';
+import { useModuleNavigation } from '~/composables/useModuleNavigation';
 import Breadcrumb from '~/components/shared/Breadcrumb.vue';
 import ModuleNavigation from '~/components/modules/ModuleNavigation.vue';
 import Footer from '../layout/Footer.vue';
-import type { ModuleNavItem } from '~/types/module';
 
 interface TocLink {
   id: string;
@@ -127,9 +126,6 @@ interface Props {
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime?: number;
   moduleId?: string;
-  previousModule?: ModuleNavItem | null;
-  nextModule?: ModuleNavItem | null;
-  suggestedModule?: ModuleNavItem | null;
   tableOfContents?: TocLink[];
 }
 
@@ -140,6 +136,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const router = useRouter();
 const { breadcrumbs } = useBreadcrumbs();
+
+// Get navigation from global composable
+const { previousModule, nextModule, loadNavigation } = useModuleNavigation();
 
 const activeTab = ref<'content' | 'interactive' | 'quiz'>('content');
 const isHeaderSticky = ref(false);
@@ -167,8 +166,8 @@ useKeyboardShortcuts([
     key: 'n',
     description: 'Go to next module',
     handler: () => {
-      if (props.nextModule) {
-        router.push(props.nextModule.path);
+      if (nextModule.value) {
+        router.push(nextModule.value.path);
       }
     },
     preventDefault: false,
@@ -177,8 +176,8 @@ useKeyboardShortcuts([
     key: 'p',
     description: 'Go to previous module',
     handler: () => {
-      if (props.previousModule) {
-        router.push(props.previousModule.path);
+      if (previousModule.value) {
+        router.push(previousModule.value.path);
       }
     },
     preventDefault: false,
@@ -246,9 +245,12 @@ watch(activeTab, () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
   handleScroll();
+  
+  // Load navigation data
+  await loadNavigation();
 });
 
 onBeforeUnmount(() => {

@@ -80,15 +80,21 @@
 </template>
 
 <script setup lang="ts">
-import type { ModuleNavItem } from '~/types/module';
+import { onMounted } from 'vue';
+import { useModuleNavigation } from '~/composables/useModuleNavigation';
 
-interface Props {
-  previousModule?: ModuleNavItem | null;
-  nextModule?: ModuleNavItem | null;
-  suggestedModule?: ModuleNavItem | null;
-}
+/**
+ * Module Navigation Component
+ * Uses global navigation composable to determine next/previous modules
+ * 
+ * Requirements: DRY principle, centralized navigation logic
+ */
 
-defineProps<Props>();
+const { previousModule, nextModule, suggestedModule, loadNavigation } = useModuleNavigation();
+
+onMounted(async () => {
+  await loadNavigation();
+});
 </script>
 
 <style scoped>

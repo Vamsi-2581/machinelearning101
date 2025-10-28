@@ -175,7 +175,6 @@
         v-else
         :quiz="quizData"
         :passing-score="quizData.passingScore || 70"
-        :next-module-path="nextModule?.path"
         @quiz-completed="handleQuizComplete"
       />
     </template>

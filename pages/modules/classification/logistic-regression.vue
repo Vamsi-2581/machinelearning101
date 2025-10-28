@@ -107,7 +107,7 @@
       <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
 
       <!-- Quiz component -->
-      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" :next-module-path="nextModule?.path"
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70"
         @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>

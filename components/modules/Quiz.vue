@@ -124,6 +124,7 @@ import QuizQuestion from './QuizQuestion.vue';
 import Button from '~/components/shared/Button.vue';
 import { useProgressStore } from '~/stores/progress';
 import { useAnalyticsStore } from '~/stores/analytics';
+import { useModuleNavigation } from '~/composables/useModuleNavigation';
 
 /**
  * Quiz Component
@@ -138,7 +139,6 @@ import { useAnalyticsStore } from '~/stores/analytics';
 interface Props {
   quiz: Quiz;
   passingScore?: number;
-  nextModulePath?: string;
 }
 
 interface Emits {
@@ -151,6 +151,9 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<Emits>();
 
 const router = useRouter();
+
+// Get navigation from global composable
+const { nextModulePath, loadNavigation } = useModuleNavigation();
 
 // Stores
 const progressStore = useProgressStore();
@@ -323,12 +326,19 @@ const getAnswerResult = (questionId: string): boolean => {
  * Navigates to next module if available, otherwise emits quiz-completed event
  */
 const handleContinueLearning = () => {
-  if (props.nextModulePath) {
-    router.push(props.nextModulePath);
+  if (nextModulePath.value) {
+    router.push(nextModulePath.value);
   } else {
     emit('quiz-completed', quizResult.value!);
   }
 };
+
+/**
+ * Load navigation on mount
+ */
+onMounted(async () => {
+  await loadNavigation();
+});
 
 /**
  * Trigger confetti animation when quiz is passed
