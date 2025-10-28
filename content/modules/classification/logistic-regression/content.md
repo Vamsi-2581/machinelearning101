@@ -35,6 +35,9 @@ Where σ is the sigmoid function.
 
 ### The Sigmoid Function
 
+![Sigmoid Function](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/500px-Logistic-curve.svg.png)
+*The sigmoid function maps any real number to a value between 0 and 1*
+
 The sigmoid function is defined as:
 
 ```
@@ -61,6 +64,9 @@ Predicted class = {
 ```
 
 ## How It Works: Gradient Descent with Binary Cross-Entropy
+
+![Logistic Regression Decision Boundary](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Exam_pass_logistic_curve.svg/500px-Exam_pass_logistic_curve.svg.png)
+*Logistic regression creates a smooth decision boundary between classes*
 
 ### Step 1: Initialize Parameters
 
@@ -118,6 +124,9 @@ Where **α** is the learning rate.
 Continue until convergence or for a specified number of epochs.
 
 ## Key Hyperparameters
+
+![Binary Cross-Entropy Loss](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Logistic_cost_function.png/500px-Logistic_cost_function.png)
+*Binary cross-entropy loss function for logistic regression*
 
 ### Learning Rate (α)
 

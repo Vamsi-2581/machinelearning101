@@ -18,6 +18,9 @@ By the end of this module, you will:
 
 ## The Linear Model
 
+![Linear Regression Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/500px-Linear_regression.svg.png)
+*Linear regression fits a line through data points to minimize prediction error*
+
 ### Simple Linear Regression
 
 For the simplest case with one feature, the linear regression model is:
@@ -45,6 +48,9 @@ Each feature has its own weight that determines its contribution to the predicti
 ## How It Works: Gradient Descent
 
 Linear regression uses an optimization algorithm called **gradient descent** to find the best weights. Here's how it works:
+
+![Gradient Descent Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Gradient_descent.svg/500px-Gradient_descent.svg.png)
+*Gradient descent iteratively moves toward the minimum of the loss function*
 
 ### Step 1: Initialize Parameters
 
@@ -91,6 +97,9 @@ Continue steps 2-5 for a specified number of **epochs** (iterations through the 
 
 ## Key Hyperparameters
 
+![Learning Rate Impact](https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Gradient_descent.svg/500px-Gradient_descent.svg.png)
+*Effect of different learning rates on convergence*
+
 ### Learning Rate (α)
 
 The learning rate controls how quickly the model learns:
@@ -112,6 +121,9 @@ The number of times the algorithm processes the entire dataset:
 Typical values: 50 to 500 for simple problems
 
 ## Performance Metrics
+
+![Regression Metrics Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Coefficient_of_Determination.svg/500px-Coefficient_of_Determination.svg.png)
+*Visualization of residuals and model fit quality*
 
 ### Mean Squared Error (MSE)
 

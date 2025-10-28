@@ -18,6 +18,9 @@ By the end of this module, you will:
 
 ## How KNN Works
 
+![KNN Classification Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/KnnClassification.svg/500px-KnnClassification.svg.png)
+*KNN classifies a point based on the majority class of its K nearest neighbors*
+
 ### The Algorithm
 
 KNN follows a simple process for classification:
@@ -49,6 +52,9 @@ Imagine classifying whether an email is spam or not spam:
 4. If 4 are spam and 1 is not spam, classify as spam
 
 ## Distance Metrics
+
+![Distance Metrics Comparison](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/500px-Manhattan_distance.svg.png)
+*Comparison of Euclidean (green) vs Manhattan (red/blue/yellow) distance*
 
 ### Euclidean Distance (L2)
 
@@ -93,6 +99,9 @@ d = Σ|xᵢ - yᵢ|
 - **Hamming Distance**: For categorical features
 
 ## The K Parameter
+
+![KNN Decision Boundaries](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Map1NN.png/500px-Map1NN.png)
+*Decision boundaries for different values of K*
 
 The choice of K dramatically affects model behavior:
 
@@ -190,6 +199,9 @@ As the number of features increases:
 **Solution:** Use dimensionality reduction (PCA, feature selection) before KNN
 
 ## Bias-Variance Tradeoff
+
+![Bias-Variance Tradeoff](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Bias_and_variance_contributing_to_total_error.svg/500px-Bias_and_variance_contributing_to_total_error.svg.png)
+*The bias-variance tradeoff in model complexity*
 
 KNN demonstrates the classic bias-variance tradeoff:
 

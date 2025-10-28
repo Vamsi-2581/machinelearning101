@@ -15,6 +15,9 @@ Deletion can lead to significant data loss, especially when missing values are c
 
 ## Imputation Strategies
 
+![Missing Value Imputation Methods](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Imputation_methods_comparison.svg/500px-Imputation_methods_comparison.svg.png)
+*Different strategies for handling missing values in datasets*
+
 ### Mean Imputation
 
 Replace missing values with the mean (average) of the non-missing values in that feature.
@@ -53,6 +56,9 @@ Replace missing values with the median of the non-missing values.
 
 ### Mode Imputation
 
+![Missing Data Patterns](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Missing_data_patterns.svg/500px-Missing_data_patterns.svg.png)
+*Different patterns of missing data in datasets*
+
 Replace missing values with the most frequent value (mode).
 
 **When to use:**
@@ -87,6 +93,9 @@ Replace missing values with the last observed value (carry forward).
 - First values cannot be filled
 
 ## Types of Missing Data
+
+![Types of Missing Data](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Missing_data_mechanisms.svg/500px-Missing_data_mechanisms.svg.png)
+*MCAR, MAR, and MNAR missing data mechanisms*
 
 Understanding why data is missing helps choose the right strategy:
 

@@ -24,6 +24,9 @@ As the number of features increases:
 
 ## How PCA Works
 
+![PCA Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/GaussianScatterPCA.svg/500px-GaussianScatterPCA.svg.png)
+*PCA finds principal components that capture maximum variance in the data*
+
 ### Step 1: Standardization
 
 First, standardize the features to have zero mean and unit variance:
@@ -58,6 +61,9 @@ Project original data onto the selected principal components.
 
 ## Interpreting Results
 
+![PCA Scree Plot](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Screeplot.png/500px-Screeplot.png)
+*Scree plot showing explained variance by each principal component*
+
 ### Explained Variance Ratio
 
 Each component explains a certain percentage of total variance:
@@ -73,6 +79,9 @@ A scree plot shows explained variance for each component:
 - Aim for 80-95% cumulative variance
 
 ### Loadings
+
+![PCA Biplot](https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/PCA_biplot.png/500px-PCA_biplot.png)
+*PCA biplot showing both data points and feature loadings*
 
 Component loadings show how original features contribute to each PC:
 - High positive loading: feature increases with PC

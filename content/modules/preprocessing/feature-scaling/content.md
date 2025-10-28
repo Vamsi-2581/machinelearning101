@@ -15,6 +15,9 @@ Without scaling, features with larger ranges can dominate the learning process, 
 
 ## Normalization (Min-Max Scaling)
 
+![Feature Scaling Comparison](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Comparison_of_normalization_methods.svg/500px-Comparison_of_normalization_methods.svg.png)
+*Comparison of different feature scaling methods*
+
 Normalization scales features to a fixed range, typically [0, 1].
 
 **Formula:** `(x - min) / (max - min)`
@@ -33,6 +36,9 @@ Normalization scales features to a fixed range, typically [0, 1].
 - Doesn't center the data
 
 ## Standardization (Z-Score Normalization)
+
+![Standardization vs Normalization](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Standard_deviation_diagram.svg/500px-Standard_deviation_diagram.svg.png)
+*Standard deviation and normal distribution in standardization*
 
 Standardization transforms features to have mean = 0 and standard deviation = 1.
 
@@ -53,6 +59,9 @@ Standardization transforms features to have mean = 0 and standard deviation = 1.
 - Assumes features are normally distributed
 
 ## Key Takeaways
+
+![Feature Scaling Impact](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Comparison_of_three_stock_indices.svg/500px-Comparison_of_three_stock_indices.svg.png)
+*Impact of feature scaling on data with different ranges*
 
 1. **Always scale your features** when using distance-based algorithms (KNN, SVM, neural networks)
 2. **Choose the right method** based on your data distribution and algorithm requirements

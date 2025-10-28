@@ -34,6 +34,9 @@ Clustering is the task of grouping similar items together. It's an **unsupervise
 
 K-Means follows a simple iterative process:
 
+![K-Means Algorithm Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/K-means_convergence.gif/400px-K-means_convergence.gif)
+*K-Means iteratively assigns points to clusters and updates centroids*
+
 ### Step 1: Choose K
 
 Decide how many clusters (k) you want to find. This is a hyperparameter you must specify before running the algorithm.
@@ -116,6 +119,9 @@ Typical values: 100-300 iterations
 
 ## Clustering Quality Metrics
 
+![Silhouette Score Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Silhouette-plot-orange.png/500px-Silhouette-plot-orange.png)
+*Silhouette plot showing cluster quality and separation*
+
 ### Inertia (Within-Cluster Sum of Squares)
 
 Inertia measures how tightly grouped the clusters are:
@@ -165,6 +171,9 @@ The number of points in each cluster. Ideally, clusters should have reasonable s
 
 Choosing k (the number of clusters) is one of the biggest challenges in K-Means. Here are some approaches:
 
+![Elbow Method](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/DataClustering_ElbowCriterion.JPG/500px-DataClustering_ElbowCriterion.JPG)
+*The elbow method helps identify the optimal number of clusters*
+
 ### The Elbow Method
 
 1. Run K-Means for different values of k (e.g., 2 to 10)
@@ -194,6 +203,9 @@ Sometimes you know how many clusters make sense:
 Compare the inertia of your clustering to that of random data. The optimal k maximizes the "gap" between your data's structure and random data.
 
 ## When K-Means Works Well
+
+![K-Means Cluster Shapes](https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/ClusterAnalysis_Mouse.svg/500px-ClusterAnalysis_Mouse.svg.png)
+*K-Means works best with spherical, well-separated clusters*
 
 K-Means performs best when:
 

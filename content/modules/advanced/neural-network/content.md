@@ -4,6 +4,9 @@
 
 Neural networks are the foundation of modern deep learning. They're computing systems inspired by biological neural networks that can learn complex patterns from data through interconnected layers of artificial neurons.
 
+![Neural Network Architecture Overview](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Colored_neural_network.svg/500px-Colored_neural_network.svg.png)
+*A typical feedforward neural network with input, hidden, and output layers*
+
 ## Network Architecture
 
 ### Layers
@@ -57,6 +60,9 @@ a = sigmoid(0.75) = 0.68
 
 Activation functions introduce non-linearity, allowing networks to learn complex patterns.
 
+![Common Activation Functions](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Gjl-t%28x%29.svg/500px-Gjl-t%28x%29.svg.png)
+*Comparison of common activation functions: Sigmoid, Tanh, and ReLU*
+
 ### Sigmoid
 
 ```
@@ -93,6 +99,9 @@ tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))
 
 Backpropagation is how networks learn by computing gradients.
 
+![Backpropagation Process](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Backpropagation.svg/500px-Backpropagation.svg.png)
+*Forward and backward passes in backpropagation*
+
 ### The Algorithm
 
 1. **Forward pass**: Compute predictions
@@ -117,6 +126,9 @@ w_new = w_old - learning_rate × gradient
 ```
 
 ## Loss Functions
+
+![Loss Function Landscape](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Gradient_descent.gif/350px-Gradient_descent.gif)
+*Gradient descent navigating a loss function landscape*
 
 ### Binary Cross-Entropy
 
@@ -158,6 +170,9 @@ Controls step size for weight updates:
 - Typical range: 0.001 - 0.1
 
 ## Common Challenges
+
+![Vanishing Gradient Problem](https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vanishing_gradient_problem.svg/500px-Vanishing_gradient_problem.svg.png)
+*Gradients diminish as they propagate through deep networks*
 
 ### Vanishing Gradients
 

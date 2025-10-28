@@ -18,6 +18,9 @@ By the end of this module, you will:
 
 ## The Core Concept: Maximum Margin
 
+![SVM Maximum Margin](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Svm_max_sep_hyperplane_with_margin.png/500px-Svm_max_sep_hyperplane_with_margin.png)
+*SVM finds the hyperplane that maximizes the margin between classes*
+
 ### Linear Separability
 
 For linearly separable data, many lines could separate the two classes. Which one is best?
@@ -104,6 +107,9 @@ f(x) = sign(w·x + b)
 
 ## Support Vectors
 
+![Support Vectors Illustration](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Svm_separating_hyperplanes_%28SVG%29.svg/500px-Svm_separating_hyperplanes_%28SVG%29.svg.png)
+*Support vectors are the critical points that define the decision boundary*
+
 **Support vectors** are the training points that lie on the margin boundaries. They are the most important points because:
 
 1. **They Define the Boundary**: Only support vectors determine the hyperplane
@@ -156,6 +162,9 @@ Where ξᵢ are slack variables allowing violations.
 - Depends on the dataset
 
 ## Kernel Functions: Handling Non-linear Data
+
+![SVM Kernel Trick](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Kernel_Machine.svg/500px-Kernel_Machine.svg.png)
+*The kernel trick maps data to higher dimensions where it becomes linearly separable*
 
 For non-linearly separable data, SVM uses the **kernel trick** to implicitly map data to a higher-dimensional space where it becomes linearly separable.
 

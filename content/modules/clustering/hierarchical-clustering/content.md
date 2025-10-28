@@ -18,6 +18,9 @@ By the end of this module, you will:
 
 ## Two Approaches to Hierarchical Clustering
 
+![Hierarchical Clustering Dendrogram](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Hierarchical_clustering_simple_diagram.svg/500px-Hierarchical_clustering_simple_diagram.svg.png)
+*A dendrogram showing the hierarchical structure of clusters*
+
 ### Agglomerative (Bottom-Up)
 
 **Most common approach:**
@@ -72,6 +75,9 @@ By the end of this module, you will:
 - Extract final cluster assignments
 
 ## Linkage Criteria
+
+![Linkage Methods Comparison](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hierarchical_clustering_simple_diagram.svg/500px-Hierarchical_clustering_simple_diagram.svg.png)
+*Different linkage methods measure cluster distance differently*
 
 The linkage criterion determines how to measure distance between clusters. This is the most important choice in hierarchical clustering.
 
@@ -160,6 +166,9 @@ Merge clusters that minimize: Σ(within-cluster sum of squares)
 **Note:** Only works with Euclidean distance
 
 ## The Dendrogram
+
+![Dendrogram Example](https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Iris_dendrogram.png/500px-Iris_dendrogram.png)
+*A dendrogram showing hierarchical relationships and merge distances*
 
 A dendrogram is a tree diagram that shows the hierarchical relationship between clusters.
 

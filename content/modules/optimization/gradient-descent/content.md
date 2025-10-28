@@ -8,6 +8,9 @@ At its core, gradient descent is beautifully simple: it iteratively adjusts para
 
 ## The Gradient Descent Algorithm
 
+![Gradient Descent Optimization](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Gradient_descent.gif/350px-Gradient_descent.gif)
+*Gradient descent iteratively moves toward the minimum of the loss function*
+
 ### Basic Concept
 
 Given a loss function L(θ) that measures how well our model performs, gradient descent updates the parameters θ using this rule:
@@ -48,6 +51,9 @@ The simplest form—just follow the gradient:
 **Cons**: Can be slow, sensitive to learning rate, oscillates in ravines
 
 ### SGD with Momentum
+
+![Momentum Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Stogra.png/500px-Stogra.png)
+*Momentum helps accelerate convergence and reduce oscillations*
 
 Adds "momentum" to accelerate convergence and dampen oscillations:
 
@@ -99,6 +105,9 @@ Adam is often the default choice because it:
 **Typical values**: β₁=0.9, β₂=0.999, ε=1e-8
 
 ## Loss Landscapes
+
+![Loss Landscape Visualization](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Extrema_example_original.svg/500px-Extrema_example_original.svg.png)
+*Different types of loss landscapes with local minima and saddle points*
 
 Understanding loss landscapes helps explain optimizer behavior.
 

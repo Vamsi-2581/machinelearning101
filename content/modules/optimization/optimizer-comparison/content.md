@@ -34,6 +34,9 @@ The goal is to find θ* that minimizes L(θ).
 
 ## Stochastic Gradient Descent (SGD)
 
+![Optimizer Comparison](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Stogra.png/500px-Stogra.png)
+*Different optimizers navigate the loss landscape in different ways*
+
 ### Basic Algorithm
 
 The simplest optimizer updates parameters in the opposite direction of the gradient:
@@ -77,6 +80,9 @@ Where:
 5. **Stuck in Saddle Points**: Slow progress in flat regions
 
 ## SGD with Momentum
+
+![SGD with Momentum](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Stogra.png/500px-Stogra.png)
+*Momentum accelerates convergence by accumulating gradients*
 
 ### The Problem with Basic SGD
 
@@ -138,6 +144,9 @@ v = βv - α∇L(θ + βv)
 Computes gradient at the "lookahead" position, providing better updates.
 
 ## AdaGrad (Adaptive Gradient)
+
+![Adaptive Learning Rates](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Gradient_descent.gif/350px-Gradient_descent.gif)
+*Adaptive optimizers adjust learning rates per parameter*
 
 ### The Idea
 

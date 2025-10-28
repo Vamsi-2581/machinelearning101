@@ -6,6 +6,9 @@ t-SNE (t-Distributed Stochastic Neighbor Embedding) is a machine learning algori
 
 ## Why t-SNE?
 
+![t-SNE Visualization Example](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/T-SNE_Embedding_of_MNIST.png/500px-T-SNE_Embedding_of_MNIST.png)
+*t-SNE visualization of high-dimensional MNIST digit data in 2D*
+
 ### Limitations of Linear Methods
 
 PCA and other linear methods have limitations:
@@ -60,6 +63,9 @@ KL(P||Q) = Σ_i Σ_j p_ij log(p_ij / q_ij)
 Using gradient descent with momentum.
 
 ## Understanding Perplexity
+
+![t-SNE Perplexity Effect](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/T-SNE_Embedding_of_MNIST.png/500px-T-SNE_Embedding_of_MNIST.png)
+*Different perplexity values create different cluster structures*
 
 Perplexity is the most important hyperparameter in t-SNE.
 
@@ -134,6 +140,9 @@ Rules of thumb:
 - Rotation/reflection doesn't change interpretation
 
 ## Best Practices
+
+![t-SNE vs PCA Comparison](https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/MNIST-t-SNE-PCA.png/500px-MNIST-t-SNE-PCA.png)
+*Comparison of t-SNE and PCA on the same dataset*
 
 ### 1. Preprocessing
 

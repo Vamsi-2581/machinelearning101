@@ -18,6 +18,9 @@ By the end of this module, you will:
 
 ## How Decision Trees Work
 
+![Decision Tree Structure](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/CART_tree_titanic_survivors.png/500px-CART_tree_titanic_survivors.png)
+*Example of a decision tree structure with nodes and branches*
+
 ### The Tree Structure
 
 A decision tree consists of:
@@ -64,6 +67,9 @@ To classify a new example:
 4. Reach a leaf node and return its class label
 
 ## Splitting Criteria
+
+![Gini vs Entropy](https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Entropy_and_Gini_Impurity.svg/500px-Entropy_and_Gini_Impurity.svg.png)
+*Comparison of Gini impurity and entropy splitting criteria*
 
 ### Gini Impurity
 
@@ -124,6 +130,9 @@ In practice, both criteria usually produce similar trees:
 - **Choice**: Often doesn't matter much; try both
 
 ## Controlling Tree Complexity
+
+![Overfitting in Decision Trees](https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Overfitting.svg/500px-Overfitting.svg.png)
+*Overfitting occurs when trees become too complex*
 
 ### Maximum Depth
 
