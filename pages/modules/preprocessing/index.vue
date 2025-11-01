@@ -1,127 +1,154 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-bold mb-4">Data Preprocessing</h1>
-      <p class="text-lg text-gray-600 mb-8">
-        Learn essential data preprocessing techniques to prepare your data for machine learning.
-        Preprocessing is a critical step that can significantly impact model performance.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Feature Scaling Module -->
-        <NuxtLink
-          to="/modules/preprocessing/feature-scaling"
-          class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow"
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Domain Header -->
+    <div class="mb-8">
+      <div class="flex items-center space-x-3 mb-4">
+        <div 
+          class="w-12 h-12 rounded-lg flex items-center justify-center"
+          :class="`bg-${domainInfo.color}-100`"
         >
-          <div class="flex items-start justify-between mb-3">
-            <h2 class="text-2xl font-semibold">Feature Scaling</h2>
-            <span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-              Beginner
+          <Icon 
+            :name="`heroicons:${domainInfo.icon}`" 
+            :class="`w-6 h-6 text-${domainInfo.color}-600`"
+          />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">{{ domainInfo.name }}</h1>
+          <p class="text-gray-600">{{ domainInfo.description }}</p>
+        </div>
+      </div>
+
+      <!-- Completion Stats -->
+      <div v-if="completionStats" class="flex items-center space-x-4 mt-4">
+        <div class="flex-1 max-w-md">
+          <div class="flex items-center justify-between text-sm mb-1">
+            <span class="text-gray-600">Progress</span>
+            <span class="font-medium text-gray-900">
+              {{ completionStats.completed }} / {{ completionStats.total }} modules
             </span>
           </div>
-          <p class="text-gray-600 mb-4">
-            Learn normalization and standardization techniques to transform features to similar scales.
-            Essential for distance-based algorithms and neural networks.
-          </p>
-          <div class="flex items-center text-sm text-gray-500">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>~20 minutes</span>
+          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              class="h-full transition-all duration-300"
+              :class="`bg-${domainInfo.color}-600`"
+              :style="{ width: `${completionStats.percentage}%` }"
+            ></div>
           </div>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Normalization</span>
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Standardization</span>
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Z-Score</span>
-          </div>
-        </NuxtLink>
+        </div>
+        <div class="text-2xl font-bold" :class="`text-${domainInfo.color}-600`">
+          {{ completionStats.percentage }}%
+        </div>
+      </div>
+    </div>
 
-        <!-- Missing Value Imputation Module -->
+    <!-- Modules List -->
+    <div v-if="modules.length > 0" class="space-y-4">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Modules</h2>
+      
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <NuxtLink
-          to="/modules/preprocessing/missing-value-imputation"
-          class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition-shadow"
+          v-for="module in modules"
+          :key="module.id"
+          :to="module.path"
+          class="block p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-200 group"
         >
+          <!-- Module Header -->
           <div class="flex items-start justify-between mb-3">
-            <h2 class="text-2xl font-semibold">Missing Value Imputation</h2>
-            <span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-              Beginner
-            </span>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                {{ module.name }}
+              </h3>
+              <div class="flex items-center space-x-2 mt-1">
+                <span 
+                  class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
+                  :class="getDifficultyClass(module.difficulty)"
+                >
+                  {{ module.difficulty }}
+                </span>
+                <span class="text-xs text-gray-500">
+                  {{ module.estimatedTime }} min
+                </span>
+              </div>
+            </div>
+            
+            <!-- Completion Badge -->
+            <div v-if="module.completed" class="flex-shrink-0">
+              <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                <Icon name="heroicons:check" class="w-5 h-5 text-green-600" />
+              </div>
+            </div>
           </div>
-          <p class="text-gray-600 mb-4">
-            Explore different strategies for handling missing values in your dataset.
-            Learn when to use mean, median, mode, or forward-fill imputation.
-          </p>
-          <div class="flex items-center text-sm text-gray-500">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>~25 minutes</span>
+
+          <!-- Learning Objectives -->
+          <div v-if="module.learningObjectives && module.learningObjectives.length > 0" class="mb-3">
+            <p class="text-sm text-gray-600 line-clamp-2">
+              {{ module.learningObjectives[0] }}
+            </p>
           </div>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Mean</span>
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Median</span>
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Mode</span>
-            <span class="px-2 py-1 text-xs bg-blue-50 text-blue-700 rounded">Forward Fill</span>
+
+          <!-- Quiz Score -->
+          <div v-if="module.quizScore !== undefined" class="mt-3 pt-3 border-t border-gray-100">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">Quiz Score</span>
+              <span class="font-medium text-gray-900">{{ module.quizScore }}%</span>
+            </div>
+          </div>
+
+          <!-- Prerequisites -->
+          <div v-if="module.prerequisites && module.prerequisites.length > 0" class="mt-3 pt-3 border-t border-gray-100">
+            <p class="text-xs text-gray-500">
+              Prerequisites: {{ module.prerequisites.join(', ') }}
+            </p>
           </div>
         </NuxtLink>
       </div>
+    </div>
 
-      <!-- Learning Path -->
-      <div class="mt-12 p-6 bg-blue-50 rounded-lg">
-        <h3 class="text-xl font-semibold mb-3">Recommended Learning Path</h3>
-        <ol class="space-y-2">
-          <li class="flex items-start">
-            <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-blue-600 text-white rounded-full text-sm font-medium mr-3">1</span>
-            <div>
-              <p class="font-medium">Feature Scaling</p>
-              <p class="text-sm text-gray-600">Start with understanding how to normalize and standardize features</p>
-            </div>
-          </li>
-          <li class="flex items-start">
-            <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-blue-600 text-white rounded-full text-sm font-medium mr-3">2</span>
-            <div>
-              <p class="font-medium">Missing Value Imputation</p>
-              <p class="text-sm text-gray-600">Learn how to handle missing data effectively</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <!-- Why Preprocessing Matters -->
-      <div class="mt-8 p-6 bg-gray-50 rounded-lg">
-        <h3 class="text-xl font-semibold mb-3">Why Preprocessing Matters</h3>
-        <ul class="space-y-2 text-gray-700">
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span><strong>Improves Model Performance:</strong> Clean, well-scaled data leads to better predictions</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span><strong>Faster Convergence:</strong> Properly scaled features help algorithms converge faster</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span><strong>Handles Real-World Data:</strong> Real datasets often have missing values and inconsistent scales</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span><strong>Prevents Bias:</strong> Proper preprocessing prevents features from dominating due to scale</span>
-          </li>
-        </ul>
-      </div>
+    <!-- Empty State -->
+    <div v-else class="text-center py-12">
+      <Icon name="heroicons:academic-cap" class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No modules yet</h3>
+      <p class="text-gray-600">Modules for this domain are coming soon.</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useModules } from '~/composables/useModules';
+import type { DomainInfo, ModuleMetadata, Difficulty } from '~/types/module';
+
+const { getDomainInfo, getDomainCompletionStats } = useModules();
+
+const domainInfo = ref<DomainInfo>({
+  id: 'preprocessing',
+  name: 'Data Preprocessing',
+  description: 'Learn essential data preprocessing techniques to prepare your data for machine learning',
+  icon: 'adjustments',
+  color: 'orange',
+  modules: [],
+});
+
+const modules = ref<ModuleMetadata[]>([]);
+const completionStats = ref<{ completed: number; total: number; percentage: number } | null>(null);
+
+onMounted(async () => {
+  const info = await getDomainInfo('preprocessing');
+  domainInfo.value = info;
+  modules.value = info.modules;
+  
+  completionStats.value = await getDomainCompletionStats('preprocessing');
+});
+
+const getDifficultyClass = (difficulty: Difficulty): string => {
+  const classes = {
+    beginner: 'bg-green-100 text-green-800',
+    intermediate: 'bg-yellow-100 text-yellow-800',
+    advanced: 'bg-red-100 text-red-800',
+  };
+  return classes[difficulty] || classes.beginner;
+};
+
 // SEO
 useSEO({
   title: 'Data Preprocessing Modules - ML Simplified',

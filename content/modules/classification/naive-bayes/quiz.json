@@ -1,0 +1,103 @@
+{
+  "title": "Naive Bayes Quiz",
+  "description": "Test your understanding of naive bayes",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the 'naive' assumption in Naive Bayes classification?",
+      "options": [
+        "All features have the same importance",
+        "All features are conditionally independent given the class",
+        "All classes have equal prior probabilities",
+        "The data follows a normal distribution"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The 'naive' assumption is that all features are conditionally independent given the class label. This means P(x\u2081,x\u2082,...,x\u2099|Class) = P(x\u2081|Class) \u00d7 P(x\u2082|Class) \u00d7 ... \u00d7 P(x\u2099|Class), which simplifies the computation significantly."
+    },
+    {
+      "id": "q2",
+      "question": "In Gaussian Naive Bayes, what distribution is assumed for continuous features?",
+      "options": [
+        "Uniform distribution",
+        "Exponential distribution",
+        "Normal (Gaussian) distribution",
+        "Poisson distribution"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Gaussian Naive Bayes assumes that continuous features follow a normal (Gaussian) distribution within each class. This allows us to model the likelihood P(feature|class) using the Gaussian probability density function."
+    },
+    {
+      "id": "q3",
+      "question": "What is the purpose of the smoothing parameter in Naive Bayes?",
+      "options": [
+        "To improve model accuracy",
+        "To prevent zero probabilities and numerical instability",
+        "To reduce overfitting",
+        "To speed up training"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The smoothing parameter prevents zero probabilities and numerical instability. It's added to variance calculations to ensure no feature has zero variance, and it helps avoid zero probabilities for unseen feature combinations."
+    },
+    {
+      "id": "q4",
+      "question": "According to Bayes' theorem, P(Class|Features) is proportional to:",
+      "options": [
+        "P(Features) \u00d7 P(Class)",
+        "P(Features|Class) \u00d7 P(Class)",
+        "P(Class) / P(Features)",
+        "P(Features) / P(Class)"
+      ],
+      "correctAnswer": 1,
+      "explanation": "According to Bayes' theorem, P(Class|Features) = P(Features|Class) \u00d7 P(Class) / P(Features). Since P(Features) is constant for all classes during prediction, P(Class|Features) is proportional to P(Features|Class) \u00d7 P(Class)."
+    },
+    {
+      "id": "q5",
+      "question": "Why is Naive Bayes particularly effective for text classification?",
+      "options": [
+        "Text features are always independent",
+        "It handles high-dimensional sparse data well",
+        "It requires no preprocessing of text data",
+        "It can only work with categorical features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Naive Bayes is effective for text classification because it handles high-dimensional sparse data well. Text data often has thousands of features (words) with most being zero for any given document, and Naive Bayes performs well in such scenarios despite the independence assumption."
+    },
+    {
+      "id": "q6",
+      "question": "What happens during the training phase of Naive Bayes?",
+      "options": [
+        "It learns decision boundaries between classes",
+        "It calculates means, variances, and prior probabilities for each class",
+        "It builds a decision tree structure",
+        "It finds the optimal weights for each feature"
+      ],
+      "correctAnswer": 1,
+      "explanation": "During training, Naive Bayes calculates the mean and variance of each feature for each class (for Gaussian NB), and computes the prior probability of each class. These statistics are all that's needed to make predictions later."
+    },
+    {
+      "id": "q7",
+      "question": "Which of the following is NOT an advantage of Naive Bayes?",
+      "options": [
+        "Fast training and prediction",
+        "Works well with small datasets",
+        "Handles feature correlations effectively",
+        "Provides probabilistic outputs"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Naive Bayes does NOT handle feature correlations effectively - this is actually its main limitation. The algorithm assumes features are independent, so it doesn't model correlations between features, which can hurt performance when features are highly correlated."
+    },
+    {
+      "id": "q8",
+      "question": "In the prediction phase, how does Naive Bayes choose the final class?",
+      "options": [
+        "It picks the class with the highest prior probability",
+        "It uses majority voting among features",
+        "It selects the class with the highest posterior probability",
+        "It chooses randomly among probable classes"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Naive Bayes chooses the class with the highest posterior probability P(Class|Features). This is calculated using Bayes' theorem by multiplying the likelihood P(Features|Class) with the prior P(Class) for each class and selecting the maximum."
+    }
+  ]
+}

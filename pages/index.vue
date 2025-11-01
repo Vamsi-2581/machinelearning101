@@ -124,30 +124,28 @@
           Comprehensive ML Curriculum
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Regression</h3>
-            <p class="text-gray-600 text-sm">Linear & logistic regression with gradient descent visualization</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Classification</h3>
-            <p class="text-gray-600 text-sm">Decision boundaries, confusion matrices, and ROC curves</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Clustering</h3>
-            <p class="text-gray-600 text-sm">K-means and hierarchical clustering with interactive visualizations</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Preprocessing</h3>
-            <p class="text-gray-600 text-sm">Feature scaling, encoding, and missing value imputation</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Optimization</h3>
-            <p class="text-gray-600 text-sm">Gradient descent, Adam, RMSProp with loss landscape visualization</p>
-          </div>
-          <div class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-colors">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Advanced Topics</h3>
-            <p class="text-gray-600 text-sm">PCA, t-SNE, neural networks, and deep learning concepts</p>
-          </div>
+          <NuxtLink
+            v-for="domain in allDomains"
+            :key="domain.id"
+            :to="`/modules/${domain.id}`"
+            class="p-6 border-2 border-gray-200 rounded-lg hover:border-blue-400 transition-all duration-200 group block"
+          >
+            <div class="flex items-center mb-3">
+              <div 
+                class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 transition-transform group-hover:scale-110"
+                :class="`bg-${domain.color}-100`"
+              >
+                <Icon 
+                  :name="domain.icon" 
+                  :class="`w-5 h-5 text-${domain.color}-600`"
+                />
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                {{ domain.name }}
+              </h3>
+            </div>
+            <p class="text-gray-600 text-sm">{{ domain.description }}</p>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -247,11 +245,12 @@
           <div class="flex-shrink-0">
             <div class=" rounded-full flex items-center justify-center"> 
                 <NuxtImg
-                  src="https://avatars.githubusercontent.com/u/56586020?v=4" 
+                  src="https://media.licdn.com/dms/image/v2/D4D03AQFs46mep4LTWw/profile-displayphoto-shrink_200_200/B4DZbk.iJFH8AY-/0/1747598321396?e=1763596800&v=beta&t=WcRxmcsHPUGer9Y3Ml40AhRQ405nAzkNnyYKJRM3nqA" 
+                 
                   alt="Author"
                   class="rounded-full "
-                  width="160px"
-                  height="160px"
+                  width="120px"
+                  height="120px"
                   loading="lazy" 
                 />
 
@@ -262,7 +261,7 @@
               Building Intuition Through Interaction
             </h3>
             <p class="text-gray-700 mb-4">
-              Machine Learning Simplified was created with a simple mission: make machine learning accessible to everyone through interactive, visual learning experiences. No complex setups, no prerequisites—just pure exploration and discovery.
+              Machine Learning Simplified was created to make machine learning accessible to everyone through interactive, visual learning experiences. No complex setups, no prerequisites.
             </p> 
             <p class="text-gray-700">
               Every module is designed to build intuition first, theory second. Because when you truly understand how something works, the math becomes much easier to grasp.
@@ -301,7 +300,7 @@
           </button>
         </form>
         <p class="text-sm text-gray-500 mt-4">
-          No spam, unsubscribe anytime. We respect your privacy.
+          No spam, unsubscribe anytime.
         </p>
       </div>
     </section>
@@ -328,8 +327,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useSEO, useWebsiteStructuredData, useOrganizationStructuredData } from '~/composables/useSEO';
+import { useModules, DOMAINS } from '~/composables/useModules';
+import type { Domain } from '~/types/module';
 
 // SEO
 useSEO({
@@ -353,6 +354,9 @@ const handleNewsletterSubmit = () => {
   alert('Thank you for subscribing! (Newsletter integration coming soon)');
   newsletterEmail.value = '';
 }
+
+// Load all domains for the curriculum section
+const allDomains = ref(Object.values(DOMAINS));
 
 // Featured modules data
 const featuredModules = [

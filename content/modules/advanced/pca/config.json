@@ -3,8 +3,10 @@
   "name": "Principal Component Analysis (PCA)",
   "domain": "advanced",
   "difficulty": "intermediate",
-  "estimatedTime": 35,
-  "prerequisites": ["linear-regression"],
+  "estimatedTime": 5,
+  "prerequisites": [
+    "linear-regression"
+  ],
   "learningObjectives": [
     "Understand how PCA reduces dimensionality while preserving variance",
     "Learn about eigenvalues and eigenvectors in the context of PCA",

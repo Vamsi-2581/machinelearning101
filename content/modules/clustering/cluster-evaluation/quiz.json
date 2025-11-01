@@ -1,0 +1,104 @@
+{
+  "title": "Cluster Evaluation Quiz",
+  "description": "Test your understanding of cluster evaluation",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main difference between internal and external clustering evaluation metrics?",
+      "options": [
+        "Internal metrics are always more accurate than external metrics",
+        "Internal metrics use only the data and cluster assignments, while external metrics compare against ground truth labels",
+        "External metrics are faster to compute than internal metrics",
+        "Internal metrics work only with K-Means, while external metrics work with any algorithm"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Internal metrics evaluate clustering quality using only the data and cluster assignments without external information, while external metrics compare clustering results against known ground truth labels."
+    },
+    {
+      "id": "q2",
+      "question": "What does a silhouette score of 0.8 indicate?",
+      "options": [
+        "Poor clustering quality",
+        "Average clustering quality",
+        "Strong clustering structure with well-separated clusters",
+        "The clustering has exactly 8 clusters"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A silhouette score of 0.8 indicates strong clustering structure. Scores between 0.7-1.0 represent strong structure, meaning points are well-matched to their clusters and well-separated from other clusters."
+    },
+    {
+      "id": "q3",
+      "question": "For the Davies-Bouldin Index, what does a lower value indicate?",
+      "options": [
+        "Worse clustering quality",
+        "Better clustering quality",
+        "More clusters in the result",
+        "Higher computational cost"
+      ],
+      "correctAnswer": 1,
+      "explanation": "For the Davies-Bouldin Index, lower values indicate better clustering quality. This metric measures the average similarity between each cluster and its most similar cluster, so lower values mean better separation."
+    },
+    {
+      "id": "q4",
+      "question": "What is the range of the Adjusted Rand Index (ARI)?",
+      "options": [
+        "0 to 1",
+        "0 to infinity",
+        "-1 to +1",
+        "-infinity to +infinity"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Adjusted Rand Index ranges from -1 to +1, where +1 indicates perfect agreement with ground truth, 0 indicates random clustering, and negative values indicate worse than random performance."
+    },
+    {
+      "id": "q5",
+      "question": "Which metric would be most appropriate for comparing clusterings with different numbers of clusters when you don't have ground truth labels?",
+      "options": [
+        "Adjusted Rand Index",
+        "Normalized Mutual Information",
+        "Calinski-Harabasz Index",
+        "V-Measure"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Calinski-Harabasz Index is an internal metric that's particularly good for comparing clusterings with different numbers of clusters. It measures the ratio of between-cluster to within-cluster variance and doesn't require ground truth labels."
+    },
+    {
+      "id": "q6",
+      "question": "What does the V-Measure combine to evaluate clustering quality?",
+      "options": [
+        "Precision and recall",
+        "Homogeneity and completeness",
+        "Sensitivity and specificity",
+        "Accuracy and F1-score"
+      ],
+      "correctAnswer": 1,
+      "explanation": "V-Measure is the harmonic mean of homogeneity (each cluster contains only members of a single class) and completeness (all members of a class are assigned to the same cluster)."
+    },
+    {
+      "id": "q7",
+      "question": "Why is it recommended to use multiple evaluation metrics rather than relying on a single metric?",
+      "options": [
+        "To make the evaluation process more complex",
+        "Because different metrics capture different aspects of clustering quality",
+        "To increase computational cost",
+        "Because single metrics are always wrong"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Different metrics capture different aspects of clustering quality (separation, compactness, agreement with ground truth, etc.). Using multiple metrics provides a more comprehensive and reliable evaluation than any single metric alone."
+    },
+    {
+      "id": "q8",
+      "question": "Which of the following is a limitation of the silhouette score?",
+      "options": [
+        "It only works with K-Means clustering",
+        "It has no upper bound",
+        "It is computationally expensive with O(n\u00b2) complexity",
+        "It cannot handle negative values"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The silhouette score has O(n\u00b2) computational complexity because it requires calculating distances between all pairs of points, making it expensive for large datasets. It can also be biased toward convex clusters."
+    }
+  ],
+  "timeLimit": 600
+}

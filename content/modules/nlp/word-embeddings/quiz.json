@@ -1,0 +1,127 @@
+{
+  "title": "Word Embeddings Quiz",
+  "description": "Test your understanding of word embeddings",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of word embeddings over one-hot encoding?",
+      "options": [
+        "Word embeddings are faster to compute",
+        "Word embeddings capture semantic relationships and are lower-dimensional",
+        "Word embeddings use less memory for storage",
+        "Word embeddings are easier to understand"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Word embeddings provide dense, low-dimensional representations (50-300 dimensions) that capture semantic relationships between words, unlike one-hot encoding which creates sparse, high-dimensional vectors with no semantic information."
+    },
+    {
+      "id": "q2",
+      "question": "What is the distributional hypothesis that underlies word embeddings?",
+      "options": [
+        "Words should be distributed evenly across documents",
+        "Words that appear in similar contexts tend to have similar meanings",
+        "Word frequencies follow a normal distribution",
+        "Words should be distributed randomly in vector space"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The distributional hypothesis states that 'you shall know a word by the company it keeps' - words appearing in similar contexts tend to have similar meanings. This principle is the foundation for learning word embeddings."
+    },
+    {
+      "id": "q3",
+      "question": "In the Word2Vec Skip-gram model, what does the model try to predict?",
+      "options": [
+        "The next word in the sequence",
+        "The previous word in the sequence",
+        "Context words given a target word",
+        "The part of speech of the target word"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Skip-gram model predicts context words (surrounding words) given a target word. For example, given 'cat', it tries to predict words like 'the' and 'sat' that appear nearby in the text."
+    },
+    {
+      "id": "q4",
+      "question": "What is the purpose of negative sampling in Word2Vec training?",
+      "options": [
+        "To remove negative words from the vocabulary",
+        "To make training more efficient by using random negative examples instead of computing over the entire vocabulary",
+        "To filter out words with negative sentiment",
+        "To balance positive and negative word pairs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Negative sampling makes training efficient by using a few random 'negative' word pairs (words that don't appear together) instead of computing probabilities over the entire vocabulary, which would be computationally expensive."
+    },
+    {
+      "id": "q5",
+      "question": "What does the vector arithmetic 'king - man + woman \u2248 queen' demonstrate?",
+      "options": [
+        "Word embeddings can perform mathematical operations",
+        "Word embeddings capture semantic relationships and analogies",
+        "Word embeddings are based on gender",
+        "Word embeddings can translate between languages"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This famous example demonstrates that word embeddings capture semantic relationships through vector arithmetic. The operation captures the 'royalty' concept while swapping the gender dimension, showing that embeddings encode meaningful relationships."
+    },
+    {
+      "id": "q6",
+      "question": "How is similarity between two word embeddings typically measured?",
+      "options": [
+        "Euclidean distance",
+        "Manhattan distance",
+        "Cosine similarity",
+        "Hamming distance"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Cosine similarity is the standard metric for measuring similarity between word embeddings. It measures the cosine of the angle between two vectors, ranging from -1 (opposite) to +1 (identical), and is independent of vector magnitude."
+    },
+    {
+      "id": "q7",
+      "question": "What is the typical dimensionality range for word embeddings?",
+      "options": [
+        "5-10 dimensions",
+        "50-300 dimensions",
+        "1,000-5,000 dimensions",
+        "10,000+ dimensions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Word embeddings typically use 50-300 dimensions. This is much lower than one-hot encoding (vocabulary size, often 10,000+) but high enough to capture semantic relationships. Common sizes are 100, 200, or 300 dimensions."
+    },
+    {
+      "id": "q8",
+      "question": "What effect does increasing the context window size have in Word2Vec?",
+      "options": [
+        "It makes training faster",
+        "It reduces the vocabulary size",
+        "It captures more semantic (topical) relationships rather than just syntactic ones",
+        "It decreases the embedding dimension"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A larger context window (e.g., 5-10 words) captures broader semantic and topical relationships, while a smaller window (1-2 words) focuses more on syntactic relationships and immediate word associations."
+    },
+    {
+      "id": "q9",
+      "question": "What is a major limitation of traditional Word2Vec embeddings?",
+      "options": [
+        "They are too slow to train",
+        "They give the same vector for a word regardless of context (polysemy problem)",
+        "They only work for English",
+        "They require labeled data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Word2Vec gives each word a single, static vector regardless of context. This means 'bank' (financial) and 'bank' (river) get the same embedding. Modern contextual embeddings like BERT solve this by generating different vectors based on context."
+    },
+    {
+      "id": "q10",
+      "question": "Which of the following is NOT a common use case for word embeddings?",
+      "options": [
+        "Text classification and sentiment analysis",
+        "Finding semantically similar words",
+        "Image recognition and computer vision",
+        "Machine translation and cross-lingual tasks"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Word embeddings are designed for natural language processing tasks, not computer vision. They are widely used for text classification, similarity search, machine translation, and other NLP tasks, but not for image recognition."
+    }
+  ]
+}

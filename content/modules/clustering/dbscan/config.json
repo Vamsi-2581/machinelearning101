@@ -1,0 +1,148 @@
+{
+  "id": "dbscan",
+  "name": "DBSCAN",
+  "domain": "clustering",
+  "difficulty": "intermediate",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "k-means"
+  ],
+  "learningObjectives": [
+    "Understand density-based clustering concepts",
+    "Learn how DBSCAN identifies core, border, and noise points",
+    "Discover how DBSCAN finds arbitrarily shaped clusters",
+    "Master the eps and minPts parameters",
+    "Recognize when DBSCAN outperforms K-Means",
+    "Understand noise detection and outlier identification"
+  ],
+  "keywords": [
+    "dbscan",
+    "density-based clustering",
+    "unsupervised learning",
+    "core points",
+    "border points",
+    "noise points",
+    "outlier detection",
+    "arbitrary shapes",
+    "eps parameter",
+    "minPts parameter"
+  ],
+  "interactive": {
+    "algorithm": "DBSCAN",
+    "defaultParams": {
+      "eps": 0.5,
+      "minPts": 5,
+      "metric": "euclidean",
+      "dataset": "blobs"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          },
+          {
+            "label": "Noisy Data",
+            "value": "noisy"
+          }
+        ]
+      },
+      {
+        "id": "eps",
+        "type": "slider",
+        "label": "Epsilon (ε)",
+        "group": "Algorithm Parameters",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "tooltip": "Maximum distance between two points to be considered neighbors. Smaller values create more clusters."
+      },
+      {
+        "id": "minPts",
+        "type": "slider",
+        "label": "Minimum Points",
+        "group": "Algorithm Parameters",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Minimum number of points required to form a dense region (core point)."
+      },
+      {
+        "id": "metric",
+        "type": "select",
+        "label": "Distance Metric",
+        "group": "Algorithm Parameters",
+        "tooltip": "Distance metric used to calculate point neighborhoods.",
+        "options": [
+          {
+            "label": "Euclidean",
+            "value": "euclidean"
+          },
+          {
+            "label": "Manhattan",
+            "value": "manhattan"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons",
+      "noisy"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "DBSCAN Clustering",
+      "description": "Scatter plot showing data points colored by cluster assignment with noise points marked separately"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "numClusters",
+      "name": "Number of Clusters",
+      "description": "Number of clusters found by DBSCAN (determined automatically)"
+    },
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "clusterSizes",
+      "name": "Cluster Sizes",
+      "description": "Number of points assigned to each cluster"
+    },
+    {
+      "id": "noisePoints",
+      "name": "Noise Points",
+      "description": "Number of points identified as noise/outliers"
+    },
+    {
+      "id": "noiseRatio",
+      "name": "Noise Ratio",
+      "description": "Percentage of points identified as noise"
+    },
+    {
+      "id": "corePoints",
+      "name": "Core Points",
+      "description": "Number of core points (points with at least minPts neighbors)"
+    }
+  ]
+}

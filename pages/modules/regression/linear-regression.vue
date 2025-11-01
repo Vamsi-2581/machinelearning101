@@ -132,7 +132,7 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
-import { queryCollection, useAsyncData } from '#imports';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 

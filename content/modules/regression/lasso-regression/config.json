@@ -1,0 +1,142 @@
+{
+  "id": "lasso-regression",
+  "name": "Lasso Regression",
+  "domain": "regression",
+  "difficulty": "intermediate",
+  "estimatedTime": 5,
+  "prerequisites": [
+    "linear-regression",
+    "ridge-regression"
+  ],
+  "learningObjectives": [
+    "Understand L1 regularization and automatic feature selection",
+    "Learn how Lasso sets coefficients to exactly zero",
+    "Compare Lasso with Ridge regression",
+    "Apply Lasso for feature selection in high-dimensional data",
+    "Interpret sparse models created by Lasso"
+  ],
+  "keywords": [
+    "lasso regression",
+    "L1 regularization",
+    "feature selection",
+    "sparse models",
+    "regularization",
+    "coefficient shrinkage"
+  ],
+  "interactive": {
+    "algorithm": "LassoRegression",
+    "defaultParams": {
+      "alpha": 1,
+      "learningRate": 0.01,
+      "epochs": 100,
+      "dataset": "noisy-linear"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a dataset to train on",
+        "options": [
+          {
+            "label": "Simple Linear",
+            "value": "simple-linear"
+          },
+          {
+            "label": "Noisy Linear",
+            "value": "noisy-linear"
+          },
+          {
+            "label": "Polynomial",
+            "value": "polynomial"
+          }
+        ]
+      },
+      {
+        "id": "alpha",
+        "type": "slider",
+        "label": "Alpha (Regularization Strength)",
+        "group": "Model Parameters",
+        "min": 0,
+        "max": 10,
+        "step": 0.1,
+        "tooltip": "Controls regularization strength. Higher values perform more feature selection."
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "Training Parameters",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns."
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "group": "Training Parameters",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations."
+      }
+    ],
+    "datasets": [
+      "simple-linear",
+      "noisy-linear",
+      "polynomial"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Data & Lasso Regression Line",
+      "description": "Scatter plot showing the data points and the fitted regression line with L1 regularization"
+    },
+    {
+      "type": "line",
+      "title": "Training Loss",
+      "description": "Line chart showing how the loss decreases during training"
+    },
+    {
+      "type": "bar",
+      "title": "Coefficients",
+      "description": "Bar chart showing coefficient values (some may be exactly zero)"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "mse",
+      "name": "Mean Squared Error",
+      "description": "Average squared difference between predictions and actual values"
+    },
+    {
+      "id": "rmse",
+      "name": "Root Mean Squared Error",
+      "description": "Square root of MSE, in the same units as the target"
+    },
+    {
+      "id": "r2Score",
+      "name": "R² Score",
+      "description": "Proportion of variance explained by the model"
+    },
+    {
+      "id": "mae",
+      "name": "Mean Absolute Error",
+      "description": "Average absolute difference between predictions and actual values"
+    },
+    {
+      "id": "nonZeroFeatures",
+      "name": "Non-Zero Features",
+      "description": "Number of features with non-zero coefficients"
+    },
+    {
+      "id": "l1Norm",
+      "name": "L1 Norm of Weights",
+      "description": "Sum of absolute values of coefficients"
+    }
+  ]
+}

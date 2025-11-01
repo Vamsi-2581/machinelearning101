@@ -1,0 +1,127 @@
+{
+  "title": "Text Generation Quiz",
+  "description": "Test your understanding of text generation",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main task of a language model in text generation?",
+      "options": [
+        "To translate text between languages",
+        "To learn probability distributions over sequences and predict what comes next",
+        "To count the frequency of words in text",
+        "To remove stopwords from text"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A language model learns the probability distribution over sequences of text, allowing it to predict what character or word is most likely to come next given the previous context. This is the foundation of text generation."
+    },
+    {
+      "id": "q2",
+      "question": "What is an advantage of character-level language models over word-level models?",
+      "options": [
+        "They always generate faster",
+        "They have a small vocabulary and can generate any word, including made-up ones",
+        "They require more memory",
+        "They only work for English"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Character-level models have a small vocabulary (just letters, numbers, and punctuation) and can generate any word, even made-up ones or misspellings. This makes them more flexible than word-level models which are limited to their fixed vocabulary."
+    },
+    {
+      "id": "q3",
+      "question": "What is the purpose of the hidden state in a Recurrent Neural Network (RNN)?",
+      "options": [
+        "To encrypt the input data",
+        "To maintain memory of previous inputs and capture sequential context",
+        "To make the model train faster",
+        "To reduce the vocabulary size"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The hidden state in an RNN acts as memory, carrying information from previous time steps forward. This allows the network to capture sequential patterns and context, which is essential for understanding and generating text."
+    },
+    {
+      "id": "q4",
+      "question": "How does temperature affect text generation sampling?",
+      "options": [
+        "Temperature has no effect on generation",
+        "Low temperature makes generation more conservative and predictable; high temperature makes it more random and creative",
+        "High temperature always produces better text",
+        "Temperature only affects training speed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Temperature controls the randomness of sampling. Low temperature (0.2-0.5) makes the model pick high-probability characters, resulting in conservative, predictable text. High temperature (1.5+) flattens the distribution, making generation more random and creative but potentially less coherent."
+    },
+    {
+      "id": "q5",
+      "question": "What is cross-entropy loss used for in training language models?",
+      "options": [
+        "To measure how well the model's predictions match the actual next characters/words",
+        "To count the number of words in the training data",
+        "To translate text between languages",
+        "To remove punctuation from text"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Cross-entropy loss measures the difference between the model's predicted probability distribution and the actual distribution (where the correct next character has probability 1). Lower loss means better predictions, and the model is trained to minimize this loss."
+    },
+    {
+      "id": "q6",
+      "question": "What is a major challenge that RNNs face with long sequences?",
+      "options": [
+        "They process sequences too quickly",
+        "Vanishing gradients make it difficult to learn long-range dependencies",
+        "They use too little memory",
+        "They only work with short sequences"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RNNs suffer from the vanishing gradient problem, where gradients become very small during backpropagation through time. This makes it difficult for the model to learn dependencies between elements that are far apart in the sequence. LSTM and GRU architectures were designed to address this issue."
+    },
+    {
+      "id": "q7",
+      "question": "In the text generation process, what is the 'seed text'?",
+      "options": [
+        "The entire training corpus",
+        "The initial text provided to start generation, which the model continues from",
+        "The vocabulary of the model",
+        "The loss function"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Seed text is the initial text provided to the model to start generation. The model processes this seed to establish context (hidden state), then continues generating new characters or words based on this starting point."
+    },
+    {
+      "id": "q8",
+      "question": "What is perplexity in the context of language models?",
+      "options": [
+        "The number of words in the vocabulary",
+        "A measure of how surprised the model is by test data; lower perplexity indicates better predictions",
+        "The temperature setting for generation",
+        "The number of training epochs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Perplexity measures how well a language model predicts test data. It's calculated as the exponential of the average loss. Lower perplexity means the model is less surprised by the test data, indicating better predictions and a better model."
+    },
+    {
+      "id": "q9",
+      "question": "Why might a language model generate repetitive text?",
+      "options": [
+        "The temperature is too low",
+        "The model may get stuck in loops where it repeatedly predicts the same patterns",
+        "The vocabulary is too large",
+        "The training data is too diverse"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Language models can get stuck in repetitive loops where they repeatedly generate the same patterns. This happens because once a pattern starts, it may have high probability of continuing. Solutions include repetition penalties, diverse sampling strategies, and better model architectures."
+    },
+    {
+      "id": "q10",
+      "question": "What advantage do Transformer models have over traditional RNNs for text generation?",
+      "options": [
+        "They are always smaller and faster",
+        "They use self-attention mechanisms to better capture long-range dependencies and can be trained in parallel",
+        "They don't require any training data",
+        "They only work for short sequences"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Transformer models use self-attention mechanisms that allow them to directly model relationships between any positions in the sequence, making them better at capturing long-range dependencies. They can also be trained in parallel (unlike RNNs which must process sequentially), making training much faster. This is why models like GPT use the Transformer architecture."
+    }
+  ]
+}

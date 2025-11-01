@@ -1,0 +1,193 @@
+{
+  "id": "spectral-clustering",
+  "name": "Spectral Clustering",
+  "domain": "clustering",
+  "difficulty": "advanced",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "k-means",
+    "dbscan",
+    "gaussian-mixture-models"
+  ],
+  "learningObjectives": [
+    "Understand graph-based clustering approaches",
+    "Learn eigenvalue decomposition for clustering",
+    "Master affinity matrix construction",
+    "Discover Laplacian matrix properties",
+    "Understand spectral embedding concepts",
+    "Learn to handle non-convex cluster shapes"
+  ],
+  "keywords": [
+    "spectral clustering",
+    "graph clustering",
+    "eigenvalue decomposition",
+    "affinity matrix",
+    "laplacian matrix",
+    "spectral embedding",
+    "graph theory",
+    "non-convex clusters",
+    "similarity graph",
+    "eigenvectors"
+  ],
+  "interactive": {
+    "algorithm": "SpectralClustering",
+    "defaultParams": {
+      "k": 3,
+      "sigma": 1,
+      "affinity": "rbf",
+      "nNeighbors": 10,
+      "gamma": 1,
+      "laplacian": "rw",
+      "dataset": "moons"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Noisy Data",
+            "value": "noisy"
+          }
+        ]
+      },
+      {
+        "id": "k",
+        "type": "slider",
+        "label": "Number of Clusters (k)",
+        "group": "Algorithm Parameters",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of clusters to find using spectral clustering."
+      },
+      {
+        "id": "affinity",
+        "type": "select",
+        "label": "Affinity Type",
+        "group": "Algorithm Parameters",
+        "tooltip": "Method for constructing the affinity matrix.",
+        "options": [
+          {
+            "label": "RBF (Gaussian)",
+            "value": "rbf"
+          },
+          {
+            "label": "Nearest Neighbors",
+            "value": "nearest_neighbors"
+          },
+          {
+            "label": "Polynomial",
+            "value": "polynomial"
+          }
+        ]
+      },
+      {
+        "id": "gamma",
+        "type": "slider",
+        "label": "Gamma",
+        "group": "Algorithm Parameters",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Kernel coefficient for RBF and polynomial kernels. Higher values create more localized similarities."
+      },
+      {
+        "id": "nNeighbors",
+        "type": "slider",
+        "label": "Number of Neighbors",
+        "group": "Algorithm Parameters",
+        "min": 3,
+        "max": 50,
+        "step": 1,
+        "tooltip": "Number of neighbors for nearest neighbors affinity (only used when affinity is 'nearest_neighbors')."
+      },
+      {
+        "id": "laplacian",
+        "type": "select",
+        "label": "Laplacian Type",
+        "group": "Algorithm Parameters",
+        "tooltip": "Type of Laplacian matrix normalization.",
+        "options": [
+          {
+            "label": "Random Walk (RW)",
+            "value": "rw"
+          },
+          {
+            "label": "Symmetric",
+            "value": "symmetric"
+          },
+          {
+            "label": "Unnormalized",
+            "value": "unnormalized"
+          }
+        ]
+      }
+    ],
+    "datasets": [
+      "moons",
+      "circles",
+      "blobs",
+      "noisy"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Spectral Clustering (Original Space)",
+      "description": "Scatter plot showing data points in original space colored by spectral cluster assignment"
+    },
+    {
+      "type": "scatter2d",
+      "title": "Spectral Embedding",
+      "description": "Scatter plot showing data points in the spectral embedding space where K-Means is applied"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "clusterSizes",
+      "name": "Cluster Sizes",
+      "description": "Number of points assigned to each cluster"
+    },
+    {
+      "id": "eigenvalues",
+      "name": "Eigenvalues",
+      "description": "Eigenvalues of the Laplacian matrix used for spectral embedding"
+    },
+    {
+      "id": "spectralGap",
+      "name": "Spectral Gap",
+      "description": "Difference between k-th and (k+1)-th eigenvalues, indicates cluster separability"
+    },
+    {
+      "id": "affinity",
+      "name": "Affinity Type",
+      "description": "Method used to construct the affinity matrix"
+    },
+    {
+      "id": "laplacian",
+      "name": "Laplacian Type",
+      "description": "Type of Laplacian matrix normalization used"
+    }
+  ]
+}

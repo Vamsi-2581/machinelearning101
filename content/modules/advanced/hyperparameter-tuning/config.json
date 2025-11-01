@@ -1,0 +1,159 @@
+{
+  "id": "hyperparameter-tuning",
+  "name": "Hyperparameter Tuning",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "neural-network",
+    "cross-validation"
+  ],
+  "learningObjectives": [
+    "Understand the importance of hyperparameter optimization",
+    "Learn different search strategies: grid, random, and Bayesian",
+    "Explore cross-validation for model evaluation",
+    "Understand the bias-variance tradeoff in hyperparameter selection",
+    "See how automated tuning improves model performance"
+  ],
+  "keywords": [
+    "hyperparameter tuning",
+    "grid search",
+    "random search",
+    "bayesian optimization",
+    "cross-validation",
+    "model selection",
+    "optimization",
+    "parameter space",
+    "acquisition function",
+    "early stopping"
+  ],
+  "interactive": {
+    "algorithm": "HyperparameterTuning",
+    "defaultParams": {
+      "searchStrategy": "random",
+      "maxIterations": 50,
+      "crossValidationFolds": 5,
+      "scoringMetric": "accuracy",
+      "earlyStoppingPatience": 10,
+      "dataset": "classification"
+    },
+    "controls": [
+      {
+        "name": "searchStrategy",
+        "label": "Search Strategy",
+        "type": "select",
+        "options": [
+          "grid",
+          "random",
+          "bayesian"
+        ],
+        "default": "random",
+        "description": "Strategy for exploring hyperparameter space"
+      },
+      {
+        "name": "maxIterations",
+        "label": "Max Iterations",
+        "type": "slider",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "default": 50,
+        "description": "Maximum number of hyperparameter configurations to try"
+      },
+      {
+        "name": "crossValidationFolds",
+        "label": "CV Folds",
+        "type": "slider",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 5,
+        "description": "Number of cross-validation folds"
+      },
+      {
+        "name": "scoringMetric",
+        "label": "Scoring Metric",
+        "type": "select",
+        "options": [
+          "accuracy",
+          "f1",
+          "mse",
+          "mae"
+        ],
+        "default": "accuracy",
+        "description": "Metric to optimize during tuning"
+      },
+      {
+        "name": "earlyStoppingPatience",
+        "label": "Early Stopping Patience",
+        "type": "slider",
+        "min": 5,
+        "max": 20,
+        "step": 1,
+        "default": 10,
+        "description": "Stop if no improvement for this many iterations"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "classification",
+        "label": "Binary Classification",
+        "description": "Binary classification dataset for hyperparameter tuning"
+      },
+      {
+        "name": "regression",
+        "label": "Regression",
+        "description": "Regression dataset for hyperparameter optimization"
+      },
+      {
+        "name": "multiclass",
+        "label": "Multi-class Classification",
+        "description": "Multi-class classification problem"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "name": "optimization-progress",
+      "label": "Optimization Progress",
+      "description": "Validation scores over tuning iterations"
+    },
+    {
+      "name": "best-score-evolution",
+      "label": "Best Score Evolution",
+      "description": "Evolution of best score found so far"
+    },
+    {
+      "name": "parameter-importance",
+      "label": "Parameter Importance",
+      "description": "Relative importance of different hyperparameters"
+    },
+    {
+      "name": "acquisition-function",
+      "label": "Acquisition Function",
+      "description": "Bayesian optimization acquisition function values"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "best_score",
+      "label": "Best Score",
+      "description": "Best validation score achieved"
+    },
+    {
+      "name": "total_iterations",
+      "label": "Total Iterations",
+      "description": "Number of configurations evaluated"
+    },
+    {
+      "name": "convergence_rate",
+      "label": "Convergence Rate",
+      "description": "Fraction of iterations that improved the best score"
+    },
+    {
+      "name": "best_iteration",
+      "label": "Best Iteration",
+      "description": "Iteration where best score was found"
+    }
+  ]
+}

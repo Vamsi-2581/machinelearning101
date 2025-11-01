@@ -70,27 +70,43 @@ const dashStyles: Record<string, string> = {
 };
 
 const plotlyData = computed(() => {
-  return props.series.map((s, index) => ({
-    x: s.x,
-    y: s.y,
-    type: 'scatter',
-    mode: s.showMarkers ? 'lines+markers' : 'lines',
-    name: s.name,
-    line: {
-      color: s.color || defaultColors[index % defaultColors.length],
-      width: s.width || 2,
-      dash: dashStyles[s.dash || 'solid'],
-    },
-    marker: s.showMarkers ? {
-      size: 6,
-      color: s.color || defaultColors[index % defaultColors.length],
-    } : undefined,
-    hovertemplate: 
-      `<b>${s.name}</b><br>` +
-      `${props.xLabel}: %{x}<br>` +
-      `${props.yLabel}: %{y:.4f}<br>` +
-      '<extra></extra>',
-  }));
+  if (!props.series || props.series.length === 0) {
+    return [];
+  }
+  
+  return props.series.map((s, index) => {
+    if (!s || !Array.isArray(s.x) || !Array.isArray(s.y)) {
+      console.error('Invalid series data:', s);
+      return null;
+    }
+    
+    const trace: any = {
+      x: s.x,
+      y: s.y,
+      type: 'scatter',
+      mode: s.showMarkers ? 'lines+markers' : 'lines',
+      name: s.name,
+      line: {
+        color: s.color || defaultColors[index % defaultColors.length],
+        width: s.width || 2,
+        dash: dashStyles[s.dash || 'solid'],
+      },
+      hovertemplate: 
+        `<b>${s.name}</b><br>` +
+        `${props.xLabel}: %{x}<br>` +
+        `${props.yLabel}: %{y:.4f}<br>` +
+        '<extra></extra>',
+    };
+    
+    if (s.showMarkers) {
+      trace.marker = {
+        size: 6,
+        color: s.color || defaultColors[index % defaultColors.length],
+      };
+    }
+    
+    return trace;
+  }).filter(d => d !== null);
 });
 
 const plotlyLayout = computed<Partial<Layout>>(() => ({

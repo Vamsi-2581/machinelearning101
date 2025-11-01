@@ -1,8 +1,18 @@
 /**
  * Module metadata and configuration types
+ * Requirements: 1.1, 2.1, 3.1, 4.1, 12.1, 19.3
  */
 
-export type Domain = 'regression' | 'classification' | 'clustering' | 'preprocessing' | 'optimization' | 'advanced';
+export type Domain = 
+  | 'regression' 
+  | 'classification' 
+  | 'clustering' 
+  | 'preprocessing' 
+  | 'optimization' 
+  | 'advanced'
+  | 'computer-vision'
+  | 'nlp'
+  | 'reinforcement-learning';
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
 /**

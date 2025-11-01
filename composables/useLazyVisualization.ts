@@ -83,6 +83,79 @@ export function useLazyVisualization() {
     return defineAsyncComponent(() => import('~/components/visualizations/CanvasScatter.vue'));
   };
 
+  // Computer Vision visualizations
+  /**
+   * Load BoundingBoxOverlay visualization
+   */
+  const loadBoundingBoxOverlay = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/BoundingBoxOverlay.vue'));
+  };
+
+  /**
+   * Load ConvolutionVisualizer visualization
+   */
+  const loadConvolutionVisualizer = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/ConvolutionVisualizer.vue'));
+  };
+
+  /**
+   * Load SegmentationMask visualization
+   */
+  const loadSegmentationMask = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/SegmentationMask.vue'));
+  };
+
+  // NLP visualizations
+  /**
+   * Load TextHighlighter visualization
+   */
+  const loadTextHighlighter = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/TextHighlighter.vue'));
+  };
+
+  /**
+   * Load EmbeddingProjection visualization
+   */
+  const loadEmbeddingProjection = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/EmbeddingProjection.vue'));
+  };
+
+  /**
+   * Load SequenceDisplay visualization
+   */
+  const loadSequenceDisplay = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/SequenceDisplay.vue'));
+  };
+
+  // Reinforcement Learning visualizations
+  /**
+   * Load EnvironmentRenderer visualization
+   */
+  const loadEnvironmentRenderer = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/EnvironmentRenderer.vue'));
+  };
+
+  /**
+   * Load QValueHeatmap visualization
+   */
+  const loadQValueHeatmap = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/QValueHeatmap.vue'));
+  };
+
+  /**
+   * Load PolicyVisualization visualization
+   */
+  const loadPolicyVisualization = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/PolicyVisualization.vue'));
+  };
+
+  /**
+   * Load RewardCurve visualization
+   */
+  const loadRewardCurve = (): Component => {
+    return defineAsyncComponent(() => import('~/components/visualizations/RewardCurve.vue'));
+  };
+
   /**
    * Load any visualization by type
    */
@@ -108,6 +181,29 @@ export function useLazyVisualization() {
         return loadNetworkDiagram();
       case 'canvas-scatter':
         return loadCanvasScatter();
+      // Computer Vision visualizations
+      case 'bounding-box-overlay':
+        return loadBoundingBoxOverlay();
+      case 'convolution-visualizer':
+        return loadConvolutionVisualizer();
+      case 'segmentation-mask':
+        return loadSegmentationMask();
+      // NLP visualizations
+      case 'text-highlighter':
+        return loadTextHighlighter();
+      case 'embedding-projection':
+        return loadEmbeddingProjection();
+      case 'sequence-display':
+        return loadSequenceDisplay();
+      // Reinforcement Learning visualizations
+      case 'environment-renderer':
+        return loadEnvironmentRenderer();
+      case 'qvalue-heatmap':
+        return loadQValueHeatmap();
+      case 'policy-visualization':
+        return loadPolicyVisualization();
+      case 'reward-curve':
+        return loadRewardCurve();
       default:
         throw new Error(`Unknown visualization type: ${type}`);
     }
@@ -125,5 +221,18 @@ export function useLazyVisualization() {
     loadCrossValidation,
     loadNetworkDiagram,
     loadCanvasScatter,
+    // Computer Vision
+    loadBoundingBoxOverlay,
+    loadConvolutionVisualizer,
+    loadSegmentationMask,
+    // NLP
+    loadTextHighlighter,
+    loadEmbeddingProjection,
+    loadSequenceDisplay,
+    // Reinforcement Learning
+    loadEnvironmentRenderer,
+    loadQValueHeatmap,
+    loadPolicyVisualization,
+    loadRewardCurve,
   };
 }

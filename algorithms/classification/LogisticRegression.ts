@@ -376,28 +376,32 @@ export class LogisticRegression extends BaseAlgorithm {
     }
     
     // Loss curve
-    visualizations.push({
-      type: 'line',
-      data: {
-        x: this.trainingHistory.epochs,
-        y: this.trainingHistory.loss,
-        mode: 'lines',
-        name: 'Training Loss',
-        line: { color: '#10b981', width: 2 }
-      }
-    });
+    if (this.trainingHistory.epochs.length > 0) {
+      visualizations.push({
+        type: 'line',
+        data: {
+          x: this.trainingHistory.epochs,
+          y: this.trainingHistory.loss,
+          mode: 'lines',
+          name: 'Training Loss',
+          line: { color: '#10b981', width: 2 }
+        }
+      });
+    }
     
     // Accuracy curve
-    visualizations.push({
-      type: 'line',
-      data: {
-        x: this.trainingHistory.epochs,
-        y: this.trainingHistory.accuracy,
-        mode: 'lines',
-        name: 'Training Accuracy',
-        line: { color: '#8b5cf6', width: 2 }
-      }
-    });
+    if (this.trainingHistory.epochs.length > 0) {
+      visualizations.push({
+        type: 'line',
+        data: {
+          x: this.trainingHistory.epochs,
+          y: this.trainingHistory.accuracy,
+          mode: 'lines',
+          name: 'Training Accuracy',
+          line: { color: '#8b5cf6', width: 2 }
+        }
+      });
+    }
     
     return visualizations;
   }

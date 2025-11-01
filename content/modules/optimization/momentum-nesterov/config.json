@@ -1,0 +1,170 @@
+{
+  "id": "momentum-nesterov",
+  "name": "Momentum & Nesterov",
+  "domain": "optimization",
+  "difficulty": "intermediate",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "sgd",
+    "gradient-descent"
+  ],
+  "learningObjectives": [
+    "Understand how momentum accelerates optimization",
+    "Learn the difference between standard momentum and Nesterov momentum",
+    "Visualize velocity accumulation during optimization",
+    "Compare convergence behavior with and without momentum",
+    "Understand when momentum helps and when it might hurt"
+  ],
+  "keywords": [
+    "momentum",
+    "nesterov",
+    "acceleration",
+    "velocity",
+    "optimization",
+    "convergence"
+  ],
+  "interactive": {
+    "algorithm": "Momentum",
+    "defaultParams": {
+      "learningRate": 0.01,
+      "momentum": 0.9,
+      "momentumType": "standard",
+      "maxIterations": 200,
+      "tolerance": 0.000001,
+      "lossFunction": "quadratic-bowl",
+      "startX": -3,
+      "startY": 2
+    },
+    "controls": [
+      {
+        "id": "momentumType",
+        "type": "select",
+        "label": "Momentum Type",
+        "options": [
+          "none",
+          "standard",
+          "nesterov"
+        ],
+        "tooltip": "Choose between no momentum, standard momentum, or Nesterov momentum"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Base learning rate for parameter updates"
+      },
+      {
+        "id": "momentum",
+        "type": "slider",
+        "label": "Momentum",
+        "min": 0,
+        "max": 0.99,
+        "step": 0.01,
+        "tooltip": "Momentum coefficient (0 = no momentum, 0.9 = high momentum)"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 50,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Maximum number of optimization steps"
+      },
+      {
+        "id": "lossFunction",
+        "type": "select",
+        "label": "Loss Function",
+        "options": [
+          "quadratic-bowl",
+          "elongated-valley",
+          "rosenbrock",
+          "saddle-point",
+          "zigzag"
+        ],
+        "tooltip": "Choose a loss landscape to optimize"
+      },
+      {
+        "id": "startX",
+        "type": "slider",
+        "label": "Start X",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial X parameter value"
+      },
+      {
+        "id": "startY",
+        "type": "slider",
+        "label": "Start Y",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial Y parameter value"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "Optimization Problem",
+        "description": "2D parameter space with momentum-based optimization",
+        "size": "2 parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "contour",
+        "title": "Loss Landscape & Optimization Path",
+        "description": "Shows the loss function contours and momentum-based optimization path"
+      },
+      {
+        "type": "line",
+        "title": "Loss Over Iterations",
+        "description": "Tracks how loss decreases during optimization"
+      },
+      {
+        "type": "line",
+        "title": "Parameter Evolution",
+        "description": "Shows how parameters change over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Velocity Evolution",
+        "description": "Visualizes velocity accumulation for each parameter"
+      },
+      {
+        "type": "line",
+        "title": "Gradient vs Velocity Magnitude",
+        "description": "Compares gradient and velocity magnitudes over time"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "name": "Final Loss",
+      "description": "Loss value at convergence"
+    },
+    {
+      "name": "Loss Reduction",
+      "description": "Total reduction in loss from start to finish"
+    },
+    {
+      "name": "Iterations",
+      "description": "Number of optimization steps taken"
+    },
+    {
+      "name": "Momentum Type",
+      "description": "Type of momentum used (none, standard, or Nesterov)"
+    },
+    {
+      "name": "Final Velocity",
+      "description": "Velocity vector at convergence"
+    },
+    {
+      "name": "Average Velocity Magnitude",
+      "description": "Average magnitude of velocity throughout optimization"
+    }
+  ]
+}

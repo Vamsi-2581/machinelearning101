@@ -1,0 +1,169 @@
+{
+  "id": "cluster-evaluation",
+  "name": "Cluster Evaluation Metrics",
+  "domain": "clustering",
+  "difficulty": "intermediate",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "k-means",
+    "dbscan"
+  ],
+  "learningObjectives": [
+    "Understand internal vs external evaluation metrics",
+    "Learn silhouette analysis for cluster quality",
+    "Master Calinski-Harabasz and Davies-Bouldin indices",
+    "Discover external metrics like ARI and NMI",
+    "Understand when to use different evaluation approaches",
+    "Learn to interpret clustering evaluation results"
+  ],
+  "keywords": [
+    "cluster evaluation",
+    "silhouette score",
+    "internal metrics",
+    "external metrics",
+    "adjusted rand index",
+    "normalized mutual information",
+    "calinski harabasz",
+    "davies bouldin",
+    "cluster validation",
+    "clustering quality"
+  ],
+  "interactive": {
+    "algorithm": "ClusterEvaluation",
+    "defaultParams": {
+      "dataset": "blobs",
+      "algorithm": "kmeans",
+      "k": 3,
+      "withGroundTruth": true
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          },
+          {
+            "label": "Noisy Data",
+            "value": "noisy"
+          }
+        ]
+      },
+      {
+        "id": "algorithm",
+        "type": "select",
+        "label": "Clustering Algorithm",
+        "group": "Algorithm",
+        "tooltip": "Choose which clustering algorithm to evaluate",
+        "options": [
+          {
+            "label": "K-Means",
+            "value": "kmeans"
+          },
+          {
+            "label": "DBSCAN",
+            "value": "dbscan"
+          },
+          {
+            "label": "GMM",
+            "value": "gmm"
+          },
+          {
+            "label": "Mean Shift",
+            "value": "meanshift"
+          }
+        ]
+      },
+      {
+        "id": "k",
+        "type": "slider",
+        "label": "Number of Clusters (k)",
+        "group": "Algorithm Parameters",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of clusters for algorithms that require it (K-Means, GMM)."
+      },
+      {
+        "id": "withGroundTruth",
+        "type": "toggle",
+        "label": "Use Ground Truth",
+        "group": "Evaluation",
+        "tooltip": "Include external metrics that compare against ground truth labels."
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons",
+      "noisy"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Clustering Results",
+      "description": "Scatter plot showing the clustering results being evaluated"
+    },
+    {
+      "type": "bar",
+      "title": "Internal Metrics",
+      "description": "Bar chart showing internal clustering quality metrics"
+    },
+    {
+      "type": "bar",
+      "title": "External Metrics",
+      "description": "Bar chart showing external metrics comparing against ground truth (if available)"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "calinskiHarabaszIndex",
+      "name": "Calinski-Harabasz Index",
+      "description": "Ratio of between-cluster to within-cluster variance (higher is better)"
+    },
+    {
+      "id": "daviesBouldinIndex",
+      "name": "Davies-Bouldin Index",
+      "description": "Average similarity between clusters (lower is better)"
+    },
+    {
+      "id": "dunn",
+      "name": "Dunn Index",
+      "description": "Ratio of minimum inter-cluster to maximum intra-cluster distance (higher is better)"
+    },
+    {
+      "id": "adjustedRandIndex",
+      "name": "Adjusted Rand Index",
+      "description": "Similarity to ground truth, adjusted for chance (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "normalizedMutualInfo",
+      "name": "Normalized Mutual Information",
+      "description": "Information-theoretic measure of similarity to ground truth (range: 0 to 1, higher is better)"
+    },
+    {
+      "id": "vMeasure",
+      "name": "V-Measure",
+      "description": "Harmonic mean of homogeneity and completeness (range: 0 to 1, higher is better)"
+    }
+  ]
+}

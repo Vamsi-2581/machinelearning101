@@ -70,18 +70,7 @@
           </div>
         </div>
       </div>
-
-      <!-- Progress Chart -->
-      <div class="bg-white rounded-lg shadow p-6 mb-8">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">Progress Over Time</h2>
-        <div class="h-64 flex items-center justify-center text-gray-500">
-          <div class="text-center">
-            <Icon name="chart-line" class="w-16 h-16 mx-auto mb-2 text-gray-400" />
-            <p>Progress chart visualization coming soon</p>
-            <p class="text-sm mt-1">Track your learning journey over time</p>
-          </div>
-        </div>
-      </div>
+ 
 
       <!-- Completed Modules List -->
       <div class="bg-white rounded-lg shadow p-6 mb-8">

@@ -1,8 +1,11 @@
 {
+  "title": "Gradient Descent Quiz",
+  "description": "Test your understanding of gradient descent",
+  "passingScore": 70,
   "questions": [
     {
       "id": "gd-q1",
-      "text": "What does the gradient ∇L(θ) represent in gradient descent?",
+      "text": "What does the gradient \u2207L(\u03b8) represent in gradient descent?",
       "type": "multiple-choice",
       "options": [
         "The direction of steepest descent",
@@ -11,7 +14,7 @@
         "The optimal parameters"
       ],
       "correctAnswer": 1,
-      "explanation": "The gradient ∇L(θ) points in the direction of steepest ascent (uphill). That's why we use the negative gradient (-∇L(θ)) to move downhill toward lower loss."
+      "explanation": "The gradient \u2207L(\u03b8) points in the direction of steepest ascent (uphill). That's why we use the negative gradient (-\u2207L(\u03b8)) to move downhill toward lower loss."
     },
     {
       "id": "gd-q2",
@@ -67,7 +70,7 @@
     },
     {
       "id": "gd-q6",
-      "text": "In the update rule θ = θ - α∇L(θ), what does α represent?",
+      "text": "In the update rule \u03b8 = \u03b8 - \u03b1\u2207L(\u03b8), what does \u03b1 represent?",
       "type": "multiple-choice",
       "options": [
         "The momentum coefficient",
@@ -76,7 +79,7 @@
         "The loss value"
       ],
       "correctAnswer": 1,
-      "explanation": "α (alpha) is the learning rate, which controls the step size. It determines how far we move in the direction of the negative gradient during each iteration."
+      "explanation": "\u03b1 (alpha) is the learning rate, which controls the step size. It determines how far we move in the direction of the negative gradient during each iteration."
     },
     {
       "id": "gd-q7",
@@ -89,7 +92,7 @@
         "The starting point of optimization"
       ],
       "correctAnswer": 1,
-      "explanation": "A saddle point is where the gradient is zero (flat), but it's neither a local minimum nor maximum—it's a minimum in some directions and a maximum in others, like a horse saddle. These can slow down optimization."
+      "explanation": "A saddle point is where the gradient is zero (flat), but it's neither a local minimum nor maximum\u2014it's a minimum in some directions and a maximum in others, like a horse saddle. These can slow down optimization."
     },
     {
       "id": "gd-q8",
@@ -106,7 +109,7 @@
     },
     {
       "id": "gd-q9",
-      "text": "What is the typical value for the momentum coefficient β in SGD with Momentum?",
+      "text": "What is the typical value for the momentum coefficient \u03b2 in SGD with Momentum?",
       "type": "multiple-choice",
       "options": [
         "0.1",
@@ -115,7 +118,7 @@
         "1.0"
       ],
       "correctAnswer": 2,
-      "explanation": "The momentum coefficient β is typically set to 0.9 (or sometimes 0.99), meaning 90% of the previous velocity is retained. This provides a good balance between acceleration and stability."
+      "explanation": "The momentum coefficient \u03b2 is typically set to 0.9 (or sometimes 0.99), meaning 90% of the previous velocity is retained. This provides a good balance between acceleration and stability."
     },
     {
       "id": "gd-q10",

@@ -1,0 +1,127 @@
+{
+  "title": "Image Segmentation Quiz",
+  "description": "Test your understanding of image segmentation",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main difference between image classification and image segmentation?",
+      "options": [
+        "Classification is faster than segmentation",
+        "Classification assigns one label to the entire image, while segmentation classifies every pixel",
+        "Segmentation only works on grayscale images",
+        "Classification requires more training data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Image classification assigns a single label to an entire image, while segmentation provides pixel-level understanding by classifying each pixel individually. This allows segmentation to identify where objects are located and their precise boundaries."
+    },
+    {
+      "id": "q2",
+      "question": "What type of segmentation assigns a class label to every pixel without distinguishing between different instances of the same class?",
+      "options": [
+        "Instance segmentation",
+        "Panoptic segmentation",
+        "Semantic segmentation",
+        "Binary segmentation"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Semantic segmentation assigns a class label to every pixel (e.g., 'car', 'road', 'sky') but doesn't distinguish between different instances of the same class. All cars would be labeled as 'car' without individual identification."
+    },
+    {
+      "id": "q3",
+      "question": "Why do we include position features (x, y coordinates) in addition to color features for image segmentation?",
+      "options": [
+        "To make the algorithm run faster",
+        "To create spatially coherent segments where nearby similar pixels are grouped together",
+        "To reduce the number of segments needed",
+        "To improve color accuracy"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Position features help create spatially coherent segments by encouraging nearby pixels with similar colors to be grouped together. This reduces fragmentation and produces more meaningful, connected regions rather than scattered pixels of the same color."
+    },
+    {
+      "id": "q4",
+      "question": "What does the position weight parameter control in image segmentation?",
+      "options": [
+        "The total number of segments",
+        "The balance between color similarity and spatial proximity",
+        "The speed of the algorithm",
+        "The image resolution"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The position weight controls the trade-off between grouping pixels by color similarity versus spatial proximity. Higher weights create more spatially compact segments, while lower weights prioritize color similarity regardless of location."
+    },
+    {
+      "id": "q5",
+      "question": "What is the purpose of k-means++ initialization in segmentation?",
+      "options": [
+        "To reduce the number of iterations needed",
+        "To choose initial cluster centers that are well-spread, improving convergence and quality",
+        "To automatically determine the optimal number of segments",
+        "To normalize the pixel features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "K-means++ initialization strategically selects initial cluster centers that are far apart from each other. This leads to better convergence, faster training, and higher quality segmentation compared to random initialization."
+    },
+    {
+      "id": "q6",
+      "question": "What does the inertia metric measure in image segmentation?",
+      "options": [
+        "The number of segments in the image",
+        "The sum of squared distances from pixels to their cluster centers",
+        "The accuracy of the segmentation",
+        "The time taken to segment the image"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Inertia measures the sum of squared distances from each pixel to its assigned cluster center. Lower inertia indicates tighter, more compact clusters. However, inertia always decreases with more segments, so it should be combined with other evaluation criteria."
+    },
+    {
+      "id": "q7",
+      "question": "What happens when you use only color features (no position features) for segmentation?",
+      "options": [
+        "The algorithm fails to converge",
+        "Pixels with similar colors are grouped together regardless of their location, potentially creating fragmented segments",
+        "The segmentation becomes more accurate",
+        "The number of segments automatically increases"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Using only color features groups pixels based solely on appearance similarity, regardless of where they are in the image. This can create fragmented segments where spatially separated regions of similar color are grouped together, lacking spatial coherence."
+    },
+    {
+      "id": "q8",
+      "question": "In the k-means segmentation algorithm, what happens during the assignment step?",
+      "options": [
+        "New cluster centers are computed",
+        "Each pixel is assigned to the nearest cluster center based on feature distance",
+        "The number of segments is determined",
+        "Features are normalized"
+      ],
+      "correctAnswer": 1,
+      "explanation": "During the assignment step, each pixel is assigned to the cluster whose center is closest to the pixel's feature vector. This is done by computing the distance between the pixel's features and each cluster center, then choosing the minimum."
+    },
+    {
+      "id": "q9",
+      "question": "What is a major limitation of clustering-based segmentation compared to deep learning approaches?",
+      "options": [
+        "It's too slow for practical use",
+        "It requires more training data",
+        "It lacks semantic understanding and relies only on low-level features",
+        "It can only segment grayscale images"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Clustering-based segmentation groups pixels based on low-level features (color, position) without understanding what objects actually are. Deep learning approaches can learn semantic understanding, recognizing 'car' or 'person' rather than just 'similar-colored region'."
+    },
+    {
+      "id": "q10",
+      "question": "Which of the following is NOT a typical application of image segmentation?",
+      "options": [
+        "Medical imaging for tumor detection",
+        "Autonomous vehicle road scene understanding",
+        "Predicting future frames in a video",
+        "Background removal in photo editing"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Predicting future video frames is a temporal prediction task, not segmentation. Image segmentation applications include medical imaging (tumor detection), autonomous vehicles (scene understanding), and photo editing (background removal) - all involving partitioning images into regions."
+    }
+  ]
+}

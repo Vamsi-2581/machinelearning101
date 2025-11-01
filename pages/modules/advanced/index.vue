@@ -3,14 +3,8 @@
     <!-- Domain Header -->
     <div class="mb-8">
       <div class="flex items-center space-x-3 mb-4">
-        <div 
-          class="w-12 h-12 rounded-lg flex items-center justify-center"
-          :class="`bg-${domainInfo.color}-100`"
-        >
-          <Icon 
-            :name="`heroicons:${domainInfo.icon}`" 
-            :class="`w-6 h-6 text-${domainInfo.color}-600`"
-          />
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center" :class="`bg-${domainInfo.color}-100`">
+          <Icon :name="`heroicons:${domainInfo.icon}`" :class="`w-6 h-6 text-${domainInfo.color}-600`" />
         </div>
         <div>
           <h1 class="text-3xl font-bold text-gray-900">{{ domainInfo.name }}</h1>
@@ -28,11 +22,8 @@
             </span>
           </div>
           <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div
-              class="h-full transition-all duration-300"
-              :class="`bg-${domainInfo.color}-600`"
-              :style="{ width: `${completionStats.percentage}%` }"
-            ></div>
+            <div class="h-full transition-all duration-300" :class="`bg-${domainInfo.color}-600`"
+              :style="{ width: `${completionStats.percentage}%` }"></div>
           </div>
         </div>
         <div class="text-2xl font-bold" :class="`text-${domainInfo.color}-600`">
@@ -44,14 +35,10 @@
     <!-- Modules List -->
     <div v-if="modules.length > 0" class="space-y-4">
       <h2 class="text-xl font-semibold text-gray-900 mb-4">Modules</h2>
-      
+
       <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <NuxtLink
-          v-for="module in modules"
-          :key="module.id"
-          :to="module.path"
-          class="block p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-200 group"
-        >
+        <NuxtLink v-for="module in modules" :key="module.id" :to="module.path"
+          class="block p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-200 group">
           <!-- Module Header -->
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1">
@@ -59,10 +46,8 @@
                 {{ module.name }}
               </h3>
               <div class="flex items-center space-x-2 mt-1">
-                <span 
-                  class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
-                  :class="getDifficultyClass(module.difficulty)"
-                >
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
+                  :class="getDifficultyClass(module.difficulty)">
                   {{ module.difficulty }}
                 </span>
                 <span class="text-xs text-gray-500">
@@ -70,7 +55,7 @@
                 </span>
               </div>
             </div>
-            
+
             <!-- Completion Badge -->
             <div v-if="module.completed" class="flex-shrink-0">
               <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
@@ -95,7 +80,8 @@
           </div>
 
           <!-- Prerequisites -->
-          <div v-if="module.prerequisites && module.prerequisites.length > 0" class="mt-3 pt-3 border-t border-gray-100">
+          <div v-if="module.prerequisites && module.prerequisites.length > 0"
+            class="mt-3 pt-3 border-t border-gray-100">
             <p class="text-xs text-gray-500">
               Prerequisites: {{ module.prerequisites.join(', ') }}
             </p>
@@ -136,7 +122,7 @@ onMounted(async () => {
   const info = await getDomainInfo('advanced');
   domainInfo.value = info;
   modules.value = info.modules;
-  
+
   completionStats.value = await getDomainCompletionStats('advanced');
 });
 

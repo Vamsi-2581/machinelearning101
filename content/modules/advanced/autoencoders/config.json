@@ -1,0 +1,146 @@
+{
+  "id": "autoencoders",
+  "name": "Autoencoders",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 6,
+  "prerequisites": [
+    "neural-network",
+    "pca"
+  ],
+  "learningObjectives": [
+    "Understand the architecture and purpose of autoencoders",
+    "Learn how autoencoders compress and reconstruct data",
+    "Explore the latent space representation",
+    "Understand applications in dimensionality reduction and anomaly detection",
+    "See how autoencoders can generate new data"
+  ],
+  "keywords": [
+    "autoencoders",
+    "unsupervised learning",
+    "dimensionality reduction",
+    "latent space",
+    "encoder",
+    "decoder",
+    "reconstruction",
+    "compression",
+    "anomaly detection",
+    "generative models"
+  ],
+  "interactive": {
+    "algorithm": "Autoencoder",
+    "defaultParams": {
+      "encoderLayers": [
+        8,
+        4,
+        2
+      ],
+      "learningRate": 0.01,
+      "epochs": 200,
+      "activation": "relu",
+      "regularization": 0.001,
+      "dataset": "high-dimensional"
+    },
+    "controls": [
+      {
+        "name": "encoderLayers",
+        "label": "Encoder Architecture",
+        "type": "array",
+        "default": [
+          8,
+          4,
+          2
+        ],
+        "description": "Hidden layer sizes for encoder (excluding input/output)"
+      },
+      {
+        "name": "learningRate",
+        "label": "Learning Rate",
+        "type": "slider",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "default": 0.01,
+        "description": "Step size for gradient descent"
+      },
+      {
+        "name": "epochs",
+        "label": "Training Epochs",
+        "type": "slider",
+        "min": 50,
+        "max": 500,
+        "step": 10,
+        "default": 200,
+        "description": "Number of training iterations"
+      },
+      {
+        "name": "activation",
+        "label": "Activation Function",
+        "type": "select",
+        "options": [
+          "relu",
+          "sigmoid",
+          "tanh"
+        ],
+        "default": "relu",
+        "description": "Activation function for hidden layers"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "high-dimensional",
+        "label": "High-Dimensional Data",
+        "description": "Multi-dimensional dataset for compression"
+      },
+      {
+        "name": "mnist-digits",
+        "label": "MNIST Digits",
+        "description": "Handwritten digit images (simplified)"
+      },
+      {
+        "name": "synthetic-manifold",
+        "label": "Synthetic Manifold",
+        "description": "Data lying on a lower-dimensional manifold"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "name": "loss-curve",
+      "label": "Training Loss",
+      "description": "Reconstruction loss over training epochs"
+    },
+    {
+      "name": "latent-space",
+      "label": "Latent Space",
+      "description": "2D/3D visualization of encoded representations"
+    },
+    {
+      "name": "reconstruction-comparison",
+      "label": "Original vs Reconstructed",
+      "description": "Side-by-side comparison of input and output"
+    },
+    {
+      "name": "architecture",
+      "label": "Network Architecture",
+      "description": "Visual representation of encoder-decoder structure"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "reconstruction_loss",
+      "label": "Reconstruction Loss",
+      "description": "Mean squared error between input and output"
+    },
+    {
+      "name": "compression_ratio",
+      "label": "Compression Ratio",
+      "description": "Input dimension / latent dimension"
+    },
+    {
+      "name": "latent_dimension",
+      "label": "Latent Dimension",
+      "description": "Size of the compressed representation"
+    }
+  ]
+}

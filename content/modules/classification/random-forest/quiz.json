@@ -1,0 +1,111 @@
+{
+  "title": "Random Forest Quiz",
+  "description": "Test your understanding of random forest",
+  "passingScore": 70,
+  "id": "random-forest-quiz",
+  "moduleId": "random-forest",
+  "questions": [
+    {
+      "id": "rf-q1",
+      "text": "What is the main principle behind Random Forest's improved performance over individual decision trees?",
+      "type": "multiple-choice",
+      "options": [
+        "Using deeper trees with more complex splits",
+        "Combining predictions from multiple diverse trees",
+        "Using more sophisticated splitting criteria",
+        "Training on larger datasets"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Random Forest improves performance by combining predictions from multiple diverse decision trees. This ensemble approach reduces overfitting and variance while maintaining low bias, following the 'wisdom of crowds' principle where many diverse, moderately accurate models combine to create a highly accurate ensemble."
+    },
+    {
+      "id": "rf-q2",
+      "text": "What is bootstrap sampling in the context of Random Forest?",
+      "type": "multiple-choice",
+      "options": [
+        "Sampling features randomly at each split",
+        "Sampling data points with replacement to create training sets",
+        "Sampling only the most important features",
+        "Sampling data points without replacement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Bootstrap sampling involves sampling data points with replacement from the original training set to create different training sets for each tree. This means some data points appear multiple times while others don't appear at all in each bootstrap sample, creating diversity among the trees."
+    },
+    {
+      "id": "rf-q3",
+      "text": "What is the typical default value for max_features in Random Forest classification?",
+      "type": "multiple-choice",
+      "options": [
+        "All features",
+        "Square root of total features",
+        "Half of total features",
+        "Log base 2 of total features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The typical default for max_features in Random Forest classification is the square root of the total number of features (\u221an). This provides a good balance between randomness and performance, ensuring each tree considers a diverse but reasonable subset of features at each split."
+    },
+    {
+      "id": "rf-q4",
+      "text": "What is Out-of-Bag (OOB) error in Random Forest?",
+      "type": "multiple-choice",
+      "options": [
+        "Error from trees that don't fit in memory",
+        "Validation error calculated using data not seen by each tree",
+        "Error from trees with maximum depth exceeded",
+        "Training error from the worst-performing trees"
+      ],
+      "correctAnswer": 1,
+      "explanation": "OOB error is calculated using the approximately 37% of data points that are not included in each tree's bootstrap sample. These 'out-of-bag' samples serve as a validation set for each tree, and the combined OOB predictions provide an unbiased estimate of the model's performance without needing a separate validation set."
+    },
+    {
+      "id": "rf-q5",
+      "text": "How does Random Forest make final predictions for classification?",
+      "type": "multiple-choice",
+      "options": [
+        "Uses the prediction from the most accurate tree",
+        "Averages the numerical outputs from all trees",
+        "Uses majority voting across all trees",
+        "Uses the prediction from the deepest tree"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Random Forest uses majority voting for classification - each tree votes for a class, and the class with the most votes becomes the final prediction. For probability estimates, it can average the class probabilities from all trees. This democratic approach helps reduce the impact of individual tree errors."
+    },
+    {
+      "id": "rf-q6",
+      "text": "What happens to Random Forest's performance as you add more trees?",
+      "type": "multiple-choice",
+      "options": [
+        "Performance always improves significantly",
+        "Performance improves then starts to overfit",
+        "Performance improves with diminishing returns and rarely overfits",
+        "Performance decreases due to increased complexity"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Random Forest performance typically improves with more trees but with diminishing returns, and it rarely overfits. Unlike other algorithms, adding more trees to a Random Forest almost never hurts performance - it just reaches a plateau. This is because the ensemble averaging effect becomes stronger with more diverse trees."
+    },
+    {
+      "id": "rf-q7",
+      "text": "Which of the following is NOT a typical advantage of Random Forest?",
+      "type": "multiple-choice",
+      "options": [
+        "Provides feature importance scores",
+        "Handles mixed data types well",
+        "Highly interpretable individual predictions",
+        "Built-in validation through OOB error"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Random Forest is NOT highly interpretable for individual predictions. While individual decision trees are interpretable, the ensemble of many trees creates a 'black box' effect where it's difficult to trace exactly how a specific prediction was made. The other options are all genuine advantages of Random Forest."
+    },
+    {
+      "id": "rf-q8",
+      "text": "True or False: Random Forest requires feature scaling/normalization like logistic regression does.",
+      "type": "true-false",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. Random Forest does not require feature scaling or normalization because decision trees (and thus Random Forest) make splits based on feature values directly, not on distances or gradients. Each feature is evaluated independently at each split, so different scales don't affect the tree-building process."
+    }
+  ]
+}

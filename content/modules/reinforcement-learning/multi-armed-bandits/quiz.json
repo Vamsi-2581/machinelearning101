@@ -1,0 +1,187 @@
+{
+  "title": "Multi-Armed Bandits Quiz",
+  "description": "Test your understanding of multi-armed bandit algorithms and the exploration-exploitation tradeoff",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the multi-armed bandit problem named after?",
+      "options": [
+        "A type of robot with multiple arms",
+        "Slot machines in casinos (called 'one-armed bandits')",
+        "A military strategy",
+        "A mathematical theorem"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The multi-armed bandit problem is named after slot machines in casinos, which are called 'one-armed bandits' because they have one lever and traditionally take your money. The multi-armed version imagines multiple slot machines, each with different unknown payout rates."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What is the key difference between the multi-armed bandit problem and full reinforcement learning?",
+      "options": [
+        "Bandits have no rewards",
+        "Bandits are stateless - there's no sequential state transitions",
+        "Bandits require more computation",
+        "Bandits can't be solved optimally"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The key difference is that bandits are stateless. Each trial is independent with no state transitions. In full RL, actions affect future states and require long-term planning. Bandits focus purely on the exploration-exploitation tradeoff without the complexity of sequential decision-making."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What does 'regret' measure in bandit algorithms?",
+      "options": [
+        "The computational cost of the algorithm",
+        "The difference between optimal reward and actual reward obtained",
+        "The number of times suboptimal arms were pulled",
+        "The variance in rewards"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Regret measures the difference between the reward we would have gotten by always pulling the optimal arm and the reward we actually obtained. Cumulative regret is the sum of regrets over all trials. Good bandit algorithms have sublinear regret, meaning average regret per trial approaches zero."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "In epsilon-greedy strategy with ε = 0.1, what happens?",
+      "options": [
+        "10% of the time pull the best arm, 90% pull random arms",
+        "10% of the time pull random arms, 90% pull the best known arm",
+        "Always pull the arm with 10% probability",
+        "Pull each arm with equal probability"
+      ],
+      "correctAnswer": 1,
+      "explanation": "With ε = 0.1, the algorithm explores (pulls a random arm) 10% of the time and exploits (pulls the arm with highest average reward) 90% of the time. This balances learning about all arms while mostly using the best known option."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the main advantage of UCB (Upper Confidence Bound) over epsilon-greedy?",
+      "options": [
+        "UCB is simpler to implement",
+        "UCB explores randomly which is more efficient",
+        "UCB directs exploration toward uncertain arms rather than exploring uniformly",
+        "UCB doesn't require any parameters"
+      ],
+      "correctAnswer": 2,
+      "explanation": "UCB's main advantage is directed exploration. Instead of exploring uniformly at random like epsilon-greedy, UCB prioritizes arms we're uncertain about (haven't pulled much). This is more efficient because it focuses exploration where it's most valuable, leading to better theoretical regret bounds."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "In the UCB formula, what does the exploration bonus sqrt(ln(total_pulls) / arm_pulls) represent?",
+      "options": [
+        "The expected reward of the arm",
+        "The uncertainty or confidence interval for the arm's reward",
+        "The number of times to pull the arm",
+        "The regret of the arm"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The exploration bonus represents uncertainty. It's large when an arm has been pulled few times (high uncertainty) and decreases as we pull it more (lower uncertainty). It also increases with total pulls, ensuring we eventually explore all arms sufficiently. This implements 'optimism under uncertainty.'"
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What approach does Thompson Sampling use?",
+      "options": [
+        "Frequentist statistics with confidence intervals",
+        "Bayesian inference with probability distributions",
+        "Neural networks for function approximation",
+        "Genetic algorithms for optimization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Thompson Sampling uses Bayesian inference. It maintains a probability distribution over each arm's reward (e.g., Beta distribution), updates these distributions as it observes rewards, and samples from them to make decisions. This naturally implements probability matching - pulling each arm proportional to the probability it's optimal."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "Which bandit strategy typically has the best empirical performance in practice?",
+      "options": [
+        "Epsilon-greedy",
+        "UCB",
+        "Thompson Sampling",
+        "Random selection"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Thompson Sampling often has the best empirical performance in practice, despite being harder to analyze theoretically. It naturally balances exploration and exploitation through Bayesian probability matching, adapts well to uncertainty, and requires minimal parameter tuning."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What is a real-world application of multi-armed bandits?",
+      "options": [
+        "Image classification",
+        "A/B testing for website optimization",
+        "Speech recognition",
+        "Text translation"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A/B testing is a classic application of multi-armed bandits. Instead of showing each website design equally (traditional A/B testing), bandit algorithms adaptively show better-performing designs more often, maximizing conversions while still learning. Other applications include clinical trials, ad placement, and recommendation systems."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "What does 'sublinear regret' mean?",
+      "options": [
+        "Regret decreases over time",
+        "Regret grows slower than the number of trials",
+        "Regret is always negative",
+        "Regret is constant"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Sublinear regret means cumulative regret grows slower than the number of trials T. For example, O(log T) regret means that as T increases, the average regret per trial approaches zero. This indicates the algorithm is converging to optimal behavior. Linear regret O(T) would mean the algorithm never stops making mistakes."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "What is the exploration-exploitation tradeoff?",
+      "options": [
+        "Balancing training time versus testing time",
+        "Balancing trying new options versus using known good options",
+        "Balancing accuracy versus speed",
+        "Balancing memory usage versus computation"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The exploration-exploitation tradeoff is about balancing exploration (trying new arms to learn which are good) with exploitation (pulling the best known arm to maximize immediate reward). Too much exploration wastes trials on bad arms; too much exploitation may miss discovering better arms."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "In Thompson Sampling with Bernoulli rewards, what distribution is typically used?",
+      "options": [
+        "Normal distribution",
+        "Beta distribution",
+        "Uniform distribution",
+        "Exponential distribution"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Beta distribution is used for Bernoulli (binary) rewards because it's the conjugate prior for the Bernoulli distribution. It's parameterized by α (successes + 1) and β (failures + 1), making Bayesian updates simple and efficient. The Beta distribution naturally represents uncertainty about a probability."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: Epsilon-greedy with ε = 0 is equivalent to pure exploitation (always pulling the best known arm).",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. With ε = 0, there's 0% exploration and 100% exploitation. The algorithm always pulls the arm with the highest average reward so far. This is called the greedy strategy. While it maximizes immediate reward, it may get stuck on suboptimal arms if it doesn't explore enough initially."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: Multi-armed bandits can handle problems where actions affect future states.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. Multi-armed bandits are stateless - each trial is independent. They cannot handle sequential decision-making where actions affect future states. For such problems, you need full reinforcement learning with Markov Decision Processes (MDPs), Q-learning, or policy gradient methods."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: UCB (Upper Confidence Bound) has better theoretical regret guarantees than epsilon-greedy.",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. UCB has logarithmic regret O(log T) guarantees, meaning average regret per trial approaches zero. Epsilon-greedy can have linear regret O(T) in the worst case because it never stops exploring suboptimal arms at rate ε. UCB's directed exploration is more efficient."
+    }
+  ]
+}

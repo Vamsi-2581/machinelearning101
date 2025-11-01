@@ -2,7 +2,7 @@
  * Worker manager for easy interaction with algorithm Web Workers
  */
 
-import type { WorkerMessage, WorkerResponse, WorkerMessageType } from '~/workers/algorithm-worker';
+import type { WorkerMessage, WorkerResponse, WorkerMessageType } from '~/service-workers/algorithm-worker';
 
 /**
  * Callback for progress updates
@@ -31,7 +31,7 @@ export class WorkerManager {
     
     try {
       this.worker = new Worker(
-        new URL('~/service-workers/algorithm-worker.ts', import.meta.url),
+        new URL('../service-workers/algorithm-worker.ts', import.meta.url),
         { type: 'module' }
       );
       

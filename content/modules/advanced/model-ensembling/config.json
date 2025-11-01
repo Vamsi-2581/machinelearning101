@@ -1,0 +1,160 @@
+{
+  "id": "model-ensembling",
+  "name": "Model Ensembling",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "random-forest",
+    "cross-validation"
+  ],
+  "learningObjectives": [
+    "Understand the principles of ensemble learning",
+    "Learn different ensemble methods: bagging, boosting, and voting",
+    "Explore the bias-variance tradeoff in ensembles",
+    "Understand how diversity improves ensemble performance",
+    "See how ensembles reduce overfitting and improve generalization"
+  ],
+  "keywords": [
+    "ensemble learning",
+    "bagging",
+    "boosting",
+    "voting",
+    "stacking",
+    "model diversity",
+    "bias-variance tradeoff",
+    "AdaBoost",
+    "random forest",
+    "model combination"
+  ],
+  "interactive": {
+    "algorithm": "Ensemble",
+    "defaultParams": {
+      "ensembleType": "bagging",
+      "numModels": 5,
+      "baseModelType": "linear",
+      "votingType": "soft",
+      "learningRate": 0.1,
+      "maxDepth": 3,
+      "dataset": "classification"
+    },
+    "controls": [
+      {
+        "name": "ensembleType",
+        "label": "Ensemble Type",
+        "type": "select",
+        "options": [
+          "bagging",
+          "boosting",
+          "voting"
+        ],
+        "default": "bagging",
+        "description": "Type of ensemble method to use"
+      },
+      {
+        "name": "numModels",
+        "label": "Number of Models",
+        "type": "slider",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 5,
+        "description": "Number of base models in the ensemble"
+      },
+      {
+        "name": "baseModelType",
+        "label": "Base Model Type",
+        "type": "select",
+        "options": [
+          "linear",
+          "tree",
+          "neural"
+        ],
+        "default": "linear",
+        "description": "Type of base models to use"
+      },
+      {
+        "name": "votingType",
+        "label": "Voting Type",
+        "type": "select",
+        "options": [
+          "hard",
+          "soft"
+        ],
+        "default": "soft",
+        "description": "Hard voting (majority) or soft voting (average probabilities)"
+      },
+      {
+        "name": "learningRate",
+        "label": "Learning Rate",
+        "type": "slider",
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "default": 0.1,
+        "description": "Learning rate for boosting algorithms"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "classification",
+        "label": "Binary Classification",
+        "description": "Binary classification dataset for ensemble learning"
+      },
+      {
+        "name": "noisy-classification",
+        "label": "Noisy Classification",
+        "description": "Classification with noise to show ensemble robustness"
+      },
+      {
+        "name": "multiclass",
+        "label": "Multi-class Classification",
+        "description": "Multi-class classification problem"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "name": "ensemble-error",
+      "label": "Ensemble Error",
+      "description": "Error reduction as more models are added"
+    },
+    {
+      "name": "model-weights",
+      "label": "Model Weights",
+      "description": "Contribution of each base model to the ensemble"
+    },
+    {
+      "name": "prediction-comparison",
+      "label": "Individual vs Ensemble Predictions",
+      "description": "Comparison of individual model and ensemble predictions"
+    },
+    {
+      "name": "model-correlations",
+      "label": "Model Correlations",
+      "description": "Correlation matrix showing model diversity"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "ensemble_accuracy",
+      "label": "Ensemble Accuracy",
+      "description": "Accuracy of the combined ensemble"
+    },
+    {
+      "name": "improvement_over_best",
+      "label": "Improvement Over Best",
+      "description": "Improvement over the best individual model"
+    },
+    {
+      "name": "model_diversity",
+      "label": "Model Diversity",
+      "description": "Measure of diversity between base models"
+    },
+    {
+      "name": "avg_individual_accuracy",
+      "label": "Average Individual Accuracy",
+      "description": "Average accuracy of individual base models"
+    }
+  ]
+}

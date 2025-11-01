@@ -1,0 +1,138 @@
+{
+  "id": "polynomial-regression",
+  "name": "Polynomial Regression",
+  "domain": "regression",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "linear-regression"
+  ],
+  "learningObjectives": [
+    "Understand how polynomial features capture non-linear relationships",
+    "Learn to choose appropriate polynomial degrees",
+    "Recognize overfitting and underfitting in polynomial models",
+    "Apply feature normalization for polynomial regression",
+    "Interpret polynomial regression curves and coefficients"
+  ],
+  "keywords": [
+    "polynomial regression",
+    "non-linear regression",
+    "feature engineering",
+    "overfitting",
+    "underfitting",
+    "polynomial features",
+    "degree selection",
+    "curve fitting"
+  ],
+  "interactive": {
+    "algorithm": "PolynomialRegression",
+    "defaultParams": {
+      "degree": 2,
+      "learningRate": 0.01,
+      "epochs": 100,
+      "dataset": "polynomial"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a dataset to train on",
+        "options": [
+          {
+            "label": "Polynomial",
+            "value": "polynomial"
+          },
+          {
+            "label": "Noisy Polynomial",
+            "value": "noisy-polynomial"
+          },
+          {
+            "label": "Sine Wave",
+            "value": "sine-wave"
+          }
+        ]
+      },
+      {
+        "id": "degree",
+        "type": "slider",
+        "label": "Polynomial Degree",
+        "group": "Model Parameters",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Degree of the polynomial. Higher degrees can fit more complex curves but may overfit."
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "Training Parameters",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns."
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "group": "Training Parameters",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations."
+      }
+    ],
+    "datasets": [
+      "polynomial",
+      "noisy-polynomial",
+      "sine-wave"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Data & Polynomial Curve",
+      "description": "Scatter plot showing the data points and the fitted polynomial curve"
+    },
+    {
+      "type": "scatter2d",
+      "title": "Residuals",
+      "description": "Residual plot showing prediction errors"
+    },
+    {
+      "type": "line",
+      "title": "Training Loss",
+      "description": "Line chart showing how the loss decreases during training"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "mse",
+      "name": "Mean Squared Error",
+      "description": "Average squared difference between predictions and actual values"
+    },
+    {
+      "id": "rmse",
+      "name": "Root Mean Squared Error",
+      "description": "Square root of MSE, in the same units as the target"
+    },
+    {
+      "id": "r2Score",
+      "name": "R² Score",
+      "description": "Proportion of variance explained by the model (1.0 is perfect)"
+    },
+    {
+      "id": "mae",
+      "name": "Mean Absolute Error",
+      "description": "Average absolute difference between predictions and actual values"
+    },
+    {
+      "id": "degree",
+      "name": "Polynomial Degree",
+      "description": "The degree of the polynomial used in the model"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "title": "Ridge Regression Quiz",
+  "description": "Test your understanding of ridge regression",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main purpose of Ridge regression?",
+      "options": [
+        "To make the model train faster",
+        "To prevent overfitting by adding a penalty for large coefficients",
+        "To select the most important features",
+        "To handle categorical variables"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Ridge regression adds an L2 penalty term (sum of squared coefficients) to the loss function. This penalty discourages large coefficients, which helps prevent overfitting and improves generalization to new data."
+    },
+    {
+      "id": "q2",
+      "question": "What does the alpha (\u03b1) parameter control in Ridge regression?",
+      "options": [
+        "The learning rate",
+        "The number of features to select",
+        "The strength of regularization",
+        "The number of training epochs"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Alpha controls the strength of regularization. Higher alpha values apply stronger penalties to large coefficients, shrinking them more toward zero. Alpha = 0 gives standard linear regression, while very large alpha heavily regularizes the model."
+    },
+    {
+      "id": "q3",
+      "question": "How does Ridge regression handle coefficients compared to standard linear regression?",
+      "options": [
+        "It sets some coefficients exactly to zero",
+        "It shrinks coefficients toward zero but keeps all features",
+        "It increases coefficient magnitudes",
+        "It doesn't affect coefficients at all"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Ridge regression shrinks all coefficients toward zero but never sets them exactly to zero. This means all features remain in the model, just with smaller coefficients. This is different from Lasso, which can set coefficients to exactly zero."
+    },
+    {
+      "id": "q4",
+      "question": "Why is feature normalization especially important for Ridge regression?",
+      "options": [
+        "It makes the model train faster",
+        "The L2 penalty treats all coefficients equally, so features should be on similar scales",
+        "It's not important for Ridge regression",
+        "It helps select important features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The L2 penalty term sums the squared coefficients without considering feature scales. If features have different scales, the penalty will affect them unequally. Normalization ensures all features contribute fairly to the penalty term."
+    },
+    {
+      "id": "q5",
+      "question": "What happens when alpha is set to 0 in Ridge regression?",
+      "options": [
+        "The model fails to train",
+        "It becomes equivalent to standard linear regression",
+        "All coefficients become zero",
+        "It performs feature selection"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When alpha = 0, there is no regularization penalty, so the loss function becomes identical to standard linear regression. The model will fit the training data without any coefficient shrinkage."
+    },
+    {
+      "id": "q6",
+      "question": "When should you use Ridge regression instead of standard linear regression?",
+      "options": [
+        "When you have very few features",
+        "When you have many features or multicollinearity and want to prevent overfitting",
+        "When you need to select only a few important features",
+        "When your data has no noise"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Ridge regression is particularly useful when you have many features relative to samples, when features are correlated (multicollinearity), or when standard linear regression overfits. The regularization helps stabilize coefficient estimates and improves generalization."
+    },
+    {
+      "id": "q7",
+      "question": "What is the L2 norm in the context of Ridge regression?",
+      "options": [
+        "The sum of absolute values of coefficients",
+        "The square root of the sum of squared coefficients",
+        "The maximum coefficient value",
+        "The number of non-zero coefficients"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The L2 norm is the square root of the sum of squared coefficients: \u221a(w\u2081\u00b2 + w\u2082\u00b2 + ... + w\u2099\u00b2). It represents the magnitude of the weight vector and is the quantity that Ridge regression penalizes to keep coefficients small."
+    },
+    {
+      "id": "q8",
+      "question": "How should you select the optimal alpha value for Ridge regression?",
+      "options": [
+        "Always use alpha = 1",
+        "Use cross-validation to test different values and choose the one with best validation performance",
+        "Pick the largest alpha possible",
+        "Use the same alpha as the learning rate"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The optimal alpha depends on your specific dataset and problem. Cross-validation is the standard approach: try different alpha values, evaluate performance on validation data, and select the alpha that gives the best generalization. Common values to try include 0.01, 0.1, 1, 10, and 100."
+    },
+    {
+      "id": "q9",
+      "question": "What is a key difference between Ridge (L2) and Lasso (L1) regularization?",
+      "options": [
+        "Ridge can set coefficients to exactly zero, Lasso cannot",
+        "Lasso can set coefficients to exactly zero, Ridge cannot",
+        "They are exactly the same",
+        "Ridge is faster than Lasso"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Lasso (L1) regularization can set coefficients to exactly zero, performing automatic feature selection. Ridge (L2) only shrinks coefficients toward zero but never makes them exactly zero, keeping all features in the model. This is a fundamental difference in how they regularize."
+    }
+  ]
+}

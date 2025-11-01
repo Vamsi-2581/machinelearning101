@@ -1,0 +1,103 @@
+{
+  "title": "Polynomial Regression Quiz",
+  "description": "Test your understanding of polynomial regression",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "How does polynomial regression model non-linear relationships?",
+      "options": [
+        "By using a non-linear optimization algorithm",
+        "By transforming features into polynomial terms and applying linear regression",
+        "By creating multiple linear models and combining them",
+        "By using a curved loss function"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Polynomial regression creates polynomial features (x, x\u00b2, x\u00b3, etc.) from the original features and then applies standard linear regression to these transformed features. This allows modeling non-linear relationships while using the linear regression framework."
+    },
+    {
+      "id": "q2",
+      "question": "What happens when you use a polynomial degree that is too high for your data?",
+      "options": [
+        "The model will underfit and have high training error",
+        "The model will overfit, fitting noise in the training data",
+        "The model will train faster",
+        "The model will become more interpretable"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Using a polynomial degree that is too high leads to overfitting. The model will fit the training data very closely, including noise, resulting in a wiggly curve that doesn't generalize well to new data. This is characterized by low training error but high test error."
+    },
+    {
+      "id": "q3",
+      "question": "Why is feature normalization especially important for polynomial regression?",
+      "options": [
+        "It makes the model train faster",
+        "Polynomial features have vastly different scales (x vs x\u00b9\u2070), causing numerical instability",
+        "It improves the R\u00b2 score",
+        "It reduces the number of features needed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Polynomial features can have vastly different scales. For example, if x=10, then x\u00b2=100 and x\u00b9\u2070=10 billion. These different scales cause numerical instability and slow convergence in gradient descent. Normalization ensures all features have similar scales."
+    },
+    {
+      "id": "q4",
+      "question": "For a dataset with a quadratic (parabolic) relationship, what is the minimum polynomial degree needed to fit it well?",
+      "options": [
+        "Degree 1 (linear)",
+        "Degree 2 (quadratic)",
+        "Degree 3 (cubic)",
+        "Degree 5 or higher"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A quadratic relationship requires at least degree 2 to capture the parabolic shape. Degree 1 would underfit (straight line can't capture a curve), while higher degrees would work but add unnecessary complexity."
+    },
+    {
+      "id": "q5",
+      "question": "What is the bias-variance tradeoff in polynomial regression?",
+      "options": [
+        "Higher degree increases bias and decreases variance",
+        "Higher degree decreases bias but increases variance",
+        "Degree doesn't affect bias or variance",
+        "Higher degree increases both bias and variance"
+      ],
+      "correctAnswer": 1,
+      "explanation": "As polynomial degree increases, the model becomes more flexible (lower bias - can fit more complex patterns) but also more sensitive to training data variations (higher variance - overfitting). The goal is to find the degree that balances these two."
+    },
+    {
+      "id": "q6",
+      "question": "If your polynomial regression model has very low training error but high test error, what is the likely problem?",
+      "options": [
+        "The learning rate is too high",
+        "The model is underfitting",
+        "The model is overfitting - degree is too high",
+        "The features need to be normalized"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Low training error but high test error is the classic sign of overfitting. The model has learned the training data too well, including noise, and doesn't generalize to new data. Reducing the polynomial degree or adding regularization can help."
+    },
+    {
+      "id": "q7",
+      "question": "What is a major limitation of polynomial regression for extrapolation (predicting beyond the training data range)?",
+      "options": [
+        "It's too slow for large datasets",
+        "Polynomial curves can shoot off to extreme values outside the training range",
+        "It can't handle missing values",
+        "It requires too much memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Polynomial curves, especially high-degree ones, can behave erratically outside the training data range, often shooting off to very large positive or negative values. This makes polynomial regression unreliable for extrapolation beyond the observed data."
+    },
+    {
+      "id": "q8",
+      "question": "How should you start when selecting a polynomial degree for a new problem?",
+      "options": [
+        "Always use the highest degree possible",
+        "Start with degree 1 and never increase it",
+        "Start with a low degree (2-3) and increase if needed based on validation performance",
+        "Randomly select a degree between 1 and 10"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The best practice is to start simple with degree 2 or 3, then increase if the model underfits. Use cross-validation to evaluate different degrees and choose the one that balances training and validation performance. This prevents overfitting while ensuring adequate model complexity."
+    }
+  ]
+}

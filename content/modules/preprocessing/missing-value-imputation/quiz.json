@@ -1,7 +1,9 @@
 {
+  "title": "Missing Value Imputation Quiz",
+  "description": "Test your understanding of missing value imputation",
+  "passingScore": 70,
   "id": "missing-value-imputation-quiz",
   "moduleId": "missing-value-imputation",
-  "title": "Missing Value Imputation Quiz",
   "questions": [
     {
       "id": "mvi-q1",

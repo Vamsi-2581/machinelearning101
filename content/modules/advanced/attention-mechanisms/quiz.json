@@ -1,0 +1,127 @@
+{
+  "title": "Attention Mechanisms Quiz",
+  "description": "Test your understanding of attention mechanisms",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What are the three main components of the attention mechanism?",
+      "options": [
+        "Input, Hidden, Output",
+        "Query, Key, Value",
+        "Encoder, Decoder, Attention",
+        "Weights, Biases, Activations"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The attention mechanism consists of three main components: Query (Q) - what information we're looking for, Key (K) - what information is available at each position, and Value (V) - the actual information content at each position."
+    },
+    {
+      "id": "q2",
+      "question": "What is the purpose of the scaling factor \u221ad_k in scaled dot-product attention?",
+      "options": [
+        "To increase the attention weights",
+        "To prevent softmax saturation for large dimensions",
+        "To normalize the input embeddings",
+        "To add positional information"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The scaling factor \u221ad_k prevents the dot products from becoming too large when the key dimension d_k is large, which would push the softmax function into regions with extremely small gradients."
+    },
+    {
+      "id": "q3",
+      "question": "In self-attention, where do the queries, keys, and values come from?",
+      "options": [
+        "Different input sequences",
+        "The same input sequence",
+        "Pre-trained embeddings",
+        "Random initialization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In self-attention, the queries, keys, and values all come from the same input sequence. Each position can attend to all positions in the sequence, including itself, through learned linear projections."
+    },
+    {
+      "id": "q4",
+      "question": "What is the main advantage of multi-head attention over single-head attention?",
+      "options": [
+        "It reduces computational complexity",
+        "It allows the model to learn multiple types of relationships simultaneously",
+        "It eliminates the need for positional encoding",
+        "It makes training faster"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Multi-head attention allows the model to learn multiple types of relationships simultaneously. Different heads can specialize in different patterns (syntactic, semantic, positional), providing richer representations."
+    },
+    {
+      "id": "q5",
+      "question": "What does the softmax function do in the attention mechanism?",
+      "options": [
+        "Computes the similarity between queries and keys",
+        "Converts attention scores into a probability distribution",
+        "Scales the attention weights",
+        "Combines the values with attention weights"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The softmax function converts the attention scores into a probability distribution, ensuring that the attention weights sum to 1 and can be interpreted as the relative importance of each position."
+    },
+    {
+      "id": "q6",
+      "question": "What is the computational complexity of standard attention with respect to sequence length n?",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n\u00b2)",
+        "O(n\u00b3)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Standard attention has O(n\u00b2) computational complexity because it computes attention weights between all pairs of positions in the sequence, resulting in an n\u00d7n attention matrix."
+    },
+    {
+      "id": "q7",
+      "question": "In the Transformer architecture, what replaces recurrent and convolutional layers?",
+      "options": [
+        "Fully connected layers only",
+        "Self-attention mechanisms",
+        "Pooling layers",
+        "Batch normalization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In the Transformer architecture, self-attention mechanisms replace recurrent and convolutional layers, allowing for better parallelization and the ability to capture long-range dependencies directly."
+    },
+    {
+      "id": "q8",
+      "question": "What is attention collapse?",
+      "options": [
+        "When the model fails to train",
+        "When all attention weights become uniform",
+        "When all attention focuses on one position",
+        "When the attention matrix becomes singular"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Attention collapse occurs when all attention weights focus on one position (becoming one-hot), which reduces the model's ability to integrate information from multiple positions effectively."
+    },
+    {
+      "id": "q9",
+      "question": "How does attention help with the vanishing gradient problem in long sequences?",
+      "options": [
+        "By using larger learning rates",
+        "By providing direct connections between distant positions",
+        "By normalizing the gradients",
+        "By reducing the sequence length"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Attention provides direct connections between any two positions in the sequence, allowing gradients to flow directly without having to pass through many intermediate steps, thus helping with the vanishing gradient problem."
+    },
+    {
+      "id": "q10",
+      "question": "What is cross-attention used for?",
+      "options": [
+        "Attending within the same sequence",
+        "Attending between different sequences or modalities",
+        "Reducing computational complexity",
+        "Improving training stability"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Cross-attention is used to attend between different sequences or modalities, such as in encoder-decoder models where the decoder attends to the encoder's output, or in multi-modal models that align different types of data."
+    }
+  ]
+}

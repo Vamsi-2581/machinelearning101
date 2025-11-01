@@ -1,0 +1,128 @@
+{
+  "id": "transfer-learning",
+  "name": "Transfer Learning",
+  "domain": "computer-vision",
+  "difficulty": "advanced",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "cnn",
+    "image-classification"
+  ],
+  "learningObjectives": [
+    "Understand how pre-trained models can be reused for new tasks",
+    "Learn the difference between feature extraction and fine-tuning",
+    "Explore how transfer learning reduces training time and data requirements",
+    "Visualize extracted features from pre-trained networks",
+    "Compare frozen vs. fine-tuned feature extractors"
+  ],
+  "tags": [
+    "computer-vision",
+    "transfer-learning",
+    "feature-extraction",
+    "fine-tuning",
+    "pre-trained-models"
+  ],
+  "interactive": {
+    "algorithm": "TransferLearning",
+    "defaultParams": {
+      "featureExtractorLayers": 2,
+      "fineTuneLayers": 1,
+      "learningRate": 0.001,
+      "epochs": 50,
+      "freezeFeatures": true,
+      "dataset": "image-features"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Image Features (3 classes)",
+            "value": "image-features"
+          },
+          {
+            "label": "Multi-Class Classification",
+            "value": "multi-classification"
+          }
+        ],
+        "tooltip": "Choose a dataset for the new classification task",
+        "group": "Data"
+      },
+      {
+        "id": "freezeFeatures",
+        "type": "toggle",
+        "label": "Freeze Feature Extractor",
+        "tooltip": "When enabled, only trains the classifier. When disabled, fine-tunes the feature extractor too.",
+        "group": "Transfer Learning Strategy"
+      },
+      {
+        "id": "featureExtractorLayers",
+        "type": "slider",
+        "label": "Feature Extractor Layers",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "tooltip": "Number of layers in the pre-trained feature extractor",
+        "group": "Model Architecture"
+      },
+      {
+        "id": "fineTuneLayers",
+        "type": "slider",
+        "label": "Fine-Tune Layers",
+        "min": 0,
+        "max": 3,
+        "step": 1,
+        "tooltip": "Number of feature extractor layers to fine-tune (when not frozen)",
+        "group": "Transfer Learning Strategy"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "tooltip": "Learning rate for training. Transfer learning typically uses smaller rates.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "min": 10,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Number of training iterations. Transfer learning often needs fewer epochs.",
+        "group": "Training Parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Extracted Feature Space",
+        "description": "2D projection of features extracted by the pre-trained model"
+      },
+      {
+        "type": "confusion-matrix",
+        "title": "Confusion Matrix",
+        "description": "Classification performance on the new task"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Loss curve showing convergence speed"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Accuracy improvement over training epochs"
+      }
+    ],
+    "datasets": [
+      "image-features",
+      "multi-classification"
+    ]
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "id": "attention-mechanisms",
+  "name": "Attention Mechanisms",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "neural-network",
+    "word-embeddings"
+  ],
+  "learningObjectives": [
+    "Understand the concept of attention in neural networks",
+    "Learn how self-attention allows models to focus on relevant parts",
+    "Explore multi-head attention and its advantages",
+    "Understand the role of queries, keys, and values",
+    "See how attention enables better sequence modeling"
+  ],
+  "keywords": [
+    "attention mechanisms",
+    "self-attention",
+    "multi-head attention",
+    "queries",
+    "keys",
+    "values",
+    "transformers",
+    "sequence modeling",
+    "scaled dot-product attention",
+    "attention weights"
+  ],
+  "interactive": {
+    "algorithm": "Attention",
+    "defaultParams": {
+      "sequenceLength": 8,
+      "embeddingDim": 16,
+      "numHeads": 4,
+      "attentionType": "self",
+      "temperature": 1,
+      "dropout": 0.1,
+      "dataset": "synthetic-sequences"
+    },
+    "controls": [
+      {
+        "name": "sequenceLength",
+        "label": "Sequence Length",
+        "type": "slider",
+        "min": 4,
+        "max": 16,
+        "step": 1,
+        "default": 8,
+        "description": "Length of input sequences"
+      },
+      {
+        "name": "embeddingDim",
+        "label": "Embedding Dimension",
+        "type": "slider",
+        "min": 8,
+        "max": 64,
+        "step": 4,
+        "default": 16,
+        "description": "Dimension of token embeddings"
+      },
+      {
+        "name": "numHeads",
+        "label": "Number of Heads",
+        "type": "slider",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "default": 4,
+        "description": "Number of attention heads (for multi-head attention)"
+      },
+      {
+        "name": "attentionType",
+        "label": "Attention Type",
+        "type": "select",
+        "options": [
+          "self",
+          "multi-head"
+        ],
+        "default": "self",
+        "description": "Type of attention mechanism to use"
+      },
+      {
+        "name": "temperature",
+        "label": "Temperature",
+        "type": "slider",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "default": 1,
+        "description": "Temperature for softmax (higher = more uniform attention)"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "synthetic-sequences",
+        "label": "Synthetic Sequences",
+        "description": "Generated sequences for attention visualization"
+      },
+      {
+        "name": "text-sequences",
+        "label": "Text Sequences",
+        "description": "Simple text sequences with word embeddings"
+      },
+      {
+        "name": "pattern-sequences",
+        "label": "Pattern Sequences",
+        "description": "Sequences with specific attention patterns"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "name": "attention-heatmap",
+      "label": "Attention Heatmap",
+      "description": "Visualization of attention weights between positions"
+    },
+    {
+      "name": "multi-head-comparison",
+      "label": "Multi-Head Comparison",
+      "description": "Comparison of attention patterns across different heads"
+    },
+    {
+      "name": "attention-pattern",
+      "label": "Attention Patterns",
+      "description": "Analysis of attention distribution patterns"
+    },
+    {
+      "name": "training-progress",
+      "label": "Training Progress",
+      "description": "Loss curve during attention model training"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "attention_entropy",
+      "label": "Attention Entropy",
+      "description": "Average entropy of attention distributions"
+    },
+    {
+      "name": "max_attention_weight",
+      "label": "Max Attention Weight",
+      "description": "Maximum attention weight observed"
+    },
+    {
+      "name": "total_parameters",
+      "label": "Total Parameters",
+      "description": "Number of learnable parameters in attention layers"
+    }
+  ]
+}

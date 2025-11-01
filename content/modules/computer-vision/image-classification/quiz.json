@@ -1,0 +1,127 @@
+{
+  "title": "Image Classification Quiz",
+  "description": "Test your understanding of image classification",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the primary purpose of extracting features from images before classification?",
+      "options": [
+        "To make images look better",
+        "To reduce dimensionality while preserving important information",
+        "To increase the number of pixels",
+        "To convert images to grayscale"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature extraction reduces the high dimensionality of raw pixel data while preserving the most important information for classification. This makes processing more efficient and can improve model performance."
+    },
+    {
+      "id": "q2",
+      "question": "What activation function is used in the hidden layer of our image classifier?",
+      "options": [
+        "Sigmoid",
+        "Tanh",
+        "ReLU (Rectified Linear Unit)",
+        "Softmax"
+      ],
+      "correctAnswer": 2,
+      "explanation": "ReLU (Rectified Linear Unit) is used in the hidden layer. It outputs max(0, x), introducing non-linearity while being computationally efficient and helping to avoid vanishing gradient problems."
+    },
+    {
+      "id": "q3",
+      "question": "Why do we use softmax activation in the output layer for multi-class classification?",
+      "options": [
+        "It makes training faster",
+        "It converts outputs to probabilities that sum to 1",
+        "It reduces the number of parameters",
+        "It prevents overfitting"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Softmax converts the output layer's raw scores (logits) into probabilities that sum to 1. This allows us to interpret the outputs as confidence levels for each class and makes the model's predictions probabilistic."
+    },
+    {
+      "id": "q4",
+      "question": "What does the cross-entropy loss function measure?",
+      "options": [
+        "The distance between predicted and actual pixel values",
+        "The difference between predicted probabilities and true class labels",
+        "The number of misclassified images",
+        "The complexity of the neural network"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Cross-entropy loss measures how different the predicted probability distribution is from the true distribution (one-hot encoded labels). Lower loss means better predictions, with perfect predictions having zero loss."
+    },
+    {
+      "id": "q5",
+      "question": "What is the purpose of L2 regularization in image classification?",
+      "options": [
+        "To speed up training",
+        "To increase model accuracy on training data",
+        "To prevent overfitting by penalizing large weights",
+        "To reduce the number of classes"
+      ],
+      "correctAnswer": 2,
+      "explanation": "L2 regularization adds a penalty term proportional to the square of the weights. This discourages the model from relying too heavily on any single feature and helps prevent overfitting, leading to better generalization on unseen data."
+    },
+    {
+      "id": "q6",
+      "question": "In a confusion matrix for a 3-class problem, what does the diagonal represent?",
+      "options": [
+        "Misclassified samples",
+        "Correctly classified samples",
+        "Total number of samples per class",
+        "Prediction confidence scores"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The diagonal of a confusion matrix shows correctly classified samples - where the predicted class matches the true class. Off-diagonal elements represent misclassifications between different classes."
+    },
+    {
+      "id": "q7",
+      "question": "What happens if the learning rate is set too high?",
+      "options": [
+        "Training becomes very slow",
+        "The model always achieves perfect accuracy",
+        "Training may become unstable and loss may oscillate or diverge",
+        "The model will underfit the data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A learning rate that's too high causes large weight updates, which can make training unstable. The loss may oscillate wildly or even increase (diverge) instead of decreasing smoothly toward a minimum."
+    },
+    {
+      "id": "q8",
+      "question": "What is the role of the hidden layer in a neural network?",
+      "options": [
+        "To store the training data",
+        "To learn intermediate representations and feature combinations",
+        "To display the final predictions",
+        "To normalize the input features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The hidden layer learns intermediate representations by combining input features in non-linear ways. This allows the network to detect complex patterns and relationships that aren't directly visible in the raw features."
+    },
+    {
+      "id": "q9",
+      "question": "How does increasing the hidden layer size affect the model?",
+      "options": [
+        "It always improves accuracy",
+        "It increases model capacity but may lead to overfitting",
+        "It reduces training time",
+        "It has no effect on performance"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Increasing hidden layer size gives the model more capacity to learn complex patterns. However, too many neurons can lead to overfitting, where the model memorizes training data instead of learning generalizable patterns."
+    },
+    {
+      "id": "q10",
+      "question": "What is the main limitation of using a simple feedforward neural network for image classification compared to CNNs?",
+      "options": [
+        "It cannot handle color images",
+        "It requires manual feature extraction and doesn't preserve spatial relationships",
+        "It can only classify two classes",
+        "It trains much slower than CNNs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Simple feedforward networks require pre-extracted features and treat them as independent values, losing spatial relationships. CNNs automatically learn hierarchical features directly from pixels while preserving spatial structure through convolution operations."
+    }
+  ]
+}

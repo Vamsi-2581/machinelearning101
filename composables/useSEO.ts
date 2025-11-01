@@ -37,9 +37,9 @@ export interface StructuredDataConfig {
  */
 const DEFAULT_SEO = {
   siteName: 'ML Simplified',
-  siteUrl: 'https://mlsimplified.com',
-  defaultImage: 'https://mlsimplified.com/og-image.png',
-  twitterHandle: '@mlsimplified',
+  siteUrl: 'https://machinelearningsimplified.com',
+  defaultImage: 'https://machinelearningsimplified.com/og-image.png',
+  // twitterHandle: '@mlsimplified',
   locale: 'en_US',
 }
 
@@ -73,12 +73,12 @@ export function useSEO(config: SEOConfig) {
     ogLocale: DEFAULT_SEO.locale,
     
     // Twitter Card
-    twitterCard: 'summary_large_image',
-    twitterSite: DEFAULT_SEO.twitterHandle,
-    twitterCreator: DEFAULT_SEO.twitterHandle,
-    twitterTitle: fullTitle,
-    twitterDescription: config.description,
-    twitterImage: imageUrl,
+    // twitterCard: 'summary_large_image',
+    // twitterSite: DEFAULT_SEO.twitterHandle,
+    // twitterCreator: DEFAULT_SEO.twitterHandle,
+    // twitterTitle: fullTitle,
+    // twitterDescription: config.description,
+    // twitterImage: imageUrl,
     
     // Article specific (if type is article)
     ...(config.type === 'article' && {
@@ -179,12 +179,11 @@ export function useOrganizationStructuredData() {
     url: DEFAULT_SEO.siteUrl,
     logo: `${DEFAULT_SEO.siteUrl}/logo.png`,
     sameAs: [
-      'https://github.com/mlsimplified/platform',
-      'https://twitter.com/mlsimplified',
+      'https://github.com/mlsimplified-app/platform', 
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'hello@mlsimplified.com',
+      email: 'hello@machinelearningsimplified.com',
       contactType: 'Customer Service',
     },
   }

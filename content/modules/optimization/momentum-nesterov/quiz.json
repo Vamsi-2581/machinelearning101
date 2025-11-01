@@ -1,0 +1,103 @@
+{
+  "title": "Momentum Nesterov Quiz",
+  "description": "Test your understanding of momentum nesterov",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "momentum-purpose",
+      "question": "What is the main benefit of adding momentum to SGD?",
+      "options": [
+        "It reduces memory usage",
+        "It accelerates convergence and dampens oscillations",
+        "It eliminates the need for learning rate tuning",
+        "It only works with neural networks"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Momentum accelerates convergence in consistent gradient directions while dampening oscillations, leading to smoother and faster optimization paths."
+    },
+    {
+      "id": "momentum-formula",
+      "question": "In SGD with momentum, what does the velocity update equation v = \u03b2v + \u2207L(\u03b8) represent?",
+      "options": [
+        "The current gradient only",
+        "A weighted average of current and past gradients",
+        "The learning rate adjustment",
+        "The parameter update step"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The velocity is an exponentially weighted moving average of gradients, where \u03b2 controls how much past gradients influence the current update."
+    },
+    {
+      "id": "nesterov-difference",
+      "question": "How does Nesterov momentum differ from standard momentum?",
+      "options": [
+        "It uses a different momentum coefficient",
+        "It computes the gradient at the lookahead position instead of the current position",
+        "It doesn't use velocity",
+        "It only works with adaptive learning rates"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Nesterov momentum computes the gradient at the position where momentum would take us (\u03b8 - \u03b1\u03b2v), providing better anticipation of where the optimization is heading."
+    },
+    {
+      "id": "momentum-coefficient",
+      "question": "What is a typical value for the momentum coefficient \u03b2?",
+      "options": [
+        "0.1",
+        "0.5",
+        "0.9",
+        "1.0"
+      ],
+      "correctAnswer": 2,
+      "explanation": "\u03b2 = 0.9 is the most commonly used momentum coefficient, providing a good balance between acceleration and stability."
+    },
+    {
+      "id": "momentum-learning-rate",
+      "question": "When using momentum, how should you typically adjust the learning rate compared to vanilla SGD?",
+      "options": [
+        "Use the same learning rate",
+        "Use a larger learning rate",
+        "Use a smaller learning rate",
+        "Learning rate doesn't matter with momentum"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Momentum amplifies the effective learning rate, so you typically need to use a smaller learning rate (often 2-10x smaller) compared to vanilla SGD."
+    },
+    {
+      "id": "momentum-problems",
+      "question": "For which type of problem is momentum most beneficial?",
+      "options": [
+        "Well-conditioned problems with consistent gradients",
+        "Ill-conditioned problems with elongated valleys",
+        "Problems with very noisy gradients that change direction frequently",
+        "Linear regression only"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Momentum is most beneficial for ill-conditioned problems (like elongated valleys) where gradients are consistent in some directions but vary greatly in magnitude across dimensions."
+    },
+    {
+      "id": "velocity-interpretation",
+      "question": "What does the velocity vector in momentum represent?",
+      "options": [
+        "The current gradient",
+        "The accumulated history of gradients",
+        "The learning rate",
+        "The current parameter values"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The velocity vector represents an accumulated history of gradients, weighted by the momentum coefficient, providing memory of past optimization directions."
+    },
+    {
+      "id": "momentum-convergence",
+      "question": "What convergence rate improvement does momentum provide for strongly convex functions?",
+      "options": [
+        "No improvement over SGD",
+        "From O(1/k) to O(1/k\u00b2)",
+        "From O(1/k\u00b2) to O(1/k\u00b3)",
+        "Exponential convergence"
+      ],
+      "correctAnswer": 1,
+      "explanation": "For strongly convex functions, momentum improves the convergence rate from O(1/k) (SGD) to O(1/k\u00b2), which is a significant theoretical improvement."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "title": "Gradient Boosting Quiz",
+  "description": "Test your understanding of gradient boosting",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the key difference between Gradient Boosting and Random Forest in terms of training?",
+      "options": [
+        "Gradient Boosting trains trees in parallel, Random Forest trains sequentially",
+        "Gradient Boosting trains trees sequentially, Random Forest trains in parallel",
+        "Both methods train trees in parallel",
+        "Both methods train trees sequentially"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Gradient Boosting trains weak learners sequentially, where each new learner corrects the errors of the previous ensemble. Random Forest trains trees independently in parallel."
+    },
+    {
+      "id": "q2",
+      "question": "What does each new weak learner in Gradient Boosting try to predict?",
+      "options": [
+        "The original target values",
+        "Random subsets of the data",
+        "The residuals (errors) of the current ensemble",
+        "The feature importance scores"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Each new weak learner is trained to predict the residuals (negative gradients) of the current ensemble, focusing on correcting the mistakes made by previous learners."
+    },
+    {
+      "id": "q3",
+      "question": "What is the role of the learning rate in Gradient Boosting?",
+      "options": [
+        "It determines the number of trees to build",
+        "It controls the contribution of each weak learner to the ensemble",
+        "It sets the maximum depth of each tree",
+        "It defines the loss function to optimize"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The learning rate (shrinkage parameter) controls how much each weak learner contributes to the final ensemble. Lower learning rates often lead to better generalization but require more estimators."
+    },
+    {
+      "id": "q4",
+      "question": "Why are decision stumps (shallow trees) typically used as weak learners in Gradient Boosting?",
+      "options": [
+        "They are faster to train than deep trees",
+        "They have high bias but low variance, which complements the boosting process",
+        "They require less memory",
+        "They are more interpretable"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Decision stumps have high bias but low variance. The sequential boosting process reduces bias by combining many weak learners, while the low variance of individual stumps helps prevent overfitting."
+    },
+    {
+      "id": "q5",
+      "question": "What mathematical concept does Gradient Boosting perform in function space?",
+      "options": [
+        "Linear regression",
+        "Principal component analysis",
+        "Gradient descent",
+        "Singular value decomposition"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Gradient Boosting performs gradient descent in function space, where instead of optimizing parameters, it optimizes the ensemble function by adding weak learners that approximate the negative gradient of the loss."
+    },
+    {
+      "id": "q6",
+      "question": "How does subsampling (subsample < 1.0) help in Gradient Boosting?",
+      "options": [
+        "It reduces training time only",
+        "It introduces randomness that can improve generalization and reduce overfitting",
+        "It increases the accuracy on training data",
+        "It makes the algorithm deterministic"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Subsampling introduces stochasticity by training each weak learner on a random subset of the data. This randomness can improve generalization and reduce overfitting, similar to how bagging works."
+    },
+    {
+      "id": "q7",
+      "question": "What is the initial prediction F\u2080(x) typically set to in binary classification?",
+      "options": [
+        "Zero for all examples",
+        "The mean of the target values",
+        "The log-odds of the positive class",
+        "A random value"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The initial prediction is typically set to the log-odds (log(p/(1-p))) where p is the proportion of positive examples. This provides a good starting point that reflects the class distribution."
+    },
+    {
+      "id": "q8",
+      "question": "Which of the following is a major advantage of Gradient Boosting over single decision trees?",
+      "options": [
+        "Faster training time",
+        "Better interpretability",
+        "Higher accuracy through ensemble learning",
+        "Requires less hyperparameter tuning"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Gradient Boosting achieves higher accuracy by combining many weak learners into a strong ensemble. Each weak learner corrects the errors of the previous ensemble, leading to improved overall performance."
+    },
+    {
+      "id": "q9",
+      "question": "What is a potential risk of using too many estimators in Gradient Boosting?",
+      "options": [
+        "Underfitting the training data",
+        "Overfitting the training data",
+        "Reducing model complexity",
+        "Decreasing training time"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Using too many estimators can lead to overfitting, where the model becomes too complex and memorizes the training data rather than learning generalizable patterns. This is why early stopping and cross-validation are important."
+    },
+    {
+      "id": "q10",
+      "question": "How does Gradient Boosting handle feature interactions?",
+      "options": [
+        "It requires manual feature engineering to create interactions",
+        "It cannot capture feature interactions",
+        "It automatically captures interactions through the tree-based weak learners",
+        "It only works with linear feature combinations"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Gradient Boosting automatically captures feature interactions through its tree-based weak learners. Each tree can split on different features at different nodes, naturally modeling complex interactions between features."
+    }
+  ]
+}

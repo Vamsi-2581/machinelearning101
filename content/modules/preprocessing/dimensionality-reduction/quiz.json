@@ -1,0 +1,132 @@
+{
+  "title": "Dimensionality Reduction Quiz",
+  "description": "Test your understanding of dimensionality reduction techniques and their applications",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the primary goal of dimensionality reduction?",
+      "type": "multiple-choice",
+      "options": [
+        "To increase the number of features in the dataset",
+        "To reduce the number of features while preserving important information",
+        "To convert categorical features to numerical features",
+        "To remove outliers from the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Dimensionality reduction aims to reduce the number of features (dimensions) in a dataset while preserving as much important information as possible, helping to combat the curse of dimensionality and improve computational efficiency."
+    },
+    {
+      "id": "q2",
+      "text": "Which dimensionality reduction technique finds directions of maximum variance in the data?",
+      "type": "multiple-choice",
+      "options": [
+        "Linear Discriminant Analysis (LDA)",
+        "Independent Component Analysis (ICA)",
+        "Principal Component Analysis (PCA)",
+        "Singular Value Decomposition (SVD)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "PCA finds orthogonal directions (principal components) that capture the maximum variance in the data. It projects the data onto these directions to reduce dimensionality while preserving as much variance as possible."
+    },
+    {
+      "id": "q3",
+      "text": "LDA requires labeled data because it optimizes for class separation.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. LDA is a supervised dimensionality reduction technique that requires labeled data because it finds directions that maximize the separation between different classes while minimizing within-class variance."
+    },
+    {
+      "id": "q4",
+      "text": "What is the 'curse of dimensionality'?",
+      "type": "multiple-choice",
+      "options": [
+        "The difficulty of visualizing high-dimensional data",
+        "The phenomenon where data becomes sparse and distances become similar in high dimensions",
+        "The increased computational cost of processing many features",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "The curse of dimensionality encompasses all these issues: data sparsity, distance concentration, computational complexity, visualization challenges, and increased risk of overfitting in high-dimensional spaces."
+    },
+    {
+      "id": "q5",
+      "text": "Which method is best suited for the 'cocktail party problem' of separating mixed audio signals?",
+      "type": "multiple-choice",
+      "options": [
+        "PCA",
+        "LDA",
+        "ICA",
+        "SVD"
+      ],
+      "correctAnswer": 2,
+      "explanation": "ICA (Independent Component Analysis) is specifically designed for blind source separation problems like the cocktail party problem, where the goal is to separate mixed signals into their independent source components."
+    },
+    {
+      "id": "q6",
+      "text": "In PCA, what do the eigenvalues represent?",
+      "type": "multiple-choice",
+      "options": [
+        "The direction of the principal components",
+        "The amount of variance explained by each principal component",
+        "The correlation between features",
+        "The number of components to keep"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In PCA, eigenvalues represent the amount of variance explained by each corresponding principal component (eigenvector). Larger eigenvalues indicate components that capture more variance in the data."
+    },
+    {
+      "id": "q7",
+      "text": "What is a 'scree plot' used for in dimensionality reduction?",
+      "type": "multiple-choice",
+      "options": [
+        "To visualize the reduced-dimensional data",
+        "To determine the optimal number of components to keep",
+        "To show the correlation between original features",
+        "To display the principal component loadings"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A scree plot shows the explained variance (eigenvalues) for each component. It helps determine the optimal number of components by looking for the 'elbow' where the explained variance starts to level off."
+    },
+    {
+      "id": "q8",
+      "text": "Which statement about LDA vs PCA is correct?",
+      "type": "multiple-choice",
+      "options": [
+        "LDA maximizes variance, PCA maximizes class separation",
+        "PCA maximizes variance, LDA maximizes class separation",
+        "Both methods maximize variance",
+        "Both methods maximize class separation"
+      ],
+      "correctAnswer": 1,
+      "explanation": "PCA maximizes variance in the data without considering class labels, while LDA maximizes the separation between classes while minimizing within-class variance. This makes LDA better for classification tasks when labels are available."
+    },
+    {
+      "id": "q9",
+      "text": "Why is feature scaling important before applying PCA?",
+      "type": "multiple-choice",
+      "options": [
+        "PCA doesn't work with unscaled features",
+        "Features with larger scales can dominate the principal components",
+        "Scaling improves the computational efficiency of PCA",
+        "Scaling is not necessary for PCA"
+      ],
+      "correctAnswer": 1,
+      "explanation": "PCA is sensitive to the scale of features because it finds directions of maximum variance. Features with larger scales (e.g., income vs age) will dominate the principal components unless the data is properly scaled first."
+    },
+    {
+      "id": "q10",
+      "text": "What is the maximum number of meaningful components that LDA can produce?",
+      "type": "multiple-choice",
+      "options": [
+        "Equal to the number of original features",
+        "Equal to the number of samples",
+        "Equal to the number of classes minus one",
+        "Unlimited"
+      ],
+      "correctAnswer": 2,
+      "explanation": "LDA can produce at most C-1 meaningful components, where C is the number of classes. This is because LDA finds directions that separate classes, and you need at most C-1 hyperplanes to separate C classes in the optimal way."
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "title": "Autoencoders Quiz",
+  "description": "Test your understanding of autoencoders",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the primary purpose of an autoencoder?",
+      "options": [
+        "To classify data into different categories",
+        "To learn efficient representations by compressing and reconstructing data",
+        "To generate completely new data samples",
+        "To perform supervised learning tasks"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Autoencoders are designed to learn efficient representations of data by compressing it into a lower-dimensional latent space and then reconstructing the original data. This unsupervised learning process helps capture the most important features."
+    },
+    {
+      "id": "q2",
+      "question": "Which component of an autoencoder is responsible for creating the compressed representation?",
+      "options": [
+        "Decoder",
+        "Encoder",
+        "Latent space",
+        "Output layer"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The encoder is responsible for compressing the input data into a lower-dimensional latent representation. It progressively reduces the dimensionality through a series of neural network layers."
+    },
+    {
+      "id": "q3",
+      "question": "What is the 'bottleneck' in an autoencoder?",
+      "options": [
+        "The input layer with the most neurons",
+        "The layer that causes training to slow down",
+        "The smallest layer that represents the compressed data",
+        "The output layer that reconstructs the data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The bottleneck is the smallest layer in the autoencoder, typically in the middle, where the data is most compressed. This layer contains the latent representation that captures the essential features of the input data."
+    },
+    {
+      "id": "q4",
+      "question": "How is an autoencoder typically trained?",
+      "options": [
+        "By minimizing classification error",
+        "By maximizing the latent space dimension",
+        "By minimizing reconstruction error between input and output",
+        "By maximizing the difference between encoder and decoder"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Autoencoders are trained by minimizing the reconstruction error, typically measured as the mean squared error between the original input and the reconstructed output. This forces the network to learn meaningful representations."
+    },
+    {
+      "id": "q5",
+      "question": "Which of the following is NOT a common application of autoencoders?",
+      "options": [
+        "Dimensionality reduction",
+        "Anomaly detection",
+        "Real-time object tracking",
+        "Data compression"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Real-time object tracking is typically handled by specialized computer vision algorithms, not autoencoders. Autoencoders are commonly used for dimensionality reduction, anomaly detection, and data compression."
+    },
+    {
+      "id": "q6",
+      "question": "What happens if the bottleneck layer is too large?",
+      "options": [
+        "The autoencoder will fail to train",
+        "The autoencoder may learn a trivial identity mapping",
+        "The reconstruction will always be perfect",
+        "The training will be much faster"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If the bottleneck layer is too large, the autoencoder may learn a trivial identity mapping where it simply copies the input to the output without learning meaningful compressed representations. This defeats the purpose of dimensionality reduction."
+    },
+    {
+      "id": "q7",
+      "question": "In anomaly detection using autoencoders, how are anomalies typically identified?",
+      "options": [
+        "By clustering in the latent space",
+        "By high reconstruction error",
+        "By low reconstruction error",
+        "By the activation patterns in the encoder"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Anomalies are typically identified by high reconstruction error. Since the autoencoder is trained on normal data, it will reconstruct normal samples well but struggle to reconstruct anomalous samples, resulting in higher reconstruction error."
+    },
+    {
+      "id": "q8",
+      "question": "What is a denoising autoencoder?",
+      "options": [
+        "An autoencoder that removes noise from the latent space",
+        "An autoencoder trained on corrupted input to reconstruct clean output",
+        "An autoencoder that only works with audio data",
+        "An autoencoder with noise added to the weights"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A denoising autoencoder is trained on corrupted or noisy input data but learns to reconstruct the clean, original data. This helps the autoencoder learn more robust representations and can be used for data cleaning applications."
+    },
+    {
+      "id": "q9",
+      "question": "How does the decoder architecture typically relate to the encoder?",
+      "options": [
+        "It has the same number of layers but different sizes",
+        "It is typically a mirror image of the encoder",
+        "It always has more layers than the encoder",
+        "It has no relationship to the encoder architecture"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The decoder is typically a mirror image of the encoder, with layer sizes increasing from the bottleneck back to the original input dimension. This symmetric architecture helps ensure proper reconstruction of the original data."
+    },
+    {
+      "id": "q10",
+      "question": "What is the main advantage of autoencoders over linear dimensionality reduction techniques like PCA?",
+      "options": [
+        "Autoencoders are always faster to compute",
+        "Autoencoders can capture non-linear relationships in data",
+        "Autoencoders require less training data",
+        "Autoencoders always produce better visualizations"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The main advantage of autoencoders over linear techniques like PCA is their ability to capture non-linear relationships in the data. The non-linear activation functions allow autoencoders to learn complex, curved manifolds in the data."
+    }
+  ]
+}

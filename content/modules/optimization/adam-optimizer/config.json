@@ -1,0 +1,169 @@
+{
+  "id": "adam-optimizer",
+  "name": "Adam Optimizer",
+  "domain": "optimization",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "sgd",
+    "gradient-descent"
+  ],
+  "learningObjectives": [
+    "Understand how Adam combines momentum and adaptive learning rates",
+    "Learn about bias correction in Adam",
+    "Compare Adam's performance with SGD on different loss landscapes",
+    "Understand the role of beta1, beta2, and epsilon parameters",
+    "Visualize moment evolution during optimization"
+  ],
+  "keywords": [
+    "adam",
+    "adaptive",
+    "momentum",
+    "optimization",
+    "bias correction",
+    "learning rate"
+  ],
+  "interactive": {
+    "algorithm": "Adam",
+    "defaultParams": {
+      "learningRate": 0.01,
+      "beta1": 0.9,
+      "beta2": 0.999,
+      "epsilon": 1e-8,
+      "maxIterations": 100,
+      "tolerance": 0.000001,
+      "lossFunction": "quadratic-bowl",
+      "startX": -3,
+      "startY": 2
+    },
+    "controls": [
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Base learning rate for Adam updates"
+      },
+      {
+        "id": "beta1",
+        "type": "slider",
+        "label": "Beta1 (Momentum)",
+        "min": 0.1,
+        "max": 0.999,
+        "step": 0.001,
+        "tooltip": "Exponential decay rate for first moment estimates"
+      },
+      {
+        "id": "beta2",
+        "type": "slider",
+        "label": "Beta2 (RMSProp)",
+        "min": 0.9,
+        "max": 0.9999,
+        "step": 0.0001,
+        "tooltip": "Exponential decay rate for second moment estimates"
+      },
+      {
+        "id": "epsilon",
+        "type": "slider",
+        "label": "Epsilon",
+        "min": 1e-10,
+        "max": 0.000001,
+        "step": 1e-10,
+        "tooltip": "Small constant to prevent division by zero"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Maximum number of optimization steps"
+      },
+      {
+        "id": "lossFunction",
+        "type": "select",
+        "label": "Loss Function",
+        "options": [
+          "quadratic-bowl",
+          "elongated-valley",
+          "rosenbrock",
+          "saddle-point",
+          "beale"
+        ],
+        "tooltip": "Choose a loss landscape to optimize"
+      },
+      {
+        "id": "startX",
+        "type": "slider",
+        "label": "Start X",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial X parameter value"
+      },
+      {
+        "id": "startY",
+        "type": "slider",
+        "label": "Start Y",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial Y parameter value"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "Optimization Problem",
+        "description": "2D parameter space optimization with adaptive learning rates",
+        "size": "2 parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "contour",
+        "title": "Loss Landscape & Optimization Path",
+        "description": "Shows the loss function contours and Adam optimization path"
+      },
+      {
+        "type": "line",
+        "title": "Loss Over Iterations",
+        "description": "Tracks how loss decreases during optimization"
+      },
+      {
+        "type": "line",
+        "title": "Parameter Evolution",
+        "description": "Shows how parameters change over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Moment Evolution",
+        "description": "Visualizes first and second moment estimates"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "name": "Final Loss",
+      "description": "Loss value at convergence"
+    },
+    {
+      "name": "Loss Reduction",
+      "description": "Total reduction in loss from start to finish"
+    },
+    {
+      "name": "Iterations",
+      "description": "Number of optimization steps taken"
+    },
+    {
+      "name": "Convergence Rate",
+      "description": "Average loss reduction per iteration"
+    },
+    {
+      "name": "Final Moments",
+      "description": "First and second moment estimates at convergence"
+    }
+  ]
+}

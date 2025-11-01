@@ -1,0 +1,243 @@
+{
+  "id": "deep-q-networks",
+  "name": "Deep Q-Networks (DQN)",
+  "domain": "reinforcement-learning",
+  "difficulty": "advanced",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "q-learning"
+  ],
+  "learningObjectives": [
+    "Understand how neural networks can approximate Q-functions for large state spaces",
+    "Learn the role of experience replay in breaking temporal correlations",
+    "Understand why target networks stabilize DQN training",
+    "Recognize the advantages of DQN over tabular Q-learning",
+    "Interpret how DQN generalizes across similar states",
+    "Visualize the learning dynamics of neural network-based Q-learning"
+  ],
+  "keywords": [
+    "deep q-network",
+    "DQN",
+    "neural network",
+    "function approximation",
+    "experience replay",
+    "target network",
+    "deep reinforcement learning",
+    "Q-learning",
+    "temporal difference",
+    "replay buffer",
+    "gradient descent"
+  ],
+  "interactive": {
+    "algorithm": "DQN",
+    "defaultParams": {
+      "learningRate": 0.001,
+      "discountFactor": 0.95,
+      "epsilon": 1,
+      "epsilonDecay": 0.995,
+      "minEpsilon": 0.01,
+      "episodes": 200,
+      "maxStepsPerEpisode": 100,
+      "batchSize": 32,
+      "replayBufferSize": 10000,
+      "targetUpdateFrequency": 10,
+      "gridSize": 5,
+      "environmentType": "simple",
+      "hiddenLayer1": 64,
+      "hiddenLayer2": 64
+    },
+    "controls": [
+      {
+        "id": "environmentType",
+        "type": "select",
+        "label": "Environment",
+        "group": "Environment",
+        "tooltip": "Choose a grid-world environment with different obstacles and rewards",
+        "options": [
+          {
+            "label": "Simple Grid",
+            "value": "simple"
+          },
+          {
+            "label": "Maze",
+            "value": "maze"
+          },
+          {
+            "label": "Cliff Walking",
+            "value": "cliff"
+          }
+        ]
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "Neural Network",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "tooltip": "Learning rate for neural network gradient descent. Lower values train more slowly but more stably."
+      },
+      {
+        "id": "hiddenLayer1",
+        "type": "slider",
+        "label": "Hidden Layer 1 Size",
+        "group": "Neural Network",
+        "min": 16,
+        "max": 128,
+        "step": 16,
+        "tooltip": "Number of neurons in the first hidden layer. More neurons increase capacity but slow training."
+      },
+      {
+        "id": "hiddenLayer2",
+        "type": "slider",
+        "label": "Hidden Layer 2 Size",
+        "group": "Neural Network",
+        "min": 16,
+        "max": 128,
+        "step": 16,
+        "tooltip": "Number of neurons in the second hidden layer. More neurons increase capacity but slow training."
+      },
+      {
+        "id": "discountFactor",
+        "type": "slider",
+        "label": "Discount Factor (γ)",
+        "group": "RL Parameters",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "How much the agent values future rewards. Higher values make the agent more far-sighted."
+      },
+      {
+        "id": "epsilon",
+        "type": "slider",
+        "label": "Initial Exploration Rate (ε)",
+        "group": "RL Parameters",
+        "min": 0.5,
+        "max": 1,
+        "step": 0.1,
+        "tooltip": "Initial probability of taking random actions. DQN typically starts with high exploration."
+      },
+      {
+        "id": "epsilonDecay",
+        "type": "slider",
+        "label": "Epsilon Decay",
+        "group": "RL Parameters",
+        "min": 0.95,
+        "max": 0.999,
+        "step": 0.001,
+        "tooltip": "Rate at which exploration decreases. Higher values decay more slowly."
+      },
+      {
+        "id": "batchSize",
+        "type": "slider",
+        "label": "Batch Size",
+        "group": "Experience Replay",
+        "min": 16,
+        "max": 128,
+        "step": 16,
+        "tooltip": "Number of experiences sampled from replay buffer for each training step."
+      },
+      {
+        "id": "replayBufferSize",
+        "type": "slider",
+        "label": "Replay Buffer Size",
+        "group": "Experience Replay",
+        "min": 1000,
+        "max": 20000,
+        "step": 1000,
+        "tooltip": "Maximum number of experiences stored in the replay buffer."
+      },
+      {
+        "id": "targetUpdateFrequency",
+        "type": "slider",
+        "label": "Target Update Frequency",
+        "group": "Experience Replay",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "tooltip": "Number of episodes between target network updates. Higher values provide more stability."
+      },
+      {
+        "id": "episodes",
+        "type": "slider",
+        "label": "Training Episodes",
+        "group": "Training",
+        "min": 100,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Number of episodes to train the agent. DQN typically needs more episodes than tabular Q-learning."
+      },
+      {
+        "id": "maxStepsPerEpisode",
+        "type": "slider",
+        "label": "Max Steps per Episode",
+        "group": "Training",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Maximum number of steps allowed in each episode before timeout."
+      }
+    ],
+    "datasets": []
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Reward per Episode",
+      "description": "Total reward accumulated in each training episode, showing learning progress"
+    },
+    {
+      "type": "line",
+      "title": "Steps per Episode",
+      "description": "Number of steps taken to reach the goal, should decrease as the agent learns"
+    },
+    {
+      "type": "line",
+      "title": "Training Loss",
+      "description": "Neural network training loss over time, smoothed with moving average"
+    },
+    {
+      "type": "heatmap",
+      "title": "Learned Q-Value Heatmap",
+      "description": "Maximum Q-values predicted by the neural network for each state"
+    },
+    {
+      "type": "custom",
+      "title": "Environment with Optimal Path",
+      "description": "Grid visualization showing the learned optimal path from start to goal"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "averageReward",
+      "name": "Average Reward (Last 10 Episodes)",
+      "description": "Mean total reward over the last 10 training episodes"
+    },
+    {
+      "id": "averageSteps",
+      "name": "Average Steps (Last 10 Episodes)",
+      "description": "Mean number of steps to reach goal over the last 10 episodes"
+    },
+    {
+      "id": "optimalPathLength",
+      "name": "Optimal Path Length",
+      "description": "Number of steps in the learned optimal path from start to goal"
+    },
+    {
+      "id": "successRate",
+      "name": "Success Rate",
+      "description": "Percentage of last 10 episodes where the agent reached the goal"
+    },
+    {
+      "id": "replayBufferSize",
+      "name": "Replay Buffer Size",
+      "description": "Current number of experiences stored in the replay buffer"
+    },
+    {
+      "id": "averageLoss",
+      "name": "Average Training Loss",
+      "description": "Mean neural network loss over the last 100 training steps"
+    }
+  ]
+}

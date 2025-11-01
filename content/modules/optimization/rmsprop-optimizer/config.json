@@ -1,0 +1,163 @@
+{
+  "id": "rmsprop-optimizer",
+  "name": "RMSProp Optimizer",
+  "domain": "optimization",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "sgd",
+    "gradient-descent"
+  ],
+  "learningObjectives": [
+    "Understand how RMSProp adapts learning rates based on gradient magnitudes",
+    "Learn the role of the beta parameter in gradient averaging",
+    "Compare RMSProp's performance on different parameter scales",
+    "Visualize adaptive learning rate evolution",
+    "Understand when RMSProp is preferred over SGD"
+  ],
+  "keywords": [
+    "rmsprop",
+    "adaptive learning rate",
+    "gradient scaling",
+    "optimization",
+    "parameter normalization"
+  ],
+  "interactive": {
+    "algorithm": "RMSProp",
+    "defaultParams": {
+      "learningRate": 0.01,
+      "beta": 0.9,
+      "epsilon": 1e-8,
+      "maxIterations": 100,
+      "tolerance": 0.000001,
+      "lossFunction": "quadratic-bowl",
+      "startX": -3,
+      "startY": 2
+    },
+    "controls": [
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Base learning rate before adaptive scaling"
+      },
+      {
+        "id": "beta",
+        "type": "slider",
+        "label": "Beta (Decay Rate)",
+        "min": 0.1,
+        "max": 0.999,
+        "step": 0.001,
+        "tooltip": "Exponential decay rate for squared gradient averages"
+      },
+      {
+        "id": "epsilon",
+        "type": "slider",
+        "label": "Epsilon",
+        "min": 1e-10,
+        "max": 0.000001,
+        "step": 1e-10,
+        "tooltip": "Small constant to prevent division by zero"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Maximum number of optimization steps"
+      },
+      {
+        "id": "lossFunction",
+        "type": "select",
+        "label": "Loss Function",
+        "options": [
+          "quadratic-bowl",
+          "elongated-valley",
+          "rosenbrock",
+          "saddle-point",
+          "ackley"
+        ],
+        "tooltip": "Choose a loss landscape to optimize"
+      },
+      {
+        "id": "startX",
+        "type": "slider",
+        "label": "Start X",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial X parameter value"
+      },
+      {
+        "id": "startY",
+        "type": "slider",
+        "label": "Start Y",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial Y parameter value"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "Optimization Problem",
+        "description": "2D parameter space with adaptive learning rate scaling",
+        "size": "2 parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "contour",
+        "title": "Loss Landscape & Optimization Path",
+        "description": "Shows the loss function contours and RMSProp optimization path"
+      },
+      {
+        "type": "line",
+        "title": "Loss Over Iterations",
+        "description": "Tracks how loss decreases during optimization"
+      },
+      {
+        "type": "line",
+        "title": "Parameter Evolution",
+        "description": "Shows how parameters change over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Adaptive Learning Rates",
+        "description": "Visualizes how learning rates adapt for each parameter"
+      },
+      {
+        "type": "line",
+        "title": "RMS Gradient Evolution",
+        "description": "Shows the evolution of root mean square gradients"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "name": "Final Loss",
+      "description": "Loss value at convergence"
+    },
+    {
+      "name": "Loss Reduction",
+      "description": "Total reduction in loss from start to finish"
+    },
+    {
+      "name": "Iterations",
+      "description": "Number of optimization steps taken"
+    },
+    {
+      "name": "Convergence Rate",
+      "description": "Average loss reduction per iteration"
+    },
+    {
+      "name": "Final Adaptive Learning Rates",
+      "description": "Learning rates for each parameter at convergence"
+    }
+  ]
+}

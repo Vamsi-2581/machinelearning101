@@ -1,0 +1,103 @@
+{
+  "title": "Elastic Net Regression Quiz",
+  "description": "Test your understanding of elastic net regression",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does the l1_ratio parameter control in Elastic Net regression?",
+      "options": [
+        "The overall regularization strength",
+        "The balance between L1 and L2 regularization",
+        "The learning rate for gradient descent",
+        "The number of features to select"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The l1_ratio parameter controls the balance between L1 (Lasso) and L2 (Ridge) regularization. When l1_ratio = 0, it's pure Ridge; when l1_ratio = 1, it's pure Lasso."
+    },
+    {
+      "id": "q2",
+      "question": "If l1_ratio = 0.7 in Elastic Net, what does this mean?",
+      "options": [
+        "70% Ridge regularization, 30% Lasso regularization",
+        "70% Lasso regularization, 30% Ridge regularization",
+        "The model will select exactly 70% of features",
+        "The regularization strength is set to 0.7"
+      ],
+      "correctAnswer": 1,
+      "explanation": "l1_ratio = 0.7 means 70% of the regularization penalty comes from L1 (Lasso) and 30% from L2 (Ridge). Higher l1_ratio values favor feature selection."
+    },
+    {
+      "id": "q3",
+      "question": "What is the main advantage of Elastic Net over pure Lasso regression?",
+      "options": [
+        "It's always faster to compute",
+        "It provides more stable feature selection with correlated features",
+        "It never sets coefficients to zero",
+        "It doesn't require hyperparameter tuning"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Elastic Net provides more stable feature selection than pure Lasso, especially when features are correlated. The L2 component helps maintain stability while the L1 component still allows feature selection."
+    },
+    {
+      "id": "q4",
+      "question": "In the Elastic Net penalty term \u03b1 \u00d7 [l1_ratio \u00d7 L1 + (1 - l1_ratio) \u00d7 L2], what happens when \u03b1 increases?",
+      "options": [
+        "Only L1 regularization increases",
+        "Only L2 regularization increases",
+        "Both L1 and L2 regularization increase proportionally",
+        "The balance between L1 and L2 changes"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When \u03b1 (alpha) increases, both L1 and L2 regularization components increase proportionally. Alpha controls the overall regularization strength, while l1_ratio controls the balance between them."
+    },
+    {
+      "id": "q5",
+      "question": "Which scenario is Elastic Net particularly well-suited for?",
+      "options": [
+        "Small datasets with few features",
+        "High-dimensional data with correlated feature groups",
+        "Time series data with temporal dependencies",
+        "Binary classification problems only"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Elastic Net excels with high-dimensional data containing correlated feature groups. It can perform feature selection while handling correlation better than pure Lasso."
+    },
+    {
+      "id": "q6",
+      "question": "What is the soft thresholding function used for in Elastic Net?",
+      "options": [
+        "To implement the L2 regularization component",
+        "To implement the L1 regularization component",
+        "To normalize the input features",
+        "To compute the final predictions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Soft thresholding implements the L1 regularization component. It can set coefficients to exactly zero when they fall below the threshold, enabling feature selection."
+    },
+    {
+      "id": "q7",
+      "question": "If you want Elastic Net to behave exactly like Ridge regression, what should you set l1_ratio to?",
+      "options": [
+        "0.0",
+        "0.5",
+        "1.0",
+        "It's impossible to make Elastic Net behave like Ridge"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Setting l1_ratio = 0.0 makes Elastic Net behave exactly like Ridge regression, as it eliminates the L1 penalty term and uses only L2 regularization."
+    },
+    {
+      "id": "q8",
+      "question": "Why is feature normalization particularly important for Elastic Net regression?",
+      "options": [
+        "It makes the algorithm run faster",
+        "Regularization penalties are sensitive to feature scales",
+        "It's required for the soft thresholding function to work",
+        "It prevents overfitting automatically"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature normalization is crucial because regularization penalties (both L1 and L2) are sensitive to the scale of features. Without normalization, features with larger scales would be penalized more heavily."
+    }
+  ]
+}

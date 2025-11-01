@@ -1,0 +1,127 @@
+{
+  "title": "Named Entity Recognition Quiz",
+  "description": "Test your understanding of named entity recognition",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is Named Entity Recognition (NER) in Natural Language Processing?",
+      "options": [
+        "The process of translating named entities between languages",
+        "The task of identifying and classifying named entities in text into predefined categories like persons, organizations, and locations",
+        "The process of generating names for new entities",
+        "The task of counting how many times entities appear in text"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Named Entity Recognition (NER) is the task of locating and classifying named entities in text into predefined categories such as persons, organizations, locations, dates, and more. It's a fundamental information extraction task."
+    },
+    {
+      "id": "q2",
+      "question": "Which of the following is NOT a common entity type in NER?",
+      "options": [
+        "PERSON (names of people)",
+        "ORGANIZATION (companies, institutions)",
+        "SENTIMENT (positive, negative, neutral)",
+        "LOCATION (cities, countries, regions)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "SENTIMENT is not an entity type in NER - it's a classification used in sentiment analysis. Common NER entity types include PERSON, ORGANIZATION, LOCATION, DATE, TIME, MONEY, and others that represent concrete named entities."
+    },
+    {
+      "id": "q3",
+      "question": "What is a gazetteer in the context of NER?",
+      "options": [
+        "A type of neural network architecture",
+        "A dictionary or list of known entities organized by type",
+        "A metric for evaluating NER performance",
+        "A visualization tool for entities"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A gazetteer is a dictionary or list of known entities organized by type (e.g., lists of person names, company names, city names). Gazetteer-based NER uses these lists to identify entities through lookup and matching."
+    },
+    {
+      "id": "q4",
+      "question": "Why is context important in Named Entity Recognition?",
+      "options": [
+        "Context makes the text longer and easier to process",
+        "Surrounding words provide clues about entity types and help disambiguate ambiguous entities",
+        "Context is not important for NER",
+        "Context only matters for machine translation"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Context is crucial in NER because surrounding words provide clues about entity types (e.g., 'President Biden' indicates PERSON, 'in California' indicates LOCATION) and help disambiguate ambiguous entities like 'Washington' which could be a person, city, or state."
+    },
+    {
+      "id": "q5",
+      "question": "What is the main advantage of rule-based NER over machine learning-based NER?",
+      "options": [
+        "Rule-based NER always has higher accuracy",
+        "Rule-based NER requires no training data and is highly precise for specific patterns",
+        "Rule-based NER works better with informal text",
+        "Rule-based NER can handle any language automatically"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The main advantage of rule-based NER is that it requires no training data and can be highly precise for specific, well-defined patterns (like dates, emails, phone numbers). However, it doesn't generalize well and requires expert knowledge to create rules."
+    },
+    {
+      "id": "q6",
+      "question": "In NER evaluation, what does precision measure?",
+      "options": [
+        "The percentage of actual entities that were correctly identified",
+        "Of the entities predicted by the system, the percentage that are actually correct",
+        "The total number of entities found",
+        "The speed of entity extraction"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Precision measures: of the entities predicted by the system, what percentage are actually correct? It's calculated as True Positives / (True Positives + False Positives). High precision means few false positives."
+    },
+    {
+      "id": "q7",
+      "question": "What challenge does the text 'Washington announced new policies' present for NER?",
+      "options": [
+        "The text is too short to analyze",
+        "Entity type ambiguity - 'Washington' could be a person, city, state, or organization",
+        "There are no entities in this text",
+        "The text contains spelling errors"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This presents entity type ambiguity. 'Washington' could refer to George Washington (PERSON), Washington D.C. (LOCATION), Washington State (LOCATION), or an organization like the Washington Post. Context and additional information are needed for disambiguation."
+    },
+    {
+      "id": "q8",
+      "question": "Which approach combines multiple NER methods for best results?",
+      "options": [
+        "Using only machine learning",
+        "Using only rule-based patterns",
+        "Hybrid approach: combining patterns, gazetteers, and machine learning",
+        "Using only gazetteers"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A hybrid approach that combines multiple methods typically achieves the best results: use patterns for structured entities (dates, emails), gazetteers for known entities, and machine learning for unknown entities. This leverages the strengths of each approach."
+    },
+    {
+      "id": "q9",
+      "question": "What is a common application of NER in business?",
+      "options": [
+        "Encrypting sensitive documents",
+        "Automatically extracting key information from documents like contracts, invoices, and reports",
+        "Translating documents between languages",
+        "Generating new business documents"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A major business application of NER is automatically extracting key information from documents such as contracts (party names, dates, amounts), invoices (vendors, amounts, dates), and reports (companies, people, locations). This enables automated document processing and analysis."
+    },
+    {
+      "id": "q10",
+      "question": "What is the F1-score in NER evaluation?",
+      "options": [
+        "The number of entities found per document",
+        "The harmonic mean of precision and recall, balancing both metrics",
+        "The speed of entity extraction",
+        "The size of the gazetteer"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The F1-score is the harmonic mean of precision and recall, calculated as 2 \u00d7 (Precision \u00d7 Recall) / (Precision + Recall). It provides a single metric that balances both precision (avoiding false positives) and recall (finding all entities), making it useful for overall NER system evaluation."
+    }
+  ]
+}

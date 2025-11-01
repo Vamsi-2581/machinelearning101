@@ -1,0 +1,29 @@
+{
+  "id": "feature-encoding",
+  "name": "Feature Encoding",
+  "domain": "preprocessing",
+  "difficulty": "intermediate",
+  "estimatedTime": 6,
+  "prerequisites": [
+    "feature-scaling"
+  ],
+  "learningObjectives": [
+    "Understand different categorical encoding techniques",
+    "Learn when to use one-hot vs label encoding",
+    "Explore binary and target encoding methods",
+    "Visualize the impact of encoding on feature space"
+  ],
+  "interactive": {
+    "algorithm": "FeatureEncoding",
+    "defaultParams": {
+      "method": "one-hot",
+      "numSamples": 50,
+      "numFeatures": 3,
+      "categoriesPerFeature": [
+        3,
+        4,
+        2
+      ]
+    }
+  }
+}

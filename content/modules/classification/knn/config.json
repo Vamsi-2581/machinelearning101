@@ -3,7 +3,7 @@
   "name": "K-Nearest Neighbors (KNN)",
   "domain": "classification",
   "difficulty": "beginner",
-  "estimatedTime": 25,
+  "estimatedTime": 11,
   "prerequisites": [],
   "learningObjectives": [
     "Understand how KNN makes predictions based on nearest neighbors",

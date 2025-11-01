@@ -170,6 +170,9 @@ export function transformQuizData(rawData: any, moduleId: string): Quiz {
 
   // Validate each question
   rawData.questions.forEach((question: any, index: number) => {
+    if(!question.type) {
+      question.type = "multiple-choice"
+    }
     validateQuestion(question, index);
   });
 

@@ -124,35 +124,35 @@
 
       <!-- Privacy-Focused Analytics Card -->
       <div class="info-card">
-        <h2 class="info-title">Privacy-Focused Analytics</h2>
+        <h2 class="info-title">Analytics Platform</h2>
         <p class="info-description">
-          We use <a href="https://plausible.io" target="_blank" rel="noopener noreferrer" class="external-link">Plausible Analytics</a>, 
-          a privacy-focused analytics service that:
+          We use <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer" class="external-link">Google Analytics</a> 
+          to understand how users interact with our platform and improve the learning experience.
         </p>
         <ul class="info-list">
           <li>
             <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Is fully compliant with GDPR, CCPA, and PECR</span>
+            <span>Helps us understand user behavior and improve features</span>
           </li>
           <li>
             <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Doesn't use cookies or persistent identifiers</span>
+            <span>Collects anonymous usage data and statistics</span>
           </li>
           <li>
             <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Doesn't collect or store personal data</span>
+            <span>You can opt out at any time using the toggle above</span>
           </li>
           <li>
             <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Is open source and transparent</span>
+            <span>Learn more about <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="external-link">Google's privacy policy</a></span>
           </li>
         </ul>
       </div>

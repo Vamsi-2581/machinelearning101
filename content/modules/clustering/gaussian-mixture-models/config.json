@@ -1,0 +1,174 @@
+{
+  "id": "gaussian-mixture-models",
+  "name": "Gaussian Mixture Models",
+  "domain": "clustering",
+  "difficulty": "advanced",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "k-means",
+    "dbscan"
+  ],
+  "learningObjectives": [
+    "Understand probabilistic clustering with Gaussian distributions",
+    "Learn the Expectation-Maximization (EM) algorithm",
+    "Master soft vs hard clustering assignments",
+    "Discover how GMM handles overlapping clusters",
+    "Understand model selection with AIC and BIC",
+    "Learn about covariance types and their impact"
+  ],
+  "keywords": [
+    "gaussian mixture model",
+    "gmm",
+    "probabilistic clustering",
+    "expectation maximization",
+    "em algorithm",
+    "soft clustering",
+    "likelihood",
+    "covariance matrix",
+    "model selection",
+    "aic",
+    "bic"
+  ],
+  "interactive": {
+    "algorithm": "GMM",
+    "defaultParams": {
+      "k": 3,
+      "maxIterations": 100,
+      "tolerance": 0.000001,
+      "initialization": "kmeans++",
+      "covarianceType": "full",
+      "dataset": "blobs"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          },
+          {
+            "label": "Overlapping Clusters",
+            "value": "overlapping"
+          }
+        ]
+      },
+      {
+        "id": "k",
+        "type": "slider",
+        "label": "Number of Components (k)",
+        "group": "Algorithm Parameters",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of Gaussian components in the mixture model."
+      },
+      {
+        "id": "initialization",
+        "type": "select",
+        "label": "Initialization Method",
+        "group": "Algorithm Parameters",
+        "tooltip": "Method for initializing component parameters.",
+        "options": [
+          {
+            "label": "K-Means++",
+            "value": "kmeans++"
+          },
+          {
+            "label": "Random",
+            "value": "random"
+          }
+        ]
+      },
+      {
+        "id": "covarianceType",
+        "type": "select",
+        "label": "Covariance Type",
+        "group": "Algorithm Parameters",
+        "tooltip": "Type of covariance matrix for each component.",
+        "options": [
+          {
+            "label": "Full",
+            "value": "full"
+          },
+          {
+            "label": "Diagonal",
+            "value": "diagonal"
+          }
+        ]
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "group": "Algorithm Parameters",
+        "min": 10,
+        "max": 300,
+        "step": 10,
+        "tooltip": "Maximum number of EM iterations."
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons",
+      "overlapping"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Gaussian Mixture Model",
+      "description": "Scatter plot showing data points colored by most likely component assignment with component centers"
+    },
+    {
+      "type": "line",
+      "title": "Log-Likelihood Over Iterations",
+      "description": "Line chart showing how log-likelihood increases during EM algorithm iterations"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "logLikelihood",
+      "name": "Log-Likelihood",
+      "description": "Log-likelihood of the data given the model (higher is better)"
+    },
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "aic",
+      "name": "AIC",
+      "description": "Akaike Information Criterion for model selection (lower is better)"
+    },
+    {
+      "id": "bic",
+      "name": "BIC",
+      "description": "Bayesian Information Criterion for model selection (lower is better)"
+    },
+    {
+      "id": "iterations",
+      "name": "Iterations",
+      "description": "Number of EM iterations until convergence"
+    },
+    {
+      "id": "converged",
+      "name": "Converged",
+      "description": "Whether the algorithm converged before reaching maximum iterations"
+    }
+  ]
+}

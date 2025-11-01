@@ -1,0 +1,127 @@
+{
+  "title": "Sentiment Analysis Quiz",
+  "description": "Test your understanding of sentiment analysis",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is sentiment analysis in Natural Language Processing?",
+      "options": [
+        "The process of translating text between languages",
+        "The process of identifying and categorizing opinions to determine emotional tone (positive, negative, neutral)",
+        "The process of counting words in a document",
+        "The process of generating new text based on input"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Sentiment analysis is the computational process of identifying and categorizing opinions expressed in text to determine whether the writer's attitude is positive, negative, or neutral. It's also known as opinion mining."
+    },
+    {
+      "id": "q2",
+      "question": "What is the bag-of-words (BoW) representation?",
+      "options": [
+        "A method that preserves word order and grammar",
+        "A representation that treats text as a collection of words, ignoring grammar and order but tracking frequency",
+        "A technique for translating words to different languages",
+        "A way to compress text files"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The bag-of-words model represents text as a collection of words, ignoring grammar and word order but keeping track of word frequency. Each document is represented as a vector of word counts."
+    },
+    {
+      "id": "q3",
+      "question": "In sentiment analysis, what is the purpose of regularization?",
+      "options": [
+        "To make the model train faster",
+        "To prevent overfitting by penalizing large weights",
+        "To increase the vocabulary size",
+        "To remove stopwords from text"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Regularization (typically L2 regularization) prevents overfitting by adding a penalty term for large weights to the loss function. This encourages the model to learn simpler patterns that generalize better to new data."
+    },
+    {
+      "id": "q4",
+      "question": "Which of the following is a major challenge in sentiment analysis?",
+      "options": [
+        "Text is always too short to analyze",
+        "Handling negation, sarcasm, and context-dependent meanings",
+        "Computers cannot process text at all",
+        "Sentiment is always clearly positive or negative"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Major challenges in sentiment analysis include handling negation ('not good'), detecting sarcasm and irony, understanding context-dependent meanings, and dealing with domain-specific language. These require sophisticated approaches beyond simple word matching."
+    },
+    {
+      "id": "q5",
+      "question": "What does a high positive weight for a word in logistic regression sentiment analysis indicate?",
+      "options": [
+        "The word appears very frequently in the dataset",
+        "The word strongly contributes to positive sentiment predictions",
+        "The word should be removed from the vocabulary",
+        "The word is a stopword"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In logistic regression for sentiment analysis, a high positive weight for a word means that word strongly contributes to positive sentiment predictions. Words like 'excellent', 'amazing', and 'love' typically have high positive weights."
+    },
+    {
+      "id": "q6",
+      "question": "Why is negation handling important in sentiment analysis?",
+      "options": [
+        "Negation words are always stopwords",
+        "Negation words like 'not' can flip the sentiment of surrounding words ('good' vs 'not good')",
+        "Negation makes text longer",
+        "Negation is not important for sentiment analysis"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Negation handling is crucial because words like 'not', 'never', and 'no' can completely flip the sentiment of surrounding words. 'good' is positive, but 'not good' is negative. Simple bag-of-words models may miss this without special handling."
+    },
+    {
+      "id": "q7",
+      "question": "What is aspect-based sentiment analysis?",
+      "options": [
+        "Analyzing sentiment for specific aspects or features mentioned in text",
+        "Analyzing only positive aspects of text",
+        "Analyzing text in multiple languages",
+        "Analyzing the length of text documents"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Aspect-based sentiment analysis identifies and analyzes sentiment for specific aspects or features mentioned in text. For example, in 'The food was excellent but the service was slow', it would identify positive sentiment for food and negative sentiment for service."
+    },
+    {
+      "id": "q8",
+      "question": "Which metric is most appropriate for evaluating sentiment analysis on an imbalanced dataset?",
+      "options": [
+        "Accuracy alone",
+        "F1-score, which balances precision and recall",
+        "Training loss",
+        "Vocabulary size"
+      ],
+      "correctAnswer": 1,
+      "explanation": "F1-score is most appropriate for imbalanced datasets because it balances precision and recall. Accuracy can be misleading when classes are imbalanced (e.g., 90% positive reviews) - a model that always predicts positive would have 90% accuracy but be useless."
+    },
+    {
+      "id": "q9",
+      "question": "What is a common business application of sentiment analysis?",
+      "options": [
+        "Encrypting customer data",
+        "Automatically categorizing and analyzing customer reviews and feedback at scale",
+        "Translating product descriptions",
+        "Generating fake reviews"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A major business application of sentiment analysis is automatically categorizing and analyzing customer reviews and feedback at scale. This helps companies understand customer opinions, identify issues, track trends, and improve products and services."
+    },
+    {
+      "id": "q10",
+      "question": "Why might a sentiment model trained on movie reviews perform poorly on product reviews?",
+      "options": [
+        "Product reviews are always longer than movie reviews",
+        "Domain adaptation - different domains use different language, expressions, and sentiment indicators",
+        "Product reviews don't contain sentiment",
+        "Movie reviews are more important"
+      ],
+      "correctAnswer": 1,
+      "explanation": "This is a domain adaptation problem. Different domains use different language, expressions, and sentiment indicators. Words that are positive in one domain might be neutral or negative in another. Models need to be trained or fine-tuned on domain-specific data for best performance."
+    }
+  ]
+}

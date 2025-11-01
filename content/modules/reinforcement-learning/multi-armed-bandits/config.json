@@ -1,0 +1,175 @@
+{
+  "id": "multi-armed-bandits",
+  "name": "Multi-Armed Bandits",
+  "domain": "reinforcement-learning",
+  "difficulty": "beginner",
+  "estimatedTime": 12,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand the multi-armed bandit problem and its applications",
+    "Learn the exploration-exploitation tradeoff in a simplified setting",
+    "Compare epsilon-greedy, UCB, and Thompson Sampling strategies",
+    "Understand regret as a performance metric for bandit algorithms",
+    "Recognize when to use bandit algorithms vs full reinforcement learning",
+    "Visualize cumulative rewards and regret over time"
+  ],
+  "keywords": [
+    "multi-armed bandits",
+    "exploration",
+    "exploitation",
+    "epsilon-greedy",
+    "UCB",
+    "upper confidence bound",
+    "Thompson sampling",
+    "regret",
+    "online learning",
+    "A/B testing",
+    "recommendation systems"
+  ],
+  "interactive": {
+    "algorithm": "MultiArmedBandits",
+    "defaultParams": {
+      "numArms": 5,
+      "numTrials": 1000,
+      "strategy": "epsilon-greedy",
+      "epsilon": 0.1,
+      "c": 2
+    },
+    "controls": [
+      {
+        "id": "strategy",
+        "type": "select",
+        "label": "Strategy",
+        "group": "Algorithm",
+        "tooltip": "Choose the bandit algorithm strategy to use",
+        "options": [
+          {
+            "label": "Epsilon-Greedy",
+            "value": "epsilon-greedy"
+          },
+          {
+            "label": "UCB (Upper Confidence Bound)",
+            "value": "ucb"
+          },
+          {
+            "label": "Thompson Sampling",
+            "value": "thompson-sampling"
+          }
+        ]
+      },
+      {
+        "id": "numArms",
+        "type": "slider",
+        "label": "Number of Arms",
+        "group": "Environment",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Number of slot machines (arms) to choose from"
+      },
+      {
+        "id": "numTrials",
+        "type": "slider",
+        "label": "Number of Trials",
+        "group": "Environment",
+        "min": 100,
+        "max": 5000,
+        "step": 100,
+        "tooltip": "Number of times to pull an arm (more trials = better learning)"
+      },
+      {
+        "id": "epsilon",
+        "type": "slider",
+        "label": "Epsilon (ε)",
+        "group": "Epsilon-Greedy",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "Exploration rate for epsilon-greedy strategy. Higher values explore more.",
+        "condition": {
+          "param": "strategy",
+          "value": "epsilon-greedy"
+        }
+      },
+      {
+        "id": "c",
+        "type": "slider",
+        "label": "Exploration Parameter (c)",
+        "group": "UCB",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Controls exploration in UCB. Higher values encourage more exploration.",
+        "condition": {
+          "param": "strategy",
+          "value": "ucb"
+        }
+      }
+    ],
+    "datasets": []
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Cumulative Reward",
+      "description": "Total reward accumulated over time"
+    },
+    {
+      "type": "line",
+      "title": "Cumulative Regret",
+      "description": "Total regret (difference from optimal) accumulated over time"
+    },
+    {
+      "type": "bar",
+      "title": "Arm Pull Distribution",
+      "description": "Number of times each arm was pulled"
+    },
+    {
+      "type": "bar",
+      "title": "True vs Estimated Rewards",
+      "description": "Comparison of true arm rewards and learned estimates"
+    },
+    {
+      "type": "line",
+      "title": "Moving Average Reward",
+      "description": "Smoothed average reward over recent trials"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "totalReward",
+      "name": "Total Reward",
+      "description": "Sum of all rewards received across all trials"
+    },
+    {
+      "id": "totalRegret",
+      "name": "Total Regret",
+      "description": "Cumulative difference between optimal and actual rewards"
+    },
+    {
+      "id": "averageReward",
+      "name": "Average Reward per Trial",
+      "description": "Mean reward received per trial"
+    },
+    {
+      "id": "bestArmFound",
+      "name": "Best Arm Found",
+      "description": "The arm with highest estimated reward"
+    },
+    {
+      "id": "optimalArm",
+      "name": "Optimal Arm",
+      "description": "The arm with highest true reward"
+    },
+    {
+      "id": "foundOptimal",
+      "name": "Found Optimal",
+      "description": "Whether the algorithm identified the best arm"
+    },
+    {
+      "id": "optimalPullRate",
+      "name": "Optimal Pull Rate",
+      "description": "Percentage of trials that pulled the optimal arm"
+    }
+  ]
+}

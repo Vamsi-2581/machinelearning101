@@ -1,0 +1,132 @@
+{
+  "id": "word-embeddings",
+  "name": "Word Embeddings",
+  "domain": "nlp",
+  "difficulty": "intermediate",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "text-preprocessing"
+  ],
+  "learningObjectives": [
+    "Understand the concept of word embeddings and distributed representations",
+    "Learn how Word2Vec and Skip-gram models work",
+    "Explore semantic relationships captured by embeddings",
+    "Visualize word embeddings in 2D and 3D space",
+    "Apply word embeddings to find similar words"
+  ],
+  "tags": [
+    "nlp",
+    "word-embeddings",
+    "word2vec",
+    "semantic-similarity",
+    "vector-space"
+  ],
+  "interactive": {
+    "algorithm": "WordEmbeddings",
+    "defaultParams": {
+      "sampleText": "sample1",
+      "embeddingDim": 50,
+      "windowSize": 2,
+      "minCount": 2,
+      "learningRate": 0.025,
+      "epochs": 5,
+      "negSamples": 5
+    },
+    "controls": [
+      {
+        "id": "sampleText",
+        "type": "select",
+        "label": "Sample Corpus",
+        "options": [
+          {
+            "label": "Technology Text",
+            "value": "sample1"
+          },
+          {
+            "label": "Nature & Animals",
+            "value": "sample2"
+          },
+          {
+            "label": "Food & Cooking",
+            "value": "sample3"
+          }
+        ],
+        "tooltip": "Choose a sample text corpus to train embeddings",
+        "group": "Input"
+      },
+      {
+        "id": "embeddingDim",
+        "type": "slider",
+        "label": "Embedding Dimension",
+        "min": 10,
+        "max": 100,
+        "step": 10,
+        "tooltip": "Dimensionality of the word vectors (higher = more expressive but slower)",
+        "group": "Model Architecture"
+      },
+      {
+        "id": "windowSize",
+        "type": "slider",
+        "label": "Context Window Size",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "tooltip": "Number of words to consider on each side of the target word",
+        "group": "Training"
+      },
+      {
+        "id": "minCount",
+        "type": "slider",
+        "label": "Minimum Word Count",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "tooltip": "Minimum frequency for a word to be included in vocabulary",
+        "group": "Preprocessing"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Step size for gradient updates during training",
+        "group": "Training"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Training Epochs",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Number of times to iterate through the entire corpus",
+        "group": "Training"
+      },
+      {
+        "id": "negSamples",
+        "type": "slider",
+        "label": "Negative Samples",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Number of negative samples per positive sample (negative sampling)",
+        "group": "Training"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "embedding-projection",
+        "title": "Word Embedding Space",
+        "description": "2D/3D visualization of word vectors showing semantic relationships"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Loss curve showing model convergence over epochs"
+      }
+    ],
+    "datasets": []
+  }
+}

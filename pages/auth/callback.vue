@@ -131,13 +131,13 @@ const processCallback = async (): Promise<void> => {
     if (callbackSuccess) {
       success.value = true;
       
-      // Get the redirect destination from query params or default to home
-      const redirectTo = (route.query.redirect as string) || '/';
+      // // Get the redirect destination from query params or default to home
+      // const redirectTo = (route.query.redirect as string) || '/';
       
-      // Wait a moment to show success message, then redirect
-      setTimeout(() => {
-        router.push(redirectTo);
-      }, 1500);
+      // // Wait a moment to show success message, then redirect
+      // setTimeout(() => {
+      //   router.push(redirectTo);
+      // }, 1500);
     } else {
       // No token found in URL or callback failed
       error.value = true;

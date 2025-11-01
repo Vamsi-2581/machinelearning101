@@ -1,0 +1,127 @@
+{
+  "title": "Transfer Learning Quiz",
+  "description": "Test your understanding of transfer learning",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of transfer learning over training a model from scratch?",
+      "options": [
+        "It always produces more accurate models",
+        "It requires significantly less data and training time by leveraging pre-trained features",
+        "It eliminates the need for labeled data entirely",
+        "It only works with image data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Transfer learning's main advantage is that it requires much less data and training time because it starts with features already learned from large datasets. A model that might need millions of images when trained from scratch can achieve good results with just hundreds or thousands of images using transfer learning."
+    },
+    {
+      "id": "q2",
+      "question": "In transfer learning, what are 'frozen' layers?",
+      "options": [
+        "Layers that have been removed from the model",
+        "Layers whose weights are not updated during training",
+        "Layers that only work with cold temperature data",
+        "Layers that process images very slowly"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Frozen layers are layers whose weights remain fixed and are not updated during training. This is common in feature extraction, where pre-trained layers are kept frozen to preserve the learned features, and only the new classifier layers are trained."
+    },
+    {
+      "id": "q3",
+      "question": "What is the difference between feature extraction and fine-tuning in transfer learning?",
+      "options": [
+        "Feature extraction is faster but fine-tuning is always more accurate",
+        "Feature extraction freezes pre-trained layers while fine-tuning updates them with a small learning rate",
+        "Feature extraction only works with small datasets",
+        "Fine-tuning requires no training data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature extraction keeps pre-trained layers frozen and only trains new classifier layers, making it fast and suitable for small datasets. Fine-tuning unfreezes some or all pre-trained layers and continues training with a small learning rate, allowing the model to adapt features to the new task."
+    },
+    {
+      "id": "q4",
+      "question": "Why do early layers of a pre-trained CNN tend to transfer well across different tasks?",
+      "options": [
+        "They contain task-specific features unique to the original dataset",
+        "They learn generic low-level features like edges and textures that are useful across many vision tasks",
+        "They are always frozen during transfer learning",
+        "They have fewer parameters than later layers"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Early layers of CNNs learn generic, low-level features such as edges, corners, colors, and basic textures. These features are fundamental to visual perception and are useful across many different vision tasks, making them highly transferable."
+    },
+    {
+      "id": "q5",
+      "question": "When should you prefer feature extraction over fine-tuning?",
+      "options": [
+        "When you have a very large target dataset",
+        "When you have a small target dataset and limited computational resources",
+        "When the target task is very different from the pre-training task",
+        "When you want the slowest possible training"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature extraction is preferred when you have a small target dataset (risk of overfitting with fine-tuning) and limited computational resources (faster training). It's also good when the target task is similar to the pre-training task, as the pre-trained features are already well-suited."
+    },
+    {
+      "id": "q6",
+      "question": "Why is a smaller learning rate typically used for fine-tuning compared to training from scratch?",
+      "options": [
+        "To make training take longer",
+        "To prevent destroying the useful pre-trained features with large weight updates",
+        "Because fine-tuning always uses fewer epochs",
+        "To reduce the model's accuracy"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A smaller learning rate (typically 10-100x smaller) is used during fine-tuning to make gentle adjustments to the pre-trained weights. Large learning rates could cause catastrophic forgetting, destroying the useful features the model has already learned."
+    },
+    {
+      "id": "q7",
+      "question": "What is 'catastrophic forgetting' in the context of transfer learning?",
+      "options": [
+        "When the model forgets to save its weights",
+        "When aggressive fine-tuning destroys useful pre-trained features",
+        "When the model runs out of memory",
+        "When training data is accidentally deleted"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Catastrophic forgetting occurs when fine-tuning with too high a learning rate or for too many epochs causes the model to lose the useful features it learned during pre-training. This is why fine-tuning uses small learning rates and careful monitoring."
+    },
+    {
+      "id": "q8",
+      "question": "Which layers of a pre-trained model should typically be unfrozen first when fine-tuning?",
+      "options": [
+        "The earliest layers (closest to input)",
+        "All layers simultaneously",
+        "The latest layers (closest to output)",
+        "Random layers"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When fine-tuning, you should typically unfreeze the latest layers first (those closest to the output). These layers contain more task-specific features that benefit most from adaptation. Early layers contain generic features that usually don't need much adjustment."
+    },
+    {
+      "id": "q9",
+      "question": "What is a common source of pre-trained models for computer vision tasks?",
+      "options": [
+        "Models trained on random noise",
+        "Models trained on large-scale datasets like ImageNet",
+        "Models trained on text data",
+        "Models that have never been trained"
+      ],
+      "correctAnswer": 1,
+      "explanation": "ImageNet is the most common source of pre-trained models for computer vision. It contains 1.2 million images across 1000 categories, and models trained on it have learned rich, generalizable visual features that transfer well to many other vision tasks."
+    },
+    {
+      "id": "q10",
+      "question": "In transfer learning, what happens to the final classification layer of the pre-trained model?",
+      "options": [
+        "It is kept exactly as is",
+        "It is removed and replaced with a new layer matching the target task's number of classes",
+        "It is frozen but not replaced",
+        "It is duplicated multiple times"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The final classification layer is removed and replaced with a new layer that matches the number of classes in your target task. For example, if the pre-trained model classified 1000 ImageNet categories but you need to classify 3 categories, you replace the 1000-output layer with a 3-output layer."
+    }
+  ]
+}

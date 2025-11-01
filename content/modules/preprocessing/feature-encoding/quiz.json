@@ -1,0 +1,106 @@
+{
+  "title": "Feature Encoding Quiz",
+  "description": "Test your understanding of categorical feature encoding techniques",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the primary purpose of feature encoding?",
+      "type": "multiple-choice",
+      "options": [
+        "To reduce the number of features in the dataset",
+        "To convert categorical variables into numerical format",
+        "To normalize the range of numerical features",
+        "To remove outliers from categorical data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature encoding converts categorical variables into numerical format so that machine learning algorithms can process them. Most ML algorithms require numerical input."
+    },
+    {
+      "id": "q2",
+      "text": "Which encoding method creates binary features for each unique category?",
+      "type": "multiple-choice",
+      "options": [
+        "Label encoding",
+        "Target encoding",
+        "One-hot encoding",
+        "Ordinal encoding"
+      ],
+      "correctAnswer": 2,
+      "explanation": "One-hot encoding creates a binary feature for each unique category value, where only one feature is 'hot' (1) and others are 'cold' (0) for each sample."
+    },
+    {
+      "id": "q3",
+      "text": "Label encoding assigns sequential integers to categories, which can create artificial ordering.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Label encoding assigns integers (0, 1, 2, ...) to categories, which can create artificial ordering relationships that don't exist in the original data, especially for nominal variables."
+    },
+    {
+      "id": "q4",
+      "text": "When is target encoding most appropriate?",
+      "type": "multiple-choice",
+      "options": [
+        "For nominal variables with few categories",
+        "For high cardinality categorical variables in supervised learning",
+        "For ordinal variables with natural ordering",
+        "For binary categorical variables only"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Target encoding is most useful for high cardinality categorical variables in supervised learning, as it replaces categories with their mean target values, efficiently handling many categories while capturing their relationship with the target."
+    },
+    {
+      "id": "q5",
+      "text": "What is a major disadvantage of one-hot encoding?",
+      "type": "multiple-choice",
+      "options": [
+        "It loses information about category relationships",
+        "It can only be used with ordinal variables",
+        "It creates many features, leading to high dimensionality",
+        "It requires the target variable to work"
+      ],
+      "correctAnswer": 2,
+      "explanation": "One-hot encoding creates a separate binary feature for each category, which can lead to very high dimensionality when dealing with categorical variables that have many unique values (curse of dimensionality)."
+    },
+    {
+      "id": "q6",
+      "text": "Binary encoding is most useful when:",
+      "type": "multiple-choice",
+      "options": [
+        "You have only two categories",
+        "You want the most interpretable encoding",
+        "You have high cardinality but want fewer features than one-hot",
+        "You need to preserve exact category relationships"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Binary encoding is useful for high cardinality categorical variables because it creates fewer features than one-hot encoding (log₂(n) features instead of n features) while still representing all categories uniquely."
+    },
+    {
+      "id": "q7",
+      "text": "Which encoding method is generally best for tree-based algorithms?",
+      "type": "multiple-choice",
+      "options": [
+        "One-hot encoding",
+        "Label encoding or target encoding",
+        "Binary encoding",
+        "All methods work equally well"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Tree-based algorithms (like Random Forest, XGBoost) can handle label encoding and target encoding well because they make splits based on feature values. They don't assume linear relationships, so the artificial ordering in label encoding is less problematic."
+    },
+    {
+      "id": "q8",
+      "text": "What risk does target encoding pose if not implemented carefully?",
+      "type": "multiple-choice",
+      "options": [
+        "Loss of categorical information",
+        "Overfitting and data leakage",
+        "Inability to handle new categories",
+        "Increased computational complexity"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Target encoding can cause overfitting and data leakage if the encoding is computed using the entire dataset including the test set. The encoding should be fitted only on training data to avoid leaking target information."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "title": "Rmsprop Optimizer Quiz",
+  "description": "Test your understanding of rmsprop optimizer",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "rmsprop-purpose",
+      "question": "What is the main problem that RMSProp solves?",
+      "options": [
+        "Slow convergence in all cases",
+        "Parameters with different scales requiring different learning rates",
+        "Memory usage in optimization",
+        "Local minima in loss functions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RMSProp addresses the problem where parameters have different scales, automatically adapting learning rates for each parameter based on gradient magnitudes."
+    },
+    {
+      "id": "rmsprop-adaptation",
+      "question": "How does RMSProp adapt learning rates for each parameter?",
+      "options": [
+        "By using momentum to accelerate convergence",
+        "By dividing gradients by the square root of averaged squared gradients",
+        "By randomly adjusting learning rates",
+        "By using the current loss value"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RMSProp divides each gradient by the square root of the exponential moving average of squared gradients, creating adaptive learning rates."
+    },
+    {
+      "id": "rmsprop-beta",
+      "question": "What does the \u03b2 (beta) parameter control in RMSProp?",
+      "options": [
+        "The base learning rate",
+        "The momentum term",
+        "The decay rate for the moving average of squared gradients",
+        "The convergence tolerance"
+      ],
+      "correctAnswer": 2,
+      "explanation": "\u03b2 controls how much gradient history to remember in the exponential moving average of squared gradients. Higher \u03b2 means longer memory."
+    },
+    {
+      "id": "rmsprop-large-gradients",
+      "question": "What happens to the effective learning rate when a parameter has consistently large gradients?",
+      "options": [
+        "It increases to speed up convergence",
+        "It decreases to prevent overshooting",
+        "It stays the same",
+        "It becomes negative"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Large gradients lead to a large denominator in the RMSProp update, which decreases the effective learning rate to prevent overshooting."
+    },
+    {
+      "id": "rmsprop-vs-sgd",
+      "question": "Compared to SGD, RMSProp is:",
+      "options": [
+        "More sensitive to learning rate choice",
+        "Less robust to different parameter scales",
+        "More robust to learning rate choice and parameter scales",
+        "Faster but less accurate"
+      ],
+      "correctAnswer": 2,
+      "explanation": "RMSProp is more robust than SGD because it automatically adapts learning rates, making it less sensitive to the initial learning rate choice and better at handling different parameter scales."
+    },
+    {
+      "id": "rmsprop-memory",
+      "question": "What additional memory does RMSProp require compared to SGD?",
+      "options": [
+        "No additional memory",
+        "Storage for one vector of squared gradient averages",
+        "Storage for two vectors (momentum and squared gradients)",
+        "Storage for the entire gradient history"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RMSProp needs to store one additional vector containing the exponential moving average of squared gradients for each parameter."
+    },
+    {
+      "id": "rmsprop-epsilon",
+      "question": "What is the purpose of the \u03b5 (epsilon) parameter in RMSProp?",
+      "options": [
+        "To control the learning rate",
+        "To prevent division by zero",
+        "To add momentum to the updates",
+        "To control convergence speed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Epsilon is a small constant added to the denominator to prevent division by zero when the squared gradient average is very small."
+    },
+    {
+      "id": "rmsprop-limitation",
+      "question": "What is a potential limitation of RMSProp?",
+      "options": [
+        "It uses too much memory",
+        "It can become too conservative over time, reducing learning rates too aggressively",
+        "It always overshoots the minimum",
+        "It only works with neural networks"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RMSProp can become too conservative over time as the accumulated squared gradients grow, leading to very small learning rates that slow down convergence."
+    }
+  ]
+}

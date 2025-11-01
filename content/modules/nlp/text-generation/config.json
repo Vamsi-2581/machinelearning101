@@ -1,0 +1,139 @@
+{
+  "id": "text-generation",
+  "name": "Text Generation & Language Models",
+  "domain": "nlp",
+  "difficulty": "advanced",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "word-embeddings",
+    "sentiment-analysis"
+  ],
+  "learningObjectives": [
+    "Understand how language models generate text",
+    "Learn character-level and word-level text generation",
+    "Explore recurrent neural networks for sequence modeling",
+    "Understand temperature sampling and generation strategies",
+    "See how context influences next character/word predictions"
+  ],
+  "tags": [
+    "nlp",
+    "text-generation",
+    "language-models",
+    "rnn",
+    "deep-learning",
+    "sequence-modeling"
+  ],
+  "interactive": {
+    "algorithm": "TextGeneration",
+    "defaultParams": {
+      "sequenceLength": 25,
+      "temperature": 0.8,
+      "maxLength": 200,
+      "learningRate": 0.01,
+      "epochs": 100,
+      "hiddenSize": 100,
+      "dataset": "shakespeare"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Training Corpus",
+        "options": [
+          {
+            "label": "Shakespeare",
+            "value": "shakespeare"
+          },
+          {
+            "label": "Poetry",
+            "value": "poetry"
+          },
+          {
+            "label": "Code Snippets",
+            "value": "code"
+          }
+        ],
+        "tooltip": "Choose a text corpus to train the language model",
+        "group": "Data"
+      },
+      {
+        "id": "sequenceLength",
+        "type": "slider",
+        "label": "Sequence Length",
+        "min": 10,
+        "max": 50,
+        "step": 5,
+        "tooltip": "Length of input sequences for training (longer = more context)",
+        "group": "Model"
+      },
+      {
+        "id": "hiddenSize",
+        "type": "slider",
+        "label": "Hidden Layer Size",
+        "min": 50,
+        "max": 200,
+        "step": 25,
+        "tooltip": "Size of the RNN hidden layer (larger = more capacity)",
+        "group": "Model"
+      },
+      {
+        "id": "temperature",
+        "type": "slider",
+        "label": "Sampling Temperature",
+        "min": 0.2,
+        "max": 2,
+        "step": 0.1,
+        "tooltip": "Controls randomness: low = conservative, high = creative",
+        "group": "Generation"
+      },
+      {
+        "id": "maxLength",
+        "type": "slider",
+        "label": "Max Generation Length",
+        "min": 50,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Maximum number of characters to generate",
+        "group": "Generation"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns",
+        "group": "Training"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Training Epochs",
+        "min": 20,
+        "max": 200,
+        "step": 20,
+        "tooltip": "Number of times to iterate through the training data",
+        "group": "Training"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "text-generation-steps",
+        "title": "Generated Text with Steps",
+        "description": "See the text generation process step-by-step with character probabilities"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Loss curve showing model convergence during training"
+      },
+      {
+        "type": "bar",
+        "title": "Character Probabilities",
+        "description": "Probability distribution for next character prediction"
+      }
+    ],
+    "datasets": []
+  }
+}

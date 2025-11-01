@@ -1,0 +1,104 @@
+{
+  "title": "Mean Shift Quiz",
+  "description": "Test your understanding of mean shift",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main principle behind Mean Shift clustering?",
+      "options": [
+        "Minimizing within-cluster variance like K-Means",
+        "Finding density modes by iteratively shifting points towards regions of highest density",
+        "Using distance-based neighborhoods like DBSCAN",
+        "Modeling data as a mixture of Gaussian distributions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Mean Shift works by iteratively shifting each data point towards the region of highest density in its neighborhood, eventually converging to local density maxima called 'modes.' Points that converge to the same mode belong to the same cluster."
+    },
+    {
+      "id": "q2",
+      "question": "What does the bandwidth parameter control in Mean Shift?",
+      "options": [
+        "The number of clusters to find",
+        "The maximum number of iterations",
+        "The size of the neighborhood for density estimation",
+        "The convergence tolerance"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The bandwidth parameter controls the size of the neighborhood used for density estimation. It determines how far around each point the algorithm looks when calculating the mean shift vector. Larger bandwidth creates fewer, larger clusters."
+    },
+    {
+      "id": "q3",
+      "question": "What happens if the bandwidth is too small in Mean Shift?",
+      "options": [
+        "The algorithm will not converge",
+        "Too few clusters will be found",
+        "Over-segmentation occurs with too many small clusters",
+        "The algorithm becomes faster"
+      ],
+      "correctAnswer": 2,
+      "explanation": "If the bandwidth is too small, over-segmentation occurs where the algorithm creates too many small clusters. In extreme cases, each point might become its own cluster, making the algorithm very sensitive to noise."
+    },
+    {
+      "id": "q4",
+      "question": "What is a 'mode' in the context of Mean Shift clustering?",
+      "options": [
+        "The most frequently occurring data point",
+        "A local maximum in the probability density function",
+        "The center of a spherical cluster",
+        "A parameter that needs to be set by the user"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A mode is a local maximum in the probability density function - essentially a peak in the data density. Mean Shift finds these density peaks, and all points that converge to the same mode are considered to belong to the same cluster."
+    },
+    {
+      "id": "q5",
+      "question": "How does Mean Shift determine the number of clusters?",
+      "options": [
+        "The user must specify the number beforehand",
+        "It uses information criteria like AIC or BIC",
+        "It automatically finds the number based on the density modes discovered",
+        "It uses cross-validation to select the optimal number"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Mean Shift automatically determines the number of clusters based on the number of density modes it discovers in the data. This is one of its key advantages - no need to specify the number of clusters beforehand."
+    },
+    {
+      "id": "q6",
+      "question": "Which kernel function is most commonly used in Mean Shift?",
+      "options": [
+        "Linear kernel",
+        "Polynomial kernel",
+        "Gaussian kernel",
+        "RBF kernel"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Gaussian kernel is most commonly used in Mean Shift because it's smooth and differentiable, giving more weight to nearby points and less weight to distant points in a continuous manner."
+    },
+    {
+      "id": "q7",
+      "question": "What is the time complexity of the basic Mean Shift algorithm?",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n\u00b2T) where T is the number of iterations",
+        "O(n\u00b3)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The basic Mean Shift algorithm has O(n\u00b2T) time complexity, where n is the number of data points and T is the number of iterations needed for convergence. This is because it needs to calculate distances between all pairs of points for each iteration."
+    },
+    {
+      "id": "q8",
+      "question": "In which scenario would Mean Shift be preferred over K-Means?",
+      "options": [
+        "When you know exactly how many clusters you want",
+        "When you need the fastest possible clustering algorithm",
+        "When you have non-spherical clusters and don't know the number of clusters",
+        "When working with very high-dimensional data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Mean Shift is preferred when you have non-spherical clusters and don't know the number of clusters beforehand. It can find arbitrary cluster shapes and automatically determines the cluster count, unlike K-Means which assumes spherical clusters and requires specifying K."
+    }
+  ],
+  "timeLimit": 600
+}

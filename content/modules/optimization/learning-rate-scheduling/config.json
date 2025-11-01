@@ -1,0 +1,233 @@
+{
+  "id": "learning-rate-scheduling",
+  "name": "Learning Rate Scheduling",
+  "domain": "optimization",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "sgd",
+    "gradient-descent"
+  ],
+  "learningObjectives": [
+    "Understand why learning rate scheduling improves optimization",
+    "Compare different scheduling strategies (step, exponential, cosine, etc.)",
+    "Learn when to use each type of schedule",
+    "Visualize the impact of scheduling on convergence",
+    "Understand the trade-offs between different scheduling approaches"
+  ],
+  "keywords": [
+    "learning rate",
+    "scheduling",
+    "decay",
+    "optimization",
+    "convergence",
+    "annealing"
+  ],
+  "interactive": {
+    "algorithm": "LearningRateScheduler",
+    "defaultParams": {
+      "initialLearningRate": 0.1,
+      "scheduleType": "constant",
+      "maxIterations": 200,
+      "tolerance": 0.000001,
+      "lossFunction": "quadratic-bowl",
+      "startX": -3,
+      "startY": 2,
+      "stepSize": 50,
+      "gamma": 0.5,
+      "decayRate": 0.95,
+      "minLearningRate": 0.001,
+      "power": 1,
+      "patience": 10,
+      "factor": 0.5,
+      "threshold": 0.0001
+    },
+    "controls": [
+      {
+        "id": "scheduleType",
+        "type": "select",
+        "label": "Schedule Type",
+        "options": [
+          "constant",
+          "step",
+          "exponential",
+          "cosine",
+          "polynomial",
+          "plateau"
+        ],
+        "tooltip": "Choose a learning rate scheduling strategy"
+      },
+      {
+        "id": "initialLearningRate",
+        "type": "slider",
+        "label": "Initial Learning Rate",
+        "min": 0.001,
+        "max": 1,
+        "step": 0.001,
+        "tooltip": "Starting learning rate value"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 50,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Maximum number of optimization steps"
+      },
+      {
+        "id": "stepSize",
+        "type": "slider",
+        "label": "Step Size (Step Schedule)",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "tooltip": "Number of iterations between learning rate reductions"
+      },
+      {
+        "id": "gamma",
+        "type": "slider",
+        "label": "Gamma (Step Schedule)",
+        "min": 0.1,
+        "max": 0.9,
+        "step": 0.1,
+        "tooltip": "Factor by which learning rate is reduced"
+      },
+      {
+        "id": "decayRate",
+        "type": "slider",
+        "label": "Decay Rate (Exponential)",
+        "min": 0.9,
+        "max": 0.999,
+        "step": 0.001,
+        "tooltip": "Exponential decay factor per iteration"
+      },
+      {
+        "id": "minLearningRate",
+        "type": "slider",
+        "label": "Min LR (Cosine)",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "tooltip": "Minimum learning rate for cosine annealing"
+      },
+      {
+        "id": "power",
+        "type": "slider",
+        "label": "Power (Polynomial)",
+        "min": 0.5,
+        "max": 2,
+        "step": 0.1,
+        "tooltip": "Power for polynomial decay"
+      },
+      {
+        "id": "patience",
+        "type": "slider",
+        "label": "Patience (Plateau)",
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "tooltip": "Number of iterations to wait before reducing LR"
+      },
+      {
+        "id": "factor",
+        "type": "slider",
+        "label": "Factor (Plateau)",
+        "min": 0.1,
+        "max": 0.9,
+        "step": 0.1,
+        "tooltip": "Factor by which to reduce LR on plateau"
+      },
+      {
+        "id": "lossFunction",
+        "type": "select",
+        "label": "Loss Function",
+        "options": [
+          "quadratic-bowl",
+          "elongated-valley",
+          "rosenbrock",
+          "noisy-quadratic"
+        ],
+        "tooltip": "Choose a loss landscape to optimize"
+      },
+      {
+        "id": "startX",
+        "type": "slider",
+        "label": "Start X",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial X parameter value"
+      },
+      {
+        "id": "startY",
+        "type": "slider",
+        "label": "Start Y",
+        "min": -5,
+        "max": 5,
+        "step": 0.1,
+        "tooltip": "Initial Y parameter value"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "Optimization Problem",
+        "description": "2D parameter space with scheduled learning rates",
+        "size": "2 parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "contour",
+        "title": "Loss Landscape & Optimization Path",
+        "description": "Shows the loss function contours and optimization path with scheduling"
+      },
+      {
+        "type": "line",
+        "title": "Loss Over Iterations",
+        "description": "Tracks how loss decreases during optimization"
+      },
+      {
+        "type": "line",
+        "title": "Learning Rate Schedule",
+        "description": "Shows how learning rate changes over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Parameter Evolution",
+        "description": "Shows how parameters change over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Gradient Magnitude",
+        "description": "Tracks gradient magnitude over time"
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "name": "Final Loss",
+      "description": "Loss value at convergence"
+    },
+    {
+      "name": "Loss Reduction",
+      "description": "Total reduction in loss from start to finish"
+    },
+    {
+      "name": "Iterations",
+      "description": "Number of optimization steps taken"
+    },
+    {
+      "name": "Schedule Type",
+      "description": "Type of learning rate schedule used"
+    },
+    {
+      "name": "Final Learning Rate",
+      "description": "Learning rate at the end of optimization"
+    },
+    {
+      "name": "Average Learning Rate",
+      "description": "Average learning rate across all iterations"
+    }
+  ]
+}

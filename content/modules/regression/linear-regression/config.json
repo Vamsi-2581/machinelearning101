@@ -3,7 +3,7 @@
   "name": "Linear Regression",
   "domain": "regression",
   "difficulty": "beginner",
-  "estimatedTime": 30,
+  "estimatedTime": 8,
   "prerequisites": [],
   "learningObjectives": [
     "Understand how linear regression models relationships in data",

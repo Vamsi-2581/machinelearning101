@@ -8,7 +8,7 @@
 import { defineEventHandler } from 'h3'
 
 // Base URL for the site
-const SITE_URL = 'https://mlsimplified.com'
+const SITE_URL = 'https://machinelearningsimplified.com'
 
 // Static pages
 const staticPages = [

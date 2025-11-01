@@ -1,0 +1,145 @@
+{
+  "id": "named-entity-recognition",
+  "name": "Named Entity Recognition",
+  "domain": "nlp",
+  "difficulty": "intermediate",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "text-preprocessing"
+  ],
+  "learningObjectives": [
+    "Understand named entity recognition and its applications",
+    "Learn how to identify and classify named entities in text",
+    "Explore pattern-based and gazetteer-based entity extraction",
+    "Understand entity types: persons, organizations, locations, dates, etc.",
+    "Learn how to evaluate NER systems with precision, recall, and F1-score"
+  ],
+  "tags": [
+    "nlp",
+    "ner",
+    "entity-extraction",
+    "information-extraction",
+    "text-analysis"
+  ],
+  "interactive": {
+    "algorithm": "NamedEntityRecognition",
+    "defaultParams": {
+      "entityTypes": [
+        "PERSON",
+        "ORGANIZATION",
+        "LOCATION",
+        "DATE"
+      ],
+      "caseSensitive": true,
+      "useContextWindow": true,
+      "contextWindowSize": 5,
+      "dataset": "news-articles"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Text Dataset",
+        "options": [
+          {
+            "label": "News Articles",
+            "value": "news-articles"
+          },
+          {
+            "label": "Business Documents",
+            "value": "business-docs"
+          },
+          {
+            "label": "Social Media Posts",
+            "value": "social-media"
+          }
+        ],
+        "tooltip": "Choose a dataset to extract entities from",
+        "group": "Data"
+      },
+      {
+        "id": "entityTypes",
+        "type": "multiselect",
+        "label": "Entity Types",
+        "options": [
+          {
+            "label": "Person",
+            "value": "PERSON"
+          },
+          {
+            "label": "Organization",
+            "value": "ORGANIZATION"
+          },
+          {
+            "label": "Location",
+            "value": "LOCATION"
+          },
+          {
+            "label": "Date",
+            "value": "DATE"
+          },
+          {
+            "label": "Time",
+            "value": "TIME"
+          },
+          {
+            "label": "Money",
+            "value": "MONEY"
+          },
+          {
+            "label": "Email",
+            "value": "EMAIL"
+          },
+          {
+            "label": "Phone",
+            "value": "PHONE"
+          }
+        ],
+        "tooltip": "Select which types of entities to recognize",
+        "group": "Model"
+      },
+      {
+        "id": "caseSensitive",
+        "type": "toggle",
+        "label": "Case Sensitive",
+        "tooltip": "Whether entity matching should be case-sensitive",
+        "group": "Model"
+      },
+      {
+        "id": "useContextWindow",
+        "type": "toggle",
+        "label": "Use Context Window",
+        "tooltip": "Use surrounding words to improve entity classification confidence",
+        "group": "Model"
+      },
+      {
+        "id": "contextWindowSize",
+        "type": "slider",
+        "label": "Context Window Size",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Number of words before and after entity to consider for context",
+        "group": "Model"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "entity-highlight",
+        "title": "Entity Extraction",
+        "description": "Text with highlighted entities color-coded by type"
+      },
+      {
+        "type": "bar",
+        "title": "Entity Type Distribution",
+        "description": "Count of entities found for each type"
+      },
+      {
+        "type": "bar",
+        "title": "Confidence Distribution",
+        "description": "Distribution of confidence scores for extracted entities"
+      }
+    ],
+    "datasets": []
+  }
+}

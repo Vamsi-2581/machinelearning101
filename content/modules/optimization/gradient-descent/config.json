@@ -3,8 +3,10 @@
   "name": "Gradient Descent Optimization",
   "domain": "optimization",
   "difficulty": "intermediate",
-  "estimatedTime": 45,
-  "prerequisites": ["linear-regression"],
+  "estimatedTime": 6,
+  "prerequisites": [
+    "linear-regression"
+  ],
   "learningObjectives": [
     "Understand how gradient descent minimizes loss functions",
     "Compare different optimizer variants (SGD, Momentum, RMSProp, Adam)",
@@ -45,7 +47,12 @@
         "id": "optimizer",
         "type": "select",
         "label": "Optimizer",
-        "options": ["sgd", "momentum", "rmsprop", "adam"],
+        "options": [
+          "sgd",
+          "momentum",
+          "rmsprop",
+          "adam"
+        ],
         "tooltip": "Choose an optimization algorithm"
       },
       {
@@ -53,7 +60,7 @@
         "type": "slider",
         "label": "Learning Rate",
         "min": 0.001,
-        "max": 1.0,
+        "max": 1,
         "step": 0.001,
         "tooltip": "Controls step size in parameter space"
       }

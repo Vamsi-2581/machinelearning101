@@ -1,54 +1,102 @@
 <template>
   <div class="visualization-panel" :class="{ fullscreen: isFullscreen }">
-    <!-- Panel Header -->
-    <div class="panel-header">
-      <h3 class="panel-title">{{ title }}</h3>
-      
-      <div class="panel-actions">
-        <!-- Export Button -->
-        <button
-          v-if="allowExport"
-          @click="handleExport"
-          :disabled="!hasData"
-          class="action-button"
-          title="Export visualization"
-          aria-label="Export visualization"
-        >
-          <span class="action-icon">📥</span>
-        </button>
+    <!-- Multiple Visualizations -->
+    <template v-if="hasMultipleVisualizations">
+      <div v-for="(viz, index) in visualizations" :key="`viz-${index}-${viz.type}`" class="visualization-item">
+        <div class="panel-header">
+          <h3 class="panel-title">{{ viz.title || `Visualization ${index + 1}` }}</h3>
+          
+          <div class="panel-actions">
+            <!-- Export Button -->
+            <button
+              v-if="allowExport"
+              @click="handleExport"
+              class="action-button"
+              title="Export visualization"
+              aria-label="Export visualization"
+            >
+              <span class="action-icon">📥</span>
+            </button>
 
-        <!-- Fullscreen Toggle -->
-        <button
-          v-if="allowFullscreen"
-          @click="toggleFullscreen"
-          class="action-button"
-          :title="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
-          :aria-label="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
-        >
-          <span class="action-icon">{{ isFullscreen ? '⤓' : '⤢' }}</span>
-        </button>
+            <!-- Fullscreen Toggle -->
+            <button
+              v-if="allowFullscreen"
+              @click="toggleFullscreen"
+              class="action-button"
+              :title="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+              :aria-label="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+            >
+              <span class="action-icon">{{ isFullscreen ? '⤓' : '⤢' }}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-content">
+          <component
+            v-if="viz.type"
+            :is="getVisualizationComponent(viz.type)"
+            :key="`viz-comp-${index}-${viz.type}`"
+            :data="viz.data"
+            :config="viz.config"
+            v-bind="viz.config"
+            @ready="handleVisualizationReady"
+          />
+        </div>
       </div>
-    </div>
+    </template>
 
-    <!-- Visualization Content -->
-    <div class="panel-content" ref="contentRef">
-      <!-- Render appropriate visualization based on type -->
-      <component
-        v-if="visualizationType && hasData"
-        :is="visualizationComponent"
-        v-bind="visualizationProps"
-        @ready="handleVisualizationReady"
-      />
+    <!-- Single Visualization -->
+    <template v-else>
+      <!-- Panel Header -->
+      <div class="panel-header">
+        <h3 class="panel-title">{{ title }}</h3>
+        
+        <div class="panel-actions">
+          <!-- Export Button -->
+          <button
+            v-if="allowExport"
+            @click="handleExport"
+            :disabled="!hasData"
+            class="action-button"
+            title="Export visualization"
+            aria-label="Export visualization"
+          >
+            <span class="action-icon">📥</span>
+          </button>
 
-      <!-- Empty State -->
-      <div v-else-if="!hasData" class="empty-state">
-        <div class="empty-icon">📊</div>
-        <p class="empty-message">{{ emptyMessage }}</p>
+          <!-- Fullscreen Toggle -->
+          <button
+            v-if="allowFullscreen"
+            @click="toggleFullscreen"
+            class="action-button"
+            :title="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+            :aria-label="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+          >
+            <span class="action-icon">{{ isFullscreen ? '⤓' : '⤢' }}</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Slot for custom visualization -->
-      <slot v-if="!visualizationType" />
-    </div>
+      <!-- Visualization Content -->
+      <div class="panel-content" ref="contentRef">
+        <!-- Render appropriate visualization based on type -->
+        <component
+          v-if="visualizationType && hasData"
+          :is="visualizationComponent"
+          v-bind="visualizationProps"
+          @ready="handleVisualizationReady"
+        />
+
+        <!-- Empty State -->
+        <div v-else-if="!hasData" class="empty-state">
+          <div class="empty-icon">📊</div>
+          <p class="empty-message">{{ emptyMessage }}</p>
+        </div>
+
+        <!-- Slot for custom visualization -->
+        <slot v-if="!visualizationType" />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -61,9 +109,11 @@ interface Props {
   type?: VisualizationType;
   data?: any;
   config?: any;
+  visualizations?: Array<{ type: VisualizationType; data: any; config?: any; title?: string }>;
   allowFullscreen?: boolean;
   allowExport?: boolean;
   emptyMessage?: string;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -71,6 +121,7 @@ const props = withDefaults(defineProps<Props>(), {
   allowFullscreen: true,
   allowExport: true,
   emptyMessage: 'No data to visualize. Adjust parameters and run the algorithm.',
+  loading: false,
 });
 
 const emit = defineEmits<{
@@ -84,9 +135,19 @@ const contentRef = ref<HTMLElement>();
 const visualizationReady = ref(false);
 
 /**
+ * Check if using multiple visualizations
+ */
+const hasMultipleVisualizations = computed(() => {
+  return Array.isArray(props.visualizations) && props.visualizations.length > 0;
+});
+
+/**
  * Check if data is available
  */
 const hasData = computed(() => {
+  if (hasMultipleVisualizations.value) {
+    return true;
+  }
   return props.data !== null && props.data !== undefined;
 });
 
@@ -98,11 +159,9 @@ const visualizationType = computed(() => {
 });
 
 /**
- * Dynamically load visualization component based on type
+ * Get visualization component for a given type
  */
-const visualizationComponent = computed(() => {
-  if (!props.type) return null;
-
+const getVisualizationComponent = (type: VisualizationType) => {
   const componentMap: Record<VisualizationType, any> = {
     'scatter2d': defineAsyncComponent(() => import('~/components/visualizations/Scatter2D.vue')),
     'scatter3d': defineAsyncComponent(() => import('~/components/visualizations/Plot3D.vue')),
@@ -112,7 +171,15 @@ const visualizationComponent = computed(() => {
     'canvas-scatter': defineAsyncComponent(() => import('~/components/visualizations/CanvasScatter.vue')),
   };
 
-  return componentMap[props.type] || null;
+  return componentMap[type] || null;
+};
+
+/**
+ * Dynamically load visualization component based on type
+ */
+const visualizationComponent = computed(() => {
+  if (!props.type) return null;
+  return getVisualizationComponent(props.type);
 });
 
 /**
@@ -219,6 +286,19 @@ onBeforeUnmount(() => {
   background: white;
   border-radius: 0.5rem;
   overflow: hidden;
+}
+
+.visualization-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.visualization-item:last-child {
+  margin-bottom: 0;
 }
 
 .visualization-panel.fullscreen {

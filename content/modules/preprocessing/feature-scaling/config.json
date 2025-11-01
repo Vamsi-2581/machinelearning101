@@ -3,7 +3,7 @@
   "name": "Feature Scaling",
   "domain": "preprocessing",
   "difficulty": "beginner",
-  "estimatedTime": 20,
+  "estimatedTime": 5,
   "prerequisites": [],
   "learningObjectives": [
     "Understand why feature scaling is important",

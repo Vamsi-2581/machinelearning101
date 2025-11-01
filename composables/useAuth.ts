@@ -68,6 +68,12 @@ export const useAuth = () => {
    */
   const signInWithGoogle = (): void => {
     try {
+      // Store current path for redirect after sign-in
+      if (typeof window !== 'undefined') {
+        const currentPath = window.location.pathname + window.location.search;
+        localStorage.setItem('auth_redirect_path', currentPath);
+      }
+      
       // Redirect to the worker's OAuth initiation endpoint
       const authUrl = `${apiUrl}/api/auth/google`;
       window.location.href = authUrl;
@@ -93,6 +99,8 @@ export const useAuth = () => {
       if (error) {
         console.error('OAuth error:', error);
         toastStore.error('Authentication failed. Please try again.');
+        // Clear stored redirect path on error
+        localStorage.removeItem('auth_redirect_path');
         return false;
       }
 
@@ -109,6 +117,15 @@ export const useAuth = () => {
           // Sync progress after successful login
           await syncProgress();
           
+          // Redirect to stored path or home
+          const redirectPath = localStorage.getItem('auth_redirect_path') || '/';
+          localStorage.removeItem('auth_redirect_path');
+          
+          // Only redirect if not already on the target path
+          if (window.location.pathname !== redirectPath) {
+            await navigateTo(redirectPath);
+          }
+          
           return true;
         }
       }
@@ -117,6 +134,7 @@ export const useAuth = () => {
     } catch (error) {
       console.error('Failed to handle OAuth callback:', error);
       toastStore.error('Failed to complete sign-in');
+      localStorage.removeItem('auth_redirect_path');
       return false;
     }
   };

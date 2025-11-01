@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type { DataPoint, AlgorithmResults } from '~/types/algorithm';
+import { useHeavyAlgorithms } from '~/composables/useHeavyAlgorithms';
 
 /**
  * Module Store
@@ -17,6 +18,9 @@ export interface ModuleState {
   results: AlgorithmResults | null;
   isTraining: boolean;
   trainingProgress: number;
+  usingWebWorker: boolean;
+  estimatedExecutionTime: number;
+  performanceRecommendation: string;
 }
 
 export const useModuleStore = defineStore('module', {
@@ -27,6 +31,9 @@ export const useModuleStore = defineStore('module', {
     results: null,
     isTraining: false,
     trainingProgress: 0,
+    usingWebWorker: false,
+    estimatedExecutionTime: 0,
+    performanceRecommendation: '',
   }),
  
   getters: {
@@ -56,8 +63,19 @@ export const useModuleStore = defineStore('module', {
      */
     trainingStatus: (state): string => {
       if (!state.isTraining) return 'Ready';
-      return `Training... ${Math.round(state.trainingProgress * 100)}%`;
+      const progress = Math.round(state.trainingProgress * 100);
+      const workerStatus = state.usingWebWorker ? ' (Background)' : '';
+      return `Training... ${progress}%${workerStatus}`;
     },
+
+    /**
+     * Get performance information
+     */
+    performanceInfo: (state) => ({
+      usingWebWorker: state.usingWebWorker,
+      estimatedTime: state.estimatedExecutionTime,
+      recommendation: state.performanceRecommendation,
+    }),
   },
 
   actions: {
@@ -85,8 +103,7 @@ export const useModuleStore = defineStore('module', {
     },
 
     /**
-     * Run the algorithm (to be implemented with actual algorithm logic)
-     * This is a placeholder that will be called by components
+     * Run the algorithm with Web Worker optimization
      */
     async runAlgorithm(algorithmFn: () => Promise<AlgorithmResults>): Promise<void> {
       this.isTraining = true;
@@ -100,6 +117,65 @@ export const useModuleStore = defineStore('module', {
         this.trainingProgress = 1;
       } catch (error) {
         console.error('Algorithm execution failed:', error);
+        throw error;
+      } finally {
+        this.isTraining = false;
+      }
+    },
+
+    /**
+     * Run algorithm with heavy algorithm optimization
+     */
+    async runHeavyAlgorithm(
+      algorithm: any,
+      operation: 'fit' | 'predict' | 'transform',
+      data: { X: number[][]; y?: number[] }
+    ): Promise<void> {
+      const { runAlgorithm, getPerformanceRecommendations } = useHeavyAlgorithms();
+      
+      const algorithmName = algorithm.constructor.name;
+      const datasetSize = data.X.length;
+      
+      // Get performance recommendations
+      const perfInfo = getPerformanceRecommendations(algorithmName, datasetSize);
+      this.usingWebWorker = perfInfo.useWebWorker;
+      this.estimatedExecutionTime = perfInfo.estimatedTime;
+      this.performanceRecommendation = perfInfo.recommendation;
+      
+      this.isTraining = true;
+      this.trainingProgress = 0;
+      this.results = null;
+
+      try {
+        // Run with Web Worker optimization
+        const results = await runAlgorithm(
+          algorithm,
+          operation,
+          data,
+          this.parameters,
+          (progress: number) => {
+            this.updateProgress(progress / 100);
+          }
+        );
+
+        // Handle results based on operation type
+        if (operation === 'fit') {
+          this.results = {
+            visualizationData: results.visualizationData || algorithm.getVisualizationData(),
+            metrics: results.metrics || algorithm.getMetrics(),
+            executionTime: results.executionTime,
+          };
+        } else {
+          // For predict/transform operations, store results differently
+          this.results = {
+            predictions: results.predictions || results.transformed,
+            executionTime: results.executionTime,
+          };
+        }
+        
+        this.trainingProgress = 1;
+      } catch (error) {
+        console.error('Heavy algorithm execution failed:', error);
         throw error;
       } finally {
         this.isTraining = false;
@@ -129,6 +205,9 @@ export const useModuleStore = defineStore('module', {
       this.results = null;
       this.isTraining = false;
       this.trainingProgress = 0;
+      this.usingWebWorker = false;
+      this.estimatedExecutionTime = 0;
+      this.performanceRecommendation = '';
     },
 
     /**
@@ -144,6 +223,22 @@ export const useModuleStore = defineStore('module', {
     clearResults(): void {
       this.results = null;
       this.trainingProgress = 0;
+      this.usingWebWorker = false;
+      this.estimatedExecutionTime = 0;
+      this.performanceRecommendation = '';
+    },
+
+    /**
+     * Update performance information
+     */
+    updatePerformanceInfo(
+      usingWebWorker: boolean,
+      estimatedTime: number,
+      recommendation: string
+    ): void {
+      this.usingWebWorker = usingWebWorker;
+      this.estimatedExecutionTime = estimatedTime;
+      this.performanceRecommendation = recommendation;
     },
   },
 });

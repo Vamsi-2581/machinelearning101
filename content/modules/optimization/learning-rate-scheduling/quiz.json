@@ -1,0 +1,103 @@
+{
+  "title": "Learning Rate Scheduling Quiz",
+  "description": "Test your understanding of learning rate scheduling",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "scheduling-purpose",
+      "question": "What is the main benefit of learning rate scheduling?",
+      "options": [
+        "It reduces memory usage during training",
+        "It allows fast initial progress while ensuring stable final convergence",
+        "It eliminates the need for gradient computation",
+        "It automatically selects the best optimizer"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Learning rate scheduling combines the benefits of high learning rates (fast initial progress) with low learning rates (stable final convergence) by starting high and gradually reducing."
+    },
+    {
+      "id": "step-schedule",
+      "question": "In a step learning rate schedule, what happens every 'step_size' iterations?",
+      "options": [
+        "The learning rate increases by a factor of gamma",
+        "The learning rate is reset to the initial value",
+        "The learning rate is multiplied by gamma (typically < 1)",
+        "The learning rate becomes zero"
+      ],
+      "correctAnswer": 2,
+      "explanation": "In step scheduling, the learning rate is multiplied by gamma (usually 0.1 to 0.5) every step_size iterations, creating a staircase-like decay pattern."
+    },
+    {
+      "id": "cosine-annealing",
+      "question": "What is a key advantage of cosine annealing over exponential decay?",
+      "options": [
+        "It requires no hyperparameters",
+        "It provides smooth decay and reaches the minimum learning rate exactly at the end of training",
+        "It increases the learning rate over time",
+        "It works only with Adam optimizer"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Cosine annealing provides a smooth decay curve that reaches the minimum learning rate exactly when training ends, making it ideal when you know the total training duration."
+    },
+    {
+      "id": "plateau-schedule",
+      "question": "When is 'reduce on plateau' scheduling most useful?",
+      "options": [
+        "When you know exactly how many iterations you'll train",
+        "When you want the learning rate to increase over time",
+        "When you don't know in advance when the loss will stop improving",
+        "When training very simple models"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Reduce on plateau is adaptive - it monitors actual training progress and reduces the learning rate when improvement stalls, making it useful when training dynamics are unknown."
+    },
+    {
+      "id": "exponential-decay",
+      "question": "What is a potential problem with exponential decay scheduling?",
+      "options": [
+        "It increases computational cost",
+        "The learning rate can become too small too quickly",
+        "It only works with SGD",
+        "It requires too many hyperparameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Exponential decay can reduce the learning rate too aggressively, making it very small early in training and slowing down convergence unnecessarily."
+    },
+    {
+      "id": "scheduling-timing",
+      "question": "What typically happens if you reduce the learning rate too early in training?",
+      "options": [
+        "Training becomes unstable",
+        "The model overfits immediately",
+        "Convergence becomes unnecessarily slow",
+        "Memory usage increases"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Reducing the learning rate too early means you lose the benefit of fast initial progress, making convergence unnecessarily slow when larger steps would still be beneficial."
+    },
+    {
+      "id": "warmup-technique",
+      "question": "What is learning rate warmup?",
+      "options": [
+        "Gradually increasing the learning rate from a small value to the target value",
+        "Keeping the learning rate constant throughout training",
+        "Randomly changing the learning rate",
+        "Using different learning rates for different parameters"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Warmup gradually increases the learning rate from a very small initial value to the target learning rate over the first few iterations, helping with training stability."
+    },
+    {
+      "id": "best-practice",
+      "question": "Which scheduling strategy is often recommended as a good starting point for most problems?",
+      "options": [
+        "Exponential decay",
+        "Constant learning rate",
+        "Step scheduling",
+        "Polynomial decay"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Step scheduling is simple, effective, and works well for most problems. It's easy to understand, implement, and tune, making it a good starting point."
+    }
+  ]
+}

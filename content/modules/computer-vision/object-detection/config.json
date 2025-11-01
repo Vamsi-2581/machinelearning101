@@ -1,0 +1,158 @@
+{
+  "id": "object-detection",
+  "name": "Object Detection",
+  "domain": "computer-vision",
+  "difficulty": "advanced",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "image-classification",
+    "cnn"
+  ],
+  "learningObjectives": [
+    "Understand the fundamentals of object detection in images",
+    "Learn how sliding window approaches work for object localization",
+    "Understand bounding box prediction and confidence scores",
+    "Learn about Intersection over Union (IoU) metrics",
+    "Apply Non-Maximum Suppression to remove duplicate detections",
+    "Visualize detection results with bounding boxes"
+  ],
+  "keywords": [
+    "Object Detection",
+    "Bounding Boxes",
+    "Sliding Window",
+    "IoU",
+    "Non-Maximum Suppression",
+    "Localization",
+    "Computer Vision",
+    "Deep Learning"
+  ],
+  "interactive": {
+    "algorithm": "ObjectDetection",
+    "defaultParams": {
+      "windowSize": 8,
+      "stride": 4,
+      "confidenceThreshold": 0.5,
+      "iouThreshold": 0.3,
+      "learningRate": 0.01,
+      "epochs": 50
+    },
+    "controls": [
+      {
+        "name": "windowSize",
+        "label": "Window Size",
+        "type": "slider",
+        "min": 4,
+        "max": 12,
+        "step": 2,
+        "description": "Size of the sliding window for object detection"
+      },
+      {
+        "name": "stride",
+        "label": "Stride",
+        "type": "slider",
+        "min": 2,
+        "max": 8,
+        "step": 2,
+        "description": "Step size for sliding the detection window"
+      },
+      {
+        "name": "confidenceThreshold",
+        "label": "Confidence Threshold",
+        "type": "slider",
+        "min": 0.1,
+        "max": 0.9,
+        "step": 0.05,
+        "description": "Minimum confidence score to consider a detection valid"
+      },
+      {
+        "name": "iouThreshold",
+        "label": "IoU Threshold (NMS)",
+        "type": "slider",
+        "min": 0.1,
+        "max": 0.7,
+        "step": 0.05,
+        "description": "IoU threshold for Non-Maximum Suppression"
+      },
+      {
+        "name": "learningRate",
+        "label": "Learning Rate",
+        "type": "slider",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "description": "Step size for gradient descent updates"
+      },
+      {
+        "name": "epochs",
+        "label": "Training Epochs",
+        "type": "slider",
+        "min": 10,
+        "max": 100,
+        "step": 10,
+        "description": "Number of training iterations"
+      }
+    ],
+    "datasets": [
+      {
+        "id": "simple-objects",
+        "name": "Simple Objects (16x16)",
+        "description": "Small images with centered objects",
+        "type": "detection",
+        "features": 256,
+        "samples": 80,
+        "classes": 2
+      },
+      {
+        "id": "multi-objects",
+        "name": "Multiple Objects (16x16)",
+        "description": "Images with multiple objects to detect",
+        "type": "detection",
+        "features": 256,
+        "samples": 100,
+        "classes": 3
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "id": "bounding-boxes",
+      "name": "Detection Results",
+      "type": "bounding-box",
+      "description": "Detected objects with bounding boxes overlaid on the image"
+    },
+    {
+      "id": "loss-curve",
+      "name": "Training Loss",
+      "type": "line",
+      "description": "Loss over training epochs"
+    },
+    {
+      "id": "accuracy-curve",
+      "name": "Training Accuracy",
+      "type": "line",
+      "description": "Detection accuracy over training epochs"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "precision",
+      "name": "Precision",
+      "description": "Proportion of detected objects that are correct"
+    },
+    {
+      "id": "recall",
+      "name": "Recall",
+      "description": "Proportion of actual objects that were detected"
+    },
+    {
+      "id": "f1Score",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall"
+    },
+    {
+      "id": "averageDetectionsPerImage",
+      "name": "Avg Detections/Image",
+      "description": "Average number of objects detected per image"
+    }
+  ]
+}

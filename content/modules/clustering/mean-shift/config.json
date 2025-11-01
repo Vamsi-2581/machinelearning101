@@ -1,0 +1,158 @@
+{
+  "id": "mean-shift",
+  "name": "Mean Shift Clustering",
+  "domain": "clustering",
+  "difficulty": "intermediate",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "k-means",
+    "dbscan"
+  ],
+  "learningObjectives": [
+    "Understand mode-seeking clustering algorithms",
+    "Learn how mean shift finds density modes",
+    "Master bandwidth parameter selection",
+    "Discover automatic cluster number detection",
+    "Understand kernel density estimation concepts",
+    "Learn about convergence in iterative algorithms"
+  ],
+  "keywords": [
+    "mean shift",
+    "mode seeking",
+    "density estimation",
+    "kernel density",
+    "bandwidth",
+    "convergence",
+    "automatic clustering",
+    "non-parametric",
+    "gradient ascent",
+    "density modes"
+  ],
+  "interactive": {
+    "algorithm": "MeanShift",
+    "defaultParams": {
+      "bandwidth": 1,
+      "maxIterations": 300,
+      "tolerance": 0.001,
+      "kernel": "gaussian",
+      "binSeeding": false,
+      "dataset": "blobs"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a clustering dataset",
+        "options": [
+          {
+            "label": "Blob Clusters",
+            "value": "blobs"
+          },
+          {
+            "label": "Concentric Circles",
+            "value": "circles"
+          },
+          {
+            "label": "Two Moons",
+            "value": "moons"
+          },
+          {
+            "label": "Noisy Data",
+            "value": "noisy"
+          }
+        ]
+      },
+      {
+        "id": "bandwidth",
+        "type": "slider",
+        "label": "Bandwidth",
+        "group": "Algorithm Parameters",
+        "min": 0.1,
+        "max": 3,
+        "step": 0.1,
+        "tooltip": "Controls the size of the neighborhood for density estimation. Larger values create fewer, larger clusters."
+      },
+      {
+        "id": "kernel",
+        "type": "select",
+        "label": "Kernel Type",
+        "group": "Algorithm Parameters",
+        "tooltip": "Type of kernel function for density estimation.",
+        "options": [
+          {
+            "label": "Gaussian",
+            "value": "gaussian"
+          },
+          {
+            "label": "Flat (Uniform)",
+            "value": "flat"
+          }
+        ]
+      },
+      {
+        "id": "binSeeding",
+        "type": "toggle",
+        "label": "Bin Seeding",
+        "group": "Algorithm Parameters",
+        "tooltip": "Use grid-based seeding instead of using all data points as seeds. Can be faster for large datasets."
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "group": "Algorithm Parameters",
+        "min": 50,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Maximum number of iterations for each point to converge to a mode."
+      }
+    ],
+    "datasets": [
+      "blobs",
+      "circles",
+      "moons",
+      "noisy"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Mean Shift Clustering",
+      "description": "Scatter plot showing data points colored by cluster assignment with density modes marked"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "numClusters",
+      "name": "Number of Clusters",
+      "description": "Number of clusters found automatically by mean shift"
+    },
+    {
+      "id": "silhouetteScore",
+      "name": "Silhouette Score",
+      "description": "Measures how similar points are to their own cluster vs other clusters (range: -1 to 1, higher is better)"
+    },
+    {
+      "id": "clusterSizes",
+      "name": "Cluster Sizes",
+      "description": "Number of points assigned to each cluster"
+    },
+    {
+      "id": "convergenceRate",
+      "name": "Convergence Rate",
+      "description": "Percentage of points that converged to a mode within the iteration limit"
+    },
+    {
+      "id": "avgIterations",
+      "name": "Average Iterations",
+      "description": "Average number of iterations needed for points to converge"
+    },
+    {
+      "id": "modeDensities",
+      "name": "Mode Densities",
+      "description": "Density values at each discovered mode"
+    }
+  ]
+}

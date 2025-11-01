@@ -11,7 +11,10 @@ import {
   generateMultiClassification,
   generateBlobs,
   generateCircles,
-  generateMoons
+  generateMoons,
+  generateImageFeatures,
+  generateSimpleObjectDetection,
+  generateMultiObjectDetection
 } from '~/utils/dataset-generators';
 
 export interface DatasetOption {
@@ -64,6 +67,13 @@ const datasetRegistry: DatasetOption[] = [
     type: 'classification',
     generator: () => generateMultiClassification()
   },
+  {
+    id: 'image-features',
+    name: 'Image Features (3 classes)',
+    description: 'Pre-extracted features from a pre-trained model',
+    type: 'classification',
+    generator: () => generateImageFeatures()
+  },
   
   // Clustering datasets
   {
@@ -86,6 +96,22 @@ const datasetRegistry: DatasetOption[] = [
     description: 'Two interleaving half-moon shapes',
     type: 'clustering',
     generator: () => generateMoons()
+  },
+  
+  // Object detection datasets
+  {
+    id: 'simple-objects',
+    name: 'Simple Objects (16x16)',
+    description: 'Small images with centered objects',
+    type: 'detection',
+    generator: () => generateSimpleObjectDetection()
+  },
+  {
+    id: 'multi-objects',
+    name: 'Multiple Objects (16x16)',
+    description: 'Images with multiple objects to detect',
+    type: 'detection',
+    generator: () => generateMultiObjectDetection()
   }
 ];
 

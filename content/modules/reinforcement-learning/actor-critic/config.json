@@ -1,0 +1,211 @@
+{
+  "id": "actor-critic",
+  "name": "Actor-Critic Methods",
+  "domain": "reinforcement-learning",
+  "difficulty": "advanced",
+  "estimatedTime": 14,
+  "prerequisites": [
+    "q-learning",
+    "policy-gradients"
+  ],
+  "learningObjectives": [
+    "Understand the actor-critic architecture with separate policy and value networks",
+    "Learn how the critic reduces variance in policy gradient methods",
+    "Understand the advantage function and temporal difference learning in actor-critic",
+    "Explore the balance between bias and variance in reinforcement learning",
+    "Implement online learning with simultaneous policy and value updates",
+    "Visualize policy evolution and value function learning in grid environments"
+  ],
+  "keywords": [
+    "actor-critic",
+    "policy gradients",
+    "value function",
+    "advantage",
+    "temporal difference",
+    "neural networks",
+    "bias-variance tradeoff",
+    "online learning",
+    "policy network",
+    "critic network",
+    "reinforcement learning"
+  ],
+  "interactive": {
+    "algorithm": "ActorCritic",
+    "defaultParams": {
+      "actorLearningRate": 0.001,
+      "criticLearningRate": 0.005,
+      "discountFactor": 0.99,
+      "episodes": 200,
+      "maxStepsPerEpisode": 100,
+      "actorHiddenLayers": [
+        64,
+        64
+      ],
+      "criticHiddenLayers": [
+        64,
+        64
+      ],
+      "entropy": 0.01,
+      "gridSize": 5,
+      "environmentType": "simple"
+    },
+    "controls": [
+      {
+        "id": "environmentType",
+        "type": "select",
+        "label": "Environment",
+        "group": "Environment",
+        "tooltip": "Choose a grid-world environment with different obstacles and rewards",
+        "options": [
+          {
+            "label": "Simple Grid",
+            "value": "simple"
+          },
+          {
+            "label": "Maze",
+            "value": "maze"
+          },
+          {
+            "label": "Cliff Walking",
+            "value": "cliff"
+          }
+        ]
+      },
+      {
+        "id": "actorLearningRate",
+        "type": "slider",
+        "label": "Actor Learning Rate",
+        "group": "Network Parameters",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "tooltip": "Learning rate for the policy network (actor). Lower values provide more stable policy updates."
+      },
+      {
+        "id": "criticLearningRate",
+        "type": "slider",
+        "label": "Critic Learning Rate",
+        "group": "Network Parameters",
+        "min": 0.001,
+        "max": 0.02,
+        "step": 0.001,
+        "tooltip": "Learning rate for the value network (critic). Often higher than actor learning rate for faster value learning."
+      },
+      {
+        "id": "discountFactor",
+        "type": "slider",
+        "label": "Discount Factor (γ)",
+        "group": "Algorithm Parameters",
+        "min": 0.9,
+        "max": 0.999,
+        "step": 0.001,
+        "tooltip": "How much the agent values future rewards. Higher values make the agent more far-sighted."
+      },
+      {
+        "id": "entropy",
+        "type": "slider",
+        "label": "Entropy Coefficient",
+        "group": "Algorithm Parameters",
+        "min": 0,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Entropy bonus for exploration. Higher values encourage more exploration by penalizing deterministic policies."
+      },
+      {
+        "id": "episodes",
+        "type": "slider",
+        "label": "Training Episodes",
+        "group": "Training",
+        "min": 100,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Number of episodes to train the agent. More episodes allow better learning but take longer."
+      },
+      {
+        "id": "maxStepsPerEpisode",
+        "type": "slider",
+        "label": "Max Steps per Episode",
+        "group": "Training",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Maximum number of steps allowed in each episode before timeout."
+      }
+    ],
+    "datasets": []
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Reward per Episode",
+      "description": "Line chart showing total reward accumulated in each training episode"
+    },
+    {
+      "type": "line",
+      "title": "Steps per Episode",
+      "description": "Line chart showing number of steps taken to reach the goal in each episode"
+    },
+    {
+      "type": "line",
+      "title": "Actor and Critic Loss",
+      "description": "Line chart showing the evolution of actor (policy) and critic (value) losses during training"
+    },
+    {
+      "type": "heatmap",
+      "title": "State Values (Critic)",
+      "description": "Heatmap showing the learned state values from the critic network"
+    },
+    {
+      "type": "custom",
+      "title": "Policy Visualization",
+      "description": "Visualization showing the learned policy (action probabilities) for each state"
+    },
+    {
+      "type": "custom",
+      "title": "Environment with Optimal Path",
+      "description": "Grid visualization showing the environment, obstacles, and the learned optimal path"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "averageReward",
+      "name": "Average Reward (Last 10 Episodes)",
+      "description": "Mean total reward over the last 10 training episodes"
+    },
+    {
+      "id": "averageSteps",
+      "name": "Average Steps (Last 10 Episodes)",
+      "description": "Mean number of steps to reach goal over the last 10 episodes"
+    },
+    {
+      "id": "optimalPathLength",
+      "name": "Optimal Path Length",
+      "description": "Number of steps in the learned optimal path from start to goal"
+    },
+    {
+      "id": "successRate",
+      "name": "Success Rate",
+      "description": "Percentage of last 10 episodes where the agent reached the goal"
+    },
+    {
+      "id": "totalEpisodes",
+      "name": "Total Episodes",
+      "description": "Total number of training episodes completed"
+    },
+    {
+      "id": "averageActorLoss",
+      "name": "Average Actor Loss",
+      "description": "Mean actor (policy) loss over the last 10 episodes"
+    },
+    {
+      "id": "averageCriticLoss",
+      "name": "Average Critic Loss",
+      "description": "Mean critic (value) loss over the last 10 episodes"
+    },
+    {
+      "id": "entropyCoefficient",
+      "name": "Entropy Coefficient",
+      "description": "Current entropy coefficient used for exploration"
+    }
+  ]
+}

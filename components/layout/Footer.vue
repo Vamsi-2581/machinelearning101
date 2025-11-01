@@ -53,10 +53,6 @@
               class="text-sm text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus:underline">
               Privacy Policy
             </NuxtLink>
-            <NuxtLink to="/terms"
-              class="text-sm text-gray-500 hover:text-gray-900 transition-colors focus:outline-none focus:underline">
-              Terms of Service
-            </NuxtLink>
           </div>
         </div>
       </div>
@@ -85,21 +81,6 @@ const socialLinks = [
     name: 'GitHub',
     url: 'https://github.com',
     icon: 'mdi:github',
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com',
-    icon: 'mdi:twitter',
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com',
-    icon: 'mdi:linkedin',
-  },
-  {
-    name: 'YouTube',
-    url: 'https://youtube.com',
-    icon: 'mdi:youtube',
-  },
+  }
 ];
 </script>

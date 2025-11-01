@@ -1,0 +1,194 @@
+{
+  "id": "gan",
+  "name": "Generative Adversarial Networks",
+  "domain": "advanced",
+  "difficulty": "advanced",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "neural-network",
+    "autoencoders"
+  ],
+  "learningObjectives": [
+    "Understand the adversarial training paradigm",
+    "Learn how generator and discriminator networks compete",
+    "Explore the minimax game theory behind GANs",
+    "Understand mode collapse and training instabilities",
+    "See how GANs generate realistic synthetic data"
+  ],
+  "keywords": [
+    "generative adversarial networks",
+    "GANs",
+    "generator",
+    "discriminator",
+    "adversarial training",
+    "minimax game",
+    "synthetic data",
+    "generative models",
+    "mode collapse",
+    "Nash equilibrium"
+  ],
+  "interactive": {
+    "algorithm": "GAN",
+    "defaultParams": {
+      "generatorLayers": [
+        64,
+        32
+      ],
+      "discriminatorLayers": [
+        32,
+        16
+      ],
+      "latentDim": 10,
+      "learningRate": 0.0002,
+      "epochs": 200,
+      "batchSize": 32,
+      "activation": "leaky_relu",
+      "dataset": "2d-gaussian"
+    },
+    "controls": [
+      {
+        "name": "generatorLayers",
+        "label": "Generator Architecture",
+        "type": "array",
+        "default": [
+          64,
+          32
+        ],
+        "description": "Hidden layer sizes for generator network"
+      },
+      {
+        "name": "discriminatorLayers",
+        "label": "Discriminator Architecture",
+        "type": "array",
+        "default": [
+          32,
+          16
+        ],
+        "description": "Hidden layer sizes for discriminator network"
+      },
+      {
+        "name": "latentDim",
+        "label": "Latent Dimension",
+        "type": "slider",
+        "min": 2,
+        "max": 50,
+        "step": 1,
+        "default": 10,
+        "description": "Dimension of noise input to generator"
+      },
+      {
+        "name": "learningRate",
+        "label": "Learning Rate",
+        "type": "slider",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "default": 0.0002,
+        "description": "Learning rate for both networks"
+      },
+      {
+        "name": "epochs",
+        "label": "Training Epochs",
+        "type": "slider",
+        "min": 50,
+        "max": 500,
+        "step": 10,
+        "default": 200,
+        "description": "Number of training iterations"
+      },
+      {
+        "name": "batchSize",
+        "label": "Batch Size",
+        "type": "slider",
+        "min": 8,
+        "max": 128,
+        "step": 8,
+        "default": 32,
+        "description": "Number of samples per training batch"
+      },
+      {
+        "name": "activation",
+        "label": "Activation Function",
+        "type": "select",
+        "options": [
+          "leaky_relu",
+          "relu",
+          "tanh"
+        ],
+        "default": "leaky_relu",
+        "description": "Activation function for hidden layers"
+      }
+    ],
+    "datasets": [
+      {
+        "name": "2d-gaussian",
+        "label": "2D Gaussian Mixture",
+        "description": "Two-dimensional Gaussian mixture for visualization"
+      },
+      {
+        "name": "2d-moons",
+        "label": "Two Moons",
+        "description": "Two interleaving half circles"
+      },
+      {
+        "name": "2d-circles",
+        "label": "Concentric Circles",
+        "description": "Two concentric circles"
+      },
+      {
+        "name": "high-dimensional",
+        "label": "High-Dimensional Data",
+        "description": "Multi-dimensional synthetic dataset"
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "name": "loss-curves",
+      "label": "Training Losses",
+      "description": "Generator and discriminator loss over time"
+    },
+    {
+      "name": "discriminator-scores",
+      "label": "Discriminator Scores",
+      "description": "Distribution of scores for real vs generated data"
+    },
+    {
+      "name": "data-comparison",
+      "label": "Real vs Generated Data",
+      "description": "Side-by-side comparison of real and synthetic data"
+    },
+    {
+      "name": "training-dynamics",
+      "label": "Training Dynamics",
+      "description": "Evolution of generated samples during training"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "generator_loss",
+      "label": "Generator Loss",
+      "description": "Final loss of the generator network"
+    },
+    {
+      "name": "discriminator_loss",
+      "label": "Discriminator Loss",
+      "description": "Final loss of the discriminator network"
+    },
+    {
+      "name": "discriminator_accuracy",
+      "label": "Discriminator Accuracy",
+      "description": "Accuracy of discriminator on real vs fake data"
+    },
+    {
+      "name": "avg_real_score",
+      "label": "Average Real Score",
+      "description": "Average discriminator score for real data"
+    },
+    {
+      "name": "avg_fake_score",
+      "label": "Average Fake Score",
+      "description": "Average discriminator score for generated data"
+    }
+  ]
+}

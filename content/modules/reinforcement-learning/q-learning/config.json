@@ -1,0 +1,165 @@
+{
+  "id": "q-learning",
+  "name": "Q-Learning Basics",
+  "domain": "reinforcement-learning",
+  "difficulty": "intermediate",
+  "estimatedTime": 12,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand the fundamentals of reinforcement learning and the agent-environment interaction",
+    "Learn how Q-learning uses temporal difference learning to estimate action values",
+    "Understand the exploration-exploitation tradeoff and epsilon-greedy policies",
+    "Interpret Q-values and how they guide optimal decision-making",
+    "Recognize when Q-learning converges and how to evaluate learned policies",
+    "Visualize Q-value evolution and optimal paths in grid-world environments"
+  ],
+  "keywords": [
+    "q-learning",
+    "reinforcement learning",
+    "temporal difference",
+    "Q-values",
+    "epsilon-greedy",
+    "exploration",
+    "exploitation",
+    "Markov decision process",
+    "policy",
+    "reward",
+    "agent",
+    "environment"
+  ],
+  "interactive": {
+    "algorithm": "QLearning",
+    "defaultParams": {
+      "learningRate": 0.1,
+      "discountFactor": 0.95,
+      "epsilon": 0.1,
+      "episodes": 100,
+      "maxStepsPerEpisode": 100,
+      "gridSize": 5,
+      "environmentType": "simple"
+    },
+    "controls": [
+      {
+        "id": "environmentType",
+        "type": "select",
+        "label": "Environment",
+        "group": "Environment",
+        "tooltip": "Choose a grid-world environment with different obstacles and rewards",
+        "options": [
+          {
+            "label": "Simple Grid",
+            "value": "simple"
+          },
+          {
+            "label": "Maze",
+            "value": "maze"
+          },
+          {
+            "label": "Cliff Walking",
+            "value": "cliff"
+          }
+        ]
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate (α)",
+        "group": "Algorithm Parameters",
+        "min": 0.01,
+        "max": 1,
+        "step": 0.01,
+        "tooltip": "How much new information overrides old Q-values. Higher values learn faster but may be less stable."
+      },
+      {
+        "id": "discountFactor",
+        "type": "slider",
+        "label": "Discount Factor (γ)",
+        "group": "Algorithm Parameters",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "How much the agent values future rewards. Higher values make the agent more far-sighted."
+      },
+      {
+        "id": "epsilon",
+        "type": "slider",
+        "label": "Exploration Rate (ε)",
+        "group": "Algorithm Parameters",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "Probability of taking a random action for exploration. Higher values explore more."
+      },
+      {
+        "id": "episodes",
+        "type": "slider",
+        "label": "Training Episodes",
+        "group": "Training",
+        "min": 50,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Number of episodes to train the agent. More episodes allow better learning."
+      },
+      {
+        "id": "maxStepsPerEpisode",
+        "type": "slider",
+        "label": "Max Steps per Episode",
+        "group": "Training",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Maximum number of steps allowed in each episode before timeout."
+      }
+    ],
+    "datasets": []
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Reward per Episode",
+      "description": "Line chart showing total reward accumulated in each training episode"
+    },
+    {
+      "type": "line",
+      "title": "Steps per Episode",
+      "description": "Line chart showing number of steps taken to reach the goal in each episode"
+    },
+    {
+      "type": "heatmap",
+      "title": "Q-Value Heatmap",
+      "description": "Heatmap showing maximum Q-values for each state in the grid"
+    },
+    {
+      "type": "custom",
+      "title": "Environment with Optimal Path",
+      "description": "Grid visualization showing the environment, obstacles, and the learned optimal path"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "averageReward",
+      "name": "Average Reward (Last 10 Episodes)",
+      "description": "Mean total reward over the last 10 training episodes"
+    },
+    {
+      "id": "averageSteps",
+      "name": "Average Steps (Last 10 Episodes)",
+      "description": "Mean number of steps to reach goal over the last 10 episodes"
+    },
+    {
+      "id": "optimalPathLength",
+      "name": "Optimal Path Length",
+      "description": "Number of steps in the learned optimal path from start to goal"
+    },
+    {
+      "id": "successRate",
+      "name": "Success Rate",
+      "description": "Percentage of last 10 episodes where the agent reached the goal"
+    },
+    {
+      "id": "qTableSize",
+      "name": "Q-Table Size",
+      "description": "Number of state-action pairs stored in the Q-table"
+    }
+  ]
+}

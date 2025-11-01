@@ -3,8 +3,10 @@
   "name": "Decision Trees",
   "domain": "classification",
   "difficulty": "intermediate",
-  "estimatedTime": 30,
-  "prerequisites": ["knn"],
+  "estimatedTime": 14,
+  "prerequisites": [
+    "knn"
+  ],
   "learningObjectives": [
     "Understand how decision trees make predictions using rules",
     "Learn about splitting criteria (Gini impurity, entropy)",

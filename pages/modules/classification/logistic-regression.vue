@@ -166,10 +166,12 @@ const controls: ControlConfig[] = [
     id: 'dataset',
     type: 'select',
     label: 'Dataset',
-    options: getDatasetsByType('classification').map(d => ({
-      label: d.name,
-      value: d.id
-    })),
+    options: getDatasetsByType('classification')
+      .filter(d => d.id === 'binary-classification') // Only binary classification for logistic regression
+      .map(d => ({
+        label: d.name,
+        value: d.id
+      })),
     tooltip: 'Choose a binary classification dataset to train on',
     group: 'Data',
   },
@@ -401,30 +403,34 @@ const handleTrain = async () => {
         };
       }
 
-      // Loss curve
-      if (visualizations.length > 1) {
-        const lossViz = visualizations.find(v => v.data.name === 'Training Loss');
-        if (lossViz && lossViz.type === 'line' && lossViz.data) {
-          lossSeries.value = [{
-            x: lossViz.data.x,
-            y: lossViz.data.y,
-            name: lossViz.data.name || 'Training Loss',
-            color: lossViz.data.line?.color || '#10b981',
-            width: lossViz.data.line?.width || 2,
-          }];
-        }
+      // Loss curve - find all line visualizations
+      const lineVisualizations = visualizations.filter(v => v.type === 'line');
+      
+      const lossViz = lineVisualizations.find(v => v.data?.name === 'Training Loss');
+      if (lossViz && lossViz.data && Array.isArray(lossViz.data.x) && Array.isArray(lossViz.data.y) && lossViz.data.x.length > 0) {
+        lossSeries.value = [{
+          x: lossViz.data.x,
+          y: lossViz.data.y,
+          name: lossViz.data.name || 'Training Loss',
+          color: lossViz.data.line?.color || '#10b981',
+          width: lossViz.data.line?.width || 2,
+        }];
+      } else {
+        lossSeries.value = [];
+      }
 
-        // Accuracy curve
-        const accuracyViz = visualizations.find(v => v.data.name === 'Training Accuracy');
-        if (accuracyViz && accuracyViz.type === 'line' && accuracyViz.data) {
-          accuracySeries.value = [{
-            x: accuracyViz.data.x,
-            y: accuracyViz.data.y,
-            name: accuracyViz.data.name || 'Training Accuracy',
-            color: accuracyViz.data.line?.color || '#8b5cf6',
-            width: accuracyViz.data.line?.width || 2,
-          }];
-        }
+      // Accuracy curve
+      const accuracyViz = lineVisualizations.find(v => v.data?.name === 'Training Accuracy');
+      if (accuracyViz && accuracyViz.data && Array.isArray(accuracyViz.data.x) && Array.isArray(accuracyViz.data.y) && accuracyViz.data.x.length > 0) {
+        accuracySeries.value = [{
+          x: accuracyViz.data.x,
+          y: accuracyViz.data.y,
+          name: accuracyViz.data.name || 'Training Accuracy',
+          color: accuracyViz.data.line?.color || '#8b5cf6',
+          width: accuracyViz.data.line?.width || 2,
+        }];
+      } else {
+        accuracySeries.value = [];
       }
     }
 

@@ -1,0 +1,43 @@
+{
+  "title": "Lasso Regression Quiz",
+  "description": "Test your understanding of lasso regression",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the key difference between Lasso and Ridge regression?",
+      "options": [
+        "Lasso uses L2 penalty, Ridge uses L1 penalty",
+        "Lasso uses L1 penalty and can set coefficients to exactly zero, Ridge uses L2 and cannot",
+        "They are exactly the same",
+        "Lasso is faster than Ridge"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Lasso uses L1 regularization (sum of absolute values) which can set coefficients to exactly zero, performing feature selection. Ridge uses L2 regularization (sum of squares) which only shrinks coefficients toward zero but never makes them exactly zero."
+    },
+    {
+      "id": "q2",
+      "question": "What does 'sparse model' mean in the context of Lasso regression?",
+      "options": [
+        "A model with few training samples",
+        "A model where many coefficients are exactly zero",
+        "A model that trains quickly",
+        "A model with low accuracy"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A sparse model is one where many coefficients are exactly zero, meaning those features are not used in predictions. Lasso creates sparse models through its L1 penalty, effectively performing automatic feature selection."
+    },
+    {
+      "id": "q3",
+      "question": "When should you prefer Lasso over Ridge regression?",
+      "options": [
+        "When you want to keep all features in the model",
+        "When you suspect many features are irrelevant and want automatic feature selection",
+        "When features are highly correlated",
+        "When you have very few features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Lasso is preferred when you believe many features are irrelevant or redundant. Its ability to set coefficients to exactly zero makes it ideal for feature selection and creating interpretable models with fewer features."
+    }
+  ]
+}

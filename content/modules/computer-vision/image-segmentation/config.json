@@ -1,0 +1,120 @@
+{
+  "id": "image-segmentation",
+  "name": "Image Segmentation",
+  "domain": "computer-vision",
+  "difficulty": "intermediate",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "image-classification",
+    "k-means"
+  ],
+  "learningObjectives": [
+    "Understand pixel-wise classification for semantic segmentation",
+    "Learn how clustering algorithms can segment images into regions",
+    "Explore the role of color and position features in segmentation",
+    "Visualize segmentation masks with distinct colored regions",
+    "Evaluate segmentation quality using inertia and segment statistics"
+  ],
+  "tags": [
+    "computer-vision",
+    "segmentation",
+    "clustering",
+    "pixel-classification",
+    "image-processing"
+  ],
+  "interactive": {
+    "algorithm": "ImageSegmentation",
+    "defaultParams": {
+      "numSegments": 4,
+      "maxIterations": 50,
+      "useColorFeatures": true,
+      "usePositionFeatures": true,
+      "positionWeight": 0.3,
+      "dataset": "image-features"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Image Features",
+            "value": "image-features"
+          },
+          {
+            "label": "Simple Patterns",
+            "value": "simple-patterns"
+          }
+        ],
+        "tooltip": "Choose an image dataset to segment",
+        "group": "Data"
+      },
+      {
+        "id": "numSegments",
+        "type": "slider",
+        "label": "Number of Segments",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "tooltip": "Number of distinct regions to segment the image into. More segments capture finer details.",
+        "group": "Segmentation Parameters"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "tooltip": "Maximum number of clustering iterations. More iterations allow better convergence.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "useColorFeatures",
+        "type": "toggle",
+        "label": "Use Color Features",
+        "tooltip": "Include pixel intensity/color values as features for segmentation.",
+        "group": "Feature Selection"
+      },
+      {
+        "id": "usePositionFeatures",
+        "type": "toggle",
+        "label": "Use Position Features",
+        "tooltip": "Include pixel position (x, y coordinates) as features. Helps create spatially coherent segments.",
+        "group": "Feature Selection"
+      },
+      {
+        "id": "positionWeight",
+        "type": "slider",
+        "label": "Position Weight",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "Weight given to position features relative to color. Higher values create more spatially compact segments.",
+        "group": "Feature Selection"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "heatmap",
+        "title": "Original Image",
+        "description": "The input image to be segmented"
+      },
+      {
+        "type": "heatmap",
+        "title": "Segmentation Mask",
+        "description": "Pixel-wise segmentation with colored regions for each segment"
+      },
+      {
+        "type": "line",
+        "title": "Inertia Curve",
+        "description": "Sum of squared distances to cluster centers over iterations"
+      }
+    ],
+    "datasets": [
+      "image-features",
+      "simple-patterns"
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "title": "Actor-Critic Methods Quiz",
+  "description": "Test your understanding of Actor-Critic algorithms and their key concepts",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What are the two main components of an Actor-Critic algorithm?",
+      "options": [
+        "Actor (policy network) and Critic (value network)",
+        "Actor (value network) and Critic (policy network)",
+        "Actor (Q-network) and Critic (target network)",
+        "Actor (encoder) and Critic (decoder)"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Actor-Critic methods use two networks: the Actor learns the policy π(a|s) (what action to take), while the Critic learns the value function V(s) (how good each state is). This combination reduces variance in policy gradient methods."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What is the main advantage of using a Critic in policy gradient methods?",
+      "options": [
+        "It makes the algorithm faster",
+        "It reduces the variance of gradient estimates",
+        "It eliminates the need for exploration",
+        "It guarantees convergence"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Critic provides a baseline (value function) that reduces the variance of policy gradient estimates. Instead of using noisy episode returns, the Actor uses the advantage function A(s,a) = r + γV(s') - V(s), which has lower variance."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What is the advantage function A(s,a) in Actor-Critic methods?",
+      "options": [
+        "The difference between Q(s,a) and V(s)",
+        "The temporal difference error from the Critic",
+        "How much better action a is compared to the average in state s",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "The advantage function A(s,a) = Q(s,a) - V(s) represents how much better action a is compared to the average action in state s. In Actor-Critic, this is approximated by the TD error: r + γV(s') - V(s), which is exactly what the Critic computes."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "How does the Actor network get updated in Actor-Critic methods?",
+      "options": [
+        "Using the raw reward signal",
+        "Using the advantage function as a weight for policy gradients",
+        "Using the Critic's loss function",
+        "Using random exploration"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Actor updates using policy gradients weighted by the advantage function: ∇θ J(θ) = E[∇θ log π(a|s) * A(s,a)]. The advantage A(s,a) tells the Actor whether the action was better or worse than expected, guiding the policy improvement."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What does the Critic network learn in Actor-Critic methods?",
+      "options": [
+        "The optimal policy",
+        "The Q-values for all actions",
+        "The state value function V(s)",
+        "The action probabilities"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The Critic learns the state value function V(s), which estimates the expected cumulative reward from each state. This is different from Q-learning which learns Q(s,a) values. The Critic uses temporal difference learning: V(s) ← V(s) + α[r + γV(s') - V(s)]."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What is the bias-variance tradeoff in Actor-Critic methods?",
+      "options": [
+        "Actor-Critic has high bias and high variance",
+        "Actor-Critic has low bias and low variance",
+        "Actor-Critic trades some bias for reduced variance compared to Monte Carlo methods",
+        "There is no bias-variance tradeoff in Actor-Critic"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Actor-Critic methods use bootstrapping (TD learning) which introduces some bias but significantly reduces variance compared to Monte Carlo methods. The Critic's value estimates may be initially inaccurate (bias), but they provide much lower variance than using full episode returns."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Why is entropy regularization often used in Actor-Critic methods?",
+      "options": [
+        "To make the algorithm run faster",
+        "To encourage exploration by preventing the policy from becoming too deterministic",
+        "To reduce the network size",
+        "To eliminate the need for the Critic"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Entropy regularization adds a term -β * H(π) to the Actor's loss function, where H(π) is the policy entropy. This encourages exploration by penalizing overly deterministic policies, helping the agent continue exploring even as it learns."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is a key advantage of Actor-Critic over pure policy gradient methods?",
+      "options": [
+        "Online learning (can update after each step)",
+        "Lower variance gradient estimates",
+        "Better handling of continuous action spaces",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Actor-Critic improves upon pure policy gradients in multiple ways: it enables online learning (no need to wait for episode completion), provides lower variance through the value baseline, and naturally handles continuous actions through the policy network."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "In the Actor-Critic update, what does the temporal difference (TD) error represent?",
+      "options": [
+        "The error in the Actor's policy",
+        "The advantage of the action taken",
+        "The difference between predicted and actual state values",
+        "The exploration bonus"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The TD error δ = r + γV(s') - V(s) serves as the advantage function in Actor-Critic. It represents how much better (or worse) the actual outcome was compared to what the Critic expected, providing the signal for both Actor and Critic updates."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "Why might the Critic learning rate often be set higher than the Actor learning rate?",
+      "options": [
+        "The Critic is more important than the Actor",
+        "The Critic needs to learn accurate values quickly to provide good baselines for the Actor",
+        "The Actor doesn't need to learn at all",
+        "It's just a convention with no real reason"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Critic often uses a higher learning rate because it needs to learn accurate value estimates quickly to provide good advantage estimates for the Actor. If the Critic learns too slowly, it provides poor baselines, which can destabilize Actor learning."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "What is the main challenge in coordinating Actor and Critic networks?",
+      "options": [
+        "They compete for computational resources",
+        "They must learn together harmoniously without destabilizing each other",
+        "They use different programming languages",
+        "They require different types of data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The main challenge is that Actor and Critic must learn together in a coordinated way. If one learns much faster than the other, or if their updates are poorly coordinated, the training can become unstable. This requires careful tuning of learning rates, network architectures, and update procedures."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "How does Actor-Critic handle continuous action spaces?",
+      "options": [
+        "It discretizes the action space",
+        "It cannot handle continuous actions",
+        "The Actor network outputs action probabilities or parameters of action distributions",
+        "It uses a separate discretization network"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Actor-Critic naturally handles continuous actions through the Actor network, which can output parameters of continuous distributions (e.g., mean and standard deviation of a Gaussian) or direct action values. This is a major advantage over value-based methods like Q-learning."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: Actor-Critic methods require complete episodes to update, like Monte Carlo methods.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. Actor-Critic methods can perform online learning, updating after each step using the TD error. This is a major advantage over Monte Carlo policy gradients, which must wait for episode completion. Online updates enable faster learning and better handling of long or continuing episodes."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: The Actor and Critic networks in Actor-Critic methods always share the same architecture.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. While Actor and Critic networks can share some layers (especially feature extraction layers), they typically have different output layers suited to their specific tasks. The Actor outputs action probabilities or action parameters, while the Critic outputs a single value estimate."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: Actor-Critic methods eliminate the exploration-exploitation tradeoff.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. Actor-Critic methods still face the exploration-exploitation tradeoff. The Actor network learns a policy that must balance exploiting known good actions with exploring potentially better ones. Techniques like entropy regularization are often used to maintain adequate exploration."
+    }
+  ]
+}

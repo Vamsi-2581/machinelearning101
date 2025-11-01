@@ -3,7 +3,7 @@
   "name": "K-Means Clustering",
   "domain": "clustering",
   "difficulty": "beginner",
-  "estimatedTime": 35,
+  "estimatedTime": 14,
   "prerequisites": [],
   "learningObjectives": [
     "Understand how K-Means iteratively finds cluster centers",

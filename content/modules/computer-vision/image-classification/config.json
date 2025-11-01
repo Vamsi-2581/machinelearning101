@@ -1,0 +1,119 @@
+{
+  "id": "image-classification",
+  "name": "Image Classification Basics",
+  "domain": "computer-vision",
+  "difficulty": "beginner",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "logistic-regression"
+  ],
+  "learningObjectives": [
+    "Understand how neural networks process image features for classification",
+    "Learn the role of hidden layers in extracting meaningful patterns",
+    "Explore how softmax activation enables multi-class classification",
+    "Visualize decision boundaries in feature space",
+    "Interpret confusion matrices for multi-class problems"
+  ],
+  "tags": [
+    "computer-vision",
+    "classification",
+    "neural-network",
+    "multi-class",
+    "image-processing"
+  ],
+  "interactive": {
+    "algorithm": "ImageClassification",
+    "defaultParams": {
+      "learningRate": 0.01,
+      "epochs": 100,
+      "hiddenSize": 10,
+      "regularization": 0.01,
+      "dataset": "image-features"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Image Features (3 classes)",
+            "value": "image-features"
+          },
+          {
+            "label": "Multi-Class Classification",
+            "value": "multi-classification"
+          }
+        ],
+        "tooltip": "Choose a dataset with extracted image features",
+        "group": "Data"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.5,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the network learns. Higher values train faster but may be unstable.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations. More epochs allow better learning but take longer.",
+        "group": "Training Parameters"
+      },
+      {
+        "id": "hiddenSize",
+        "type": "slider",
+        "label": "Hidden Layer Size",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "tooltip": "Number of neurons in the hidden layer. More neurons increase model capacity.",
+        "group": "Model Architecture"
+      },
+      {
+        "id": "regularization",
+        "type": "slider",
+        "label": "Regularization (L2)",
+        "min": 0,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Prevents overfitting by penalizing large weights. Higher values create simpler models.",
+        "group": "Training Parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Feature Space Visualization",
+        "description": "Scatter plot showing different image classes in feature space"
+      },
+      {
+        "type": "confusion-matrix",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Cross-entropy loss over training epochs"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Classification accuracy over training epochs"
+      }
+    ],
+    "datasets": [
+      "image-features",
+      "multi-classification"
+    ]
+  }
+}

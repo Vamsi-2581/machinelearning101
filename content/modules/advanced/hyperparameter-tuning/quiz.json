@@ -1,0 +1,127 @@
+{
+  "title": "Hyperparameter Tuning Quiz",
+  "description": "Test your understanding of hyperparameter tuning",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main difference between parameters and hyperparameters?",
+      "options": [
+        "Parameters are learned during training, hyperparameters are set before training",
+        "Parameters are set before training, hyperparameters are learned during training",
+        "Parameters are for neural networks, hyperparameters are for other algorithms",
+        "There is no difference between parameters and hyperparameters"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Parameters (like weights and biases) are learned from data during training, while hyperparameters (like learning rate and batch size) are configuration settings that must be specified before training begins."
+    },
+    {
+      "id": "q2",
+      "question": "Why is random search often more effective than grid search for hyperparameter tuning?",
+      "options": [
+        "Random search is always faster to compute",
+        "Random search better explores important dimensions when most hyperparameters don't matter equally",
+        "Random search guarantees finding the global optimum",
+        "Random search requires less memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Random search is more effective because it better explores the important dimensions of the hyperparameter space. Since most hyperparameters don't contribute equally to performance, random search avoids wasting evaluations on regular grid patterns."
+    },
+    {
+      "id": "q3",
+      "question": "What is the main advantage of Bayesian optimization over random search?",
+      "options": [
+        "It's simpler to implement",
+        "It uses previous evaluations to guide future searches",
+        "It always finds the global optimum",
+        "It requires fewer hyperparameters to tune"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Bayesian optimization uses a probabilistic model (typically a Gaussian Process) to learn from previous evaluations and intelligently select the next hyperparameter configuration to try, making it more sample-efficient than random search."
+    },
+    {
+      "id": "q4",
+      "question": "What is the purpose of cross-validation in hyperparameter tuning?",
+      "options": [
+        "To speed up the training process",
+        "To provide reliable estimates of model performance for hyperparameter selection",
+        "To reduce the number of hyperparameters",
+        "To eliminate the need for a test set"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Cross-validation provides more reliable estimates of model performance by averaging results across multiple train/validation splits, which helps in selecting hyperparameters that generalize well rather than just performing well on a single validation set."
+    },
+    {
+      "id": "q5",
+      "question": "What problem does nested cross-validation solve?",
+      "options": [
+        "It speeds up hyperparameter tuning",
+        "It prevents overfitting to the validation set during hyperparameter selection",
+        "It reduces the computational cost of training",
+        "It eliminates the need for hyperparameter tuning"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Nested cross-validation prevents overfitting to the validation set by using separate data splits for hyperparameter selection (inner loop) and performance estimation (outer loop), providing unbiased performance estimates."
+    },
+    {
+      "id": "q6",
+      "question": "In Bayesian optimization, what does the acquisition function do?",
+      "options": [
+        "It trains the machine learning model",
+        "It decides which hyperparameter configuration to evaluate next",
+        "It computes the final model performance",
+        "It validates the model on test data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The acquisition function in Bayesian optimization decides which hyperparameter configuration to evaluate next by balancing exploration (trying uncertain regions) and exploitation (trying regions likely to perform well)."
+    },
+    {
+      "id": "q7",
+      "question": "What is the 'curse of dimensionality' in the context of hyperparameter tuning?",
+      "options": [
+        "Models with more dimensions always perform worse",
+        "The search space grows exponentially with the number of hyperparameters",
+        "High-dimensional data requires more hyperparameters",
+        "Dimensional reduction is always needed before tuning"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The curse of dimensionality refers to how the hyperparameter search space grows exponentially with the number of hyperparameters, making exhaustive search strategies like grid search impractical for high-dimensional spaces."
+    },
+    {
+      "id": "q8",
+      "question": "Why might you use a logarithmic scale for the learning rate hyperparameter?",
+      "options": [
+        "Learning rates are always very small numbers",
+        "It makes the search faster",
+        "Learning rate sensitivity is roughly uniform on a log scale",
+        "It reduces overfitting"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Learning rate sensitivity is roughly uniform on a logarithmic scale. The difference between 0.001 and 0.01 is as significant as the difference between 0.01 and 0.1, so sampling uniformly in log space gives better coverage."
+    },
+    {
+      "id": "q9",
+      "question": "What is early stopping in the context of hyperparameter tuning?",
+      "options": [
+        "Stopping training when the model converges",
+        "Stopping the hyperparameter search when no improvement is seen for several iterations",
+        "Stopping training after a fixed number of epochs",
+        "Stopping when the validation loss increases"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Early stopping in hyperparameter tuning refers to terminating the search process when no improvement in the best found configuration has been observed for a specified number of iterations, saving computational resources."
+    },
+    {
+      "id": "q10",
+      "question": "What is a common mistake when doing hyperparameter tuning?",
+      "options": [
+        "Using too many cross-validation folds",
+        "Using the test set for hyperparameter selection",
+        "Tuning too few hyperparameters",
+        "Using random search instead of grid search"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Using the test set for hyperparameter selection is a common mistake that leads to overly optimistic performance estimates. The test set should only be used for final performance evaluation after hyperparameters have been selected using a separate validation set."
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   "name": "Missing Value Imputation",
   "domain": "preprocessing",
   "difficulty": "beginner",
-  "estimatedTime": 25,
+  "estimatedTime": 5,
   "prerequisites": [],
   "learningObjectives": [
     "Understand why missing values are problematic",

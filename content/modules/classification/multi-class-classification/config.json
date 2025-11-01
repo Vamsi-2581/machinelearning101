@@ -1,0 +1,153 @@
+{
+  "id": "multi-class-classification",
+  "name": "Multi-class Classification",
+  "domain": "classification",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "logistic-regression",
+    "naive-bayes"
+  ],
+  "learningObjectives": [
+    "Understand the challenge of extending binary classifiers to multiple classes",
+    "Learn the One-vs-Rest (OvR) strategy for multi-class classification",
+    "Explore how binary classifiers are combined to make multi-class predictions",
+    "Compare different strategies for handling class imbalance in multi-class problems",
+    "Interpret confusion matrices and per-class performance metrics"
+  ],
+  "tags": [
+    "classification",
+    "supervised-learning",
+    "multi-class",
+    "one-vs-rest",
+    "logistic-regression"
+  ],
+  "interactive": {
+    "algorithm": "MultiClassClassification",
+    "defaultParams": {
+      "strategy": "ovr",
+      "maxIterations": 1000,
+      "learningRate": 0.01,
+      "regularization": 0.01,
+      "tolerance": 0.000001,
+      "dataset": "multi-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "3-Class Classification",
+            "value": "multi-classification"
+          },
+          {
+            "label": "4-Class Classification",
+            "value": "four-class"
+          },
+          {
+            "label": "Iris Dataset",
+            "value": "iris"
+          }
+        ],
+        "tooltip": "Choose a multi-class dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "strategy",
+        "type": "select",
+        "label": "Multi-class Strategy",
+        "options": [
+          {
+            "label": "One-vs-Rest (OvR)",
+            "value": "ovr"
+          },
+          {
+            "label": "One-vs-One (OvO)",
+            "value": "ovo"
+          }
+        ],
+        "tooltip": "Strategy for extending binary classifiers to multi-class problems",
+        "group": "Model Parameters"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Step size for gradient descent optimization",
+        "group": "Model Parameters"
+      },
+      {
+        "id": "regularization",
+        "type": "slider",
+        "label": "Regularization Strength",
+        "min": 0,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "L2 regularization to prevent overfitting. Higher values = more regularization.",
+        "group": "Model Parameters"
+      },
+      {
+        "id": "maxIterations",
+        "type": "slider",
+        "label": "Max Iterations",
+        "min": 100,
+        "max": 2000,
+        "step": 100,
+        "tooltip": "Maximum number of iterations for training each binary classifier",
+        "group": "Training"
+      },
+      {
+        "id": "tolerance",
+        "type": "slider",
+        "label": "Convergence Tolerance",
+        "min": 1e-8,
+        "max": 0.001,
+        "step": 1e-8,
+        "tooltip": "Tolerance for convergence. Training stops when loss change is below this value.",
+        "group": "Training"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Multi-class Data & Decision Boundaries",
+        "description": "Scatter plot showing all classes and the decision boundaries learned by the One-vs-Rest classifiers"
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary Visualization",
+        "description": "Heatmap showing the predicted class across the feature space"
+      },
+      {
+        "type": "line",
+        "title": "Per-Classifier Performance",
+        "description": "Loss values for each binary classifier in the One-vs-Rest ensemble"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Overall accuracy achieved during training"
+      },
+      {
+        "type": "line",
+        "title": "Average Loss",
+        "description": "Average loss across all binary classifiers during training"
+      }
+    ],
+    "datasets": [
+      "multi-classification",
+      "four-class",
+      "iris"
+    ]
+  }
+}

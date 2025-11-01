@@ -1,0 +1,138 @@
+{
+  "id": "sentiment-analysis",
+  "name": "Sentiment Analysis",
+  "domain": "nlp",
+  "difficulty": "intermediate",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "text-preprocessing"
+  ],
+  "learningObjectives": [
+    "Understand sentiment analysis and its applications",
+    "Learn how to classify text by sentiment (positive, negative, neutral)",
+    "Explore bag-of-words representation for text classification",
+    "Understand logistic regression for text classification",
+    "Identify words that contribute to sentiment predictions"
+  ],
+  "tags": [
+    "nlp",
+    "sentiment-analysis",
+    "text-classification",
+    "machine-learning",
+    "opinion-mining"
+  ],
+  "interactive": {
+    "algorithm": "SentimentAnalysis",
+    "defaultParams": {
+      "sentimentClasses": 3,
+      "learningRate": 0.1,
+      "epochs": 50,
+      "regularization": 0.01,
+      "minWordFrequency": 2,
+      "dataset": "movie-reviews"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Training Dataset",
+        "options": [
+          {
+            "label": "Movie Reviews",
+            "value": "movie-reviews"
+          },
+          {
+            "label": "Product Reviews",
+            "value": "product-reviews"
+          },
+          {
+            "label": "Social Media",
+            "value": "social-media"
+          }
+        ],
+        "tooltip": "Choose a dataset to train the sentiment classifier",
+        "group": "Data"
+      },
+      {
+        "id": "sentimentClasses",
+        "type": "select",
+        "label": "Sentiment Classes",
+        "options": [
+          {
+            "label": "2 Classes (Positive/Negative)",
+            "value": 2
+          },
+          {
+            "label": "3 Classes (Positive/Neutral/Negative)",
+            "value": 3
+          }
+        ],
+        "tooltip": "Number of sentiment categories to classify",
+        "group": "Model"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.01,
+        "max": 0.5,
+        "step": 0.01,
+        "tooltip": "Controls how quickly the model learns from data",
+        "group": "Training"
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Training Epochs",
+        "min": 10,
+        "max": 100,
+        "step": 10,
+        "tooltip": "Number of times to iterate through the training data",
+        "group": "Training"
+      },
+      {
+        "id": "regularization",
+        "type": "slider",
+        "label": "Regularization",
+        "min": 0,
+        "max": 0.1,
+        "step": 0.01,
+        "tooltip": "Prevents overfitting by penalizing large weights",
+        "group": "Training"
+      },
+      {
+        "id": "minWordFrequency",
+        "type": "slider",
+        "label": "Min Word Frequency",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Minimum times a word must appear to be included in vocabulary",
+        "group": "Preprocessing"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "sentiment-highlight",
+        "title": "Sentiment Predictions",
+        "description": "Text samples with highlighted words showing their contribution to sentiment"
+      },
+      {
+        "type": "bar",
+        "title": "Sentiment Distribution",
+        "description": "Distribution of predicted sentiments across test samples"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Loss curve showing model convergence during training"
+      },
+      {
+        "type": "bar",
+        "title": "Top Words by Sentiment",
+        "description": "Most influential words for each sentiment class"
+      }
+    ],
+    "datasets": []
+  }
+}

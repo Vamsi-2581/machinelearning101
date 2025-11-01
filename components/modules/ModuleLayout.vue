@@ -9,7 +9,7 @@
           <Breadcrumb :items="breadcrumbs" />
         </div>
 
-        <div class="header-content">
+        <div class="header-content" :class="{ 'mt-5 pt-5': isHeaderSticky }">
           <div>
             <h1 class="module-title">{{ title }}</h1>
             <p v-if="description" class="module-description">{{ description }}</p>

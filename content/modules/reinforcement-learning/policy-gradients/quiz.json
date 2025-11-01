@@ -1,0 +1,187 @@
+{
+  "title": "Policy Gradients Quiz",
+  "description": "Test your understanding of policy gradient methods and the REINFORCE algorithm",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What is the main difference between value-based and policy-based methods?",
+      "options": [
+        "Value-based methods are faster",
+        "Value-based methods learn values then derive policy; policy-based methods learn policy directly",
+        "Policy-based methods only work for discrete actions",
+        "Value-based methods require more memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The fundamental difference is that value-based methods (like Q-Learning) learn a value function and then derive a policy from it, while policy-based methods (like policy gradients) directly learn the policy parameters to maximize expected return."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What does a stochastic policy output?",
+      "options": [
+        "A single best action",
+        "A value for each action",
+        "A probability distribution over actions",
+        "A sequence of actions"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A stochastic policy π(a|s) outputs a probability distribution over actions. The agent then samples an action from this distribution. This allows for exploration and is essential for problems where randomness is part of the optimal strategy."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "In the REINFORCE algorithm, when are policy parameters updated?",
+      "options": [
+        "After every action",
+        "After every state transition",
+        "After completing an entire episode",
+        "After a fixed number of steps"
+      ],
+      "correctAnswer": 2,
+      "explanation": "REINFORCE is a Monte Carlo method that updates policy parameters after completing an entire episode. It uses the actual returns from the complete trajectory, unlike temporal difference methods that update after each step."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "What is the purpose of using a baseline in policy gradients?",
+      "options": [
+        "To make the algorithm faster",
+        "To reduce variance in gradient estimates",
+        "To increase exploration",
+        "To handle continuous actions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A baseline (typically the mean return) is subtracted from returns to reduce variance in gradient estimates. This helps distinguish between above-average and below-average actions, making learning more stable and efficient."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "Why are policy gradients particularly well-suited for continuous action spaces?",
+      "options": [
+        "They are faster than Q-Learning",
+        "They can directly output continuous values without discretization",
+        "They require less memory",
+        "They always find the global optimum"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Policy gradients can naturally handle continuous action spaces by directly outputting continuous action values (e.g., through a neural network). Q-Learning would need to discretize continuous actions or use function approximation, which is less natural and can lose precision."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What does the return G_t represent in the REINFORCE algorithm?",
+      "options": [
+        "The immediate reward at time t",
+        "The discounted sum of all future rewards from time t onward",
+        "The average reward over all episodes",
+        "The Q-value of the current state-action pair"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The return G_t is the discounted sum of all future rewards from time t onward: G_t = r_t + γr_{t+1} + γ²r_{t+2} + ... This represents the total cumulative reward obtained by following the trajectory from time t."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What is the policy gradient theorem used for?",
+      "options": [
+        "To calculate Q-values",
+        "To compute the gradient of expected return with respect to policy parameters",
+        "To determine the optimal learning rate",
+        "To select actions during training"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The policy gradient theorem provides a formula for computing the gradient of expected return with respect to policy parameters: ∇_θ J(θ) = E[∑_t ∇_θ log π_θ(a_t|s_t) G_t]. This gradient is used to update the policy parameters to maximize expected return."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "Why might a stochastic policy be optimal in some problems?",
+      "options": [
+        "It's always better than deterministic policies",
+        "It requires less computation",
+        "In games like Rock-Paper-Scissors, randomness prevents exploitation",
+        "It converges faster"
+      ],
+      "correctAnswer": 2,
+      "explanation": "In some problems, particularly those with partial observability or adversarial settings (like Rock-Paper-Scissors), a stochastic policy is optimal. A deterministic policy in Rock-Paper-Scissors would be exploitable, while a uniform random policy (33% each action) is optimal."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "What is a major limitation of the REINFORCE algorithm?",
+      "options": [
+        "It can't handle discrete actions",
+        "It has high variance in gradient estimates",
+        "It requires a model of the environment",
+        "It can't learn stochastic policies"
+      ],
+      "correctAnswer": 1,
+      "explanation": "REINFORCE suffers from high variance in gradient estimates because it uses Monte Carlo returns, which can vary significantly between episodes. This makes learning slow and unstable. Baselines and actor-critic methods help address this issue."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "How does subtracting a baseline affect the policy gradient?",
+      "options": [
+        "It changes which policy is optimal",
+        "It reduces variance without changing the expected gradient",
+        "It makes the algorithm off-policy",
+        "It eliminates the need for a discount factor"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Subtracting a baseline reduces variance in gradient estimates without changing the expected value of the gradient (it's an unbiased estimator). This is because the baseline doesn't depend on the action taken, so its gradient is zero in expectation."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "What does 'on-policy' mean in the context of REINFORCE?",
+      "options": [
+        "The algorithm learns multiple policies",
+        "The algorithm learns from experience generated by the current policy",
+        "The algorithm doesn't use a policy",
+        "The algorithm learns offline from stored data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "On-policy means the algorithm learns from experience generated by the current policy being learned. REINFORCE must generate new trajectories using the current policy for each update, unlike off-policy methods (like Q-Learning) that can learn from any experience."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "Why do policy gradients typically use smaller learning rates than Q-Learning?",
+      "options": [
+        "To save computation time",
+        "Because policy updates affect the entire probability distribution and can be destabilizing",
+        "To increase exploration",
+        "Because they converge faster"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Policy gradient updates affect the entire probability distribution over actions. Large updates can drastically change the policy, leading to instability and poor performance. Smaller learning rates (typically 0.0001 to 0.01) ensure gradual, stable policy improvements."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: Policy gradients are guaranteed to find the global optimal policy.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. Policy gradients use gradient ascent, which is only guaranteed to converge to a local optimum, not necessarily the global optimum. The policy may get stuck in suboptimal solutions depending on initialization and the optimization landscape."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: REINFORCE can learn from incomplete episodes.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. REINFORCE is a Monte Carlo method that requires complete episodes to calculate returns. It cannot update the policy from partial episodes. This is one reason why REINFORCE can be sample inefficient compared to temporal difference methods."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: Policy gradients can naturally handle continuous action spaces without discretization.",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Policy gradients can directly output continuous action values through a neural network, making them naturally suited for continuous control tasks like robot manipulation or vehicle steering. This is a major advantage over value-based methods that struggle with continuous actions."
+    }
+  ]
+}

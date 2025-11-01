@@ -1,5 +1,5 @@
 # ML Simplified - Robots.txt
-# https://mlsimplified.com
+# https://machinelearningsimplified.com
 
 User-agent: *
 Allow: /
@@ -9,4 +9,4 @@ Disallow: /progress
 Disallow: /bookmarks
 
 # Sitemap
-Sitemap: https://mlsimplified.com/sitemap.xml
+Sitemap: https://machinelearningsimplified.com/sitemap.xml

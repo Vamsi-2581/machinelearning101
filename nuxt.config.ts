@@ -138,15 +138,71 @@ export default defineNuxtConfig({
             if (id.includes("/algorithms/advanced/")) {
               return "algorithms-advanced";
             }
+            // New domain chunks for performance optimization
+            if (id.includes("/algorithms/computer-vision/")) {
+              return "algorithms-computer-vision";
+            }
+            if (id.includes("/algorithms/nlp/")) {
+              return "algorithms-nlp";
+            }
+            if (id.includes("/algorithms/reinforcement-learning/")) {
+              return "algorithms-reinforcement-learning";
+            }
 
-            // Visualization components
+            // Visualization components - split by domain for better loading
+            if (id.includes("/components/visualizations/BoundingBoxOverlay") ||
+                id.includes("/components/visualizations/ConvolutionVisualizer") ||
+                id.includes("/components/visualizations/SegmentationMask")) {
+              return "viz-computer-vision";
+            }
+            if (id.includes("/components/visualizations/TextHighlighter") ||
+                id.includes("/components/visualizations/EmbeddingProjection") ||
+                id.includes("/components/visualizations/SequenceDisplay")) {
+              return "viz-nlp";
+            }
+            if (id.includes("/components/visualizations/EnvironmentRenderer") ||
+                id.includes("/components/visualizations/QValueHeatmap") ||
+                id.includes("/components/visualizations/PolicyVisualization") ||
+                id.includes("/components/visualizations/RewardCurve")) {
+              return "viz-reinforcement-learning";
+            }
+            // General visualization components
             if (id.includes("/components/visualizations/")) {
-              return "components-visualizations";
+              return "viz-general";
             }
 
             // Module components
             if (id.includes("/components/modules/")) {
               return "components-modules";
+            }
+
+            // Route-based code splitting for module pages
+            if (id.includes("/pages/modules/computer-vision/")) {
+              return "pages-computer-vision";
+            }
+            if (id.includes("/pages/modules/nlp/")) {
+              return "pages-nlp";
+            }
+            if (id.includes("/pages/modules/reinforcement-learning/")) {
+              return "pages-reinforcement-learning";
+            }
+            if (id.includes("/pages/modules/regression/")) {
+              return "pages-regression";
+            }
+            if (id.includes("/pages/modules/classification/")) {
+              return "pages-classification";
+            }
+            if (id.includes("/pages/modules/clustering/")) {
+              return "pages-clustering";
+            }
+            if (id.includes("/pages/modules/preprocessing/")) {
+              return "pages-preprocessing";
+            }
+            if (id.includes("/pages/modules/optimization/")) {
+              return "pages-optimization";
+            }
+            if (id.includes("/pages/modules/advanced/")) {
+              return "pages-advanced";
             }
 
             // Shared components stay in main bundle for reusability

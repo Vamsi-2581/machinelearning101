@@ -1,7 +1,9 @@
 {
+  "title": "Logistic Regression Quiz",
+  "description": "Test your understanding of logistic regression",
+  "passingScore": 70,
   "id": "logistic-regression-quiz",
   "moduleId": "logistic-regression",
-  "title": "Logistic Regression Quiz",
   "questions": [
     {
       "id": "lr-q1",
@@ -18,16 +20,16 @@
     },
     {
       "id": "lr-q2",
-      "text": "What is the output range of the sigmoid function σ(z) = 1 / (1 + e⁻ᶻ)?",
+      "text": "What is the output range of the sigmoid function \u03c3(z) = 1 / (1 + e\u207b\u1dbb)?",
       "type": "multiple-choice",
       "options": [
-        "Any real number from -∞ to +∞",
+        "Any real number from -\u221e to +\u221e",
         "Between 0 and 1",
         "Between -1 and 1",
         "Only 0 or 1"
       ],
       "correctAnswer": 1,
-      "explanation": "The sigmoid function always outputs values between 0 and 1, making it perfect for representing probabilities. As z approaches infinity, σ(z) approaches 1, and as z approaches negative infinity, σ(z) approaches 0. At z=0, σ(z)=0.5."
+      "explanation": "The sigmoid function always outputs values between 0 and 1, making it perfect for representing probabilities. As z approaches infinity, \u03c3(z) approaches 1, and as z approaches negative infinity, \u03c3(z) approaches 0. At z=0, \u03c3(z)=0.5."
     },
     {
       "id": "lr-q3",
@@ -37,10 +39,10 @@
         "Mean Squared Error (MSE)",
         "Mean Absolute Error (MAE)",
         "Binary Cross-Entropy",
-        "R² Score"
+        "R\u00b2 Score"
       ],
       "correctAnswer": 2,
-      "explanation": "Logistic regression uses binary cross-entropy loss (also called log loss), defined as: Loss = -(1/m) Σ[yᵢ·log(pᵢ) + (1-yᵢ)·log(1-pᵢ)]. This loss function heavily penalizes confident wrong predictions and is specifically designed for binary classification problems."
+      "explanation": "Logistic regression uses binary cross-entropy loss (also called log loss), defined as: Loss = -(1/m) \u03a3[y\u1d62\u00b7log(p\u1d62) + (1-y\u1d62)\u00b7log(1-p\u1d62)]. This loss function heavily penalizes confident wrong predictions and is specifically designed for binary classification problems."
     },
     {
       "id": "lr-q4",
@@ -92,7 +94,7 @@
         "Both precision and recall decrease"
       ],
       "correctAnswer": 1,
-      "explanation": "Increasing the threshold means you only predict class 1 when very confident (P ≥ 0.8). This makes you more selective, leading to higher precision (fewer false positives) but lower recall (more false negatives, as you miss borderline cases). This is the precision-recall tradeoff."
+      "explanation": "Increasing the threshold means you only predict class 1 when very confident (P \u2265 0.8). This makes you more selective, leading to higher precision (fewer false positives) but lower recall (more false negatives, as you miss borderline cases). This is the precision-recall tradeoff."
     },
     {
       "id": "lr-q8",

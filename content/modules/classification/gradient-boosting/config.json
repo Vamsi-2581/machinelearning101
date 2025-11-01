@@ -1,0 +1,152 @@
+{
+  "id": "gradient-boosting",
+  "name": "Gradient Boosting",
+  "domain": "classification",
+  "difficulty": "advanced",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "logistic-regression",
+    "random-forest"
+  ],
+  "learningObjectives": [
+    "Understand the gradient boosting ensemble method and sequential learning",
+    "Learn how weak learners (decision stumps) are combined to create strong predictors",
+    "Explore the role of learning rate in controlling overfitting",
+    "Understand residual-based training and gradient descent in function space",
+    "Compare gradient boosting with other ensemble methods like Random Forest"
+  ],
+  "tags": [
+    "classification",
+    "supervised-learning",
+    "ensemble",
+    "boosting",
+    "decision-trees",
+    "gradient-descent"
+  ],
+  "interactive": {
+    "algorithm": "GradientBoosting",
+    "defaultParams": {
+      "nEstimators": 50,
+      "learningRate": 0.1,
+      "maxDepth": 3,
+      "minSamplesSplit": 2,
+      "subsample": 1,
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Linearly Separable",
+            "value": "linearly-separable"
+          },
+          {
+            "label": "Non-linear Boundary",
+            "value": "non-linear"
+          }
+        ],
+        "tooltip": "Choose a classification dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "nEstimators",
+        "type": "slider",
+        "label": "Number of Estimators",
+        "min": 10,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Number of weak learners (decision stumps) in the ensemble. More estimators can improve performance but may cause overfitting.",
+        "group": "Ensemble Parameters"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.01,
+        "max": 1,
+        "step": 0.01,
+        "tooltip": "Controls the contribution of each weak learner. Lower values require more estimators but can improve generalization.",
+        "group": "Ensemble Parameters"
+      },
+      {
+        "id": "maxDepth",
+        "type": "slider",
+        "label": "Max Depth",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Maximum depth of each decision stump. Deeper stumps can capture more complex patterns but may overfit.",
+        "group": "Tree Parameters"
+      },
+      {
+        "id": "minSamplesSplit",
+        "type": "slider",
+        "label": "Min Samples Split",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Minimum number of samples required to split an internal node. Higher values prevent overfitting.",
+        "group": "Tree Parameters"
+      },
+      {
+        "id": "subsample",
+        "type": "slider",
+        "label": "Subsample Ratio",
+        "min": 0.5,
+        "max": 1,
+        "step": 0.1,
+        "tooltip": "Fraction of samples used for training each weak learner. Values < 1.0 introduce stochasticity and can improve generalization.",
+        "group": "Regularization"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Classification Data & Decision Boundary",
+        "description": "Scatter plot showing the classes and the gradient boosting decision boundary"
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary (Probability)",
+        "description": "Heatmap showing the predicted class probabilities across the feature space"
+      },
+      {
+        "type": "line",
+        "title": "Training Loss",
+        "description": "Binary cross-entropy loss during training iterations"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Classification accuracy on training data over iterations"
+      },
+      {
+        "type": "bar",
+        "title": "Feature Importance",
+        "description": "Relative importance of each feature based on usage in decision stumps"
+      },
+      {
+        "type": "line",
+        "title": "Accuracy vs Ensemble Size",
+        "description": "How accuracy improves as more weak learners are added to the ensemble"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "linearly-separable",
+      "non-linear"
+    ]
+  }
+}

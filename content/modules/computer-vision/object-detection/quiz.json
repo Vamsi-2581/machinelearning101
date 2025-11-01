@@ -1,0 +1,127 @@
+{
+  "title": "Object Detection Quiz",
+  "description": "Test your understanding of object detection",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What are the two main tasks that object detection combines?",
+      "options": [
+        "Classification and localization",
+        "Segmentation and recognition",
+        "Detection and tracking",
+        "Feature extraction and prediction"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Object detection combines classification (determining what objects are present) and localization (determining where they are located using bounding boxes)."
+    },
+    {
+      "id": "q2",
+      "question": "In the sliding window approach, what does the 'stride' parameter control?",
+      "options": [
+        "The size of the detection window",
+        "How far the window moves between positions",
+        "The confidence threshold for detections",
+        "The number of object classes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The stride controls how far the window moves between consecutive positions. A smaller stride means more positions are evaluated (more thorough but slower), while a larger stride skips more positions (faster but may miss objects)."
+    },
+    {
+      "id": "q3",
+      "question": "What does an IoU (Intersection over Union) value of 0.7 indicate?",
+      "options": [
+        "The boxes don't overlap at all",
+        "The boxes have 70% overlap relative to their union",
+        "The detection has 70% confidence",
+        "70% of the image is covered by boxes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "IoU = 0.7 means the intersection area is 70% of the union area. This indicates substantial overlap between two bounding boxes. IoU values range from 0 (no overlap) to 1 (perfect overlap)."
+    },
+    {
+      "id": "q4",
+      "question": "What is the primary purpose of Non-Maximum Suppression (NMS)?",
+      "options": [
+        "To increase detection confidence scores",
+        "To remove duplicate detections of the same object",
+        "To detect objects at multiple scales",
+        "To classify detected objects"
+      ],
+      "correctAnswer": 1,
+      "explanation": "NMS removes duplicate detections by keeping only the highest confidence detection for each object and suppressing overlapping detections with high IoU. This ensures each object is detected only once."
+    },
+    {
+      "id": "q5",
+      "question": "In NMS, what happens to detections with IoU above the threshold when compared to a selected detection?",
+      "options": [
+        "They are kept and the selected detection is removed",
+        "They are removed/suppressed",
+        "Their confidence scores are averaged",
+        "They are merged into a single detection"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In NMS, after selecting the highest confidence detection, all other detections with IoU above the threshold are removed (suppressed) because they likely represent the same object. This process repeats until all detections are processed."
+    },
+    {
+      "id": "q6",
+      "question": "What does a high precision but low recall indicate in object detection?",
+      "options": [
+        "Many false positives and few false negatives",
+        "Few false positives but many false negatives (missed objects)",
+        "Both high false positives and false negatives",
+        "Perfect detection performance"
+      ],
+      "correctAnswer": 1,
+      "explanation": "High precision means most detections are correct (few false positives), while low recall means many objects are missed (many false negatives). This often happens when the confidence threshold is set too high."
+    },
+    {
+      "id": "q7",
+      "question": "Which of the following is a limitation of the sliding window approach?",
+      "options": [
+        "Cannot detect multiple objects",
+        "Computationally expensive due to evaluating many windows",
+        "Cannot use deep learning features",
+        "Only works for square objects"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The sliding window approach is computationally expensive because it must evaluate a classifier at many positions across the image. For a 100\u00d7100 image with stride 1 and window size 10\u00d710, this means evaluating 8,281 windows!"
+    },
+    {
+      "id": "q8",
+      "question": "What is the main advantage of single-stage detectors (like YOLO) over two-stage detectors (like R-CNN)?",
+      "options": [
+        "Higher accuracy on small objects",
+        "Faster inference speed",
+        "Better handling of occlusions",
+        "More accurate bounding boxes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Single-stage detectors like YOLO predict bounding boxes and classes in one forward pass, making them much faster than two-stage detectors that first generate region proposals and then classify them. This speed advantage makes them suitable for real-time applications."
+    },
+    {
+      "id": "q9",
+      "question": "If you want to detect objects of different sizes in an image, what should you do?",
+      "options": [
+        "Use a single large window size",
+        "Increase the stride parameter",
+        "Use multiple window sizes (multi-scale detection)",
+        "Decrease the confidence threshold"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Multi-scale detection uses multiple window sizes to detect objects of different sizes. Small windows detect small objects, while large windows detect large objects. Modern detectors often use feature pyramids to achieve this efficiently."
+    },
+    {
+      "id": "q10",
+      "question": "In object detection evaluation, what does a True Positive represent?",
+      "options": [
+        "A detection that doesn't match any ground truth object",
+        "A ground truth object that wasn't detected",
+        "A detection that correctly matches a ground truth object (IoU > threshold)",
+        "Any detection with high confidence"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A True Positive is a detection that correctly identifies an actual object, typically defined as having IoU > 0.5 with a ground truth bounding box. True Positives contribute to both precision and recall metrics."
+    }
+  ]
+}

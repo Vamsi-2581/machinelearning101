@@ -1,0 +1,104 @@
+{
+  "title": "Gaussian Mixture Models Quiz",
+  "description": "Test your understanding of gaussian mixture models",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main difference between hard clustering (like K-Means) and soft clustering (like GMM)?",
+      "options": [
+        "Hard clustering is faster than soft clustering",
+        "Hard clustering assigns each point to exactly one cluster, while soft clustering provides probabilistic assignments",
+        "Hard clustering works better with overlapping clusters",
+        "Hard clustering requires fewer parameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The key difference is that hard clustering assigns each point to exactly one cluster (binary assignment), while soft clustering provides probabilistic assignments where each point has a probability of belonging to each cluster."
+    },
+    {
+      "id": "q2",
+      "question": "In the EM algorithm for GMM, what does the E-step calculate?",
+      "options": [
+        "The component parameters (means, covariances, weights)",
+        "The responsibilities (posterior probabilities) of each point for each component",
+        "The log-likelihood of the data",
+        "The number of components needed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The E-step (Expectation step) calculates the responsibilities \u03b3\u1d62\u2096, which are the posterior probabilities that each point x\u1d62 belongs to each component k, given the current parameter estimates."
+    },
+    {
+      "id": "q3",
+      "question": "What does the M-step in the EM algorithm do?",
+      "options": [
+        "Calculates the responsibilities for each data point",
+        "Updates the component parameters (means, covariances, weights) to maximize likelihood",
+        "Determines the optimal number of components",
+        "Initializes the algorithm parameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The M-step (Maximization step) updates the component parameters (means, covariances, and mixing weights) to maximize the likelihood of the data given the current responsibilities calculated in the E-step."
+    },
+    {
+      "id": "q4",
+      "question": "Which covariance type allows clusters to have any shape and orientation?",
+      "options": [
+        "Diagonal covariance",
+        "Spherical covariance",
+        "Full covariance",
+        "Tied covariance"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Full covariance allows the covariance matrix to have any values, enabling clusters to be elliptical with any orientation and shape. Diagonal restricts to axis-aligned ellipses, and spherical restricts to circles."
+    },
+    {
+      "id": "q5",
+      "question": "For model selection in GMM, what do AIC and BIC help determine?",
+      "options": [
+        "The best initialization method",
+        "The optimal number of components (K)",
+        "The convergence tolerance",
+        "The covariance type to use"
+      ],
+      "correctAnswer": 1,
+      "explanation": "AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are information criteria used to select the optimal number of components K by balancing model fit with model complexity."
+    },
+    {
+      "id": "q6",
+      "question": "Which statement about BIC vs AIC is correct?",
+      "options": [
+        "BIC is less conservative and tends to select more complex models",
+        "AIC is more conservative and tends to select simpler models",
+        "BIC is more conservative and tends to select simpler models",
+        "BIC and AIC always give the same result"
+      ],
+      "correctAnswer": 2,
+      "explanation": "BIC (Bayesian Information Criterion) is more conservative than AIC and tends to select simpler models with fewer components, especially as the dataset size increases, due to its stronger penalty for model complexity."
+    },
+    {
+      "id": "q7",
+      "question": "What is a 'responsibility' in the context of GMM?",
+      "options": [
+        "The weight of each component in the mixture",
+        "The probability that a data point belongs to a specific component",
+        "The covariance matrix of a component",
+        "The mean of a component"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A responsibility \u03b3\u1d62\u2096 is the posterior probability that data point x\u1d62 belongs to component k. It represents the 'soft assignment' of points to clusters in probabilistic clustering."
+    },
+    {
+      "id": "q8",
+      "question": "Why might GMM be preferred over K-Means for certain datasets?",
+      "options": [
+        "GMM is always faster than K-Means",
+        "GMM can handle overlapping clusters and provides uncertainty estimates",
+        "GMM requires fewer parameters than K-Means",
+        "GMM works better with spherical clusters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "GMM is preferred when you have overlapping clusters, need uncertainty estimates for cluster assignments, want non-spherical cluster shapes, or need a probabilistic model. K-Means assumes spherical, well-separated clusters."
+    }
+  ],
+  "timeLimit": 600
+}

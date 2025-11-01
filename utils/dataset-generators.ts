@@ -330,3 +330,188 @@ export function generateMoons(
     }
   });
 }
+
+/**
+ * Generates a simple object detection dataset with 16x16 images
+ * Each image contains a simple shape (square or circle) at a random position
+ */
+export function generateSimpleObjectDetection(
+  samples: number = 80,
+  imageSize: number = 16
+): Dataset {
+  const data: DataPoint[] = [];
+  
+  for (let i = 0; i < samples; i++) {
+    // Create blank image
+    const image: number[] = new Array(imageSize * imageSize).fill(0);
+    
+    // Randomly decide if this image has an object (80% chance)
+    const hasObject = Math.random() > 0.2;
+    
+    if (hasObject) {
+      // Random object size (30-50% of image size)
+      const objectSize = Math.floor(imageSize * (0.3 + Math.random() * 0.2));
+      
+      // Random position (ensure object fits in image)
+      const maxPos = imageSize - objectSize;
+      const x = Math.floor(Math.random() * maxPos);
+      const y = Math.floor(Math.random() * maxPos);
+      
+      // Draw a simple square object
+      for (let row = y; row < y + objectSize; row++) {
+        for (let col = x; col < x + objectSize; col++) {
+          image[row * imageSize + col] = 1;
+        }
+      }
+      
+      data.push({
+        features: image,
+        label: 1, // Has object
+        id: `image-${i}`
+      });
+    } else {
+      // Background image (no object)
+      data.push({
+        features: image,
+        label: 0, // No object
+        id: `image-${i}`
+      });
+    }
+  }
+
+  return createDataset({
+    id: 'simple-objects',
+    name: 'Simple Objects (16x16)',
+    description: 'Small images with centered objects',
+    type: 'detection',
+    data,
+    metadata: {
+      featureNames: Array.from({ length: imageSize * imageSize }, (_, i) => `pixel_${i}`),
+      labelName: 'has_object',
+      imageSize,
+      classes: [0, 1]
+    }
+  });
+}
+
+/**
+ * Generates an image features dataset for transfer learning
+ * Simulates pre-extracted features from a pre-trained model (e.g., ResNet, VGG)
+ * Features are high-dimensional vectors representing image content
+ */
+export function generateImageFeatures(
+  samplesPerClass: number = 40,
+  numClasses: number = 3,
+  featureDim: number = 128
+): Dataset {
+  const data: DataPoint[] = [];
+  
+  // Generate features for each class
+  for (let classIdx = 0; classIdx < numClasses; classIdx++) {
+    // Each class has a different "prototype" feature vector
+    const prototype: number[] = [];
+    for (let i = 0; i < featureDim; i++) {
+      // Create distinct patterns for each class
+      prototype.push(Math.sin(classIdx * 2 + i * 0.1) + Math.cos(classIdx + i * 0.05));
+    }
+    
+    // Generate samples around the prototype
+    for (let i = 0; i < samplesPerClass; i++) {
+      const features: number[] = [];
+      
+      for (let j = 0; j < featureDim; j++) {
+        // Add noise to the prototype
+        const noise = (Math.random() - 0.5) * 0.5;
+        features.push((prototype[j] ?? 0) + noise);
+      }
+      
+      data.push({
+        features,
+        label: classIdx,
+        id: `class${classIdx}-${i}`
+      });
+    }
+  }
+
+  return createDataset({
+    id: 'image-features',
+    name: 'Image Features (3 classes)',
+    description: 'Pre-extracted features from a pre-trained model',
+    type: 'classification',
+    data,
+    metadata: {
+      featureNames: Array.from({ length: featureDim }, (_, i) => `feature_${i}`),
+      labelName: 'class',
+      classes: Array.from({ length: numClasses }, (_, i) => i),
+      featureDim,
+      extractedFrom: 'simulated-pretrained-model'
+    }
+  });
+}
+
+/**
+ * Generates a multi-object detection dataset with 16x16 images
+ * Each image can contain multiple objects of different types
+ */
+export function generateMultiObjectDetection(
+  samples: number = 100,
+  imageSize: number = 16
+): Dataset {
+  const data: DataPoint[] = [];
+  
+  for (let i = 0; i < samples; i++) {
+    // Create blank image
+    const image: number[] = new Array(imageSize * imageSize).fill(0);
+    
+    // Randomly decide number of objects (0-2)
+    const numObjects = Math.floor(Math.random() * 3);
+    
+    let label = 0; // Default: no object
+    
+    for (let obj = 0; obj < numObjects; obj++) {
+      // Random object size (20-40% of image size)
+      const objectSize = Math.floor(imageSize * (0.2 + Math.random() * 0.2));
+      
+      // Random position (ensure object fits in image)
+      const maxPos = imageSize - objectSize;
+      const x = Math.floor(Math.random() * maxPos);
+      const y = Math.floor(Math.random() * maxPos);
+      
+      // Random object type (1, 2, or 3)
+      const objectType = Math.floor(Math.random() * 3) + 1;
+      const intensity = objectType * 0.33; // Different intensities for different types
+      
+      // Draw object
+      for (let row = y; row < y + objectSize; row++) {
+        for (let col = x; col < x + objectSize; col++) {
+          const idx = row * imageSize + col;
+          // Use max to avoid overwriting with lower intensity
+          image[idx] = Math.max(image[idx], intensity);
+        }
+      }
+      
+      // Set label to the highest object type present
+      label = Math.max(label, objectType);
+    }
+    
+    data.push({
+      features: image,
+      label,
+      id: `image-${i}`
+    });
+  }
+
+  return createDataset({
+    id: 'multi-objects',
+    name: 'Multiple Objects (16x16)',
+    description: 'Images with multiple objects to detect',
+    type: 'detection',
+    data,
+    metadata: {
+      featureNames: Array.from({ length: imageSize * imageSize }, (_, i) => `pixel_${i}`),
+      labelName: 'object_type',
+      imageSize,
+      classes: [0, 1, 2, 3]
+    }
+  });
+}

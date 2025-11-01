@@ -66,7 +66,7 @@ Use this checklist to verify that all SEO optimizations are working correctly be
 - [x] Excludes user-specific pages (/progress, /bookmarks)
 - [x] Has proper XML structure
 - [x] Includes lastmod, changefreq, priority
-- [x] All URLs use https://mlsimplified.com
+- [x] All URLs use https://machinelearningsimplified.com
 
 ### Robots.txt Verification
 - [x] Robots.txt is accessible at /robots.txt

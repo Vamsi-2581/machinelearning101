@@ -1,0 +1,132 @@
+{
+  "title": "Outlier Detection & Handling Quiz",
+  "description": "Test your understanding of outlier detection techniques and handling strategies",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is an outlier in the context of data analysis?",
+      "type": "multiple-choice",
+      "options": [
+        "A data point that is missing from the dataset",
+        "A data point that significantly deviates from other observations",
+        "A data point that represents the average of the dataset",
+        "A data point that is duplicated in the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "An outlier is a data point that lies an abnormal distance from other values in the dataset, significantly deviating from the majority of observations."
+    },
+    {
+      "id": "q2",
+      "text": "Which outlier detection method assumes that the data follows a normal distribution?",
+      "type": "multiple-choice",
+      "options": [
+        "Interquartile Range (IQR)",
+        "Z-score method",
+        "Local Outlier Factor (LOF)",
+        "Isolation Forest"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Z-score method assumes that the data follows a normal distribution. It measures how many standard deviations a data point is from the mean, which is most meaningful for normally distributed data."
+    },
+    {
+      "id": "q3",
+      "text": "The IQR method is more robust to outliers than the Z-score method because it uses quartiles instead of mean and standard deviation.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. The IQR method uses quartiles (Q1 and Q3) which are less affected by extreme values compared to the mean and standard deviation used in the Z-score method, making it more robust to outliers."
+    },
+    {
+      "id": "q4",
+      "text": "What is the key insight behind the Isolation Forest algorithm?",
+      "type": "multiple-choice",
+      "options": [
+        "Outliers are always in low-density regions",
+        "Outliers require fewer random splits to be isolated from other points",
+        "Outliers always have the highest feature values",
+        "Outliers form separate clusters from normal data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Isolation Forest is based on the insight that outliers are easier to isolate than normal points. Anomalous points require fewer random splits to be separated from the rest of the data, resulting in shorter path lengths in the isolation trees."
+    },
+    {
+      "id": "q5",
+      "text": "Which outlier detection method is best suited for detecting outliers in high-dimensional data?",
+      "type": "multiple-choice",
+      "options": [
+        "Z-score method",
+        "IQR method",
+        "Isolation Forest",
+        "Simple statistical thresholds"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Isolation Forest is particularly well-suited for high-dimensional data because it works by randomly selecting features and split values, making it effective even when there are many irrelevant features. It also has linear time complexity and scales well."
+    },
+    {
+      "id": "q6",
+      "text": "What does LOF (Local Outlier Factor) measure?",
+      "type": "multiple-choice",
+      "options": [
+        "The global density of each data point",
+        "The distance from each point to the dataset center",
+        "The local deviation of a point's density compared to its neighbors",
+        "The number of neighbors within a fixed radius"
+      ],
+      "correctAnswer": 2,
+      "explanation": "LOF measures the local deviation of a data point's density with respect to its neighbors. Points with significantly lower local density compared to their neighbors are considered outliers."
+    },
+    {
+      "id": "q7",
+      "text": "When should you definitely keep outliers in your dataset?",
+      "type": "multiple-choice",
+      "options": [
+        "When they make your model perform worse",
+        "When they represent the phenomenon you're trying to detect (e.g., fraud)",
+        "When they are measurement errors",
+        "When they make visualization difficult"
+      ],
+      "correctAnswer": 1,
+      "explanation": "You should keep outliers when they represent the phenomenon you're trying to detect, such as in fraud detection, medical diagnosis of rare conditions, or quality control where defects are the target of interest."
+    },
+    {
+      "id": "q8",
+      "text": "What is 'winsorizing' in the context of outlier handling?",
+      "type": "multiple-choice",
+      "options": [
+        "Removing all outliers from the dataset",
+        "Replacing outliers with the mean value",
+        "Capping outliers at certain percentiles (e.g., 1st and 99th)",
+        "Transforming outliers using logarithmic functions"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Winsorizing involves capping extreme values at certain percentiles (typically 1st and 99th percentiles) rather than removing them entirely. This preserves the sample size while reducing the impact of extreme outliers."
+    },
+    {
+      "id": "q9",
+      "text": "Which of the following is a potential negative consequence of removing outliers?",
+      "type": "multiple-choice",
+      "options": [
+        "Improved model accuracy",
+        "Loss of important information and potential bias introduction",
+        "Faster computation time",
+        "Better data visualization"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Removing outliers can lead to loss of important information, reduced sample size, and potential bias in results. Outliers might represent valid extreme cases or important patterns that should not be discarded."
+    },
+    {
+      "id": "q10",
+      "text": "What is the recommended approach when dealing with outliers?",
+      "type": "multiple-choice",
+      "options": [
+        "Always remove all detected outliers automatically",
+        "Use only one outlier detection method",
+        "Use multiple detection methods, visualize results, and consider domain knowledge",
+        "Ignore outliers completely"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The best approach is to use multiple outlier detection methods, visualize the results, consider domain knowledge, and carefully evaluate whether outliers should be kept, removed, or handled in other ways based on the specific context and goals of the analysis."
+    }
+  ]
+}

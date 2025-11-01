@@ -3,19 +3,19 @@
     <svg :width="width" :height="height" class="border border-gray-200 rounded-lg bg-white">
       <!-- Connections (weights) -->
       <g v-for="(layer, l) in layers.slice(0, -1)" :key="`connections-${l}`">
-        <line
-          v-for="(neuron, i) in layer.neurons"
-          :key="`conn-${l}-${i}`"
-          v-for-inner="(nextNeuron, j) in layers[l + 1].neurons"
-          :key-inner="`conn-${l}-${i}-${j}`"
-          :x1="neuron.x"
-          :y1="neuron.y"
-          :x2="nextNeuron.x"
-          :y2="nextNeuron.y"
-          :stroke="getWeightColor(l, j, i)"
-          :stroke-width="getWeightWidth(l, j, i)"
-          :opacity="0.3"
-        />
+        <g v-for="(neuron, i) in layer.neurons" :key="`conn-${l}-${i}`">
+          <line
+            v-for="(nextNeuron, j) in layers[l + 1].neurons"
+            :key="`conn-${l}-${i}-${j}`"
+            :x1="neuron.x"
+            :y1="neuron.y"
+            :x2="nextNeuron.x"
+            :y2="nextNeuron.y"
+            :stroke="getWeightColor(l, j, i)"
+            :stroke-width="getWeightWidth(l, j, i)"
+            :opacity="0.3"
+          />
+        </g>
       </g>
       
       <!-- Neurons -->

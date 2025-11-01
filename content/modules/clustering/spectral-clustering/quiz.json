@@ -1,0 +1,104 @@
+{
+  "title": "Spectral Clustering Quiz",
+  "description": "Test your understanding of spectral clustering",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of spectral clustering over traditional methods like K-Means?",
+      "options": [
+        "It's always faster than K-Means",
+        "It can handle non-convex and arbitrarily shaped clusters",
+        "It requires fewer parameters to tune",
+        "It works better with high-dimensional data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Spectral clustering's main advantage is its ability to handle non-convex and arbitrarily shaped clusters (like crescents, spirals, or intertwined clusters) that traditional methods like K-Means cannot separate effectively."
+    },
+    {
+      "id": "q2",
+      "question": "In spectral clustering, what does the affinity matrix represent?",
+      "options": [
+        "The distance between cluster centers",
+        "The pairwise similarities between data points",
+        "The eigenvalues of the data",
+        "The final cluster assignments"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The affinity matrix captures pairwise similarities between data points, where higher values indicate more similar points. This matrix forms the basis for constructing the similarity graph used in spectral clustering."
+    },
+    {
+      "id": "q3",
+      "question": "What is the purpose of the Laplacian matrix in spectral clustering?",
+      "options": [
+        "To store the original data points",
+        "To represent the graph structure and enable spectral analysis",
+        "To calculate the final cluster centers",
+        "To measure the distance between points"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Laplacian matrix (L = D - A, where D is the degree matrix and A is the affinity matrix) captures the graph structure and is essential for spectral analysis. Its eigenvalues and eigenvectors reveal the cluster structure."
+    },
+    {
+      "id": "q4",
+      "question": "Why does spectral clustering use the smallest eigenvalues and eigenvectors of the Laplacian matrix?",
+      "options": [
+        "They are easier to compute",
+        "They correspond to the most connected components and reveal cluster structure",
+        "They contain the most noise",
+        "They represent the largest clusters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The smallest eigenvalues correspond to the most connected components of the graph. The eigenvector corresponding to the smallest non-zero eigenvalue (Fiedler vector) reveals the main partition, and subsequent small eigenvectors reveal finer cluster structure."
+    },
+    {
+      "id": "q5",
+      "question": "What is the 'spectral gap' and why is it important?",
+      "options": [
+        "The difference between the largest and smallest eigenvalues",
+        "The difference between consecutive small eigenvalues, indicating cluster separability",
+        "The number of zero eigenvalues",
+        "The distance between cluster centers in spectral space"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The spectral gap is the difference between the k-th and (k+1)-th smallest eigenvalues. A large spectral gap indicates clear separation into k clusters, while a small gap suggests ambiguous cluster boundaries."
+    },
+    {
+      "id": "q6",
+      "question": "In the final step of spectral clustering, why is K-Means applied to the spectral embedding?",
+      "options": [
+        "Because K-Means is the fastest clustering algorithm",
+        "Because the spectral embedding transforms non-convex clusters into convex ones",
+        "Because the original data is too noisy",
+        "Because we need exactly k clusters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In the spectral embedding space created by the eigenvectors, non-convex clusters from the original space become more separable and often convex. This makes K-Means effective in the embedding space, even though it would fail in the original space."
+    },
+    {
+      "id": "q7",
+      "question": "Which type of Laplacian normalization is most commonly recommended?",
+      "options": [
+        "Unnormalized Laplacian",
+        "Random Walk Laplacian",
+        "Symmetric Laplacian",
+        "All types work equally well"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The Random Walk Laplacian (L_rw = D^(-1)L) is often recommended because it handles varying cluster sizes and node degrees well. It accounts for the natural variation in connectivity across different parts of the graph."
+    },
+    {
+      "id": "q8",
+      "question": "What is a major computational limitation of spectral clustering?",
+      "options": [
+        "It can only handle small numbers of clusters",
+        "It requires O(n\u00b2) space for the affinity matrix and O(n\u00b3) time for eigendecomposition",
+        "It cannot handle non-linear data",
+        "It always produces the same results"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Spectral clustering's main computational limitation is that it requires O(n\u00b2) space to store the full affinity matrix and O(n\u00b3) time for eigendecomposition, making it challenging to scale to very large datasets without approximations."
+    }
+  ],
+  "timeLimit": 600
+}

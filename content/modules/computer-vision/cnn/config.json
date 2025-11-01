@@ -1,0 +1,169 @@
+{
+  "id": "cnn",
+  "name": "Convolutional Neural Networks",
+  "domain": "computer-vision",
+  "difficulty": "advanced",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "image-classification",
+    "neural-network"
+  ],
+  "learningObjectives": [
+    "Understand the architecture of Convolutional Neural Networks",
+    "Learn how convolutional layers extract spatial features from images",
+    "Understand pooling operations and their role in CNNs",
+    "Visualize learned filters and feature maps",
+    "Apply CNNs to image classification tasks"
+  ],
+  "keywords": [
+    "CNN",
+    "Convolutional Neural Network",
+    "Convolution",
+    "Pooling",
+    "Feature Maps",
+    "Filters",
+    "Deep Learning",
+    "Computer Vision"
+  ],
+  "interactive": {
+    "algorithm": "CNN",
+    "defaultParams": {
+      "numFilters": 4,
+      "filterSize": 3,
+      "poolSize": 2,
+      "learningRate": 0.01,
+      "epochs": 50,
+      "hiddenSize": 16
+    },
+    "controls": [
+      {
+        "name": "numFilters",
+        "label": "Number of Filters",
+        "type": "slider",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "description": "Number of convolutional filters to learn"
+      },
+      {
+        "name": "filterSize",
+        "label": "Filter Size",
+        "type": "slider",
+        "min": 3,
+        "max": 5,
+        "step": 2,
+        "description": "Size of the convolutional filters (e.g., 3x3, 5x5)"
+      },
+      {
+        "name": "poolSize",
+        "label": "Pooling Size",
+        "type": "slider",
+        "min": 2,
+        "max": 3,
+        "step": 1,
+        "description": "Size of the max pooling window"
+      },
+      {
+        "name": "learningRate",
+        "label": "Learning Rate",
+        "type": "slider",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "description": "Step size for gradient descent updates"
+      },
+      {
+        "name": "epochs",
+        "label": "Training Epochs",
+        "type": "slider",
+        "min": 10,
+        "max": 100,
+        "step": 10,
+        "description": "Number of training iterations"
+      },
+      {
+        "name": "hiddenSize",
+        "label": "Hidden Layer Size",
+        "type": "slider",
+        "min": 8,
+        "max": 32,
+        "step": 8,
+        "description": "Number of neurons in the dense hidden layer"
+      }
+    ],
+    "datasets": [
+      {
+        "id": "simple-shapes",
+        "name": "Simple Shapes (8x8)",
+        "description": "Small images of basic shapes for quick training",
+        "type": "classification",
+        "features": 64,
+        "samples": 100,
+        "classes": 3
+      },
+      {
+        "id": "digit-patterns",
+        "name": "Digit Patterns (8x8)",
+        "description": "Simplified digit-like patterns",
+        "type": "classification",
+        "features": 64,
+        "samples": 150,
+        "classes": 4
+      }
+    ]
+  },
+  "visualizations": [
+    {
+      "id": "filters",
+      "name": "Convolutional Filters",
+      "type": "convolution",
+      "description": "Learned filter weights visualized as heatmaps"
+    },
+    {
+      "id": "feature-maps",
+      "name": "Feature Maps",
+      "type": "convolution",
+      "description": "Activations after applying convolutional filters"
+    },
+    {
+      "id": "pooled-maps",
+      "name": "Pooled Feature Maps",
+      "type": "convolution",
+      "description": "Feature maps after max pooling operation"
+    },
+    {
+      "id": "loss-curve",
+      "name": "Training Loss",
+      "type": "line",
+      "description": "Loss over training epochs"
+    },
+    {
+      "id": "accuracy-curve",
+      "name": "Training Accuracy",
+      "type": "line",
+      "description": "Accuracy over training epochs"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "accuracy",
+      "name": "Accuracy",
+      "description": "Percentage of correctly classified samples"
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "description": "Proportion of positive predictions that are correct"
+    },
+    {
+      "id": "recall",
+      "name": "Recall",
+      "description": "Proportion of actual positives correctly identified"
+    },
+    {
+      "id": "f1Score",
+      "name": "F1 Score",
+      "description": "Harmonic mean of precision and recall"
+    }
+  ]
+}

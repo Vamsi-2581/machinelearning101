@@ -1,0 +1,28 @@
+{
+  "id": "outlier-detection",
+  "name": "Outlier Detection & Handling",
+  "domain": "preprocessing",
+  "difficulty": "intermediate",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "feature-scaling"
+  ],
+  "learningObjectives": [
+    "Understand what outliers are and why they matter in machine learning",
+    "Learn different outlier detection techniques: Z-score, IQR, Isolation Forest, LOF",
+    "Explore various outlier handling strategies: removal, capping, transformation",
+    "Visualize outliers and their impact on data distribution"
+  ],
+  "interactive": {
+    "algorithm": "OutlierDetection",
+    "defaultParams": {
+      "method": "z-score",
+      "handling": "keep",
+      "numSamples": 200,
+      "numFeatures": 2,
+      "outlierPercentage": 0.1,
+      "threshold": 3,
+      "outlierMagnitude": 3
+    }
+  }
+}

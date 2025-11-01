@@ -1,0 +1,129 @@
+{
+  "id": "random-forest",
+  "name": "Random Forest",
+  "domain": "classification",
+  "difficulty": "intermediate",
+  "estimatedTime": 14,
+  "prerequisites": [
+    "logistic-regression",
+    "decision-trees"
+  ],
+  "learningObjectives": [
+    "Understand how ensemble methods combine multiple weak learners",
+    "Learn about bootstrap sampling and its role in reducing overfitting",
+    "Explore random feature selection and its impact on model diversity",
+    "Interpret out-of-bag (OOB) error as a validation metric",
+    "Recognize the bias-variance tradeoff in ensemble methods"
+  ],
+  "tags": [
+    "classification",
+    "ensemble-learning",
+    "bagging",
+    "decision-trees",
+    "bootstrap"
+  ],
+  "interactive": {
+    "algorithm": "RandomForest",
+    "defaultParams": {
+      "nEstimators": 100,
+      "maxDepth": 10,
+      "minSamplesSplit": 2,
+      "minSamplesLeaf": 1,
+      "maxFeatures": "sqrt",
+      "bootstrap": true,
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Multi-Class Classification",
+            "value": "multi-classification"
+          }
+        ],
+        "tooltip": "Choose a classification dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "nEstimators",
+        "type": "slider",
+        "label": "Number of Trees",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of decision trees in the forest. More trees generally improve performance but increase computation time.",
+        "group": "Ensemble Parameters"
+      },
+      {
+        "id": "maxDepth",
+        "type": "slider",
+        "label": "Max Tree Depth",
+        "min": 3,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Maximum depth of each decision tree. Deeper trees can capture more complex patterns but may overfit.",
+        "group": "Tree Parameters"
+      },
+      {
+        "id": "minSamplesSplit",
+        "type": "slider",
+        "label": "Min Samples to Split",
+        "min": 2,
+        "max": 20,
+        "step": 1,
+        "tooltip": "Minimum number of samples required to split an internal node. Higher values prevent overfitting.",
+        "group": "Tree Parameters"
+      },
+      {
+        "id": "minSamplesLeaf",
+        "type": "slider",
+        "label": "Min Samples per Leaf",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "tooltip": "Minimum number of samples required to be at a leaf node. Higher values create smoother models.",
+        "group": "Tree Parameters"
+      },
+      {
+        "id": "bootstrap",
+        "type": "toggle",
+        "label": "Bootstrap Sampling",
+        "tooltip": "Whether to use bootstrap sampling when building trees. Enables out-of-bag error estimation.",
+        "group": "Ensemble Parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Classification Data & Decision Boundary",
+        "description": "Scatter plot showing the classes and the ensemble decision boundary"
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary (Ensemble Predictions)",
+        "description": "Heatmap showing the combined predictions from all trees in the forest"
+      },
+      {
+        "type": "line",
+        "title": "Out-of-Bag Score",
+        "description": "OOB score progression as more trees are added to the forest"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "multi-classification"
+    ]
+  }
+}

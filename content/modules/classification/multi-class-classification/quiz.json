@@ -1,0 +1,127 @@
+{
+  "title": "Multi Class Classification Quiz",
+  "description": "Test your understanding of multi class classification",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main challenge in multi-class classification compared to binary classification?",
+      "options": [
+        "Multi-class problems always have more data",
+        "Most fundamental algorithms are designed for binary classification",
+        "Multi-class problems are always more complex",
+        "Binary classification is more accurate"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Most fundamental classification algorithms like logistic regression and SVM are inherently binary classifiers, so we need strategies to extend them to handle multiple classes."
+    },
+    {
+      "id": "q2",
+      "question": "In the One-vs-Rest (OvR) strategy, how many binary classifiers are trained for a problem with 5 classes?",
+      "options": [
+        "4 classifiers",
+        "5 classifiers",
+        "10 classifiers",
+        "20 classifiers"
+      ],
+      "correctAnswer": 1,
+      "explanation": "One-vs-Rest trains exactly one binary classifier for each class, so for 5 classes, we train 5 binary classifiers (Class 1 vs Rest, Class 2 vs Rest, etc.)."
+    },
+    {
+      "id": "q3",
+      "question": "How does One-vs-Rest make predictions on new data?",
+      "options": [
+        "It randomly selects one of the trained classifiers",
+        "It averages the outputs of all classifiers",
+        "It selects the class whose classifier gives the highest confidence score",
+        "It uses majority voting among all classifiers"
+      ],
+      "correctAnswer": 2,
+      "explanation": "OvR runs all binary classifiers on the new instance and selects the class whose classifier produces the highest confidence score or probability."
+    },
+    {
+      "id": "q4",
+      "question": "What is a key advantage of One-vs-Rest over One-vs-One for problems with many classes?",
+      "options": [
+        "OvR is always more accurate",
+        "OvR requires fewer binary classifiers to train",
+        "OvR handles class imbalance better",
+        "OvR provides better probability estimates"
+      ],
+      "correctAnswer": 1,
+      "explanation": "OvR trains K classifiers for K classes, while One-vs-One trains K(K-1)/2 classifiers. For many classes, OvR requires significantly fewer classifiers."
+    },
+    {
+      "id": "q5",
+      "question": "In One-vs-Rest, what labels are used when training the binary classifier for Class 2?",
+      "options": [
+        "1 for Class 2, 0 for Class 1, -1 for all other classes",
+        "1 for Class 2, 0 for all other classes",
+        "2 for Class 2, 1 for all other classes",
+        "1 for Class 2, 2 for all other classes"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When training the binary classifier for Class 2, we assign label 1 to all Class 2 instances and label 0 to all instances from other classes."
+    },
+    {
+      "id": "q6",
+      "question": "What is a potential issue with One-vs-Rest when classes are highly imbalanced?",
+      "options": [
+        "Training takes too long",
+        "The algorithm cannot converge",
+        "Binary classifiers may be biased toward the majority class",
+        "Memory requirements become too high"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When classes are imbalanced, each binary classifier sees mostly negative examples (all other classes), which can bias the classifier toward predicting the negative class."
+    },
+    {
+      "id": "q7",
+      "question": "Which evaluation metric is most appropriate for assessing overall performance in multi-class classification?",
+      "options": [
+        "Precision only",
+        "Recall only",
+        "Confusion matrix and macro-averaged F1-score",
+        "Binary accuracy"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A confusion matrix shows detailed performance across all classes, while macro-averaged F1-score provides a single metric that accounts for performance on all classes equally."
+    },
+    {
+      "id": "q8",
+      "question": "What happens if no binary classifier predicts positive for a new instance in One-vs-Rest?",
+      "options": [
+        "The algorithm fails and returns an error",
+        "A random class is selected",
+        "The class with the highest score (even if negative) is selected",
+        "The most frequent class from training is selected"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Even if all classifiers predict negative, we still select the class whose classifier gives the highest score, as this represents the 'least negative' or most likely class."
+    },
+    {
+      "id": "q9",
+      "question": "Which of the following is NOT a common application of multi-class classification?",
+      "options": [
+        "Handwritten digit recognition (0-9)",
+        "Email categorization (spam, social, promotional, primary)",
+        "Predicting house prices",
+        "Medical diagnosis with multiple possible conditions"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Predicting house prices is a regression problem (predicting continuous values), not a classification problem (predicting discrete categories)."
+    },
+    {
+      "id": "q10",
+      "question": "What is the main benefit of using regularization in One-vs-Rest classifiers?",
+      "options": [
+        "It makes training faster",
+        "It reduces memory usage",
+        "It prevents overfitting in individual binary classifiers",
+        "It automatically handles class imbalance"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Regularization (L1 or L2) helps prevent overfitting by penalizing large weights in each binary classifier, leading to better generalization on new data."
+    }
+  ]
+}

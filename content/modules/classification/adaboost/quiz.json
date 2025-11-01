@@ -1,0 +1,127 @@
+{
+  "title": "Adaboost Quiz",
+  "description": "Test your understanding of adaboost",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the key adaptive feature of AdaBoost that gives it its name?",
+      "options": [
+        "It adapts the learning rate during training",
+        "It adaptively adjusts the weights of training examples based on classification errors",
+        "It adapts the number of weak learners automatically",
+        "It adapts the feature selection process"
+      ],
+      "correctAnswer": 1,
+      "explanation": "AdaBoost is 'adaptive' because it adjusts the weights of training examples after each weak learner is trained, giving higher weights to misclassified examples so subsequent learners focus on the hard cases."
+    },
+    {
+      "id": "q2",
+      "question": "What happens to the weight of a training example that is misclassified by a weak learner in AdaBoost?",
+      "options": [
+        "It decreases",
+        "It stays the same",
+        "It increases",
+        "It becomes zero"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When a training example is misclassified, its weight increases exponentially according to the formula w(i) = w(i) * exp(\u03b1), making it more likely to be focused on by the next weak learner."
+    },
+    {
+      "id": "q3",
+      "question": "What loss function does AdaBoost minimize?",
+      "options": [
+        "Mean squared error",
+        "Cross-entropy loss",
+        "Exponential loss",
+        "Hinge loss"
+      ],
+      "correctAnswer": 2,
+      "explanation": "AdaBoost minimizes the exponential loss function L(y, f(x)) = exp(-y * f(x)), which heavily penalizes misclassified examples and drives the adaptive weight updates."
+    },
+    {
+      "id": "q4",
+      "question": "How is the weight (alpha) of a weak learner calculated in AdaBoost?",
+      "options": [
+        "\u03b1 = error_rate",
+        "\u03b1 = 1 - error_rate",
+        "\u03b1 = (1/2) * ln((1 - error_rate) / error_rate)",
+        "\u03b1 = ln(error_rate)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The alpha weight is calculated as \u03b1 = (1/2) * ln((1 - \u03b5) / \u03b5) where \u03b5 is the weighted error rate. This gives higher weights to more accurate weak learners."
+    },
+    {
+      "id": "q5",
+      "question": "What happens if a weak learner has a weighted error rate of 0.5 (random guessing) in AdaBoost?",
+      "options": [
+        "It gets maximum weight in the ensemble",
+        "It gets zero weight in the ensemble",
+        "Training stops early",
+        "The algorithm switches to a different weak learner"
+      ],
+      "correctAnswer": 1,
+      "explanation": "If the weighted error rate is 0.5, the alpha calculation ln((1-0.5)/0.5) = ln(1) = 0, so the weak learner gets zero weight. In practice, training often stops when error \u2265 0.5."
+    },
+    {
+      "id": "q6",
+      "question": "What type of weak learners are typically used in AdaBoost?",
+      "options": [
+        "Deep neural networks",
+        "Decision stumps (single-split decision trees)",
+        "Support vector machines",
+        "Linear regression models"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Decision stumps (decision trees with only one split) are the most common weak learners in AdaBoost. They are simple, fast to train, and provide just slightly better than random performance."
+    },
+    {
+      "id": "q7",
+      "question": "How does AdaBoost make its final prediction for a new example?",
+      "options": [
+        "Takes the average of all weak learner predictions",
+        "Uses only the best weak learner",
+        "Takes a weighted vote of all weak learners using their alpha values",
+        "Uses the most recent weak learner"
+      ],
+      "correctAnswer": 2,
+      "explanation": "AdaBoost combines all weak learners using their alpha weights: H(x) = sign(\u2211 \u03b1\u1d62 * h\u1d62(x)). Better weak learners (higher alpha) have more influence on the final decision."
+    },
+    {
+      "id": "q8",
+      "question": "Why is AdaBoost particularly sensitive to noise and outliers?",
+      "options": [
+        "It uses too many weak learners",
+        "The exponential loss function heavily penalizes misclassified examples",
+        "It doesn't use regularization",
+        "It trains sequentially rather than in parallel"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The exponential loss function exp(-y*f(x)) grows exponentially for misclassified examples, causing AdaBoost to focus heavily on outliers and noisy examples, potentially leading to overfitting."
+    },
+    {
+      "id": "q9",
+      "question": "What is the main difference between SAMME and SAMME.R variants of AdaBoost?",
+      "options": [
+        "SAMME uses different weak learners",
+        "SAMME.R uses class probabilities instead of discrete predictions",
+        "SAMME is for regression, SAMME.R is for classification",
+        "SAMME.R uses a different loss function"
+      ],
+      "correctAnswer": 1,
+      "explanation": "SAMME.R (Real AdaBoost) uses class probability estimates from weak learners instead of discrete class predictions, often leading to faster convergence and better performance."
+    },
+    {
+      "id": "q10",
+      "question": "What is a key advantage of AdaBoost over Random Forest?",
+      "options": [
+        "It can be trained in parallel",
+        "It's less prone to overfitting",
+        "It often achieves lower bias by focusing on hard examples",
+        "It requires less hyperparameter tuning"
+      ],
+      "correctAnswer": 2,
+      "explanation": "AdaBoost's sequential training and adaptive focus on misclassified examples often leads to lower bias compared to Random Forest, though it may have higher variance and be more prone to overfitting."
+    }
+  ]
+}

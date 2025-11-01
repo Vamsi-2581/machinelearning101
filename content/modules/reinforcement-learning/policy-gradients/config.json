@@ -1,0 +1,173 @@
+{
+  "id": "policy-gradients",
+  "name": "Policy Gradients",
+  "domain": "reinforcement-learning",
+  "difficulty": "advanced",
+  "estimatedTime": 12,
+  "prerequisites": [
+    "q-learning",
+    "deep-q-networks"
+  ],
+  "learningObjectives": [
+    "Understand the difference between value-based and policy-based methods",
+    "Learn how policy gradient methods directly optimize the policy",
+    "Understand the REINFORCE algorithm and Monte Carlo policy gradients",
+    "Learn about variance reduction techniques using baselines",
+    "Interpret policy probability distributions and stochastic policies",
+    "Recognize advantages of policy gradients for continuous action spaces"
+  ],
+  "keywords": [
+    "policy gradients",
+    "REINFORCE",
+    "policy optimization",
+    "stochastic policy",
+    "gradient ascent",
+    "baseline",
+    "variance reduction",
+    "Monte Carlo",
+    "policy network",
+    "continuous actions"
+  ],
+  "interactive": {
+    "algorithm": "PolicyGradient",
+    "defaultParams": {
+      "learningRate": 0.001,
+      "discountFactor": 0.99,
+      "episodes": 200,
+      "maxStepsPerEpisode": 100,
+      "gridSize": 5,
+      "environmentType": "simple",
+      "baseline": true
+    },
+    "controls": [
+      {
+        "id": "environmentType",
+        "type": "select",
+        "label": "Environment",
+        "group": "Environment",
+        "tooltip": "Choose a grid-world environment with different obstacles and rewards",
+        "options": [
+          {
+            "label": "Simple Grid",
+            "value": "simple"
+          },
+          {
+            "label": "Maze",
+            "value": "maze"
+          },
+          {
+            "label": "Cliff Walking",
+            "value": "cliff"
+          }
+        ]
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate (α)",
+        "group": "Algorithm Parameters",
+        "min": 0.0001,
+        "max": 0.01,
+        "step": 0.0001,
+        "tooltip": "Step size for policy updates. Policy gradients typically use smaller learning rates than Q-learning."
+      },
+      {
+        "id": "discountFactor",
+        "type": "slider",
+        "label": "Discount Factor (γ)",
+        "group": "Algorithm Parameters",
+        "min": 0.9,
+        "max": 1,
+        "step": 0.01,
+        "tooltip": "How much the agent values future rewards. Policy gradients often use higher discount factors."
+      },
+      {
+        "id": "baseline",
+        "type": "toggle",
+        "label": "Use Baseline",
+        "group": "Algorithm Parameters",
+        "tooltip": "Subtract mean return as baseline to reduce variance in gradient estimates."
+      },
+      {
+        "id": "episodes",
+        "type": "slider",
+        "label": "Training Episodes",
+        "group": "Training",
+        "min": 100,
+        "max": 500,
+        "step": 50,
+        "tooltip": "Number of episodes to train the agent. Policy gradients may need more episodes than Q-learning."
+      },
+      {
+        "id": "maxStepsPerEpisode",
+        "type": "slider",
+        "label": "Max Steps per Episode",
+        "group": "Training",
+        "min": 50,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Maximum number of steps allowed in each episode before timeout."
+      }
+    ],
+    "datasets": []
+  },
+  "visualizations": [
+    {
+      "type": "line",
+      "title": "Reward per Episode",
+      "description": "Line chart showing total reward accumulated in each training episode"
+    },
+    {
+      "type": "line",
+      "title": "Steps per Episode",
+      "description": "Line chart showing number of steps taken to reach the goal in each episode"
+    },
+    {
+      "type": "line",
+      "title": "Policy Loss",
+      "description": "Line chart showing the policy gradient loss over training"
+    },
+    {
+      "type": "custom",
+      "title": "Policy Visualization",
+      "description": "Heatmap showing action probabilities for each state, visualizing the learned stochastic policy"
+    },
+    {
+      "type": "custom",
+      "title": "Environment with Optimal Path",
+      "description": "Grid visualization showing the environment and the path taken by the learned policy"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "averageReward",
+      "name": "Average Reward (Last 10 Episodes)",
+      "description": "Mean total reward over the last 10 training episodes"
+    },
+    {
+      "id": "averageSteps",
+      "name": "Average Steps (Last 10 Episodes)",
+      "description": "Mean number of steps to reach goal over the last 10 episodes"
+    },
+    {
+      "id": "optimalPathLength",
+      "name": "Optimal Path Length",
+      "description": "Number of steps in the path taken by the learned policy"
+    },
+    {
+      "id": "successRate",
+      "name": "Success Rate",
+      "description": "Percentage of last 10 episodes where the agent reached the goal"
+    },
+    {
+      "id": "averageLoss",
+      "name": "Average Policy Loss",
+      "description": "Mean policy gradient loss over recent training steps"
+    },
+    {
+      "id": "useBaseline",
+      "name": "Baseline Enabled",
+      "description": "Whether baseline variance reduction is being used"
+    }
+  ]
+}

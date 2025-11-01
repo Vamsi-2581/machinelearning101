@@ -1,0 +1,181 @@
+{
+  "id": "elastic-net-regression",
+  "name": "Elastic Net Regression",
+  "domain": "regression",
+  "difficulty": "advanced",
+  "estimatedTime": 6,
+  "prerequisites": [
+    "linear-regression",
+    "ridge-regression",
+    "lasso-regression"
+  ],
+  "learningObjectives": [
+    "Understand how Elastic Net combines L1 and L2 regularization",
+    "Learn to balance feature selection and coefficient shrinkage",
+    "Master the l1_ratio parameter for controlling regularization mix",
+    "Apply Elastic Net to high-dimensional data with grouped features",
+    "Compare Elastic Net with Ridge and Lasso regression"
+  ],
+  "keywords": [
+    "elastic net regression",
+    "L1 L2 regularization",
+    "combined regularization",
+    "feature selection",
+    "coefficient shrinkage",
+    "l1 ratio",
+    "grouped features",
+    "sparse models"
+  ],
+  "interactive": {
+    "algorithm": "ElasticNetRegression",
+    "defaultParams": {
+      "alpha": 1,
+      "l1Ratio": 0.5,
+      "learningRate": 0.01,
+      "epochs": 100,
+      "dataset": "noisy-linear"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "group": "Data",
+        "tooltip": "Choose a dataset to train on",
+        "options": [
+          {
+            "label": "Simple Linear",
+            "value": "simple-linear"
+          },
+          {
+            "label": "Noisy Linear",
+            "value": "noisy-linear"
+          },
+          {
+            "label": "Polynomial",
+            "value": "polynomial"
+          }
+        ]
+      },
+      {
+        "id": "alpha",
+        "type": "slider",
+        "label": "Alpha (Overall Regularization)",
+        "group": "Model Parameters",
+        "min": 0,
+        "max": 10,
+        "step": 0.1,
+        "tooltip": "Controls overall regularization strength. Higher values increase both L1 and L2 penalties."
+      },
+      {
+        "id": "l1Ratio",
+        "type": "slider",
+        "label": "L1 Ratio",
+        "group": "Model Parameters",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "tooltip": "Balance between L1 and L2 regularization. 0 = Ridge only, 1 = Lasso only, 0.5 = equal mix."
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "group": "Training Parameters",
+        "min": 0.001,
+        "max": 0.1,
+        "step": 0.001,
+        "tooltip": "Controls how quickly the model learns."
+      },
+      {
+        "id": "epochs",
+        "type": "slider",
+        "label": "Epochs",
+        "group": "Training Parameters",
+        "min": 10,
+        "max": 500,
+        "step": 10,
+        "tooltip": "Number of training iterations."
+      }
+    ],
+    "datasets": [
+      "simple-linear",
+      "noisy-linear",
+      "polynomial"
+    ]
+  },
+  "visualizations": [
+    {
+      "type": "scatter2d",
+      "title": "Data & Elastic Net Regression Line",
+      "description": "Scatter plot showing the data points and the fitted regression line with combined L1/L2 regularization"
+    },
+    {
+      "type": "scatter2d",
+      "title": "Residuals",
+      "description": "Residual plot showing prediction errors"
+    },
+    {
+      "type": "line",
+      "title": "Training Loss",
+      "description": "Line chart showing how the loss decreases during training"
+    },
+    {
+      "type": "bar",
+      "title": "Coefficients",
+      "description": "Bar chart showing coefficient values (some may be zero from L1, others shrunk by L2)"
+    },
+    {
+      "type": "bar",
+      "title": "Regularization Components",
+      "description": "Bar chart comparing L1 penalty, L2 penalty, and their combination"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "mse",
+      "name": "Mean Squared Error",
+      "description": "Average squared difference between predictions and actual values"
+    },
+    {
+      "id": "rmse",
+      "name": "Root Mean Squared Error",
+      "description": "Square root of MSE, in the same units as the target"
+    },
+    {
+      "id": "r2Score",
+      "name": "R² Score",
+      "description": "Proportion of variance explained by the model"
+    },
+    {
+      "id": "mae",
+      "name": "Mean Absolute Error",
+      "description": "Average absolute difference between predictions and actual values"
+    },
+    {
+      "id": "alpha",
+      "name": "Alpha",
+      "description": "Overall regularization strength parameter"
+    },
+    {
+      "id": "l1Ratio",
+      "name": "L1 Ratio",
+      "description": "Balance between L1 and L2 regularization (0=Ridge, 1=Lasso)"
+    },
+    {
+      "id": "l1Norm",
+      "name": "L1 Norm of Weights",
+      "description": "Sum of absolute values of coefficients"
+    },
+    {
+      "id": "l2Norm",
+      "name": "L2 Norm of Weights",
+      "description": "Euclidean norm of the weight vector"
+    },
+    {
+      "id": "nonZeroFeatures",
+      "name": "Non-Zero Features",
+      "description": "Number of features with non-zero coefficients"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "dimensionality-reduction",
+  "name": "Dimensionality Reduction",
+  "domain": "preprocessing",
+  "difficulty": "advanced",
+  "estimatedTime": 9,
+  "prerequisites": [
+    "feature-scaling",
+    "feature-selection"
+  ],
+  "learningObjectives": [
+    "Understand the curse of dimensionality and why dimensionality reduction is important",
+    "Learn different dimensionality reduction techniques: PCA, LDA, ICA, SVD",
+    "Explore the trade-offs between information retention and dimensionality reduction",
+    "Visualize high-dimensional data in lower dimensions"
+  ],
+  "interactive": {
+    "algorithm": "DimensionalityReduction",
+    "defaultParams": {
+      "method": "pca",
+      "numSamples": 200,
+      "originalDimensions": 10,
+      "intrinsicDimensions": 2,
+      "nComponents": 2,
+      "noiseLevel": 0.1
+    }
+  }
+}

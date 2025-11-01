@@ -1,0 +1,101 @@
+{
+  "id": "naive-bayes",
+  "name": "Naive Bayes",
+  "domain": "classification",
+  "difficulty": "beginner",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "logistic-regression"
+  ],
+  "learningObjectives": [
+    "Understand Bayes' theorem and its application to classification",
+    "Learn the 'naive' assumption of conditional independence between features",
+    "Explore how Gaussian distributions model feature likelihood",
+    "Interpret prior probabilities and their impact on predictions",
+    "Recognize when Naive Bayes performs well despite its simplifying assumptions"
+  ],
+  "tags": [
+    "classification",
+    "supervised-learning",
+    "bayes-theorem",
+    "probabilistic",
+    "gaussian"
+  ],
+  "interactive": {
+    "algorithm": "NaiveBayes",
+    "defaultParams": {
+      "smoothing": 1e-9,
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Multi-Class Classification",
+            "value": "multi-classification"
+          }
+        ],
+        "tooltip": "Choose a classification dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "smoothing",
+        "type": "slider",
+        "label": "Smoothing Parameter",
+        "min": 1e-12,
+        "max": 0.001,
+        "step": 1e-12,
+        "tooltip": "Prevents zero variance and zero probabilities. Higher values add more smoothing.",
+        "group": "Model Parameters"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Classification Data & Decision Boundary",
+        "description": "Scatter plot showing the classes and the Naive Bayes decision boundary"
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary (Class Predictions)",
+        "description": "Heatmap showing the predicted class across the feature space"
+      },
+      {
+        "type": "heatmap",
+        "title": "Class Probabilities",
+        "description": "Probability heatmap for binary classification showing P(Class=1)"
+      },
+      {
+        "type": "line",
+        "title": "Feature Distributions by Class",
+        "description": "Gaussian distributions learned for each feature and class"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Final training accuracy achieved by the model"
+      },
+      {
+        "type": "line",
+        "title": "Log-Likelihood",
+        "description": "Log-likelihood of the training data under the learned model"
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "multi-classification"
+    ]
+  }
+}

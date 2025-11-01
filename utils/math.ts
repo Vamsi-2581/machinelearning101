@@ -160,6 +160,26 @@ export function vectorNorm(v: number[]): number {
 }
 
 /**
+ * Calculate Euclidean distance between two vectors
+ * @param a - First vector
+ * @param b - Second vector
+ * @returns Euclidean distance
+ */
+export function euclideanDistance(a: number[], b: number[]): number {
+  if (a.length !== b.length) {
+    throw new Error(`Vector dimensions must match: ${a.length} vs ${b.length}`);
+  }
+  
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    const diff = (a[i] ?? 0) - (b[i] ?? 0);
+    sum += diff * diff;
+  }
+  
+  return Math.sqrt(sum);
+}
+
+/**
  * Vector addition
  * @param a - Vector a
  * @param b - Vector b
@@ -493,4 +513,35 @@ export function max(values: number[]): number {
     throw new Error('Cannot find maximum of empty array');
   }
   return Math.max(...values);
+}
+
+/**
+ * Calculate mode (most frequent value) of an array
+ * @param values - Input values
+ * @returns Most frequent value
+ */
+export function mode(values: number[]): number {
+  if (values.length === 0) {
+    throw new Error('Cannot calculate mode of empty array');
+  }
+  
+  const counts = new Map<number, number>();
+  
+  // Count occurrences
+  for (const value of values) {
+    counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  
+  // Find most frequent
+  let maxCount = 0;
+  let modeValue = values[0];
+  
+  for (const [value, count] of counts.entries()) {
+    if (count > maxCount) {
+      maxCount = count;
+      modeValue = value;
+    }
+  }
+  
+  return modeValue;
 }

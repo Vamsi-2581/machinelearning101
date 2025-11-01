@@ -1,0 +1,103 @@
+{
+  "title": "Adam Optimizer Quiz",
+  "description": "Test your understanding of adam optimizer",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "adam-combination",
+      "question": "Adam combines which two optimization techniques?",
+      "options": [
+        "SGD and Newton's method",
+        "Momentum and RMSProp",
+        "AdaGrad and RMSProp",
+        "SGD and AdaGrad"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Adam combines momentum (first moment) with RMSProp-style adaptive learning rates (second moment) to get the benefits of both approaches."
+    },
+    {
+      "id": "adam-moments",
+      "question": "What do the first and second moments in Adam represent?",
+      "options": [
+        "Current and previous gradients",
+        "Gradient mean and gradient variance",
+        "Learning rate and momentum",
+        "Parameters and their updates"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The first moment estimates the mean of gradients (momentum), while the second moment estimates the uncentered variance of gradients (for adaptive learning rates)."
+    },
+    {
+      "id": "bias-correction",
+      "question": "Why does Adam use bias correction?",
+      "options": [
+        "To prevent overfitting",
+        "To increase convergence speed",
+        "To correct for zero initialization of moments",
+        "To reduce memory usage"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Bias correction compensates for the fact that moments are initialized to zero, which would otherwise bias estimates toward zero in early iterations."
+    },
+    {
+      "id": "beta1-parameter",
+      "question": "What happens if you increase \u03b2\u2081 (beta1) in Adam?",
+      "options": [
+        "More momentum, smoother optimization path",
+        "Less momentum, more responsive to recent gradients",
+        "Faster learning rate adaptation",
+        "Smaller parameter updates"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Higher \u03b2\u2081 means more weight is given to previous gradients, creating more momentum and a smoother optimization path."
+    },
+    {
+      "id": "beta2-parameter",
+      "question": "The \u03b2\u2082 (beta2) parameter in Adam controls:",
+      "options": [
+        "The momentum term",
+        "The learning rate",
+        "The decay rate for squared gradient averages",
+        "The bias correction factor"
+      ],
+      "correctAnswer": 2,
+      "explanation": "\u03b2\u2082 controls how quickly the second moment (squared gradient averages) decays, affecting how adaptive the learning rates are."
+    },
+    {
+      "id": "adam-learning-rate",
+      "question": "Compared to SGD, Adam typically uses:",
+      "options": [
+        "Much larger learning rates",
+        "Much smaller learning rates",
+        "The same learning rates",
+        "Variable learning rates that change randomly"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Adam typically uses smaller learning rates (like 0.001) compared to SGD (like 0.1) because it has built-in adaptive scaling."
+    },
+    {
+      "id": "adam-advantages",
+      "question": "Which is NOT a typical advantage of Adam over SGD?",
+      "options": [
+        "Faster convergence",
+        "Less hyperparameter tuning required",
+        "Better generalization on test data",
+        "Adaptive learning rates per parameter"
+      ],
+      "correctAnswer": 2,
+      "explanation": "While Adam often converges faster and requires less tuning, SGD sometimes achieves better generalization performance on test data."
+    },
+    {
+      "id": "adam-memory",
+      "question": "What additional memory does Adam require compared to SGD?",
+      "options": [
+        "No additional memory",
+        "Storage for one additional vector",
+        "Storage for two additional vectors (first and second moments)",
+        "Storage for the entire gradient history"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Adam needs to store both the first moment (momentum) and second moment (squared gradient averages) vectors, doubling the memory requirement compared to SGD."
+    }
+  ]
+}

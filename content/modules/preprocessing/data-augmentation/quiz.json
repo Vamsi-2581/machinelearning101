@@ -1,0 +1,132 @@
+{
+  "title": "Data Augmentation Quiz",
+  "description": "Test your understanding of data augmentation techniques and best practices",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the primary purpose of data augmentation?",
+      "type": "multiple-choice",
+      "options": [
+        "To reduce the size of the dataset",
+        "To artificially increase dataset size and diversity",
+        "To remove outliers from the data",
+        "To convert categorical features to numerical"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Data augmentation artificially increases the size and diversity of training datasets by creating modified versions of existing data, helping to improve model generalization and reduce overfitting."
+    },
+    {
+      "id": "q2",
+      "text": "Which augmentation technique is specifically designed to address class imbalance problems?",
+      "type": "multiple-choice",
+      "options": [
+        "Gaussian noise addition",
+        "Rotation",
+        "SMOTE (Synthetic Minority Oversampling Technique)",
+        "Mixup"
+      ],
+      "correctAnswer": 2,
+      "explanation": "SMOTE is specifically designed to address class imbalance by generating synthetic samples for minority classes through interpolation between existing minority class examples and their nearest neighbors."
+    },
+    {
+      "id": "q3",
+      "text": "Adding Gaussian noise to data is a form of data augmentation that can improve model robustness.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Adding Gaussian noise is a common augmentation technique that creates variations of existing data points, helping models become more robust to small perturbations and measurement noise."
+    },
+    {
+      "id": "q4",
+      "text": "In the Mixup augmentation technique, what is created?",
+      "type": "multiple-choice",
+      "options": [
+        "Exact copies of existing samples",
+        "Linear interpolations between pairs of samples and their labels",
+        "Random noise added to existing samples",
+        "Rotated versions of the original data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Mixup creates virtual training examples by linearly interpolating between pairs of samples and their labels using a mixing coefficient λ, creating smooth transitions between different classes."
+    },
+    {
+      "id": "q5",
+      "text": "When should data augmentation be applied in the machine learning pipeline?",
+      "type": "multiple-choice",
+      "options": [
+        "Only to the test data",
+        "To both training and test data equally",
+        "Only during training, not on validation or test data",
+        "Only to the validation data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Data augmentation should only be applied during training to avoid data leakage. Validation and test data should remain unchanged to provide unbiased estimates of model performance."
+    },
+    {
+      "id": "q6",
+      "text": "What is a potential risk of excessive data augmentation?",
+      "type": "multiple-choice",
+      "options": [
+        "Improved model accuracy",
+        "Faster training time",
+        "Creating unrealistic samples that hurt model performance",
+        "Reduced computational requirements"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Excessive data augmentation can create unrealistic or semantically meaningless samples that may confuse the model and hurt performance. It's important to balance augmentation intensity with sample quality."
+    },
+    {
+      "id": "q7",
+      "text": "Which type of augmentation would be most appropriate for time series data?",
+      "type": "multiple-choice",
+      "options": [
+        "Image rotation and flipping",
+        "Time warping and magnitude scaling",
+        "Color space transformations",
+        "Text synonym replacement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Time series data benefits from temporal augmentations like time warping (stretching/compressing the time axis) and magnitude scaling (changing amplitude), which preserve the temporal nature of the data."
+    },
+    {
+      "id": "q8",
+      "text": "What does the 'k' parameter represent in SMOTE?",
+      "type": "multiple-choice",
+      "options": [
+        "The number of synthetic samples to generate",
+        "The number of nearest neighbors to consider",
+        "The noise level to add",
+        "The number of classes in the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "In SMOTE, the 'k' parameter represents the number of nearest neighbors to consider when generating synthetic samples. The algorithm selects one of these k neighbors randomly to create interpolated samples."
+    },
+    {
+      "id": "q9",
+      "text": "Why is domain knowledge important when designing data augmentation strategies?",
+      "type": "multiple-choice",
+      "options": [
+        "It's not important - any augmentation will work",
+        "To ensure augmentations preserve semantic meaning and create realistic samples",
+        "To make the code run faster",
+        "To reduce the amount of data needed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Domain knowledge is crucial to ensure that augmentations preserve the semantic meaning of the data and create realistic samples. Inappropriate augmentations can generate meaningless or impossible data points."
+    },
+    {
+      "id": "q10",
+      "text": "What is a key advantage of geometric transformations (rotation, scaling, translation) for data augmentation?",
+      "type": "multiple-choice",
+      "options": [
+        "They work only with text data",
+        "They help models learn invariance to spatial transformations",
+        "They always improve accuracy by 50%",
+        "They reduce the dataset size"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Geometric transformations help models learn invariance to spatial changes like rotation, scaling, and translation. This means the model becomes less sensitive to these variations in the input data, improving generalization."
+    }
+  ]
+}

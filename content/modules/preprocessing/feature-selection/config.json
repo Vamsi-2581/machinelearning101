@@ -1,0 +1,28 @@
+{
+  "id": "feature-selection",
+  "name": "Feature Selection",
+  "domain": "preprocessing",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "feature-scaling",
+    "feature-encoding"
+  ],
+  "learningObjectives": [
+    "Understand the importance of feature selection in machine learning",
+    "Learn different feature selection techniques and when to use them",
+    "Explore filter, wrapper, and embedded methods",
+    "Visualize feature importance and selection results"
+  ],
+  "interactive": {
+    "algorithm": "FeatureSelection",
+    "defaultParams": {
+      "method": "correlation",
+      "numSamples": 100,
+      "relevantFeatures": 5,
+      "irrelevantFeatures": 10,
+      "threshold": 0.3,
+      "k": 5
+    }
+  }
+}

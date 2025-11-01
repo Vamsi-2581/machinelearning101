@@ -1,11 +1,7 @@
 <template>
-  <ModuleLayout
-    title="Gradient Descent Optimization"
+  <ModuleLayout title="Gradient Descent Optimization"
     description="Visualize how different optimization algorithms navigate loss landscapes to find optimal parameters"
-    difficulty="intermediate"
-    :estimated-time="45"
-    :table-of-contents="tableOfContents"
-  >
+    difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -13,56 +9,32 @@
 
     <!-- Interactive Section -->
     <template #interactive>
-      <InteractiveSection
-        :loading="isOptimizing"
-        :progress="optimizationProgress"
-        loading-message="Optimizing..."
-        :error="error"
-        :on-retry="handleRetry"
-      >
+      <InteractiveSection :loading="isOptimizing" :progress="optimizationProgress" loading-message="Optimizing..."
+        :error="error" :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="parameters"
-            :loading="isOptimizing"
-            submit-label="Start Optimization"
-            @change="handleParameterChange"
-            @reset="handleReset"
-            @submit="handleStart"
-          />
-          
+          <ControlPanel :controls="controls" :values="parameters" :loading="isOptimizing"
+            submit-label="Start Optimization" @change="handleParameterChange" @reset="handleReset"
+            @submit="handleStart" />
+
           <!-- Step Controls -->
           <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Step Controls</h3>
             <div class="flex gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                :disabled="isOptimizing || state === 'completed'"
-                @click="handleStep"
-              >
+              <Button variant="secondary" size="sm" :disabled="isOptimizing || state === 'completed'"
+                @click="handleStep">
                 Step
               </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                :disabled="isOptimizing || state === 'completed'"
-                @click="handlePlay"
-              >
+              <Button variant="secondary" size="sm" :disabled="isOptimizing || state === 'completed'"
+                @click="handlePlay">
                 {{ state === 'running' ? 'Pause' : 'Play' }}
               </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                :disabled="state === 'idle'"
-                @click="handleResetOptimization"
-              >
+              <Button variant="secondary" size="sm" :disabled="state === 'idle'" @click="handleResetOptimization">
                 Reset
               </Button>
             </div>
           </div>
-          
+
           <!-- Metrics Display -->
           <div v-if="currentLoss !== null" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Current State</h3>
@@ -94,41 +66,23 @@
           <div class="space-y-4">
             <!-- Visualization Type Selector -->
             <div class="flex gap-2 mb-4">
-              <Button
-                :variant="visualizationType === 'contour' ? 'primary' : 'secondary'"
-                size="sm"
-                @click="visualizationType = 'contour'"
-              >
+              <Button :variant="visualizationType === 'contour' ? 'primary' : 'secondary'" size="sm"
+                @click="visualizationType = 'contour'">
                 Contour Plot
               </Button>
-              <Button
-                :variant="visualizationType === '3d' ? 'primary' : 'secondary'"
-                size="sm"
-                @click="visualizationType = '3d'"
-              >
+              <Button :variant="visualizationType === '3d' ? 'primary' : 'secondary'" size="sm"
+                @click="visualizationType = '3d'">
                 3D Surface
               </Button>
             </div>
-            
+
             <!-- Plotly Visualization -->
-            <Plot3D
-              v-if="plotData && plotLayout"
-              :data="plotData"
-              :layout="plotLayout"
-              :config="plotConfig"
-              :height="visualizationType === '3d' ? '600px' : '500px'"
-            />
-            
+            <Plot3D v-if="plotData && plotLayout" :data="plotData" :layout="plotLayout" :config="plotConfig"
+              :height="visualizationType === '3d' ? '600px' : '500px'" />
+
             <!-- Loss History Chart -->
-            <LineChart
-              v-if="lossHistory && lossHistory.length > 0"
-              :series="lossHistory"
-              title="Loss Over Iterations"
-              x-label="Iteration"
-              y-label="Loss"
-              :show-legend="false"
-              height="300px"
-            />
+            <LineChart v-if="lossHistory && lossHistory.length > 0" :series="lossHistory" title="Loss Over Iterations"
+              x-label="Iteration" y-label="Loss" :show-legend="false" height="300px" />
           </div>
         </template>
       </InteractiveSection>
@@ -139,27 +93,15 @@
     <template #quiz>
       <!-- Loading state -->
       <QuizLoadingState v-if="quizLoading" />
-      
+
       <!-- Error state with retry -->
-      <QuizErrorDisplay
-        v-else-if="quizError"
-        :error="quizError"
-        @retry="retryQuizLoad"
-      />
-      
+      <QuizErrorDisplay v-else-if="quizError" :error="quizError" @retry="retryQuizLoad" />
+
       <!-- Coming soon state -->
-      <QuizErrorDisplay
-        v-else-if="!quizData"
-        :coming-soon="true"
-      />
-      
+      <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
+
       <!-- Quiz component -->
-      <Quiz
-        v-else
-        :quiz="quizData"
-        :passing-score="quizData.passingScore || 70"
-        @quiz-completed="handleQuizComplete"
-      />
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -186,10 +128,10 @@ import Quiz from '~/components/modules/Quiz.vue';
 import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
 import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
 import { useQuizLoader } from '~/composables/useQuizLoader';
-import { queryCollection, useAsyncData } from '#imports';
+
 
 // Load content from Nuxt Content
-const { data: content } = await useAsyncData(() => 
+const { data: content } = await useAsyncData(() =>
   queryCollection('content').path('/modules/optimization/gradient-descent/content').first()
 );
 
@@ -342,10 +284,10 @@ const gradientNorm = computed(() => {
 
 const lossHistory = computed<LineSeries[]>(() => {
   if (!visualization.value) return [];
-  
+
   const path = visualization.value.getOptimizationPath();
   if (path.length === 0) return [];
-  
+
   return [{
     x: path.map((step: any) => step.iteration),
     y: path.map((step: any) => step.loss),
@@ -369,10 +311,10 @@ const { quizData, loading: quizLoading, error: quizError, loadQuiz, retry: retry
 onMounted(async () => {
   moduleStore.setCurrentModule('gradient-descent');
   moduleStore.setParameters(parameters.value);
-  
+
   // Initialize visualization
   initializeVisualization();
-  
+
   // Load quiz data
   await loadQuiz('gradient-descent', '/content/modules/optimization/gradient-descent/quiz.json');
 });
@@ -383,7 +325,7 @@ onMounted(async () => {
 const initializeVisualization = () => {
   const lossFunc = getLossFunction(parameters.value.lossFunction);
   const initialParams = [parameters.value.startX, parameters.value.startY];
-  
+
   visualization.value = new GradientDescentVisualization(
     lossFunc.loss,
     lossFunc.gradient,
@@ -399,10 +341,10 @@ const initializeVisualization = () => {
       beta2: parameters.value.beta2,
     }
   );
-  
+
   // Update current state
   updateCurrentState();
-  
+
   // Generate landscape and update visualization
   updateVisualization();
 };
@@ -412,7 +354,7 @@ const initializeVisualization = () => {
  */
 const updateCurrentState = () => {
   if (!visualization.value) return;
-  
+
   currentIteration.value = visualization.value.getCurrentIteration();
   currentLoss.value = visualization.value.getCurrentLoss();
   currentParams.value = visualization.value.getCurrentParams();
@@ -425,20 +367,20 @@ const updateCurrentState = () => {
  */
 const updateVisualization = () => {
   if (!visualization.value) return;
-  
+
   const lossFunc = getLossFunction(parameters.value.lossFunction);
   const domain = lossFunc.domain || { min: [-5, -5], max: [5, 5] };
-  
+
   // Generate loss landscape
   const landscape = generateLossLandscape(lossFunc.loss, {
     xRange: [domain.min[0], domain.max[0]],
     yRange: [domain.min[1], domain.max[1]],
     resolution: 50
   });
-  
+
   // Get optimization path
   const path = visualization.value.getOptimizationPath();
-  
+
   // Generate plot data based on visualization type
   if (visualizationType.value === 'contour') {
     plotData.value = generateContourPlotData(landscape, path);
@@ -462,7 +404,7 @@ watch(visualizationType, () => {
 const handleParameterChange = (id: string, value: any) => {
   (parameters.value as any)[id] = value;
   moduleStore.setParameter(id, value);
-  
+
   // Reinitialize if loss function or initial params changed
   if (['lossFunction', 'startX', 'startY', 'optimizer', 'learningRate', 'momentum', 'beta', 'beta1', 'beta2'].includes(id)) {
     initializeVisualization();
@@ -485,7 +427,7 @@ const handleReset = () => {
     startY: 2,
   };
   moduleStore.setParameters(parameters.value);
-  
+
   initializeVisualization();
   error.value = null;
 };
@@ -495,10 +437,10 @@ const handleReset = () => {
  */
 const handleStart = async () => {
   if (!visualization.value) return;
-  
+
   isOptimizing.value = true;
   error.value = null;
-  
+
   try {
     await visualization.value.runToCompletion();
     updateCurrentState();
@@ -516,7 +458,7 @@ const handleStart = async () => {
  */
 const handleStep = () => {
   if (!visualization.value) return;
-  
+
   visualization.value.step();
   updateCurrentState();
   updateVisualization();
@@ -527,7 +469,7 @@ const handleStep = () => {
  */
 const handlePlay = () => {
   if (!visualization.value) return;
-  
+
   if (state.value === 'running') {
     visualization.value.pause();
     if (animationFrameId !== null) {
@@ -538,7 +480,7 @@ const handlePlay = () => {
     visualization.value.resume();
     animateOptimization();
   }
-  
+
   updateCurrentState();
 };
 
@@ -547,12 +489,12 @@ const handlePlay = () => {
  */
 const animateOptimization = () => {
   if (!visualization.value || state.value !== 'running') return;
-  
+
   // Perform step
   visualization.value.step();
   updateCurrentState();
   updateVisualization();
-  
+
   // Continue animation if not completed
   if (!visualization.value.isComplete()) {
     animationFrameId = requestAnimationFrame(() => {
@@ -569,7 +511,7 @@ const handleResetOptimization = () => {
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
   }
-  
+
   initializeVisualization();
 };
 
@@ -589,7 +531,7 @@ const handleRetry = () => {
  */
 const handleQuizComplete = (result: QuizResult) => {
   console.log('Quiz completed:', result);
-  
+
   // The Quiz component already handles:
   // - Saving score to progress store
   // - Marking module as complete if score >= 70%

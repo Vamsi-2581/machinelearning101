@@ -12,6 +12,7 @@ export type { DataPoint } from './dataset';
  */
 export interface VisualizationData {
   type: 'scatter2d' | 'scatter3d' | 'line' | 'heatmap' | 'contour' | 'surface' | 'network' | 'tree' | 'confusion-matrix' | 'roc-curve' | 'loss-landscape';
+  title?: string;
   data: any;
   layout?: any;
   config?: any;

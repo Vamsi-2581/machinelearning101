@@ -1,0 +1,127 @@
+{
+  "title": "Cnn Quiz",
+  "description": "Test your understanding of cnn",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the primary advantage of convolutional layers over fully connected layers for image processing?",
+      "options": [
+        "They use fewer parameters through weight sharing and local connectivity",
+        "They always train faster regardless of image size",
+        "They can only work with color images",
+        "They eliminate the need for activation functions"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Convolutional layers use weight sharing (same filter applied across the image) and local connectivity (each neuron connects to a small region), dramatically reducing the number of parameters compared to fully connected layers while preserving spatial structure."
+    },
+    {
+      "id": "q2",
+      "question": "What does a convolutional filter (kernel) do when applied to an image?",
+      "options": [
+        "It randomly shuffles pixel values",
+        "It slides across the image, performing element-wise multiplication and summation to detect patterns",
+        "It converts the image to grayscale",
+        "It increases the image resolution"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A convolutional filter slides across the input image, performing element-wise multiplication with the input region and summing the results. This operation detects specific patterns or features wherever they appear in the image."
+    },
+    {
+      "id": "q3",
+      "question": "What is the purpose of max pooling in a CNN?",
+      "options": [
+        "To increase the spatial dimensions of feature maps",
+        "To reduce spatial dimensions while retaining important features",
+        "To add more parameters to the model",
+        "To convert images to black and white"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Max pooling reduces the spatial dimensions of feature maps by taking the maximum value from each region. This provides translation invariance, reduces computational cost, and helps prevent overfitting while retaining the most important features."
+    },
+    {
+      "id": "q4",
+      "question": "In a typical CNN architecture, what kind of features do early convolutional layers tend to learn?",
+      "options": [
+        "Complex objects and high-level concepts",
+        "Simple features like edges, corners, and basic textures",
+        "Complete faces and objects",
+        "Text and numbers only"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Early convolutional layers typically learn simple, low-level features such as edges, corners, and basic textures. As you go deeper into the network, layers learn increasingly complex and abstract features, eventually recognizing complete objects and concepts."
+    },
+    {
+      "id": "q5",
+      "question": "What does 'parameter sharing' mean in the context of CNNs?",
+      "options": [
+        "Multiple CNNs share the same training data",
+        "The same filter weights are used across different positions in the input",
+        "All layers have the same number of neurons",
+        "Training data is shared between different models"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Parameter sharing means that the same filter (with the same weights) is applied to different positions across the entire input image. This dramatically reduces the number of parameters while allowing the network to detect the same feature regardless of its position in the image."
+    },
+    {
+      "id": "q6",
+      "question": "Why is ReLU (Rectified Linear Unit) commonly used as the activation function in CNNs?",
+      "options": [
+        "It's the only activation function that works with images",
+        "It helps prevent vanishing gradients and is computationally efficient",
+        "It automatically normalizes the input",
+        "It reduces the image size"
+      ],
+      "correctAnswer": 1,
+      "explanation": "ReLU (f(x) = max(0, x)) is popular in CNNs because it helps prevent vanishing gradients during backpropagation, is computationally efficient (simple max operation), and introduces non-linearity while maintaining sparse activations."
+    },
+    {
+      "id": "q7",
+      "question": "What happens to the spatial dimensions of a feature map after applying a 3\u00d73 convolution without padding?",
+      "options": [
+        "They increase by 2 in each dimension",
+        "They stay the same",
+        "They decrease by 2 in each dimension",
+        "They are reduced to 1\u00d71"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Without padding, a 3\u00d73 convolution reduces each spatial dimension by 2 (filter_size - 1). For example, a 10\u00d710 input becomes 8\u00d78 after convolution. This is because the filter cannot be centered on the edge pixels without going outside the image boundaries."
+    },
+    {
+      "id": "q8",
+      "question": "In a CNN, what is a 'feature map'?",
+      "options": [
+        "A map showing where to place features in the image",
+        "The output of applying a single filter across the entire input",
+        "A list of all possible features the network can detect",
+        "The original input image"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A feature map is the output produced by applying a single convolutional filter across the entire input. It shows where and how strongly the filter's pattern appears in different regions of the input. Each filter produces one feature map."
+    },
+    {
+      "id": "q9",
+      "question": "What is 'translation invariance' in CNNs, and how do they achieve it?",
+      "options": [
+        "The ability to translate images to different languages",
+        "The ability to detect features regardless of their position in the image, achieved through convolution and pooling",
+        "The ability to move images around the screen",
+        "The ability to work with images in any format"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Translation invariance means the network can detect features regardless of where they appear in the image. CNNs achieve this through convolution (same filter applied everywhere) and pooling (which provides local translation invariance by taking the maximum value in a region)."
+    },
+    {
+      "id": "q10",
+      "question": "Why might you use multiple convolutional filters in a single layer?",
+      "options": [
+        "To make training slower",
+        "To detect multiple different features or patterns simultaneously",
+        "To increase the image resolution",
+        "To reduce the number of parameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Multiple filters in a layer allow the network to detect multiple different features or patterns simultaneously. Each filter learns to recognize a different pattern (e.g., vertical edges, horizontal edges, curves), and together they provide a rich representation of the input."
+    }
+  ]
+}

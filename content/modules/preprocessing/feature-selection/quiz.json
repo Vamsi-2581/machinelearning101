@@ -1,0 +1,132 @@
+{
+  "title": "Feature Selection Quiz",
+  "description": "Test your understanding of feature selection techniques and best practices",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the primary goal of feature selection?",
+      "type": "multiple-choice",
+      "options": [
+        "To increase the number of features in the dataset",
+        "To select a subset of relevant features that improve model performance",
+        "To convert categorical features to numerical features",
+        "To normalize all features to the same scale"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature selection aims to identify and select the most relevant features from the original feature set, which can improve model performance, reduce overfitting, and decrease computational cost."
+    },
+    {
+      "id": "q2",
+      "text": "Which type of feature selection method evaluates features independently of the learning algorithm?",
+      "type": "multiple-choice",
+      "options": [
+        "Wrapper methods",
+        "Embedded methods",
+        "Filter methods",
+        "Ensemble methods"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Filter methods evaluate features independently of the learning algorithm using statistical measures like correlation, mutual information, or variance. They are fast but may miss feature interactions."
+    },
+    {
+      "id": "q3",
+      "text": "Wrapper methods are more computationally expensive than filter methods because they use the learning algorithm to evaluate features.",
+      "type": "true-false",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Wrapper methods use the actual learning algorithm to evaluate different feature subsets, requiring multiple model training iterations, which makes them more computationally expensive than filter methods."
+    },
+    {
+      "id": "q4",
+      "text": "Which feature selection method is best for capturing non-linear relationships between features and target?",
+      "type": "multiple-choice",
+      "options": [
+        "Pearson correlation",
+        "Variance threshold",
+        "Mutual information",
+        "Chi-square test"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Mutual information can capture both linear and non-linear relationships between features and target variables, making it more versatile than correlation-based methods that only capture linear relationships."
+    },
+    {
+      "id": "q5",
+      "text": "When should feature selection be applied in the machine learning pipeline?",
+      "type": "multiple-choice",
+      "options": [
+        "Before splitting the data into train and test sets",
+        "After splitting, using only the training data to select features",
+        "Only on the test data",
+        "It doesn't matter when you apply it"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Feature selection should be applied after data splitting, using only the training data to select features. This prevents data leakage from the test set and ensures unbiased evaluation of model performance."
+    },
+    {
+      "id": "q6",
+      "text": "What is Recursive Feature Elimination (RFE)?",
+      "type": "multiple-choice",
+      "options": [
+        "A filter method that ranks features by variance",
+        "A wrapper method that iteratively removes the least important features",
+        "An embedded method that uses L1 regularization",
+        "A method that only works with categorical features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RFE is a wrapper method that recursively trains models and eliminates the least important features until a desired number of features is reached. It considers feature interactions but is computationally expensive."
+    },
+    {
+      "id": "q7",
+      "text": "Which regularization technique naturally performs feature selection by driving feature weights to zero?",
+      "type": "multiple-choice",
+      "options": [
+        "L2 regularization (Ridge)",
+        "L1 regularization (Lasso)",
+        "Elastic Net",
+        "Dropout"
+      ],
+      "correctAnswer": 1,
+      "explanation": "L1 regularization (Lasso) adds a penalty proportional to the absolute value of coefficients, which can drive some coefficients to exactly zero, effectively performing automatic feature selection."
+    },
+    {
+      "id": "q8",
+      "text": "What is a major risk when applying feature selection too aggressively on small datasets?",
+      "type": "multiple-choice",
+      "options": [
+        "Increased computational cost",
+        "Overfitting to the training data",
+        "Converting numerical features to categorical",
+        "Increasing the curse of dimensionality"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Aggressive feature selection on small datasets can lead to overfitting, where the selected features work well on the training data but don't generalize to new data. This is especially problematic when the number of features approaches the number of samples."
+    },
+    {
+      "id": "q9",
+      "text": "Which feature selection approach combines the benefits of filter and wrapper methods?",
+      "type": "multiple-choice",
+      "options": [
+        "Univariate selection",
+        "Recursive feature elimination",
+        "Embedded methods",
+        "Variance threshold"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Embedded methods perform feature selection as part of the model training process, combining the efficiency of filter methods with the algorithm-awareness of wrapper methods. Examples include L1 regularization and tree-based feature importance."
+    },
+    {
+      "id": "q10",
+      "text": "Why might correlation-based feature selection miss important features?",
+      "type": "multiple-choice",
+      "options": [
+        "It's too computationally expensive",
+        "It only captures linear relationships",
+        "It requires categorical features",
+        "It always selects too many features"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Correlation-based feature selection only captures linear relationships between features and the target. It may miss features that have important non-linear relationships or features that are only useful in combination with other features."
+    }
+  ]
+}

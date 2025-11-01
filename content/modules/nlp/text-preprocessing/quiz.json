@@ -1,0 +1,127 @@
+{
+  "title": "Text Preprocessing Quiz",
+  "description": "Test your understanding of text preprocessing",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is tokenization in Natural Language Processing?",
+      "options": [
+        "The process of encrypting text data",
+        "The process of breaking text into smaller units like words or sentences",
+        "The process of translating text to another language",
+        "The process of removing all punctuation from text"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Tokenization is the process of breaking text into smaller units called tokens, which can be words, sentences, characters, or subwords. This is a fundamental preprocessing step in NLP."
+    },
+    {
+      "id": "q2",
+      "question": "Which tokenization strategy would be most appropriate for a character-level language model?",
+      "options": [
+        "Word tokenization",
+        "Sentence tokenization",
+        "Character tokenization",
+        "Paragraph tokenization"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Character tokenization breaks text into individual characters, which is ideal for character-level language models that learn patterns at the character level rather than word level."
+    },
+    {
+      "id": "q3",
+      "question": "What is the main benefit of converting text to lowercase during preprocessing?",
+      "options": [
+        "It makes the text easier to read",
+        "It reduces vocabulary size by treating 'The' and 'the' as the same word",
+        "It improves the visual appearance of the text",
+        "It removes all punctuation automatically"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Lowercasing reduces vocabulary size by treating words with different capitalizations as the same token (e.g., 'The' and 'the'), which helps models generalize better and reduces memory requirements."
+    },
+    {
+      "id": "q4",
+      "question": "What are stopwords in NLP?",
+      "options": [
+        "Words that stop the tokenization process",
+        "Common words like 'the', 'is', 'and' that carry little semantic meaning",
+        "Words that contain punctuation marks",
+        "Words that appear only once in a document"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Stopwords are common words (like 'the', 'is', 'and', 'or') that appear frequently but typically carry little semantic meaning. They are often removed to reduce noise and focus on content words."
+    },
+    {
+      "id": "q5",
+      "question": "What is stemming in text preprocessing?",
+      "options": [
+        "Removing the first letter of each word",
+        "Reducing words to their root form by removing suffixes (e.g., 'running' \u2192 'run')",
+        "Capitalizing the first letter of each word",
+        "Splitting compound words into separate tokens"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Stemming reduces words to their root form by removing suffixes. For example, 'running', 'runs', and 'ran' might all be reduced to 'run'. This helps group related words together and reduces vocabulary size."
+    },
+    {
+      "id": "q6",
+      "question": "When should you keep punctuation during text preprocessing?",
+      "options": [
+        "Never, punctuation should always be removed",
+        "Always, punctuation is always important",
+        "When it carries semantic meaning, such as in sentiment analysis where '!' and '?' matter",
+        "Only when the text is in English"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Punctuation should be kept when it carries semantic meaning. For example, in sentiment analysis, '!' and '?' can indicate strong emotions or questions. However, for tasks like topic modeling, punctuation may be less important."
+    },
+    {
+      "id": "q7",
+      "question": "What is a vocabulary in the context of text preprocessing?",
+      "options": [
+        "A dictionary for looking up word definitions",
+        "The set of unique tokens found in the text corpus",
+        "A list of all stopwords",
+        "The original text before preprocessing"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A vocabulary is the set of unique tokens (words, characters, or subwords) found in a text corpus after tokenization. It represents all the distinct units that the model will work with."
+    },
+    {
+      "id": "q8",
+      "question": "Which of the following is a disadvantage of aggressive stemming?",
+      "options": [
+        "It increases vocabulary size",
+        "It makes processing slower",
+        "It may produce non-words and lose semantic distinctions (e.g., 'university' \u2192 'univers')",
+        "It requires more memory"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Aggressive stemming can produce non-words (like 'univers' from 'university') and may conflate words with different meanings. This can lead to loss of semantic information and reduced model performance."
+    },
+    {
+      "id": "q9",
+      "question": "Why is consistent preprocessing important across training and test data?",
+      "options": [
+        "To make the code run faster",
+        "To prevent distribution mismatch and ensure the model sees data in the same format",
+        "To reduce the file size of the dataset",
+        "To make the text more readable"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Consistent preprocessing ensures that training and test data have the same format and distribution. Inconsistent preprocessing can lead to distribution mismatch, poor model performance, and unexpected errors."
+    },
+    {
+      "id": "q10",
+      "question": "What is the main advantage of character tokenization over word tokenization?",
+      "options": [
+        "It produces shorter sequences",
+        "It's faster to compute",
+        "It has no out-of-vocabulary issues and works for any language",
+        "It preserves more semantic meaning"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Character tokenization has no out-of-vocabulary (OOV) issues because any word can be represented as a sequence of characters. It also works universally across languages without needing language-specific rules."
+    }
+  ]
+}

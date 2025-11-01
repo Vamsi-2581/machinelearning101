@@ -1,0 +1,127 @@
+{
+  "title": "Model Ensembling Quiz",
+  "description": "Test your understanding of model ensembling",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main principle behind ensemble learning?",
+      "options": [
+        "Using the most complex model available",
+        "Combining multiple models to create a stronger predictor",
+        "Training a single model on more data",
+        "Using only the best performing individual model"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Ensemble learning combines multiple models to create a stronger predictor than any individual model alone. The key insight is that different models make different types of errors, and combining them intelligently can reduce overall error."
+    },
+    {
+      "id": "q2",
+      "question": "What are the three key conditions for ensemble success?",
+      "options": [
+        "Fast, cheap, and simple models",
+        "Accurate, diverse, and independent models",
+        "Linear, non-linear, and tree-based models",
+        "Small, medium, and large models"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Ensembles work best when base models are: (1) Accurate - better than random guessing, (2) Diverse - make different types of errors, and (3) Independent - errors are not correlated."
+    },
+    {
+      "id": "q3",
+      "question": "What is the main difference between bagging and boosting?",
+      "options": [
+        "Bagging uses different algorithms, boosting uses the same algorithm",
+        "Bagging trains models in parallel, boosting trains them sequentially",
+        "Bagging is for classification, boosting is for regression",
+        "Bagging is faster, boosting is more accurate"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Bagging trains multiple models in parallel on different bootstrap samples of the data, while boosting trains models sequentially, with each model focusing on the mistakes of previous models."
+    },
+    {
+      "id": "q4",
+      "question": "What does bagging primarily reduce?",
+      "options": [
+        "Bias",
+        "Variance",
+        "Noise",
+        "Training time"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Bagging primarily reduces variance by averaging multiple models trained on different bootstrap samples. The bias remains roughly the same since the same learning algorithm is used."
+    },
+    {
+      "id": "q5",
+      "question": "In AdaBoost, what happens to the weights of misclassified examples?",
+      "options": [
+        "They are decreased",
+        "They remain the same",
+        "They are increased",
+        "They are set to zero"
+      ],
+      "correctAnswer": 2,
+      "explanation": "In AdaBoost, the weights of misclassified examples are increased so that subsequent models focus more on these difficult examples. This allows the ensemble to progressively improve on its mistakes."
+    },
+    {
+      "id": "q6",
+      "question": "What is the difference between hard voting and soft voting?",
+      "options": [
+        "Hard voting uses more models than soft voting",
+        "Hard voting uses majority class prediction, soft voting averages probabilities",
+        "Hard voting is for regression, soft voting is for classification",
+        "Hard voting is faster than soft voting"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Hard voting uses the majority class prediction from individual models, while soft voting averages the predicted probabilities from each model. Soft voting often performs better as it uses more information."
+    },
+    {
+      "id": "q7",
+      "question": "What is stacking in ensemble learning?",
+      "options": [
+        "Training models one on top of another",
+        "Using a meta-model to learn how to combine base model predictions",
+        "Stacking multiple layers in a neural network",
+        "Combining models by simple averaging"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Stacking uses a meta-model (or blender) to learn how to optimally combine the predictions from base models. The meta-model is trained on the predictions of the base models using cross-validation."
+    },
+    {
+      "id": "q8",
+      "question": "Why is model diversity important in ensembles?",
+      "options": [
+        "It makes training faster",
+        "It reduces computational complexity",
+        "If all models make the same mistakes, combining them doesn't help",
+        "It makes the ensemble easier to interpret"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Model diversity is crucial because if all models make the same mistakes, combining them provides no benefit. Diverse models make different types of errors, so their combination can reduce overall error."
+    },
+    {
+      "id": "q9",
+      "question": "What type of base models work best with bagging?",
+      "options": [
+        "High-bias, low-variance models",
+        "High-variance, low-bias models",
+        "Simple linear models",
+        "Models that train very quickly"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Bagging works best with high-variance, low-bias models (like decision trees) because it reduces variance through averaging while maintaining the low bias of the base models."
+    },
+    {
+      "id": "q10",
+      "question": "What is a potential disadvantage of ensemble methods?",
+      "options": [
+        "They always overfit",
+        "They only work with neural networks",
+        "Increased computational cost and reduced interpretability",
+        "They require more training data"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Ensemble methods typically have increased computational cost (training and storing multiple models) and reduced interpretability (harder to understand why the ensemble made a particular prediction) compared to single models."
+    }
+  ]
+}

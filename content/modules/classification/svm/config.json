@@ -3,8 +3,11 @@
   "name": "Support Vector Machines (SVM)",
   "domain": "classification",
   "difficulty": "advanced",
-  "estimatedTime": 35,
-  "prerequisites": ["logistic-regression", "knn"],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "logistic-regression",
+    "knn"
+  ],
   "learningObjectives": [
     "Understand how SVM finds the maximum margin hyperplane",
     "Learn about support vectors and their role in classification",
@@ -27,7 +30,7 @@
   "interactive": {
     "algorithm": "SVM",
     "defaultParams": {
-      "C": 1.0,
+      "C": 1,
       "kernel": "rbf",
       "gamma": "scale",
       "dataset": "binary-classification"

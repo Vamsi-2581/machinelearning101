@@ -1,0 +1,187 @@
+{
+  "title": "Q-Learning Basics Quiz",
+  "description": "Test your understanding of Q-Learning and reinforcement learning concepts",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "What does the Q in Q-Learning stand for?",
+      "options": [
+        "Quantum",
+        "Quality",
+        "Query",
+        "Quick"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Q stands for 'Quality' - Q-values represent the quality or expected value of taking a particular action in a particular state. Higher Q-values indicate better actions."
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "question": "What are the main components of a reinforcement learning system?",
+      "options": [
+        "Features and labels",
+        "Agent, environment, state, action, and reward",
+        "Input and output layers",
+        "Training and testing sets"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Reinforcement learning consists of an agent that interacts with an environment. The agent observes states, takes actions, and receives rewards. This is fundamentally different from supervised learning which uses features and labels."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "In the Q-Learning update rule Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') - Q(s,a)], what does α represent?",
+      "options": [
+        "Discount factor",
+        "Learning rate",
+        "Exploration rate",
+        "Reward"
+      ],
+      "correctAnswer": 1,
+      "explanation": "α (alpha) is the learning rate, which controls how much new information overrides old Q-values. A higher learning rate means faster learning but potentially less stability. Typical values range from 0.01 to 0.5."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "What does the discount factor γ (gamma) control?",
+      "options": [
+        "How fast the agent learns",
+        "How much the agent explores",
+        "How much the agent values future rewards",
+        "How many episodes to train"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The discount factor γ controls how much the agent values future rewards compared to immediate rewards. γ close to 1 makes the agent far-sighted (values future rewards highly), while γ close to 0 makes it myopic (only cares about immediate rewards)."
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "question": "What is the exploration-exploitation tradeoff?",
+      "options": [
+        "Balancing training time vs accuracy",
+        "Balancing trying new actions vs using known good actions",
+        "Balancing learning rate vs discount factor",
+        "Balancing positive vs negative rewards"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The exploration-exploitation tradeoff is about balancing exploration (trying new actions to discover potentially better options) with exploitation (using the best known actions to maximize reward). Too much exploration wastes time on bad actions; too much exploitation may miss better strategies."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "How does epsilon-greedy policy work?",
+      "options": [
+        "Always choose the action with highest Q-value",
+        "Always choose random actions",
+        "With probability ε choose random action, otherwise choose best action",
+        "Choose actions proportional to their Q-values"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Epsilon-greedy policy balances exploration and exploitation: with probability ε (epsilon), it chooses a random action (explore), and with probability 1-ε, it chooses the action with the highest Q-value (exploit). Typical ε values are 0.1 to 0.3."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "What does it mean that Q-Learning is 'model-free'?",
+      "options": [
+        "It doesn't use neural networks",
+        "It doesn't need to know the environment's transition probabilities or reward function",
+        "It doesn't require training data",
+        "It doesn't have any parameters"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Model-free means Q-Learning doesn't need a model of the environment - it doesn't need to know transition probabilities (how likely each next state is) or the reward function. It learns directly from experience by interacting with the environment."
+    },
+    {
+      "id": "q8",
+      "type": "multiple-choice",
+      "question": "What is temporal difference (TD) learning?",
+      "options": [
+        "Learning from the difference between consecutive time steps",
+        "Learning from the difference between predicted and actual Q-values",
+        "Learning the time it takes to complete episodes",
+        "Learning to predict future states"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Temporal difference learning updates estimates based on the difference between the predicted value (current Q-value) and a better estimate (reward + discounted max future Q-value). This allows learning from each step rather than waiting for episode completion."
+    },
+    {
+      "id": "q9",
+      "type": "multiple-choice",
+      "question": "Why might Q-Learning be slow to converge in large environments?",
+      "options": [
+        "The Q-table becomes too large and takes time to update",
+        "The agent needs to visit all state-action pairs many times",
+        "Rewards are sparse and credit assignment is difficult",
+        "All of the above"
+      ],
+      "correctAnswer": 3,
+      "explanation": "All three factors contribute to slow convergence: large Q-tables require more memory and computation, all state-action pairs need sufficient visits for accurate estimates, and sparse rewards make it hard to determine which actions led to success (credit assignment problem)."
+    },
+    {
+      "id": "q10",
+      "type": "multiple-choice",
+      "question": "What is the purpose of epsilon decay?",
+      "options": [
+        "To make the algorithm run faster",
+        "To gradually shift from exploration to exploitation as learning progresses",
+        "To reduce the learning rate over time",
+        "To decrease the discount factor"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Epsilon decay gradually reduces the exploration rate (ε) over time. Early in training, high exploration helps discover good strategies. Later, as the agent learns, lower exploration allows it to exploit its knowledge. This is typically done by multiplying ε by a decay factor (e.g., 0.995) after each episode."
+    },
+    {
+      "id": "q11",
+      "type": "multiple-choice",
+      "question": "What does 'off-policy' mean in Q-Learning?",
+      "options": [
+        "The algorithm doesn't follow any policy",
+        "The algorithm learns the optimal policy while following a different (exploratory) policy",
+        "The algorithm learns multiple policies simultaneously",
+        "The algorithm doesn't use a policy at all"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Off-policy means Q-Learning learns the optimal policy (greedy with respect to Q-values) while the agent follows a different policy (e.g., epsilon-greedy for exploration). This separation allows learning from exploratory or even random actions."
+    },
+    {
+      "id": "q12",
+      "type": "multiple-choice",
+      "question": "In a grid-world, what typically happens to Q-values as you move away from the goal?",
+      "options": [
+        "They increase",
+        "They stay the same",
+        "They decrease",
+        "They become random"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Q-values typically decrease as you move away from the goal because they represent expected cumulative reward. States closer to the goal have higher Q-values (can reach reward sooner), while states farther away have lower Q-values (takes more steps, accumulating more step penalties)."
+    },
+    {
+      "id": "q13",
+      "type": "true-false",
+      "question": "True or False: Q-Learning requires labeled training data like supervised learning.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. Q-Learning is a reinforcement learning algorithm that learns from rewards and punishments through interaction with an environment. It doesn't need labeled examples like supervised learning. Instead, it learns which actions lead to high rewards through trial and error."
+    },
+    {
+      "id": "q14",
+      "type": "true-false",
+      "question": "True or False: A higher learning rate (α) always leads to better Q-Learning performance.",
+      "options": ["True", "False"],
+      "correctAnswer": 1,
+      "explanation": "False. While a higher learning rate can lead to faster initial learning, it can also cause instability and prevent convergence. The Q-values may oscillate and never settle on optimal values. A moderate learning rate (e.g., 0.1) typically provides a good balance between learning speed and stability."
+    },
+    {
+      "id": "q15",
+      "type": "true-false",
+      "question": "True or False: Q-Learning is guaranteed to find the optimal policy if all state-action pairs are visited infinitely often.",
+      "options": ["True", "False"],
+      "correctAnswer": 0,
+      "explanation": "True. Q-Learning has theoretical convergence guarantees: if all state-action pairs are visited infinitely often (ensured by sufficient exploration), the learning rate decreases appropriately, and rewards are bounded, Q-Learning will converge to the optimal Q-values and thus the optimal policy."
+    }
+  ]
+}

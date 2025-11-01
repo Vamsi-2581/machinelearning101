@@ -15,7 +15,7 @@ The platform uses Plausible Analytics, a privacy-focused, GDPR-compliant analyti
 ### 1. Create a Plausible Account
 
 1. Go to [Plausible.io](https://plausible.io) and create an account
-2. Add your website domain (e.g., `mlsimplified.com`)
+2. Add your website domain (e.g., `machinelearningsimplified.com`)
 3. Note your domain name for configuration
 
 ### 2. Configure Environment Variables

@@ -1,0 +1,127 @@
+{
+  "title": "Deep Q Networks Quiz",
+  "description": "Test your understanding of deep q networks",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of using a neural network instead of a Q-table in DQN?",
+      "options": [
+        "Neural networks train faster than Q-tables",
+        "Neural networks can handle large or continuous state spaces and generalize across similar states",
+        "Neural networks always find the optimal policy",
+        "Neural networks don't require exploration"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Neural networks can approximate Q-values for large or continuous state spaces where maintaining a Q-table would be impractical. They also generalize across similar states, allowing the agent to make good decisions in states it hasn't seen before."
+    },
+    {
+      "id": "q2",
+      "question": "What problem does experience replay solve in DQN?",
+      "options": [
+        "It makes the algorithm run faster",
+        "It reduces the memory requirements",
+        "It breaks temporal correlations between consecutive experiences and improves sample efficiency",
+        "It eliminates the need for exploration"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Experience replay stores past experiences in a buffer and samples random batches for training. This breaks the temporal correlation between consecutive experiences (which would cause instability) and allows each experience to be reused multiple times, improving sample efficiency."
+    },
+    {
+      "id": "q3",
+      "question": "Why does DQN use a separate target network?",
+      "options": [
+        "To double the learning speed",
+        "To provide stable target values and prevent oscillations during training",
+        "To reduce memory usage",
+        "To enable parallel training"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The target network provides stable target values for training. If we used the same network for both selecting actions and computing targets, the targets would constantly change, causing oscillations and instability. By updating the target network only periodically, we give the Q-network stable targets to learn from."
+    },
+    {
+      "id": "q4",
+      "question": "In the DQN update rule, what is the target value when an episode has NOT ended?",
+      "options": [
+        "target = r",
+        "target = r + \u03b3 * Q(s', a'; \u03b8)",
+        "target = r + \u03b3 * max_a' Q(s', a'; \u03b8\u207b)",
+        "target = \u03b3 * max_a' Q(s', a'; \u03b8\u207b)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "When the episode hasn't ended, the target is r + \u03b3 * max_a' Q(s', a'; \u03b8\u207b), where r is the immediate reward, \u03b3 is the discount factor, and max_a' Q(s', a'; \u03b8\u207b) is the maximum Q-value for the next state according to the target network. This represents the immediate reward plus the discounted future value."
+    },
+    {
+      "id": "q5",
+      "question": "What is the typical range for the learning rate in DQN?",
+      "options": [
+        "0.1 to 1.0 (same as supervised learning)",
+        "0.0001 to 0.001 (lower than supervised learning)",
+        "0.01 to 0.1 (higher than supervised learning)",
+        "Learning rate doesn't matter in DQN"
+      ],
+      "correctAnswer": 1,
+      "explanation": "DQN typically uses learning rates in the range of 0.0001 to 0.001, which is lower than typical supervised learning. This is because the targets are non-stationary (they change as the policy improves), so slower learning provides more stability."
+    },
+    {
+      "id": "q6",
+      "question": "How does the replay buffer improve sample efficiency?",
+      "options": [
+        "It generates synthetic experiences",
+        "It allows each experience to be used multiple times for training",
+        "It compresses experiences to save memory",
+        "It only stores the most important experiences"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The replay buffer stores experiences and allows them to be sampled multiple times for training. This means each interaction with the environment can contribute to many gradient updates, making much better use of the data compared to using each experience only once."
+    },
+    {
+      "id": "q7",
+      "question": "What happens to the exploration rate (epsilon) during DQN training?",
+      "options": [
+        "It remains constant throughout training",
+        "It increases over time to explore more",
+        "It decreases over time from high exploration to low exploration",
+        "It randomly fluctuates"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Epsilon typically starts at 1.0 (pure exploration) and decays over time to a small value like 0.01-0.1. This allows the agent to explore thoroughly early in training when it knows little, then exploit its learned policy more as training progresses."
+    },
+    {
+      "id": "q8",
+      "question": "What is a key limitation of standard DQN?",
+      "options": [
+        "It cannot learn from visual inputs",
+        "It only works with discrete action spaces",
+        "It requires a model of the environment",
+        "It cannot handle stochastic environments"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Standard DQN only works with discrete action spaces because it outputs a Q-value for each possible action. For continuous action spaces, different approaches like DDPG (Deep Deterministic Policy Gradient) or actor-critic methods are needed."
+    },
+    {
+      "id": "q9",
+      "question": "How often should the target network be updated?",
+      "options": [
+        "After every single step",
+        "Never - it should remain fixed",
+        "Periodically, every 10-100 episodes or 1000-10000 steps",
+        "Only at the end of training"
+      ],
+      "correctAnswer": 2,
+      "explanation": "The target network should be updated periodically to balance stability and learning progress. Updating too frequently (every step) defeats the purpose of having a target network, while updating too rarely prevents the target network from tracking improvements in the Q-network. Typical frequencies are every 10-100 episodes or 1000-10000 steps."
+    },
+    {
+      "id": "q10",
+      "question": "What problem does Double DQN address?",
+      "options": [
+        "Slow training speed",
+        "High memory usage",
+        "Overestimation bias in Q-values",
+        "Inability to handle continuous states"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Double DQN addresses the overestimation bias that occurs in standard DQN. The max operator in Q-learning tends to overestimate Q-values because it always selects the maximum, even if that maximum is due to noise. Double DQN uses the Q-network to select actions and the target network to evaluate them, reducing this bias."
+    }
+  ]
+}

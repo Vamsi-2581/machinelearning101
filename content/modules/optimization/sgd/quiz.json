@@ -1,0 +1,103 @@
+{
+  "title": "Sgd Quiz",
+  "description": "Test your understanding of sgd",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "sgd-basic",
+      "question": "What does the gradient in gradient descent represent?",
+      "options": [
+        "The direction of steepest decrease in the loss function",
+        "The direction of steepest increase in the loss function",
+        "The current value of the loss function",
+        "The learning rate parameter"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The gradient points in the direction of steepest increase. SGD moves in the opposite direction (negative gradient) to minimize the loss."
+    },
+    {
+      "id": "sgd-update-rule",
+      "question": "In the SGD update rule \u03b8 = \u03b8 - \u03b1\u2207L(\u03b8), what does \u03b1 represent?",
+      "options": [
+        "The gradient of the loss function",
+        "The current parameter values",
+        "The learning rate",
+        "The loss function value"
+      ],
+      "correctAnswer": 2,
+      "explanation": "\u03b1 (alpha) is the learning rate, which controls the step size in parameter updates."
+    },
+    {
+      "id": "learning-rate-high",
+      "question": "What happens if the learning rate is too high?",
+      "options": [
+        "The algorithm converges very slowly",
+        "The algorithm might overshoot the minimum and diverge",
+        "The algorithm gets stuck in local minima",
+        "The algorithm requires more memory"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A learning rate that's too high can cause the algorithm to take steps that are too large, potentially overshooting the minimum and causing divergence."
+    },
+    {
+      "id": "learning-rate-low",
+      "question": "What is the main disadvantage of using a very small learning rate?",
+      "options": [
+        "The algorithm becomes unstable",
+        "The algorithm uses more memory",
+        "The algorithm converges very slowly",
+        "The algorithm gets worse results"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A very small learning rate means tiny steps toward the minimum, resulting in very slow convergence that may require many iterations."
+    },
+    {
+      "id": "sgd-direction",
+      "question": "Why does SGD move in the negative gradient direction?",
+      "options": [
+        "To increase the loss function",
+        "To minimize the loss function",
+        "To maintain the current parameter values",
+        "To maximize the learning rate"
+      ],
+      "correctAnswer": 1,
+      "explanation": "SGD moves in the negative gradient direction because the gradient points uphill (toward higher loss), so moving in the opposite direction leads downhill toward lower loss."
+    },
+    {
+      "id": "convergence-criteria",
+      "question": "Which of the following is a good convergence criterion for SGD?",
+      "options": [
+        "When the learning rate reaches zero",
+        "When the gradient becomes very small",
+        "When the parameters become negative",
+        "When the loss function becomes positive"
+      ],
+      "correctAnswer": 1,
+      "explanation": "When the gradient becomes very small, it indicates we're near a minimum where the slope is nearly flat, suggesting convergence."
+    },
+    {
+      "id": "loss-landscape",
+      "question": "Which loss landscape would be easiest for SGD to optimize?",
+      "options": [
+        "A function with many local minima",
+        "A saddle point function",
+        "A convex quadratic bowl",
+        "A highly elongated valley"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A convex quadratic bowl has a single global minimum and smooth gradients pointing toward it from all directions, making it ideal for SGD."
+    },
+    {
+      "id": "sgd-applications",
+      "question": "SGD is commonly used to train which of the following?",
+      "options": [
+        "Only linear regression models",
+        "Only neural networks",
+        "Any model with a differentiable loss function",
+        "Only classification models"
+      ],
+      "correctAnswer": 2,
+      "explanation": "SGD can optimize any differentiable loss function, making it applicable to linear regression, neural networks, logistic regression, SVMs, and many other models."
+    }
+  ]
+}

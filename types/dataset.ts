@@ -2,7 +2,7 @@
  * Dataset type definitions for ML learning platform
  */
 
-export type DatasetType = 'regression' | 'classification' | 'clustering';
+export type DatasetType = 'regression' | 'classification' | 'clustering' | 'detection';
 
 export interface DataPoint {
   /** Feature values for this data point */
@@ -60,8 +60,8 @@ export function validateDataset(dataset: Dataset): DatasetValidationResult {
   if (!dataset.type) {
     errors.push('Dataset must have a type');
   }
-  if (!['regression', 'classification', 'clustering'].includes(dataset.type)) {
-    errors.push('Dataset type must be regression, classification, or clustering');
+  if (!['regression', 'classification', 'clustering', 'detection'].includes(dataset.type)) {
+    errors.push('Dataset type must be regression, classification, clustering, or detection');
   }
 
   // Check data array
@@ -113,7 +113,7 @@ export function validateDataset(dataset: Dataset): DatasetValidationResult {
     });
 
     // For supervised learning, check labels
-    if (dataset.type === 'regression' || dataset.type === 'classification') {
+    if (dataset.type === 'regression' || dataset.type === 'classification' || dataset.type === 'detection') {
       if (point.label === undefined || point.label === null) {
         errors.push(`Data point at index ${index} missing required label for ${dataset.type}`);
       }

@@ -1,0 +1,104 @@
+{
+  "title": "Dbscan Quiz",
+  "description": "Test your understanding of dbscan",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of DBSCAN over K-Means clustering?",
+      "options": [
+        "DBSCAN is always faster than K-Means",
+        "DBSCAN can find arbitrarily shaped clusters and doesn't require specifying the number of clusters",
+        "DBSCAN always produces better silhouette scores",
+        "DBSCAN works better with high-dimensional data"
+      ],
+      "correctAnswer": 1,
+      "explanation": "DBSCAN's main advantages are its ability to discover clusters of arbitrary shapes (not just spherical) and automatically determine the number of clusters based on data density, unlike K-Means which requires you to specify K beforehand."
+    },
+    {
+      "id": "q2",
+      "question": "In DBSCAN, what is a 'core point'?",
+      "options": [
+        "The center of a cluster",
+        "A point that has at least MinPts points within distance \u03b5",
+        "A point that is exactly \u03b5 distance from the cluster center",
+        "The first point selected in each cluster"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A core point is defined as a point that has at least MinPts points (including itself) within distance \u03b5. Core points form the dense regions that define clusters in DBSCAN."
+    },
+    {
+      "id": "q3",
+      "question": "What happens to points that are neither core points nor border points in DBSCAN?",
+      "options": [
+        "They are assigned to the nearest cluster",
+        "They are classified as noise points",
+        "They form their own single-point clusters",
+        "They are removed from the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Points that are neither core points nor border points are classified as noise points (outliers). This is one of DBSCAN's key features - automatic outlier detection."
+    },
+    {
+      "id": "q4",
+      "question": "If you increase the epsilon (\u03b5) parameter in DBSCAN, what is the most likely effect?",
+      "options": [
+        "More clusters will be formed",
+        "Fewer clusters will be formed",
+        "The algorithm will run faster",
+        "More points will be classified as noise"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Increasing \u03b5 makes the neighborhood radius larger, which means more points will be considered neighbors. This typically results in fewer, larger clusters as previously separate clusters may merge together."
+    },
+    {
+      "id": "q5",
+      "question": "What is a 'border point' in DBSCAN?",
+      "options": [
+        "A point at the edge of the dataset",
+        "A point that defines cluster boundaries",
+        "A non-core point that is within \u03b5 distance of a core point",
+        "A point that belongs to multiple clusters"
+      ],
+      "correctAnswer": 2,
+      "explanation": "A border point is a non-core point (has fewer than MinPts neighbors) that is within distance \u03b5 of at least one core point. Border points belong to clusters but are on the periphery."
+    },
+    {
+      "id": "q6",
+      "question": "Which parameter in DBSCAN controls the minimum density required to form a cluster?",
+      "options": [
+        "Epsilon (\u03b5)",
+        "MinPts",
+        "Both \u03b5 and MinPts together",
+        "The distance metric"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Both \u03b5 and MinPts together control the minimum density. \u03b5 defines the neighborhood size, and MinPts defines how many points must be in that neighborhood to be considered dense enough to form a cluster."
+    },
+    {
+      "id": "q7",
+      "question": "In which scenario would DBSCAN likely perform better than K-Means?",
+      "options": [
+        "When you know exactly how many clusters you want",
+        "When clusters are perfectly spherical and well-separated",
+        "When you have crescent-shaped or elongated clusters with outliers",
+        "When you need the fastest possible clustering algorithm"
+      ],
+      "correctAnswer": 2,
+      "explanation": "DBSCAN excels with non-spherical cluster shapes (like crescents or elongated clusters) and automatically handles outliers by marking them as noise, while K-Means assumes spherical clusters and is sensitive to outliers."
+    },
+    {
+      "id": "q8",
+      "question": "What is the time complexity of DBSCAN in the worst case?",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n\u00b2)",
+        "O(n\u00b3)"
+      ],
+      "correctAnswer": 2,
+      "explanation": "DBSCAN has O(n\u00b2) time complexity in the worst case because it needs to compute distances between all pairs of points to find neighborhoods. However, with spatial indexing structures like KD-trees, this can be improved to O(n log n)."
+    }
+  ],
+  "timeLimit": 600
+}

@@ -3,8 +3,10 @@
   "name": "Hierarchical Clustering",
   "domain": "clustering",
   "difficulty": "intermediate",
-  "estimatedTime": 30,
-  "prerequisites": ["k-means"],
+  "estimatedTime": 14,
+  "prerequisites": [
+    "k-means"
+  ],
   "learningObjectives": [
     "Understand agglomerative and divisive hierarchical clustering",
     "Learn about linkage criteria (single, complete, average, Ward)",

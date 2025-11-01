@@ -87,8 +87,8 @@
                 title="Training Accuracy" x-label="Epoch" y-label="Accuracy" :show-legend="false" height="300px" />
             </div>
 
-            <ConfusionMatrix v-if="metrics && metrics.confusionMatrix" :matrix="metrics.confusionMatrix"
-              :labels="['Class 0', 'Class 1']" title="Confusion Matrix" />
+            <ConfusionMatrix v-if="metrics && metrics.confusionMatrix" :confusionMatrix="metrics.confusionMatrix"
+              :classLabels="['Class 0', 'Class 1']" title="Confusion Matrix" />
           </div>
         </template>
       </InteractiveSection>

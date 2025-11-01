@@ -26,10 +26,10 @@
               <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Email</h3>
                 <a 
-                  href="mailto:hello@mlsimplified.com" 
+                  href="mailto:hello@machinelearningsimplified.com" 
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
                 >
-                  hello@mlsimplified.com
+                  hello@machinelearningsimplified.com
                 </a>
                 <p class="text-sm text-gray-600 mt-1">We typically respond within 24-48 hours</p>
               </div>
@@ -44,7 +44,7 @@
               <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">GitHub</h3>
                 <a 
-                  href="https://github.com/mlsimplified/platform" 
+                  href="https://github.com/mlsimplified-app/platform" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
@@ -54,26 +54,7 @@
                 <p class="text-sm text-gray-600 mt-1">Report issues, contribute, or star the project</p>
               </div>
             </div>
-
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <Icon name="mdi:twitter" class="w-6 h-6 text-green-600" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-1">Social Media</h3>
-                <a 
-                  href="https://twitter.com/mlsimplified" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
-                >
-                  @mlsimplified
-                </a>
-                <p class="text-sm text-gray-600 mt-1">Follow us for updates and ML tips</p>
-              </div>
-            </div>
+ 
           </div>
 
           <!-- Quick Links -->
@@ -106,7 +87,7 @@
               </li>
               <li>
                 <a 
-                  href="https://github.com/mlsimplified/platform/issues" 
+                  href="https://github.com/mlsimplified-app/platform/issues" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
@@ -119,86 +100,7 @@
         </div>
 
         <!-- Contact Form & Newsletter -->
-        <div>
-          <!-- Contact Form -->
-          <div class="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
-            <form @submit.prevent="handleContactSubmit" class="space-y-4">
-              <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  v-model="contactForm.name"
-                  type="text"
-                  required
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  v-model="contactForm.email"
-                  type="email"
-                  required
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-
-              <div>
-                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">
-                  Subject
-                </label>
-                <input
-                  id="subject"
-                  v-model="contactForm.subject"
-                  type="text"
-                  required
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div>
-                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  v-model="contactForm.message"
-                  required
-                  rows="5"
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none"
-                  placeholder="Tell us what's on your mind..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                :disabled="contactSubmitting"
-                class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {{ contactSubmitting ? 'Sending...' : 'Send Message' }}
-              </button>
-
-              <p v-if="contactSuccess" class="text-sm text-green-600 text-center">
-                <Icon name="mdi:check-circle" class="inline w-4 h-4 mr-1" />
-                Message sent! We'll get back to you soon.
-              </p>
-              <p v-if="contactError" class="text-sm text-red-600 text-center">
-                <Icon name="mdi:alert-circle" class="inline w-4 h-4 mr-1" />
-                {{ contactError }}
-              </p>
-            </form>
-          </div>
-
+        <div> 
           <!-- Newsletter Subscription -->
           <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg p-6 text-white">
             <h2 class="text-2xl font-bold mb-2">Stay Updated</h2>
@@ -234,7 +136,7 @@
               </p>
             </form>
             <p class="text-xs text-blue-200 mt-4">
-              We respect your privacy. Unsubscribe anytime. No spam, ever.
+             Unsubscribe anytime. No spam, ever.
             </p>
           </div>
 
@@ -245,9 +147,8 @@
               Privacy Notice
             </h3>
             <p class="text-xs text-gray-600">
-              We take your privacy seriously. Your contact information is used only to respond to your 
-              inquiry or send you updates you've subscribed to. We never share your information with 
-              third parties. You can unsubscribe from our newsletter at any time.
+              We take your privacy seriously. We never share your information with 
+              third parties.
             </p>
           </div>
         </div>
@@ -295,7 +196,7 @@ const handleContactSubmit = async () => {
   try {
     // In a real implementation, this would send to a backend API or email service
     // For now, we'll simulate the submission with mailto link
-    const mailtoLink = `mailto:hello@mlsimplified.com?subject=${encodeURIComponent(contactForm.value.subject)}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:hello@machinelearningsimplified.com?subject=${encodeURIComponent(contactForm.value.subject)}&body=${encodeURIComponent(
       `Name: ${contactForm.value.name}\nEmail: ${contactForm.value.email}\n\nMessage:\n${contactForm.value.message}`
     )}`
     
@@ -315,7 +216,7 @@ const handleContactSubmit = async () => {
       contactSuccess.value = false
     }, 3000)
   } catch (error) {
-    contactError.value = 'Failed to send message. Please try emailing us directly at hello@mlsimplified.com'
+    contactError.value = 'Failed to send message. Please try emailing us directly at hello@machinelearningsimplified.com'
   } finally {
     contactSubmitting.value = false
   }

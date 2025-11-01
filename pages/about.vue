@@ -13,7 +13,7 @@
 
       <!-- Mission Section -->
       <section class="mb-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Mission</h2>
         <div class="prose prose-lg max-w-none text-gray-700">
           <p class="mb-4">
             Machine learning is transforming the world, but learning it can be intimidating. Complex mathematics, 
@@ -25,7 +25,7 @@
             interactive visualizations, we make ML concepts accessible to everyone.
           </p>
           <p>
-            Our platform runs entirely in your browser with zero setup required. Adjust parameters, see results 
+            ML Simplified runs entirely in your browser with zero setup required. Adjust parameters, see results 
             instantly, and build intuition through experimentation. Whether you're a student, professional, or 
             curious learner, ML Simplified helps you understand how algorithms really work.
           </p>
@@ -127,7 +127,7 @@
           <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">Privacy-Focused</h3>
             <p class="text-sm text-gray-600">
-              Your progress is saved locally. No accounts required, no data collection
+              When analytics is enabled, we only collect anonymous data.
             </p>
           </div>
         </div>
@@ -147,7 +147,7 @@
         </p>
         <div class="flex flex-wrap gap-4">
           <a
-            href="https://github.com/mlsimplified/platform"
+            href="https://github.com/mlsimplified-app/platform"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

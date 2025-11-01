@@ -64,12 +64,18 @@ const xLabels = computed(() => {
   if (props.classLabels) {
     return props.classLabels.map(label => `Predicted ${label}`);
   }
-  return props.confusionMatrix[0]?.map((_, i) => `Predicted ${i}`);
+  if (!props.confusionMatrix || props.confusionMatrix.length === 0 || !props.confusionMatrix[0]) {
+    return [];
+  }
+  return props.confusionMatrix[0].map((_, i) => `Predicted ${i}`);
 });
 
 const yLabels = computed(() => {
   if (props.classLabels) {
     return props.classLabels.map(label => `Actual ${label}`);
+  }
+  if (!props.confusionMatrix || props.confusionMatrix.length === 0) {
+    return [];
   }
   return props.confusionMatrix.map((_, i) => `Actual ${i}`);
 });

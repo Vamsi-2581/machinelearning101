@@ -1,0 +1,33 @@
+{
+  "id": "data-augmentation",
+  "name": "Data Augmentation",
+  "domain": "preprocessing",
+  "difficulty": "intermediate",
+  "estimatedTime": 11,
+  "prerequisites": [
+    "feature-scaling"
+  ],
+  "learningObjectives": [
+    "Understand the importance of data augmentation in machine learning",
+    "Learn different augmentation techniques: noise, rotation, scaling, translation",
+    "Explore advanced methods like SMOTE and Mixup",
+    "Visualize how augmentation increases dataset diversity and size"
+  ],
+  "interactive": {
+    "algorithm": "DataAugmentation",
+    "defaultParams": {
+      "method": "noise",
+      "numSamples": 100,
+      "numFeatures": 2,
+      "numClasses": 2,
+      "augmentationFactor": 3,
+      "noiseLevel": 0.1,
+      "maxAngle": 30,
+      "scaleRange": [
+        0.8,
+        1.2
+      ],
+      "translationRange": 0.1
+    }
+  }
+}

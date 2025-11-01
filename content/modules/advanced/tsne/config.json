@@ -3,8 +3,10 @@
   "name": "t-SNE Visualization",
   "domain": "advanced",
   "difficulty": "advanced",
-  "estimatedTime": 40,
-  "prerequisites": ["pca"],
+  "estimatedTime": 8,
+  "prerequisites": [
+    "pca"
+  ],
   "learningObjectives": [
     "Understand how t-SNE differs from linear dimensionality reduction",
     "Learn the role of perplexity in controlling local vs global structure",

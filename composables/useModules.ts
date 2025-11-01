@@ -7,6 +7,7 @@ import { useProgressStore } from '~/stores/progress';
 
 /**
  * Domain definitions with metadata
+ * Requirements: 1.1, 1.2, 2.1, 3.1, 4.1, 12.1
  */
 export const DOMAINS: Record<Domain, Omit<DomainInfo, 'modules'>> = {
   regression: {
@@ -44,7 +45,28 @@ export const DOMAINS: Record<Domain, Omit<DomainInfo, 'modules'>> = {
     icon: 'ion:md-trending-up',
     color: 'red',
   },
-  advanced: {
+  'computer-vision': {
+    id: 'computer-vision',
+    name: 'Computer Vision',
+    description: 'Learn how machines interpret and understand visual information',
+    icon: 'material-symbols:image-search',
+    color: 'cyan',
+  },
+  nlp: {
+    id: 'nlp',
+    name: 'Natural Language Processing',
+    description: 'Discover how machines understand and generate human language',
+    icon: 'material-symbols:chat-bubble',
+    color: 'indigo',
+  },
+  'reinforcement-learning': {
+    id: 'reinforcement-learning',
+    name: 'Reinforcement Learning',
+    description: 'Explore how agents learn through interaction and rewards',
+    icon: 'game-icons:brain',
+    color: 'pink',
+  },
+    advanced: {
     id: 'advanced',
     name: 'Advanced Topics',
     description: 'Dive into advanced machine learning concepts and techniques',
@@ -56,17 +78,83 @@ export const DOMAINS: Record<Domain, Omit<DomainInfo, 'modules'>> = {
 /**
  * Module registry - maps module IDs to their configurations
  * This is a static registry that should match the content structure
+ * Requirements: 12.2, 12.3, 12.4
  */
 const MODULE_REGISTRY: Record<string, { domain: Domain; path: string }> = {
+  // Regression Domain (5 modules)
   'linear-regression': { domain: 'regression', path: '/modules/regression/linear-regression' },
+  'polynomial-regression': { domain: 'regression', path: '/modules/regression/polynomial-regression' },
+  'ridge-regression': { domain: 'regression', path: '/modules/regression/ridge-regression' },
+  'lasso-regression': { domain: 'regression', path: '/modules/regression/lasso-regression' },
+  'elastic-net-regression': { domain: 'regression', path: '/modules/regression/elastic-net-regression' },
+
+  // Classification Domain (9 modules)
   'logistic-regression': { domain: 'classification', path: '/modules/classification/logistic-regression' },
+  'knn': { domain: 'classification', path: '/modules/classification/knn' },
+  'decision-trees': { domain: 'classification', path: '/modules/classification/decision-trees' },
+  'svm': { domain: 'classification', path: '/modules/classification/svm' },
+  'random-forest': { domain: 'classification', path: '/modules/classification/random-forest' },
+  'naive-bayes': { domain: 'classification', path: '/modules/classification/naive-bayes' },
+  'gradient-boosting': { domain: 'classification', path: '/modules/classification/gradient-boosting' },
+  'adaboost': { domain: 'classification', path: '/modules/classification/adaboost' },
+  'multi-class-classification': { domain: 'classification', path: '/modules/classification/multi-class-classification' },
+
+  // Clustering Domain (7 modules)
   'k-means': { domain: 'clustering', path: '/modules/clustering/k-means' },
+  'hierarchical-clustering': { domain: 'clustering', path: '/modules/clustering/hierarchical-clustering' },
+  'dbscan': { domain: 'clustering', path: '/modules/clustering/dbscan' },
+  'gaussian-mixture-models': { domain: 'clustering', path: '/modules/clustering/gaussian-mixture-models' },
+  'mean-shift': { domain: 'clustering', path: '/modules/clustering/mean-shift' },
+  'spectral-clustering': { domain: 'clustering', path: '/modules/clustering/spectral-clustering' },
+  'cluster-evaluation': { domain: 'clustering', path: '/modules/clustering/cluster-evaluation' },
+
+  // Preprocessing Domain (7 modules)
   'feature-scaling': { domain: 'preprocessing', path: '/modules/preprocessing/feature-scaling' },
   'missing-value-imputation': { domain: 'preprocessing', path: '/modules/preprocessing/missing-value-imputation' },
+  'feature-encoding': { domain: 'preprocessing', path: '/modules/preprocessing/feature-encoding' },
+  'feature-selection': { domain: 'preprocessing', path: '/modules/preprocessing/feature-selection' },
+  'dimensionality-reduction': { domain: 'preprocessing', path: '/modules/preprocessing/dimensionality-reduction' },
+  'outlier-detection': { domain: 'preprocessing', path: '/modules/preprocessing/outlier-detection' },
+  'data-augmentation': { domain: 'preprocessing', path: '/modules/preprocessing/data-augmentation' },
+
+  // Optimization Domain (7 modules)
   'gradient-descent': { domain: 'optimization', path: '/modules/optimization/gradient-descent' },
+  'sgd': { domain: 'optimization', path: '/modules/optimization/sgd' },
+  'adam-optimizer': { domain: 'optimization', path: '/modules/optimization/adam-optimizer' },
+  'rmsprop-optimizer': { domain: 'optimization', path: '/modules/optimization/rmsprop-optimizer' },
+  'learning-rate-scheduling': { domain: 'optimization', path: '/modules/optimization/learning-rate-scheduling' },
+  'momentum-nesterov': { domain: 'optimization', path: '/modules/optimization/momentum-nesterov' },
+
+  // Computer Vision Domain (5 modules)
+  'image-classification': { domain: 'computer-vision', path: '/modules/computer-vision/image-classification' },
+  'cnn': { domain: 'computer-vision', path: '/modules/computer-vision/cnn' },
+  'object-detection': { domain: 'computer-vision', path: '/modules/computer-vision/object-detection' },
+  'image-segmentation': { domain: 'computer-vision', path: '/modules/computer-vision/image-segmentation' },
+  'transfer-learning': { domain: 'computer-vision', path: '/modules/computer-vision/transfer-learning' },
+
+  // Natural Language Processing Domain (5 modules)
+  'text-preprocessing': { domain: 'nlp', path: '/modules/nlp/text-preprocessing' },
+  'word-embeddings': { domain: 'nlp', path: '/modules/nlp/word-embeddings' },
+  'sentiment-analysis': { domain: 'nlp', path: '/modules/nlp/sentiment-analysis' },
+  'named-entity-recognition': { domain: 'nlp', path: '/modules/nlp/named-entity-recognition' },
+  'text-generation': { domain: 'nlp', path: '/modules/nlp/text-generation' },
+
+  // Reinforcement Learning Domain (5 modules)
+  'q-learning': { domain: 'reinforcement-learning', path: '/modules/reinforcement-learning/q-learning' },
+  'deep-q-networks': { domain: 'reinforcement-learning', path: '/modules/reinforcement-learning/deep-q-networks' },
+  'policy-gradients': { domain: 'reinforcement-learning', path: '/modules/reinforcement-learning/policy-gradients' },
+  'actor-critic': { domain: 'reinforcement-learning', path: '/modules/reinforcement-learning/actor-critic' },
+  'multi-armed-bandits': { domain: 'reinforcement-learning', path: '/modules/reinforcement-learning/multi-armed-bandits' },
+
+  // Advanced Domain (8 modules)
   'pca': { domain: 'advanced', path: '/modules/advanced/pca' },
   'tsne': { domain: 'advanced', path: '/modules/advanced/tsne' },
   'neural-network': { domain: 'advanced', path: '/modules/advanced/neural-network' },
+  'autoencoders': { domain: 'advanced', path: '/modules/advanced/autoencoders' },
+  'gan': { domain: 'advanced', path: '/modules/advanced/gan' },
+  'attention-mechanisms': { domain: 'advanced', path: '/modules/advanced/attention-mechanisms' },
+  'hyperparameter-tuning': { domain: 'advanced', path: '/modules/advanced/hyperparameter-tuning' },
+  'model-ensembling': { domain: 'advanced', path: '/modules/advanced/model-ensembling' },
 };
 
 export function useModules() {

@@ -17,8 +17,7 @@
           </ControlPanel>
         </template>
 
-        <template #visualization>
-          <VisualizationPanel>
+        <template #visualization> 
             <div class="space-y-4">
               <!-- Before/After Comparison -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,8 +61,7 @@
                 <h3 class="text-lg font-semibold mb-2">Data Visualization</h3>
                 <BaseChart :data="scatterData" :layout="scatterLayout" />
               </div>
-            </div>
-          </VisualizationPanel>
+            </div> 
         </template>
       </InteractiveSection>
     </template>

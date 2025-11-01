@@ -1,0 +1,147 @@
+{
+  "id": "adaboost",
+  "name": "AdaBoost",
+  "domain": "classification",
+  "difficulty": "intermediate",
+  "estimatedTime": 8,
+  "prerequisites": [
+    "logistic-regression",
+    "naive-bayes"
+  ],
+  "learningObjectives": [
+    "Understand the AdaBoost (Adaptive Boosting) algorithm and adaptive sample weighting",
+    "Learn how weak learners are sequentially trained with focus on misclassified examples",
+    "Explore the exponential loss function and its role in AdaBoost",
+    "Understand the calculation of weak learner weights (alpha values)",
+    "Compare AdaBoost with other boosting methods like Gradient Boosting"
+  ],
+  "tags": [
+    "classification",
+    "supervised-learning",
+    "ensemble",
+    "boosting",
+    "adaptive-boosting",
+    "decision-stumps"
+  ],
+  "interactive": {
+    "algorithm": "AdaBoost",
+    "defaultParams": {
+      "nEstimators": 50,
+      "learningRate": 1,
+      "algorithm": "SAMME",
+      "dataset": "binary-classification"
+    },
+    "controls": [
+      {
+        "id": "dataset",
+        "type": "select",
+        "label": "Dataset",
+        "options": [
+          {
+            "label": "Binary Classification",
+            "value": "binary-classification"
+          },
+          {
+            "label": "Linearly Separable",
+            "value": "linearly-separable"
+          },
+          {
+            "label": "Non-linear Boundary",
+            "value": "non-linear"
+          }
+        ],
+        "tooltip": "Choose a classification dataset to train on",
+        "group": "Data"
+      },
+      {
+        "id": "nEstimators",
+        "type": "slider",
+        "label": "Number of Estimators",
+        "min": 10,
+        "max": 200,
+        "step": 10,
+        "tooltip": "Number of weak learners (decision stumps) in the ensemble. More estimators can improve performance but may cause overfitting.",
+        "group": "Ensemble Parameters"
+      },
+      {
+        "id": "learningRate",
+        "type": "slider",
+        "label": "Learning Rate",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "tooltip": "Shrinks the contribution of each weak learner. Lower values can improve generalization but may require more estimators.",
+        "group": "Ensemble Parameters"
+      },
+      {
+        "id": "algorithm",
+        "type": "select",
+        "label": "Algorithm Variant",
+        "options": [
+          {
+            "label": "SAMME",
+            "value": "SAMME"
+          },
+          {
+            "label": "SAMME.R",
+            "value": "SAMME.R"
+          }
+        ],
+        "tooltip": "SAMME is the discrete AdaBoost algorithm, SAMME.R uses class probabilities for faster convergence.",
+        "group": "Algorithm"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "scatter2d",
+        "title": "Classification Data & Decision Boundary",
+        "description": "Scatter plot showing the classes and the AdaBoost decision boundary. Marker sizes represent sample weights."
+      },
+      {
+        "type": "heatmap",
+        "title": "Decision Boundary (Probability)",
+        "description": "Heatmap showing the predicted class probabilities across the feature space"
+      },
+      {
+        "type": "line",
+        "title": "Exponential Loss",
+        "description": "AdaBoost's exponential loss function during training iterations"
+      },
+      {
+        "type": "line",
+        "title": "Training Accuracy",
+        "description": "Classification accuracy on training data over iterations"
+      },
+      {
+        "type": "line",
+        "title": "Weighted Error",
+        "description": "Weighted error of each weak learner during training"
+      },
+      {
+        "type": "bar",
+        "title": "Weak Learner Weights (α)",
+        "description": "Alpha values showing the contribution of each weak learner to the final ensemble"
+      },
+      {
+        "type": "bar",
+        "title": "Feature Importance",
+        "description": "Relative importance of each feature based on usage in decision stumps"
+      },
+      {
+        "type": "scatter2d",
+        "title": "Sample Weights",
+        "description": "Final sample weights after training, showing which examples were hardest to classify"
+      },
+      {
+        "type": "heatmap",
+        "title": "Confusion Matrix",
+        "description": "Matrix showing classification performance across all classes"
+      }
+    ],
+    "datasets": [
+      "binary-classification",
+      "linearly-separable",
+      "non-linear"
+    ]
+  }
+}

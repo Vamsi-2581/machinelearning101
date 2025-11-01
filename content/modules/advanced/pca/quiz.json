@@ -2,7 +2,6 @@
   "id": "pca-quiz",
   "moduleId": "pca",
   "title": "Principal Component Analysis Quiz",
-  "passingScore": 10,
   "questions": [
     {
       "id": "pca-q1",
@@ -16,6 +15,95 @@
       ],
       "correctAnswer": 1,
       "explanation": "PCA is a dimensionality reduction technique that transforms high-dimensional data into a lower-dimensional space while preserving as much variance (information) as possible. It finds new axes (principal components) that capture the directions of maximum variance in the data, allowing you to represent complex data with fewer features."
+    },
+    {
+      "id": "pca-q2",
+      "text": "What are principal components in PCA?",
+      "type": "multiple-choice",
+      "options": [
+        "The original features of the dataset",
+        "New orthogonal axes that capture maximum variance",
+        "The mean values of each feature",
+        "The outliers in the dataset"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Principal components are new orthogonal (perpendicular) axes created by PCA that point in the directions of maximum variance in the data. The first principal component captures the most variance, the second captures the second most (orthogonal to the first), and so on. These components are linear combinations of the original features."
+    },
+    {
+      "id": "pca-q3",
+      "text": "Why is feature scaling (standardization) important before applying PCA?",
+      "type": "multiple-choice",
+      "options": [
+        "It makes the algorithm run faster",
+        "It prevents features with larger scales from dominating the principal components",
+        "It is required for the mathematical calculations to work",
+        "It improves the accuracy of predictions"
+      ],
+      "correctAnswer": 1,
+      "explanation": "PCA is sensitive to the scale of features because it finds directions of maximum variance. Features with larger scales (e.g., income in thousands vs. age in tens) will naturally have larger variance and dominate the principal components. Standardizing features to zero mean and unit variance ensures all features contribute equally to the analysis."
+    },
+    {
+      "id": "pca-q4",
+      "text": "What does the explained variance ratio tell you?",
+      "type": "multiple-choice",
+      "options": [
+        "The error rate of the PCA transformation",
+        "The proportion of total variance captured by each principal component",
+        "The correlation between original features",
+        "The number of components needed"
+      ],
+      "correctAnswer": 1,
+      "explanation": "The explained variance ratio indicates what proportion of the total variance in the data is captured by each principal component. For example, if PC1 has an explained variance ratio of 0.7, it captures 70% of the total variance. This helps you understand how much information each component preserves and decide how many components to keep."
+    },
+    {
+      "id": "pca-q5",
+      "text": "What is a scree plot used for in PCA?",
+      "type": "multiple-choice",
+      "options": [
+        "To visualize the original data distribution",
+        "To show the explained variance for each principal component",
+        "To display the correlation matrix",
+        "To plot the decision boundary"
+      ],
+      "correctAnswer": 1,
+      "explanation": "A scree plot displays the explained variance (or eigenvalues) for each principal component in descending order. It helps you decide how many components to keep by looking for an 'elbow' where the explained variance drops off significantly. Components before the elbow capture most of the variance, while those after add little additional information."
+    },
+    {
+      "id": "pca-q6",
+      "text": "If you have a dataset with 100 features and apply PCA to reduce it to 3 components that explain 95% of the variance, what have you achieved?",
+      "type": "multiple-choice",
+      "options": [
+        "Lost 95% of the information",
+        "Reduced dimensionality by 97% while retaining 95% of the information",
+        "Improved the accuracy by 95%",
+        "Removed 5% of the outliers"
+      ],
+      "correctAnswer": 1,
+      "explanation": "You've reduced the dimensionality from 100 to 3 features (a 97% reduction) while retaining 95% of the variance (information) in the data. This is the power of PCA - it can dramatically reduce the number of features needed to represent your data while preserving most of the important patterns and structure."
+    },
+    {
+      "id": "pca-q7",
+      "text": "When is PCA most appropriate to use?",
+      "type": "multiple-choice",
+      "options": [
+        "When you need to interpret individual feature importance",
+        "When you have high-dimensional data with correlated features",
+        "When you want to improve classification accuracy",
+        "When your data has many categorical variables"
+      ],
+      "correctAnswer": 1,
+      "explanation": "PCA is most useful when you have high-dimensional data with correlated features. It can reduce redundancy, speed up algorithms, help with visualization, and mitigate the curse of dimensionality. However, PCA creates new features that are combinations of original ones, making interpretation harder. It also works best with continuous numerical data, not categorical variables."
+    },
+    {
+      "id": "pca-q8",
+      "text": "True or False: PCA is a supervised learning technique that uses labels to find principal components.",
+      "type": "true-false",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correctAnswer": 1,
+      "explanation": "False. PCA is an unsupervised learning technique that finds principal components based solely on the variance structure of the features, without using any labels. It doesn't know or care about class labels - it simply finds the directions of maximum variance in the data. This is different from supervised techniques like Linear Discriminant Analysis (LDA) that do use labels."
     }
   ]
 }

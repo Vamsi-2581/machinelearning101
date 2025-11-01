@@ -30,8 +30,7 @@
           </ControlPanel>
         </template>
 
-        <template #visualization>
-          <VisualizationPanel>
+        <template #visualization> 
             <div class="space-y-4">
               <!-- Missing Data Pattern -->
               <div>
@@ -147,8 +146,7 @@
                   :layout="distributionLayout"
                 />
               </div>
-            </div>
-          </VisualizationPanel>
+            </div> 
         </template>
       </InteractiveSection>
     </template>

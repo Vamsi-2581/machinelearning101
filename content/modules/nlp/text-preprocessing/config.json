@@ -1,0 +1,118 @@
+{
+  "id": "text-preprocessing",
+  "name": "Text Preprocessing & Tokenization",
+  "domain": "nlp",
+  "difficulty": "beginner",
+  "estimatedTime": 8,
+  "prerequisites": [],
+  "learningObjectives": [
+    "Understand the fundamentals of text tokenization",
+    "Learn different tokenization strategies (word, sentence, character)",
+    "Explore text normalization techniques (lowercasing, stemming)",
+    "Identify and handle stopwords and punctuation",
+    "Build vocabulary from tokenized text"
+  ],
+  "tags": [
+    "nlp",
+    "tokenization",
+    "preprocessing",
+    "text-analysis",
+    "normalization"
+  ],
+  "interactive": {
+    "algorithm": "Tokenizer",
+    "defaultParams": {
+      "lowercase": true,
+      "removePunctuation": false,
+      "removeStopwords": false,
+      "stemming": false,
+      "tokenizeBy": "word",
+      "sampleText": "sample1"
+    },
+    "controls": [
+      {
+        "id": "sampleText",
+        "type": "select",
+        "label": "Sample Text",
+        "options": [
+          {
+            "label": "Simple Sentence",
+            "value": "sample1"
+          },
+          {
+            "label": "Multiple Sentences",
+            "value": "sample2"
+          },
+          {
+            "label": "Technical Text",
+            "value": "sample3"
+          }
+        ],
+        "tooltip": "Choose a sample text to tokenize",
+        "group": "Input"
+      },
+      {
+        "id": "tokenizeBy",
+        "type": "select",
+        "label": "Tokenization Mode",
+        "options": [
+          {
+            "label": "Word",
+            "value": "word"
+          },
+          {
+            "label": "Sentence",
+            "value": "sentence"
+          },
+          {
+            "label": "Character",
+            "value": "character"
+          }
+        ],
+        "tooltip": "Choose how to split the text into tokens",
+        "group": "Tokenization"
+      },
+      {
+        "id": "lowercase",
+        "type": "toggle",
+        "label": "Convert to Lowercase",
+        "tooltip": "Convert all text to lowercase for normalization",
+        "group": "Normalization"
+      },
+      {
+        "id": "removePunctuation",
+        "type": "toggle",
+        "label": "Remove Punctuation",
+        "tooltip": "Remove punctuation marks from the tokenized output",
+        "group": "Filtering"
+      },
+      {
+        "id": "removeStopwords",
+        "type": "toggle",
+        "label": "Remove Stopwords",
+        "tooltip": "Filter out common words like 'the', 'is', 'and'",
+        "group": "Filtering"
+      },
+      {
+        "id": "stemming",
+        "type": "toggle",
+        "label": "Apply Stemming",
+        "tooltip": "Reduce words to their root form (e.g., 'running' → 'run')",
+        "group": "Normalization"
+      }
+    ],
+    "visualizations": [
+      {
+        "type": "text-highlighter",
+        "title": "Tokenized Text",
+        "description": "Text with color-coded tokens showing different token types"
+      },
+      {
+        "type": "bar",
+        "title": "Token Frequency",
+        "description": "Bar chart showing the most frequent tokens"
+      }
+    ],
+    "datasets": []
+  }
+}
