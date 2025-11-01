@@ -286,30 +286,60 @@ export function useModules() {
 
   /**
    * Get next suggested module based on current module
+   * Optimized to only load configs for current, next module
    */
   const getNextModule = async (currentModuleId: string): Promise<ModuleNavItem | null> => {
-    const allModules = await getAllModuleNavItems();
-    const currentIndex = allModules.findIndex(m => m.id === currentModuleId);
+    // Get all module IDs in order (no config loading)
+    const moduleIds = Object.keys(MODULE_REGISTRY);
+    const currentIndex = moduleIds.findIndex(id => id === currentModuleId);
     
-    if (currentIndex === -1 || currentIndex === allModules.length - 1) {
+    if (currentIndex === -1 || currentIndex === moduleIds.length - 1) {
       return null;
     }
 
-    return allModules[currentIndex + 1];
+    // Only load config for the next module
+    const nextModuleId = moduleIds[currentIndex + 1];
+    const config = await loadModuleConfig(nextModuleId);
+    if (!config) return null;
+
+    const registryEntry = MODULE_REGISTRY[nextModuleId];
+    return {
+      id: nextModuleId,
+      name: config.name,
+      path: registryEntry.path,
+      domain: registryEntry.domain,
+      difficulty: config.difficulty,
+      completed: progressStore.isModuleCompleted(nextModuleId),
+    };
   };
 
   /**
    * Get previous module based on current module
+   * Optimized to only load configs for current, previous module
    */
   const getPreviousModule = async (currentModuleId: string): Promise<ModuleNavItem | null> => {
-    const allModules = await getAllModuleNavItems();
-    const currentIndex = allModules.findIndex(m => m.id === currentModuleId);
+    // Get all module IDs in order (no config loading)
+    const moduleIds = Object.keys(MODULE_REGISTRY);
+    const currentIndex = moduleIds.findIndex(id => id === currentModuleId);
     
     if (currentIndex <= 0) {
       return null;
     }
 
-    return allModules[currentIndex - 1];
+    // Only load config for the previous module
+    const prevModuleId = moduleIds[currentIndex - 1];
+    const config = await loadModuleConfig(prevModuleId);
+    if (!config) return null;
+
+    const registryEntry = MODULE_REGISTRY[prevModuleId];
+    return {
+      id: prevModuleId,
+      name: config.name,
+      path: registryEntry.path,
+      domain: registryEntry.domain,
+      difficulty: config.difficulty,
+      completed: progressStore.isModuleCompleted(prevModuleId),
+    };
   };
 
   /**
