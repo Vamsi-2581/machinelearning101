@@ -178,9 +178,9 @@ export function useOrganizationStructuredData() {
     name: DEFAULT_SEO.siteName,
     url: DEFAULT_SEO.siteUrl,
     logo: `${DEFAULT_SEO.siteUrl}/logo.png`,
-    sameAs: [
-      'https://github.com/mlsimplified-app/platform', 
-    ],
+    // sameAs: [
+    //   'https://github.com/mlsimplified-app/platform', 
+    // ],
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'hello@machinelearningsimplified.com',
