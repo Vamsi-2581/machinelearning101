@@ -198,22 +198,24 @@ export function useModules() {
       .filter(([_, entry]) => entry.domain === domain)
       .map(([id]) => id);
 
-    const modules: ModuleMetadata[] = [];
-    
-    for (const moduleId of moduleIds) {
+    // Load all configs concurrently instead of sequentially
+    const configPromises = moduleIds.map(async (moduleId) => {
       const config = await loadModuleConfig(moduleId);
-      if (config) {
+      if (!config) return null;
+
         const registryEntry = MODULE_REGISTRY[moduleId];
-        modules.push({
+      return {
           ...config,
           path: registryEntry.path,
           completed: progressStore.isModuleCompleted(moduleId),
           quizScore: progressStore.getQuizScore(moduleId),
-        });
-      }
-    }
+      };
+    });
 
-    return modules;
+    const results = await Promise.all(configPromises);
+    
+    // Filter out null results
+    return results.filter((module): module is ModuleMetadata => module !== null);
   };
 
   /**
@@ -233,14 +235,12 @@ export function useModules() {
    * Get all domains with their modules
    */
   const getAllDomains = async (): Promise<DomainInfo[]> => {
-    const domains: DomainInfo[] = [];
+    const domainKeys = Object.keys(DOMAINS) as Domain[];
     
-    for (const domain of Object.keys(DOMAINS) as Domain[]) {
-      const domainInfo = await getDomainInfo(domain);
-      domains.push(domainInfo);
-    }
-
-    return domains;
+    // Use Promise.all to load all domains concurrently
+    const domainPromises = domainKeys.map(domain => getDomainInfo(domain));
+    
+    return Promise.all(domainPromises);
   };
 
   /**
