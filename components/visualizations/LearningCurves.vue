@@ -1,5 +1,6 @@
 <template>
   <div class="learning-curves-container">
+    <ClientOnly>
     <BaseChart
       :data="plotlyData"
       :layout="plotlyLayout"
@@ -8,7 +9,7 @@
       :error="error"
       :height="height"
     />
-    
+    </ClientOnly>
     <div v-if="showIndicators && indicator" class="indicator-card" :class="indicator.type">
       <div class="indicator-icon">{{ indicator.icon }}</div>
       <div class="indicator-content">

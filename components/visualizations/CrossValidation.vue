@@ -1,6 +1,7 @@
 <template>
   <div class="cross-validation-container">
     <!-- Fold Performance Chart -->
+     <ClientOnly>
     <BaseChart
       :data="performanceData"
       :layout="performanceLayout"
@@ -9,7 +10,7 @@
       :error="error"
       :height="chartHeight"
     />
-    
+    </ClientOnly>
     <!-- Statistics Summary -->
     <div v-if="showStats && stats" class="stats-grid">
       <div class="stat-card">

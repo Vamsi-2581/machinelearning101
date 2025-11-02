@@ -16,6 +16,7 @@ Base wrapper component for Plotly.js visualizations with reactive updates, loadi
 
 **Usage:**
 ```vue
+<ClientOnly>
 <BaseChart
   :data="plotlyData"
   :layout="plotlyLayout"
@@ -25,6 +26,7 @@ Base wrapper component for Plotly.js visualizations with reactive updates, loadi
   height="500px"
   @plotly-click="handleClick"
 />
+</ClientOnly>
 ```
 
 ### Scatter2D

@@ -51,10 +51,12 @@
                     </div>
                   </div>
                   <div v-if="missingPatternData" class="mt-4">
+                    <ClientOnly> 
                     <BaseChart
                       :data="missingPatternData"
                       :layout="missingPatternLayout"
                     />
+                    </ClientOnly>
                   </div>
                 </div>
               </div>
@@ -143,10 +145,12 @@
               <!-- Distribution Comparison -->
               <div v-if="distributionData">
                 <h3 class="text-lg font-semibold mb-2">Distribution Comparison</h3>
+                <ClientOnly>
                 <BaseChart
                   :data="distributionData"
                   :layout="distributionLayout"
                 />
+                </ClientOnly>
               </div>
             </div> 
         </template>

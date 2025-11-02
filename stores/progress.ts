@@ -35,8 +35,7 @@ export const useProgressStore = defineStore('progress', {
   }),
 
   persist: {
-    key: 'ml-platform-progress',
-    storage: piniaPluginPersistedstate.localStorage(),
+    key: 'ml-platform-progress', 
   },
 
   getters: {

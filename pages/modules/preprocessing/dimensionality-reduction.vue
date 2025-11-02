@@ -52,19 +52,25 @@
             <!-- Scree Plot -->
             <div v-if="screePlotData">
               <h3 class="text-lg font-semibold mb-2">Scree Plot - Explained Variance</h3>
+              <ClientOnly> 
               <BaseChart :data="screePlotData" :layout="screePlotLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Cumulative Variance -->
             <div v-if="cumulativeVariancePlotData">
               <h3 class="text-lg font-semibold mb-2">Cumulative Explained Variance</h3>
+              <ClientOnly> 
               <BaseChart :data="cumulativeVariancePlotData" :layout="cumulativeVarianceLayout" />
+              </ClientOnly>
             </div>
 
             <!-- 2D Projection -->
             <div v-if="projectionData">
               <h3 class="text-lg font-semibold mb-2">2D Projection of Reduced Data</h3>
+              <ClientOnly>
               <BaseChart :data="projectionData" :layout="projectionLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Component Loadings (for first 2 components) -->

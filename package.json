@@ -3,10 +3,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4168' nuxt build",
     "dev": "nuxt dev",
     "test": "npx vitest run --dir ./tests",
-    "generate": "nuxt generate",
+    "generate": "NODE_OPTIONS='--max-old-space-size=4168' nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "type-check": "npx nuxt typecheck"
@@ -32,6 +32,13 @@
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
+    "@iconify-json/game-icons": "^1.2.3",
+    "@iconify-json/gravity-ui": "^1.2.10",
+    "@iconify-json/healthicons": "^1.2.12",
+    "@iconify-json/heroicons": "^1.2.3",
+    "@iconify-json/ion": "^1.2.6",
+    "@iconify-json/material-symbols": "^1.2.44",
+    "@iconify-json/mdi": "^1.2.3",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^24.7.2",

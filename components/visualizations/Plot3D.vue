@@ -173,6 +173,7 @@ const plotlyConfig = computed<Partial<Config>>(() => ({
 </script>
 
 <template>
+  <ClientOnly>
   <BaseChart
     :data="plotlyData"
     :layout="plotlyLayout"
@@ -181,4 +182,5 @@ const plotlyConfig = computed<Partial<Config>>(() => ({
     :error="error"
     :height="height"
   />
+  </ClientOnly>
 </template>

@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', {
 
   persist: {
     key: 'ml-platform-auth',
-    storage: piniaPluginPersistedstate.localStorage(), 
+    
   },
 
   getters: {

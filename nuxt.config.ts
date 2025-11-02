@@ -24,6 +24,11 @@ export default defineNuxtConfig({
     },
   ],
 
+  // Plugins configuration
+  plugins: [
+    { src: '~/plugins/plotly.client', mode: 'client' },
+  ],
+
   // Global CSS
   css: [
     "~/assets/css/accessibility.css",
@@ -51,27 +56,27 @@ export default defineNuxtConfig({
   },
 
   // Static site generation configuration
-  ssr: false,
-  nitro: {
-    preset: "static",
-    prerender: {
-      crawlLinks: true,
-      routes: [
-        "/",
-        "/about",
-        "/why-learn-here",
-        "/contact",
-        "/privacy",
-        "/faq",
-        "/getting-started",
-        "/modules",
-        "/modules/*",
-        "/sitemap.xml",
-      ],
-    },
-  },
+  ssr: true,
+  // nitro: {
+  //   prerender: {
+  //     routes: [
+  //       "/",
+  //       "/about",
+  //       "/why-learn-here",
+  //       "/contact",
+  //       "/privacy",
+  //       "/faq",
+  //       "/getting-started",
+  //       "/modules",
+  //       "/modules/*",
+  //       "/sitemap.xml",
+  //     ],
+  //   },
+  // },
 
   // Google Analytics configuration
+  
+  
   gtag: {
     // Set via environment variable: NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
     id: process.env.NUXT_PUBLIC_GTAG_ID || "",

@@ -53,29 +53,39 @@
             <div v-if="scatterData" class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <h3 class="text-lg font-semibold mb-2">Original Data with Outliers</h3>
+                <ClientOnly> 
                 <BaseChart :data="scatterData.original" :layout="scatterLayout('Original Data')" />
+                </ClientOnly>
               </div>
               <div>
                 <h3 class="text-lg font-semibold mb-2">After Handling</h3>
+                 <ClientOnly> 
                 <BaseChart :data="scatterData.cleaned" :layout="scatterLayout('Cleaned Data')" />
+                </ClientOnly>
               </div>
             </div>
 
             <!-- Outlier Scores -->
             <div v-if="outlierScoresData">
               <h3 class="text-lg font-semibold mb-2">Outlier Scores</h3>
+               <ClientOnly> 
               <BaseChart :data="outlierScoresData" :layout="scoresLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Distribution Comparison -->
             <div v-if="distributionData" class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <h3 class="text-lg font-semibold mb-2">Feature 1 Distribution</h3>
+                 <ClientOnly> 
                 <BaseChart :data="distributionData.feature1" :layout="histogramLayout('Feature 1')" />
+                </ClientOnly>
               </div>
               <div>
                 <h3 class="text-lg font-semibold mb-2">Feature 2 Distribution</h3>
+                 <ClientOnly>
                 <BaseChart :data="distributionData.feature2" :layout="histogramLayout('Feature 2')" />
+                </ClientOnly>
               </div>
             </div>
 

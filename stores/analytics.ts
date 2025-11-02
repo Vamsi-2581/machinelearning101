@@ -32,7 +32,7 @@ export const useAnalyticsStore = defineStore('analytics', {
 
   persist: {
       key: 'ml-platform-analytics-config',
-      storage: piniaPluginPersistedstate.localStorage(), 
+      
   },
 
   getters: {

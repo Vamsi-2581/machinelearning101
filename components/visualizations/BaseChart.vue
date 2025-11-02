@@ -1,39 +1,22 @@
 <template>
-  <figure 
-    class="base-chart-wrapper" 
-    ref="wrapperRef"
-    role="img"
-    :aria-label="ariaLabel || 'Data visualization'"
-    :aria-describedby="ariaDescribedby"
-  >
+  <figure class="base-chart-wrapper" ref="wrapperRef" role="img" :aria-label="ariaLabel || 'Data visualization'"
+    :aria-describedby="ariaDescribedby">
     <div v-if="loading" class="chart-loading" role="status" aria-live="polite">
       <div class="loading-spinner" aria-hidden="true"></div>
       <p>Loading visualization...</p>
     </div>
-    
+
     <div v-else-if="error" class="chart-error" role="alert" aria-live="assertive">
       <div class="error-icon" aria-hidden="true">⚠️</div>
       <p class="error-message">{{ error }}</p>
-      <button 
-        v-if="onRetry" 
-        @click="onRetry" 
-        class="retry-button"
-        aria-label="Retry loading visualization"
-      >
+      <button v-if="onRetry" @click="onRetry" class="retry-button" aria-label="Retry loading visualization">
         Retry
       </button>
     </div>
-    
-    <div 
-      v-show="!loading && !error"
-      ref="chartRef" 
-      class="chart-container"
-      :style="{ width: '100%', height: height }"
-      role="img"
-      :aria-label="ariaLabel || 'Interactive data visualization'"
-      tabindex="0"
-    ></div>
-    
+
+    <div v-show="!loading && !error" ref="chartRef" class="chart-container" :style="{ width: '100%', height: height }"
+      role="img" :aria-label="ariaLabel || 'Interactive data visualization'" tabindex="0"></div>
+
     <!-- Screen reader description -->
     <figcaption v-if="description" :id="descriptionId" class="sr-only">
       {{ description }}
@@ -43,7 +26,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
-import Plotly from 'plotly.js-dist-min';
+import type Plotly from 'plotly.js-dist-min';
+
+// Dynamically import Plotly only on client side
+let PlotlyModule: typeof Plotly | null = null;
 
 interface Props {
   data: any[];
@@ -67,14 +53,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 // Generate unique ID for aria-describedby
-const descriptionId = `chart-desc-${Math.random().toString(36).substr(2, 9)}`;
+const descriptionId = `chart-desc-${Math.random().toString(36).substring(2, 11)}`;
 const ariaDescribedby = computed(() => props.description ? descriptionId : undefined);
 
 const emit = defineEmits<{
-  plotlyClick: [event: Plotly.PlotMouseEvent];
-  plotlyHover: [event: Plotly.PlotMouseEvent];
-  plotlyUnhover: [event: Plotly.PlotMouseEvent];
-  plotlySelected: [event: Plotly.PlotSelectionEvent];
+  plotlyClick: [event: any];
+  plotlyHover: [event: any];
+  plotlyUnhover: [event: any];
+  plotlySelected: [event: any];
   ready: [];
 }>();
 
@@ -104,11 +90,18 @@ const defaultConfig: Partial<Plotly.Config> = {
 const createPlot = async () => {
   if (!chartRef.value || props.loading || props.error) return;
 
+  // Load Plotly dynamically on client side
+  if (!PlotlyModule && process.client) {
+    PlotlyModule = (await import('plotly.js-dist-min')).default;
+  }
+
+  if (!PlotlyModule) return;
+
   try {
     const mergedLayout = { ...defaultLayout, ...props.layout };
     const mergedConfig = { ...defaultConfig, ...props.config };
 
-    await Plotly.newPlot(
+    await PlotlyModule.newPlot(
       chartRef.value,
       props.data,
       mergedLayout,
@@ -116,19 +109,20 @@ const createPlot = async () => {
     );
 
     // Attach event listeners
-    chartRef.value.on('plotly_click', (data: Plotly.PlotMouseEvent) => {
+    const plotlyDiv = chartRef.value as any;
+    plotlyDiv.on('plotly_click', (data: any) => {
       emit('plotlyClick', data);
     });
 
-    chartRef.value.on('plotly_hover', (data: Plotly.PlotMouseEvent) => {
+    plotlyDiv.on('plotly_hover', (data: any) => {
       emit('plotlyHover', data);
     });
 
-    chartRef.value.on('plotly_unhover', (data: Plotly.PlotMouseEvent) => {
+    plotlyDiv.on('plotly_unhover', (data: any) => {
       emit('plotlyUnhover', data);
     });
 
-    chartRef.value.on('plotly_selected', (data: Plotly.PlotSelectionEvent) => {
+    plotlyDiv.on('plotly_selected', (data: any) => {
       emit('plotlySelected', data);
     });
 
@@ -139,25 +133,25 @@ const createPlot = async () => {
 };
 
 const updatePlot = async () => {
-  if (!chartRef.value || props.loading || props.error) return;
+  if (!chartRef.value || props.loading || props.error || !PlotlyModule) return;
 
   try {
     const mergedLayout = { ...defaultLayout, ...props.layout };
-    await Plotly.react(chartRef.value, props.data, mergedLayout);
+    await PlotlyModule.react(chartRef.value, props.data, mergedLayout);
   } catch (err) {
     console.error('Error updating Plotly chart:', err);
   }
 };
 
 const handleResize = () => {
-  if (chartRef.value && !props.loading && !props.error) {
-    Plotly.Plots.resize(chartRef.value);
+  if (chartRef.value && !props.loading && !props.error && PlotlyModule) {
+    PlotlyModule.Plots.resize(chartRef.value);
   }
 };
 
 onMounted(async () => {
   await nextTick();
-  
+
   if (!props.loading && !props.error) {
     await createPlot();
   }
@@ -172,8 +166,8 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-  if (chartRef.value) {
-    Plotly.purge(chartRef.value);
+  if (chartRef.value && PlotlyModule) {
+    PlotlyModule.purge(chartRef.value);
   }
   if (resizeObserver.value) {
     resizeObserver.value.disconnect();

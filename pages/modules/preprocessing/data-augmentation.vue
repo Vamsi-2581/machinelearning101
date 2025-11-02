@@ -24,7 +24,9 @@
             <!-- Original vs Augmented Data Scatter Plot -->
             <div v-if="scatterData">
               <h3 class="text-lg font-semibold mb-2">Original vs Augmented Data</h3>
+              <ClientOnly>
               <BaseChart :data="scatterData" :layout="scatterLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Statistics Comparison -->
@@ -53,13 +55,17 @@
             <!-- Sample Count Comparison Bar Chart -->
             <div v-if="barChartData">
               <h3 class="text-lg font-semibold mb-2">Dataset Size Comparison</h3>
+              <ClientOnly>
               <BaseChart :data="barChartData" :layout="barChartLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Class Distribution (if labels available) -->
             <div v-if="classDistributionData">
               <h3 class="text-lg font-semibold mb-2">Class Distribution</h3>
+              <ClientOnly> 
               <BaseChart :data="classDistributionData" :layout="classDistributionLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Metrics Display -->

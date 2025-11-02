@@ -1,4 +1,5 @@
 <template>
+  <ClientOnly>
   <BaseChart
     :data="plotlyData"
     :layout="plotlyLayout"
@@ -10,6 +11,7 @@
     @plotly-hover="handleHover"
     @plotly-unhover="handleUnhover"
   />
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

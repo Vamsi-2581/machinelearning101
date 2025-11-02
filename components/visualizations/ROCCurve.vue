@@ -1,5 +1,6 @@
 <template>
   <div class="roc-curve-container">
+    <ClientOnly>
     <BaseChart
       :data="plotlyData"
       :layout="plotlyLayout"
@@ -8,6 +9,7 @@
       :error="error"
       :height="height"
     />
+    </ClientOnly>
     
     <div v-if="showAUC && auc !== null" class="auc-display">
       <div class="auc-label">Area Under Curve (AUC)</div>

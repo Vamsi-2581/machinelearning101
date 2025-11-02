@@ -25,13 +25,17 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h3 class="text-lg font-semibold mb-2">Original Data</h3>
+                  <ClientOnly> 
                   <BaseChart v-if="originalDistribution" :data="originalDistribution"
                     :layout="chartLayout('Original Distribution')" />
+                    </ClientOnly>
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold mb-2">Scaled Data</h3>
+                  <ClientOnly> 
                   <BaseChart v-if="scaledDistribution" :data="scaledDistribution"
                     :layout="chartLayout('Scaled Distribution')" />
+                    </ClientOnly>
                 </div>
               </div>
 
@@ -61,7 +65,9 @@
               <!-- Scatter Plot Comparison -->
               <div v-if="scatterData">
                 <h3 class="text-lg font-semibold mb-2">Data Visualization</h3>
+                <ClientOnly>
                 <BaseChart :data="scatterData" :layout="scatterLayout" />
+                </ClientOnly>
               </div>
             </div> 
         </template>

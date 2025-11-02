@@ -72,7 +72,7 @@ const emit = defineEmits<{
   retry: [];
 }>();
 
-const windowWidth = ref(window.innerWidth);
+const windowWidth = ref(window?.innerWidth);
 
 // ARIA live announcements for screen readers
 // Requirements: 7.2 - Screen reader support
@@ -126,15 +126,15 @@ const handleRetry = () => {
  * Update window width on resize
  */
 const handleResize = () => {
-  windowWidth.value = window.innerWidth;
+  windowWidth.value = window?.innerWidth;
 };
 
 onMounted(() => {
-  window.addEventListener('resize', handleResize);
+  window?.addEventListener('resize', handleResize);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
+  window?.removeEventListener('resize', handleResize);
 });
 </script>
 

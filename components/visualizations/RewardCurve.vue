@@ -1,4 +1,5 @@
 <template>
+  <ClientOnly>
   <BaseChart
     :data="plotlyData"
     :layout="plotlyLayout"
@@ -7,6 +8,7 @@
     :error="error"
     :height="height"
   />
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

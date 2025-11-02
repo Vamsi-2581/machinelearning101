@@ -1,6 +1,7 @@
 <template>
   <div class="bounding-box-overlay">
-    <BaseChart
+    <ClientOnly> 
+      <BaseChart
       v-if="!useCanvas"
       :data="plotlyData"
       :layout="plotlyLayout"
@@ -9,7 +10,7 @@
       :error="error"
       :height="height"
     />
-    <div v-else class="canvas-container" :style="{ height }">
+        <div v-else class="canvas-container" :style="{ height }">
       <canvas
         ref="canvasRef"
         :width="canvasWidth"
@@ -27,6 +28,9 @@
         </div>
       </div>
     </div>
+  </ClientOnly>
+   
+
   </div>
 </template>
 

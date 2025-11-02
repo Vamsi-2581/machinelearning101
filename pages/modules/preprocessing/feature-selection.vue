@@ -24,7 +24,9 @@
             <!-- Feature Scores Chart -->
             <div v-if="result">
               <h3 class="text-lg font-semibold mb-2">Feature Importance Scores</h3>
+              <ClientOnly> 
               <BaseChart :data="featureScoresData" :layout="featureScoresLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Statistics Comparison -->
@@ -53,7 +55,9 @@
             <!-- Selected Features Heatmap -->
             <div v-if="result && result.selectedFeatures.length > 0">
               <h3 class="text-lg font-semibold mb-2">Selected Features Heatmap</h3>
+              <ClientOnly>
               <BaseChart :data="heatmapData" :layout="heatmapLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Feature Comparison -->

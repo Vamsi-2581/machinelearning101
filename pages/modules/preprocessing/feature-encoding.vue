@@ -72,7 +72,9 @@
             <!-- Encoded Data Heatmap -->
             <div v-if="encodedHeatmap">
               <h3 class="text-lg font-semibold mb-2">Encoded Data Visualization</h3>
+              <ClientOnly>
               <BaseChart :data="encodedHeatmap" :layout="heatmapLayout" />
+              </ClientOnly>
             </div>
 
             <!-- Feature Names -->
