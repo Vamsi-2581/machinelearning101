@@ -4,8 +4,12 @@
     description="Learn graph-based clustering using eigenvalue decomposition to handle non-convex cluster shapes"
     difficulty="advanced"
     :estimated-time="50"
+    module-id="spectral-clustering"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
+    
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -461,6 +465,28 @@ const updateVisualization = () => {
         embeddingSeries.value = series;
       }
     }
+  }
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+    
+    // Trigger re-training with new parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
   }
 };
 

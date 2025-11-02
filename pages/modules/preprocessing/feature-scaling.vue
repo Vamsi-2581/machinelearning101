@@ -1,6 +1,8 @@
 <template>
   <ModuleLayout module-id="feature-scaling" title="Feature Scaling" domain="preprocessing" difficulty="beginner"
-    :table-of-contents="tableOfContents">
+    :table-of-contents="tableOfContents"
+    :parameters="params"
+    @load-bookmark="(val) => { params = val; handleLoadBookmark(val); }">
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
@@ -94,6 +96,7 @@ import { FeatureScaling, type ScalingMethod } from '~/algorithms/preprocessing/F
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useAsyncData } from '#app';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 
 
@@ -326,4 +329,8 @@ onMounted(async () => {
   // Apply initial scaling
   applyScaling();
 });
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(params, applyScaling);
 </script>

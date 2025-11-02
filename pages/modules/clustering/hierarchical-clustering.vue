@@ -4,8 +4,12 @@
     description="Learn how hierarchical clustering builds a tree of clusters using agglomerative or divisive approaches"
     difficulty="intermediate"
     :estimated-time="30"
+    module-id="hierarchical-clustering"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
+    
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -150,8 +154,8 @@ import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
+import { useAsyncData } from '#app';
 
-import { useAsyncData } from '#app'; 
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -374,6 +378,28 @@ const updateVisualization = () => {
       
       scatterSeries.value = series;
     }
+  }
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+    
+    // Trigger re-training with new parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
   }
 };
 

@@ -5,6 +5,8 @@
     domain="preprocessing"
     difficulty="beginner"
     :table-of-contents="tableOfContents"
+    :parameters="params"
+    @load-bookmark="(val) => { params = val; handleLoadBookmark(val); }"
   >
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -180,12 +182,13 @@
 </template>
 
 <script setup lang="ts">
-import { useAsyncData, queryCollection } from '#imports';
+import { useAsyncData } from '#app';
 import { ref, computed, onMounted } from 'vue';
 import { MissingValueImputation, type ImputationMethod } from '~/algorithms/preprocessing/MissingValueImputation';
 import { useTableOfContents } from '~/composables/useTableOfContents';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -410,6 +413,13 @@ onMounted(async () => {
   await loadQuiz('missing-value-imputation', '/content/modules/preprocessing/missing-value-imputation/quiz.json');
   
   // Generate initial data
+  generateNewData();
+  applyImputation();
+});
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(params, () => {
   generateNewData();
   applyImputation();
 });

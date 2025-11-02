@@ -4,7 +4,10 @@
     description="Learn how Q-Learning teaches agents to make optimal decisions through trial and error in grid-world environments"
     difficulty="intermediate"
     :estimated-time="40"
+    module-id="q-learning"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -171,6 +174,7 @@ import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { QLearning } from '~/algorithms/reinforcement-learning/QLearning';
 import type { GridEnvironment } from '~/algorithms/reinforcement-learning/QLearning';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -524,4 +528,13 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Reinitialize environment if environmentType changed
+  initializeEnvironment();
+  // Trigger training with restored parameters
+  await handleTrain();
+});
 </script>

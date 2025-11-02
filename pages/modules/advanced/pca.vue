@@ -4,7 +4,10 @@
     description="Learn how PCA reduces dimensionality while preserving variance in data"
     difficulty="intermediate"
     :estimated-time="35"
+    module-id="pca"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -161,9 +164,6 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
-
-import { useAsyncData } from '#app';
-
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -450,6 +450,32 @@ const handleTrain = async () => {
 const handleRetry = () => {
   error.value = null;
   handleTrain();
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Update parameters with bookmark values
+    Object.assign(parameters.value, bookmarkParameters);
+    moduleStore.setParameters(parameters.value);
+    
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset) {
+      await loadInitialDataset();
+    }
+    
+    // Clear previous results to indicate fresh state
+    metrics.value = null;
+    screeSeries.value = [];
+    projectionSeries.value = [];
+    projection3D.value = null;
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
+  }
 };
 
 /**

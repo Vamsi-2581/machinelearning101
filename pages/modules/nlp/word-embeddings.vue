@@ -1,5 +1,13 @@
 <template>
-  <ModuleLayout title="Word Embeddings" description="Learn how word embeddings capture semantic relationships in vector space" difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents">
+  <ModuleLayout title="Word Embeddings"
+    description="Learn how word embeddings capture semantic relationships in vector space"
+    difficulty="intermediate"
+    :estimated-time="45"
+    module-id="word-embeddings"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -127,9 +135,9 @@ import type { ModuleNavItem } from '~/types/module';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app';
-
-const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/nlp/word-embeddings/content').first())
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/nlp/word-embeddings/content').first()
+)
 
 // Extract table of contents from content
 const tableOfContents = useTableOfContents(content);
@@ -427,6 +435,24 @@ const handleWordClick = (word: string) => {
  */
 const handleRetry = () => {
   error.value = null;
+  handleTrain();
+};
+
+/**
+ * Handle load bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (bookmarkParams: Record<string, any>) => {
+  // Update parameters with bookmark values
+  Object.assign(parameters.value, bookmarkParams);
+  moduleStore.setParameters(parameters.value);
+
+  // Update input text if sample changed
+  if (bookmarkParams.sampleText) {
+    inputText.value = sampleTexts[bookmarkParams.sampleText as keyof typeof sampleTexts];
+  }
+
+  // Retrain embeddings with loaded parameters
   handleTrain();
 };
 

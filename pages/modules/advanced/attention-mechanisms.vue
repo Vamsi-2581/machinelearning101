@@ -1,11 +1,8 @@
 <template>
-  <ModuleLayout
-    title="Attention Mechanisms"
-    description="Learn how attention allows models to focus on relevant parts of input sequences"
-    difficulty="advanced"
-    :estimated-time="55"
-    :table-of-contents="tableOfContents"
-  >
+  <ModuleLayout title="Attention Mechanisms"
+    description="Learn how attention allows models to focus on relevant parts of input sequences" difficulty="advanced"
+    :estimated-time="55" module-id="attention-mechanisms" :table-of-contents="tableOfContents" :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -13,24 +10,12 @@
 
     <!-- Interactive Section -->
     <template #interactive>
-      <InteractiveSection
-        :loading="isTraining"
-        :progress="trainingProgress"
-        loading-message="Computing attention..."
-        :error="error"
-        :on-retry="handleRetry"
-      >
+      <InteractiveSection :loading="isTraining" :progress="trainingProgress" loading-message="Computing attention..."
+        :error="error" :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="parameters"
-            :loading="isTraining"
-            submit-label="Compute Attention"
-            @change="handleParameterChange"
-            @reset="handleReset"
-            @submit="handleTrain"
-          />
+          <ControlPanel :controls="controls" :values="parameters" :loading="isTraining" submit-label="Compute Attention"
+            @change="handleParameterChange" @reset="handleReset" @submit="handleTrain" />
 
           <!-- Architecture Display -->
           <div class="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
@@ -96,47 +81,22 @@
         <!-- Visualization -->
         <template #visualization>
           <div class="space-y-4">
-            <Heatmap
-              v-if="attentionWeightsViz"
-              :data="attentionWeightsViz"
-              title="Attention Weights Heatmap"
-              x-label="Key Position"
-              y-label="Query Position"
-              height="400px"
-            />
+            <Heatmap v-if="attentionWeightsViz" :data="attentionWeightsViz" title="Attention Weights Heatmap"
+              x-label="Key Position" y-label="Query Position" height="400px" />
 
             <div v-if="parameters.attentionType === 'multi-head' && multiHeadViz" class="grid grid-cols-2 gap-4">
-              <Heatmap
-                v-for="(headViz, idx) in multiHeadViz.slice(0, 4)"
-                :key="idx"
-                :data="headViz"
-                :title="`Head ${idx + 1} Attention`"
-                x-label="Key"
-                y-label="Query"
-                height="250px"
-              />
+              <Heatmap v-for="(headViz, idx) in multiHeadViz.slice(0, 4)" :key="idx" :data="headViz"
+                :title="`Head ${idx + 1} Attention`" x-label="Key" y-label="Query" height="250px" />
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-              <LineChart
-                v-if="attentionDistributionSeries && attentionDistributionSeries.length > 0"
-                :series="attentionDistributionSeries"
-                title="Attention Distribution"
-                x-label="Position"
-                y-label="Average Attention Weight"
-                :show-legend="false"
-                height="300px"
-              />
+              <LineChart v-if="attentionDistributionSeries && attentionDistributionSeries.length > 0"
+                :series="attentionDistributionSeries" title="Attention Distribution" x-label="Position"
+                y-label="Average Attention Weight" :show-legend="false" height="300px" />
 
-              <LineChart
-                v-if="entropySeries && entropySeries.length > 0"
-                :series="entropySeries"
-                title="Attention Entropy by Position"
-                x-label="Query Position"
-                y-label="Entropy"
-                :show-legend="false"
-                height="300px"
-              />
+              <LineChart v-if="entropySeries && entropySeries.length > 0" :series="entropySeries"
+                title="Attention Entropy by Position" x-label="Query Position" y-label="Entropy" :show-legend="false"
+                height="300px" />
             </div>
           </div>
         </template>
@@ -148,12 +108,7 @@
       <QuizLoadingState v-if="quizLoading" />
       <QuizErrorDisplay v-else-if="quizError" :error="quizError" @retry="retryQuizLoad" />
       <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
-      <Quiz
-        v-else
-        :quiz="quizData"
-        :passing-score="quizData.passingScore || 70"
-        @quiz-completed="handleQuizComplete"
-      />
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -175,13 +130,12 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app'; 
 
 // Load content from Nuxt Content
-const { data: content } = await useAsyncData(() => 
+const { data: content } = await useAsyncData(() =>
   queryCollection('content').path('/modules/advanced/attention-mechanisms/content').first()
 );
- 
+
 
 // Extract table of contents from content
 const tableOfContents = useTableOfContents(content);
@@ -318,7 +272,7 @@ const generateSyntheticData = (datasetType: string) => {
 
   for (let i = 0; i < n; i++) {
     const sequence = [];
-    
+
     for (let j = 0; j < seqLength; j++) {
       const embedding = Array(embeddingDim).fill(0).map(() => Math.random() * 2 - 1);
       sequence.push(embedding);
@@ -479,5 +433,35 @@ const handleTrain = async () => {
 const handleRetry = () => {
   error.value = null;
   handleTrain();
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Update parameters with bookmark values
+    Object.assign(parameters.value, bookmarkParameters);
+    moduleStore.setParameters(parameters.value);
+
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset) {
+      await loadInitialDataset();
+    }
+
+    // Clear previous results to indicate fresh state
+    metrics.value = null;
+    attentionWeightsViz.value = null;
+    multiHeadViz.value = [];
+    attentionDistributionSeries.value = [];
+    entropySeries.value = [];
+
+    // auto-train with loaded parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
+  }
 };
 </script>

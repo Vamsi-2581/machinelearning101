@@ -14,6 +14,7 @@ import {
   saveQuizScore,
   getQuizScoresByUserId,
   saveBookmark,
+  updateBookmark,
   getBookmarksByUserId,
   deleteBookmark,
 } from '../../src/services/database'
@@ -484,16 +485,30 @@ describe('Database Service - Bookmark Operations', () => {
   })
 
   describe('saveBookmark', () => {
-    it('should save bookmark with upsert', async () => {
+    it('should save bookmark with name and parameters', async () => {
       const createdAt = Date.now()
-      const bookmark = await saveBookmark(db, 'user123', 'module1', createdAt)
+      const updatedAt = Date.now()
+      const parameters = { learningRate: 0.01, epochs: 100 }
+      const bookmark = await saveBookmark(
+        db,
+        'user123',
+        'bookmark1',
+        'module1',
+        'My Config',
+        parameters,
+        createdAt,
+        updatedAt
+      )
 
       expect(bookmark).toMatchObject({
+        id: 'bookmark1',
         user_id: 'user123',
         module_id: 'module1',
+        name: 'My Config',
+        parameters: JSON.stringify(parameters),
         created_at: createdAt,
+        updated_at: updatedAt,
       })
-      expect(bookmark.id).toBeDefined()
       expect((db as any)._mocks.prepare).toHaveBeenCalledWith(
         expect.stringContaining('INSERT INTO bookmarks')
       )
@@ -502,43 +517,200 @@ describe('Database Service - Bookmark Operations', () => {
       )
     })
 
+    it('should validate parameters JSON size is under 10KB', async () => {
+      const largeParameters = { data: 'x'.repeat(11000) }
+      
+      await expect(
+        saveBookmark(
+          db,
+          'user123',
+          'bookmark1',
+          'module1',
+          'Large Config',
+          largeParameters,
+          Date.now(),
+          Date.now()
+        )
+      ).rejects.toMatchObject({
+        code: ErrorCode.VALIDATION_ERROR,
+        message: 'Parameters exceed 10KB limit',
+      })
+    })
+
     it('should use parameterized queries', async () => {
       const createdAt = Date.now()
-      await saveBookmark(db, 'user123', 'module1', createdAt)
+      const updatedAt = Date.now()
+      const parameters = { learningRate: 0.01 }
+      await saveBookmark(
+        db,
+        'user123',
+        'bookmark1',
+        'module1',
+        'My Config',
+        parameters,
+        createdAt,
+        updatedAt
+      )
 
       expect((db as any)._mocks.bind).toHaveBeenCalledWith(
-        expect.any(String), // id
+        'bookmark1',
         'user123',
         'module1',
+        'My Config',
+        JSON.stringify(parameters),
         createdAt,
-        createdAt // for update
+        updatedAt,
+        'My Config',
+        JSON.stringify(parameters),
+        updatedAt
       )
     })
 
     it('should throw DATABASE_ERROR on failure', async () => {
       const failingDb = createMockD1({ runError: new Error('DB Error') })
 
-      await expect(saveBookmark(failingDb, 'user123', 'module1', Date.now())).rejects.toMatchObject({
+      await expect(
+        saveBookmark(
+          failingDb,
+          'user123',
+          'bookmark1',
+          'module1',
+          'My Config',
+          {},
+          Date.now(),
+          Date.now()
+        )
+      ).rejects.toMatchObject({
         code: ErrorCode.DATABASE_ERROR,
         message: 'Failed to save bookmark',
       })
     })
   })
 
+  describe('updateBookmark', () => {
+    it('should update bookmark name', async () => {
+      const mockBookmark = {
+        id: 'bookmark1',
+        user_id: 'user123',
+        module_id: 'module1',
+        name: 'Updated Name',
+        parameters: JSON.stringify({ learningRate: 0.01 }),
+        created_at: Date.now(),
+        updated_at: Date.now(),
+      }
+
+      ;(db as any)._mocks.first.mockResolvedValue(mockBookmark)
+
+      const bookmark = await updateBookmark(db, 'user123', 'bookmark1', {
+        name: 'Updated Name',
+      })
+
+      expect(bookmark.name).toBe('Updated Name')
+      expect((db as any)._mocks.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('UPDATE bookmarks SET')
+      )
+    })
+
+    it('should update bookmark parameters', async () => {
+      const newParameters = { epochs: 200 }
+      const mockBookmark = {
+        id: 'bookmark1',
+        user_id: 'user123',
+        module_id: 'module1',
+        name: 'My Config',
+        parameters: JSON.stringify(newParameters),
+        created_at: Date.now(),
+        updated_at: Date.now(),
+      }
+
+      ;(db as any)._mocks.first.mockResolvedValue(mockBookmark)
+
+      const bookmark = await updateBookmark(db, 'user123', 'bookmark1', {
+        parameters: newParameters,
+      })
+
+      expect(bookmark.parameters).toBe(JSON.stringify(newParameters))
+    })
+
+    it('should update both name and parameters', async () => {
+      const newParameters = { learningRate: 0.02 }
+      const mockBookmark = {
+        id: 'bookmark1',
+        user_id: 'user123',
+        module_id: 'module1',
+        name: 'New Name',
+        parameters: JSON.stringify(newParameters),
+        created_at: Date.now(),
+        updated_at: Date.now(),
+      }
+
+      ;(db as any)._mocks.first.mockResolvedValue(mockBookmark)
+
+      const bookmark = await updateBookmark(db, 'user123', 'bookmark1', {
+        name: 'New Name',
+        parameters: newParameters,
+      })
+
+      expect(bookmark.name).toBe('New Name')
+      expect(bookmark.parameters).toBe(JSON.stringify(newParameters))
+    })
+
+    it('should validate parameters JSON size is under 10KB', async () => {
+      const largeParameters = { data: 'x'.repeat(11000) }
+
+      await expect(
+        updateBookmark(db, 'user123', 'bookmark1', {
+          parameters: largeParameters,
+        })
+      ).rejects.toMatchObject({
+        code: ErrorCode.VALIDATION_ERROR,
+        message: 'Parameters exceed 10KB limit',
+      })
+    })
+
+    it('should throw NOT_FOUND if bookmark does not exist', async () => {
+      ;(db as any)._mocks.first.mockResolvedValue(null)
+
+      await expect(
+        updateBookmark(db, 'user123', 'nonexistent', { name: 'Test' })
+      ).rejects.toMatchObject({
+        code: ErrorCode.NOT_FOUND,
+        message: 'Bookmark not found',
+      })
+    })
+
+    it('should throw DATABASE_ERROR on failure', async () => {
+      const failingDb = createMockD1({ runError: new Error('DB Error') })
+
+      await expect(
+        updateBookmark(failingDb, 'user123', 'bookmark1', { name: 'Test' })
+      ).rejects.toMatchObject({
+        code: ErrorCode.DATABASE_ERROR,
+        message: 'Failed to update bookmark',
+      })
+    })
+  })
+
   describe('getBookmarksByUserId', () => {
-    it('should retrieve all bookmarks for a user', async () => {
+    it('should retrieve all bookmarks with deserialized parameters', async () => {
       const mockBookmarks = [
         {
           id: 'bm1',
           user_id: 'user123',
           module_id: 'module1',
+          name: 'Config 1',
+          parameters: JSON.stringify({ learningRate: 0.01 }),
           created_at: Date.now(),
+          updated_at: Date.now(),
         },
         {
           id: 'bm2',
           user_id: 'user123',
           module_id: 'module2',
+          name: 'Config 2',
+          parameters: JSON.stringify({ epochs: 100 }),
           created_at: Date.now(),
+          updated_at: Date.now(),
         },
       ]
 
@@ -546,10 +718,33 @@ describe('Database Service - Bookmark Operations', () => {
 
       const bookmarks = await getBookmarksByUserId(db, 'user123')
 
-      expect(bookmarks).toEqual(mockBookmarks)
+      expect(bookmarks).toHaveLength(2)
+      expect(bookmarks[0].parameters).toEqual({ learningRate: 0.01 })
+      expect(bookmarks[1].parameters).toEqual({ epochs: 100 })
       expect((db as any)._mocks.prepare).toHaveBeenCalledWith(
         expect.stringContaining('SELECT * FROM bookmarks WHERE user_id = ?')
       )
+    })
+
+    it('should handle JSON parse errors gracefully', async () => {
+      const mockBookmarks = [
+        {
+          id: 'bm1',
+          user_id: 'user123',
+          module_id: 'module1',
+          name: 'Config 1',
+          parameters: 'invalid json',
+          created_at: Date.now(),
+          updated_at: Date.now(),
+        },
+      ]
+
+      ;(db as any)._mocks.all.mockResolvedValue({ results: mockBookmarks })
+
+      const bookmarks = await getBookmarksByUserId(db, 'user123')
+
+      expect(bookmarks).toHaveLength(1)
+      expect(bookmarks[0].parameters).toEqual({})
     })
 
     it('should return empty array if no bookmarks found', async () => {
@@ -571,14 +766,14 @@ describe('Database Service - Bookmark Operations', () => {
   })
 
   describe('deleteBookmark', () => {
-    it('should delete bookmark and return true', async () => {
-      const result = await deleteBookmark(db, 'user123', 'module1')
+    it('should delete bookmark by ID and return true', async () => {
+      const result = await deleteBookmark(db, 'user123', 'bookmark1')
 
       expect(result).toBe(true)
       expect((db as any)._mocks.prepare).toHaveBeenCalledWith(
-        'DELETE FROM bookmarks WHERE user_id = ? AND module_id = ?'
+        'DELETE FROM bookmarks WHERE id = ? AND user_id = ?'
       )
-      expect((db as any)._mocks.bind).toHaveBeenCalledWith('user123', 'module1')
+      expect((db as any)._mocks.bind).toHaveBeenCalledWith('bookmark1', 'user123')
     })
 
     it('should return false if bookmark not found', async () => {
@@ -616,7 +811,7 @@ describe('Database Service - Bookmark Operations', () => {
     it('should throw DATABASE_ERROR on failure', async () => {
       const failingDb = createMockD1({ runError: new Error('DB Error') })
 
-      await expect(deleteBookmark(failingDb, 'user123', 'module1')).rejects.toMatchObject({
+      await expect(deleteBookmark(failingDb, 'user123', 'bookmark1')).rejects.toMatchObject({
         code: ErrorCode.DATABASE_ERROR,
         message: 'Failed to delete bookmark',
       })

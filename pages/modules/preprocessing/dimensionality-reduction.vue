@@ -5,6 +5,8 @@
     domain="preprocessing" 
     difficulty="advanced"
     :table-of-contents="tableOfContents"
+    :parameters="params"
+    @load-bookmark="(val) => { params = val; handleLoadBookmark(val); }"
   >
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -122,6 +124,7 @@ import { DimensionalityReduction, type ReductionMethod, type DimensionalityReduc
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useAsyncData } from '#app';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -380,4 +383,8 @@ onMounted(async () => {
   // Apply initial reduction
   await applyReduction();
 });
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(params, applyReduction);
 </script>

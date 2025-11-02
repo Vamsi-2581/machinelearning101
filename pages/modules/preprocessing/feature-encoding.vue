@@ -1,6 +1,8 @@
 <template>
   <ModuleLayout module-id="feature-encoding" title="Feature Encoding" domain="preprocessing" difficulty="intermediate"
-    :table-of-contents="tableOfContents">
+    :table-of-contents="tableOfContents"
+    :parameters="params"
+    @load-bookmark="(val) => { params = val; handleLoadBookmark(val); }">
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
     </template>
@@ -157,6 +159,7 @@ import { FeatureEncoding, type EncodingMethod } from '~/algorithms/preprocessing
 import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useAsyncData } from '#app';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -354,4 +357,8 @@ onMounted(async () => {
   // Apply initial encoding
   applyEncoding();
 });
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(params, applyEncoding);
 </script>

@@ -6,6 +6,8 @@
     :estimated-time="30"
     module-id="linear-regression"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -132,6 +134,7 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 
 // Load content from Nuxt Content
@@ -382,6 +385,10 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 
 /**
  * Handle quiz completion

@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen py-12 px-4">
-    <div class="max-w-4xl mx-auto">
+  <div class="py-12 px-4">
+    <div class="max-w-2xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -11,11 +11,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="mx-auto"  >
         <!-- Contact Information -->
-        <div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
-          
+        <div class="mx-auto "> 
           <div class="space-y-6 mb-8">
             <div class="flex items-start">
               <div class="flex-shrink-0">
@@ -98,60 +96,7 @@
             </ul>
           </div>
         </div>
-
-        <!-- Contact Form & Newsletter -->
-        <div> 
-          <!-- Newsletter Subscription -->
-          <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg p-6 text-white">
-            <h2 class="text-2xl font-bold mb-2">Stay Updated</h2>
-            <p class="text-blue-100 mb-4">
-              Get notified about new modules, features, and ML learning tips
-            </p>
-            <form @submit.prevent="handleNewsletterSubmit" class="space-y-3">
-              <div>
-                <label for="newsletter-email" class="sr-only">Email address</label>
-                <input
-                  id="newsletter-email"
-                  v-model="newsletterEmail"
-                  type="email"
-                  required
-                  class="w-full px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 outline-none"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-              <button
-                type="submit"
-                :disabled="newsletterSubmitting"
-                class="w-full px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {{ newsletterSubmitting ? 'Subscribing...' : 'Subscribe to Newsletter' }}
-              </button>
-              <p v-if="newsletterSuccess" class="text-sm text-white text-center">
-                <Icon name="mdi:check-circle" class="inline w-4 h-4 mr-1" />
-                Successfully subscribed! Check your email to confirm.
-              </p>
-              <p v-if="newsletterError" class="text-sm text-red-200 text-center">
-                <Icon name="mdi:alert-circle" class="inline w-4 h-4 mr-1" />
-                {{ newsletterError }}
-              </p>
-            </form>
-            <p class="text-xs text-blue-200 mt-4">
-             Unsubscribe anytime. No spam, ever.
-            </p>
-          </div>
-
-          <!-- Privacy Notice -->
-          <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h3 class="text-sm font-semibold text-gray-900 mb-2 flex items-center">
-              <Icon name="mdi:shield-check" class="w-4 h-4 mr-2 text-green-600" />
-              Privacy Notice
-            </h3>
-            <p class="text-xs text-gray-600">
-              We take your privacy seriously. We never share your information with 
-              third parties.
-            </p>
-          </div>
-        </div>
+ 
       </div>
     </div>
   </div>

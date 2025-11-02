@@ -34,11 +34,26 @@ export interface QuizScore {
 }
 
 // Bookmark types
+// Requirements: 4.1, 6.1
 export interface Bookmark {
   id: string
   user_id: string
   module_id: string
+  name: string
+  parameters: string  // JSON string in database
   created_at: number
+  updated_at: number
+}
+
+// Frontend representation (after deserialization)
+export interface BookmarkWithParams {
+  id: string
+  user_id: string
+  module_id: string
+  name: string
+  parameters: Record<string, any>  // Parsed JSON object
+  created_at: number
+  updated_at: number
 }
 
 // JWT payload
@@ -87,6 +102,7 @@ export interface ApiError {
 }
 
 // Request/Response types
+// Requirements: 4.1, 5.1
 export interface SyncProgressRequest {
   modules: Array<{
     module_id: string
@@ -100,15 +116,27 @@ export interface SyncProgressRequest {
     completed_at: number
   }>
   bookmarks: Array<{
+    id: string
     module_id: string
+    name: string
+    parameters: Record<string, any>
     created_at: number
+    updated_at: number
   }>
 }
 
 export interface ProgressResponse {
   modules: Progress[]
   quizzes: QuizScore[]
-  bookmarks: Bookmark[]
+  bookmarks: Array<{
+    id: string
+    user_id: string
+    module_id: string
+    name: string
+    parameters: Record<string, any>  // Deserialized
+    created_at: number
+    updated_at: number
+  }>
 }
 
 export interface SyncResponse {

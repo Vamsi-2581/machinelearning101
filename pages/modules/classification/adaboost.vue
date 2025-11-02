@@ -1,7 +1,10 @@
 <template>
   <ModuleLayout title="AdaBoost"
     description="Learn AdaBoost classification using adaptive sample weighting and weak learners"
-    difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents">
+    difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents"
+    module-id="adaboost"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -152,6 +155,7 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 import { useAsyncData } from '#app';
 
@@ -602,4 +606,8 @@ const handleQuizComplete = (result: QuizResult) => {
     console.log('Quiz passed! Module marked as complete.');
   }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 </script>

@@ -6,6 +6,8 @@
     :estimated-time="35"
     module-id="ridge-regression"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -110,6 +112,7 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 const { data: content } = await useAsyncData(() => 
   queryCollection('content').path('/modules/regression/ridge-regression/content').first()
@@ -302,6 +305,10 @@ const handleRetry = () => {
 const handleQuizComplete = (result: QuizResult) => {
   console.log('Quiz completed:', result);
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 
 useSEO({
   title: 'Ridge Regression - Interactive ML Tutorial',

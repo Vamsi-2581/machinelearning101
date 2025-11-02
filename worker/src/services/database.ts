@@ -3,7 +3,7 @@
  * Requirements: 1.3, 1.4, 2.3, 4.1, 4.2, 4.3, 4.4, 4.5, 6.1, 6.2, 6.3, 6.4, 7.5
  */
 
-import type { User, Progress, QuizScore, Bookmark, Env } from '../types'
+import type { User, Progress, QuizScore, Bookmark, BookmarkWithParams, Env } from '../types'
 import { ErrorCode } from '../types'
 
 /**
@@ -335,39 +335,79 @@ export async function getQuizScoresByUserId(db: D1Database, userId: string): Pro
 
 /**
  * Save or update a bookmark (upsert)
+ * Requirements: 4.1, 4.3, 6.2
  * @param db D1 database instance
  * @param userId User ID
+ * @param bookmarkId Bookmark ID
  * @param moduleId Module ID
+ * @param name Bookmark name
+ * @param parameters Parameter values object
  * @param createdAt Creation timestamp
+ * @param updatedAt Update timestamp
  * @returns Saved bookmark
  */
 export async function saveBookmark(
   db: D1Database,
   userId: string,
+  bookmarkId: string,
   moduleId: string,
-  createdAt: number
+  name: string,
+  parameters: Record<string, any>,
+  createdAt: number,
+  updatedAt: number
 ): Promise<Bookmark> {
-  const id = generateId()
-
   try {
-    // Use INSERT OR REPLACE for upsert behavior
+    // Serialize parameters to JSON string
+    const parametersJson = JSON.stringify(parameters)
+    
+    // Validate JSON size is under 10KB
+    const jsonSize = new TextEncoder().encode(parametersJson).length
+    if (jsonSize > 10240) {
+      throw {
+        code: ErrorCode.VALIDATION_ERROR,
+        message: 'Parameters exceed 10KB limit',
+        details: { size: jsonSize, limit: 10240 }
+      }
+    }
+
+    console.log("Initiating insert")
+
+    // Use INSERT with ON CONFLICT to handle upserts by bookmark ID
     await db
       .prepare(
-        `INSERT INTO bookmarks (id, user_id, module_id, created_at)
-         VALUES (?, ?, ?, ?)
-         ON CONFLICT(user_id, module_id) 
-         DO UPDATE SET created_at = ?`
+        `INSERT INTO bookmarks (id, user_id, module_id, name, parameters, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(id) 
+         DO UPDATE SET name = ?, parameters = ?, updated_at = ?`
       )
-      .bind(id, userId, moduleId, createdAt, createdAt)
+      .bind(
+        bookmarkId,
+        userId,
+        moduleId,
+        name,
+        parametersJson,
+        createdAt,
+        updatedAt,
+        name,
+        parametersJson,
+        updatedAt
+      )
       .run()
 
     return {
-      id,
+      id: bookmarkId,
       user_id: userId,
       module_id: moduleId,
+      name,
+      parameters: parametersJson,
       created_at: createdAt,
+      updated_at: updatedAt,
     }
   } catch (error) {
+    console.error(error)
+    if ((error as any).code) {
+      throw error
+    }
     throw {
       code: ErrorCode.DATABASE_ERROR,
       message: 'Failed to save bookmark',
@@ -377,19 +417,125 @@ export async function saveBookmark(
 }
 
 /**
- * Get all bookmarks for a user
+ * Update an existing bookmark
+ * Requirements: 3.1, 3.2
  * @param db D1 database instance
  * @param userId User ID
- * @returns Array of bookmark records
+ * @param bookmarkId Bookmark ID
+ * @param updates Object containing fields to update (name, parameters)
+ * @returns Updated bookmark
  */
-export async function getBookmarksByUserId(db: D1Database, userId: string): Promise<Bookmark[]> {
+export async function updateBookmark(
+  db: D1Database,
+  userId: string,
+  bookmarkId: string,
+  updates: {
+    name?: string
+    parameters?: Record<string, any>
+  }
+): Promise<Bookmark> {
+  const now = Date.now()
+
+  try {
+    // Build dynamic UPDATE query based on provided fields
+    const fields: string[] = []
+    const values: any[] = []
+
+    if (updates.name !== undefined) {
+      fields.push('name = ?')
+      values.push(updates.name)
+    }
+    
+    if (updates.parameters !== undefined) {
+      const parametersJson = JSON.stringify(updates.parameters)
+      
+      // Validate JSON size is under 10KB
+      const jsonSize = new TextEncoder().encode(parametersJson).length
+      if (jsonSize > 10240) {
+        throw {
+          code: ErrorCode.VALIDATION_ERROR,
+          message: 'Parameters exceed 10KB limit',
+          details: { size: jsonSize, limit: 10240 }
+        }
+      }
+      
+      fields.push('parameters = ?')
+      values.push(parametersJson)
+    }
+
+    // Always update updated_at timestamp
+    fields.push('updated_at = ?')
+    values.push(now)
+    
+    // Add WHERE clause parameters
+    values.push(bookmarkId)
+    values.push(userId)
+
+    await db
+      .prepare(`UPDATE bookmarks SET ${fields.join(', ')} WHERE id = ? AND user_id = ?`)
+      .bind(...values)
+      .run()
+
+    // Fetch and return the updated bookmark
+    const result = await db
+      .prepare('SELECT * FROM bookmarks WHERE id = ? AND user_id = ?')
+      .bind(bookmarkId, userId)
+      .first<Bookmark>()
+
+    if (!result) {
+      throw {
+        code: ErrorCode.NOT_FOUND,
+        message: 'Bookmark not found',
+      }
+    }
+
+    return result
+  } catch (error) {
+    if ((error as any).code) {
+      throw error
+    }
+    throw {
+      code: ErrorCode.DATABASE_ERROR,
+      message: 'Failed to update bookmark',
+      details: error,
+    }
+  }
+}
+
+/**
+ * Get all bookmarks for a user
+ * Requirements: 4.4, 5.1
+ * @param db D1 database instance
+ * @param userId User ID
+ * @returns Array of bookmark records with deserialized parameters
+ */
+export async function getBookmarksByUserId(db: D1Database, userId: string): Promise<BookmarkWithParams[]> {
   try {
     const result = await db
       .prepare('SELECT * FROM bookmarks WHERE user_id = ? ORDER BY created_at DESC')
       .bind(userId)
       .all<Bookmark>()
 
-    return result.results || []
+    // Deserialize parameters JSON string to object
+    const bookmarks = (result.results || []).map((bookmark) => {
+      try {
+        // Handle JSON parse errors gracefully
+        const parameters = JSON.parse(bookmark.parameters)
+        return {
+          ...bookmark,
+          parameters,
+        }
+      } catch (parseError) {
+        console.error(`Failed to parse parameters for bookmark ${bookmark.id}:`, parseError)
+        // Return bookmark with empty parameters object if parse fails
+        return {
+          ...bookmark,
+          parameters: {},
+        }
+      }
+    })
+
+    return bookmarks
   } catch (error) {
     throw {
       code: ErrorCode.DATABASE_ERROR,
@@ -401,20 +547,21 @@ export async function getBookmarksByUserId(db: D1Database, userId: string): Prom
 
 /**
  * Delete a bookmark
+ * Requirements: 3.1, 3.4
  * @param db D1 database instance
  * @param userId User ID
- * @param moduleId Module ID
+ * @param bookmarkId Bookmark ID
  * @returns True if deleted, false if not found
  */
 export async function deleteBookmark(
   db: D1Database,
   userId: string,
-  moduleId: string
+  bookmarkId: string
 ): Promise<boolean> {
   try {
     const result = await db
-      .prepare('DELETE FROM bookmarks WHERE user_id = ? AND module_id = ?')
-      .bind(userId, moduleId)
+      .prepare('DELETE FROM bookmarks WHERE id = ? AND user_id = ?')
+      .bind(bookmarkId, userId)
       .run()
 
     return (result.meta?.changes || 0) > 0

@@ -237,7 +237,7 @@
 
     <!-- About Creator Section -->
     <section class="py-16 px-4 bg-gray-50">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-2xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
           From the Creator
         </h2>

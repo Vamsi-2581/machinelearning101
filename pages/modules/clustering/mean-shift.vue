@@ -4,8 +4,12 @@
     description="Learn mode-seeking clustering that automatically finds density peaks and cluster numbers"
     difficulty="intermediate"
     :estimated-time="40"
+    module-id="mean-shift"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
+    
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -157,7 +161,8 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 
-import { useAsyncData } from '#app'; 
+import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -420,6 +425,28 @@ const updateVisualization = () => {
       
       scatterSeries.value = series;
     }
+  }
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+    
+    // Trigger re-training with new parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
   }
 };
 

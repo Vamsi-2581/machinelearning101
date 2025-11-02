@@ -136,11 +136,49 @@ export async function handleSyncProgress(
     }
 
     // Validate and save bookmarks
+    // Requirements: 4.1, 4.2, 6.2
     for (const bookmarkItem of body.bookmarks) {
+      // Validate bookmark id
+      if (!bookmarkItem.id || typeof bookmarkItem.id !== "string") {
+        throw createValidationError("bookmark id must be a non-empty string");
+      }
+
       // Validate module_id
       if (!isValidModuleId(bookmarkItem.module_id)) {
         throw createValidationError(
           `Invalid module_id: ${bookmarkItem.module_id}`
+        );
+      }
+
+      // Validate name (1-100 characters)
+      if (
+        !bookmarkItem.name ||
+        typeof bookmarkItem.name !== "string" ||
+        bookmarkItem.name.length < 1 ||
+        bookmarkItem.name.length > 100
+      ) {
+        throw createValidationError(
+          "bookmark name must be a string between 1 and 100 characters"
+        );
+      }
+
+      // Validate parameters is a valid object
+      if (
+        !bookmarkItem.parameters ||
+        typeof bookmarkItem.parameters !== "object" ||
+        Array.isArray(bookmarkItem.parameters)
+      ) {
+        throw createValidationError(
+          "bookmark parameters must be a valid object"
+        );
+      }
+
+      // Validate serialized parameters JSON is under 10KB
+      const parametersJson = JSON.stringify(bookmarkItem.parameters);
+      const parametersSizeBytes = new TextEncoder().encode(parametersJson).length;
+      if (parametersSizeBytes > 10240) {
+        throw createValidationError(
+          `bookmark parameters exceed 10KB limit (${parametersSizeBytes} bytes)`
         );
       }
 
@@ -149,12 +187,21 @@ export async function handleSyncProgress(
         throw createValidationError("created_at must be a number");
       }
 
+      // Validate updated_at
+      if (typeof bookmarkItem.updated_at !== "number") {
+        throw createValidationError("updated_at must be a number");
+      }
+
       // Save bookmark (upsert handles conflicts - last write wins)
       await saveBookmark(
         env.ml_platform_db,
         userId,
+        bookmarkItem.id,
         bookmarkItem.module_id,
-        bookmarkItem.created_at
+        bookmarkItem.name,
+        bookmarkItem.parameters,
+        bookmarkItem.created_at,
+        bookmarkItem.updated_at
       );
     }
 
@@ -183,9 +230,10 @@ export async function handleSyncProgress(
 
 /**
  * Progress retrieval handler
- * Requirements: 4.4, 5.6
+ * Requirements: 4.4, 5.1, 5.6
  *
  * Validates JWT, fetches all progress data, quiz scores, and bookmarks for the user
+ * Ensures returned bookmarks include deserialized parameters
  *
  * @param request - Incoming request
  * @param env - Environment bindings
@@ -207,9 +255,12 @@ export async function handleGetProgress(
     const quizzes = await getQuizScoresByUserId(env.ml_platform_db, userId);
 
     // Fetch bookmarks from database
+    // getBookmarksByUserId handles deserialization and errors gracefully
+    // Requirements: 4.4, 5.1
     const bookmarks = await getBookmarksByUserId(env.ml_platform_db, userId);
 
     // Return combined progress data
+    // Bookmarks include deserialized parameters (Record<string, any>)
     const progressResponse: ProgressResponse = {
       modules,
       quizzes,

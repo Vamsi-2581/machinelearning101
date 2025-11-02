@@ -1,7 +1,13 @@
 <template>
   <ModuleLayout title="Sentiment Analysis"
     description="Learn how to classify text by sentiment using machine learning"
-    difficulty="intermediate" :estimated-time="40" :table-of-contents="tableOfContents">
+    difficulty="intermediate"
+    :estimated-time="40"
+    module-id="sentiment-analysis"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -102,9 +108,9 @@ import type { ModuleNavItem } from '~/types/module';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app';
-
-const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/nlp/sentiment-analysis/content').first())
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/nlp/sentiment-analysis/content').first()
+)
 
 // Extract table of contents from content
 const tableOfContents = useTableOfContents(content);
@@ -453,6 +459,19 @@ const handlePredict = async () => {
  */
 const handleRetry = () => {
   error.value = null;
+  handleTrain();
+};
+
+/**
+ * Handle load bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (bookmarkParams: Record<string, any>) => {
+  // Update parameters with bookmark values
+  Object.assign(parameters.value, bookmarkParams);
+  moduleStore.setParameters(parameters.value);
+
+  // Retrain model with loaded parameters
   handleTrain();
 };
 

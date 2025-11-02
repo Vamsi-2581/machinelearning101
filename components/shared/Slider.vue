@@ -21,12 +21,12 @@
         :min="min"
         :max="max"
         :step="step"
-        :value="modelValue"
+        :value="localValue"
         :disabled="disabled"
         class="slider-input"
         :aria-valuemin="min"
         :aria-valuemax="max"
-        :aria-valuenow="modelValue"
+        :aria-valuenow="localValue"
         :aria-label="ariaLabel || label"
         :aria-describedby="tooltip ? `${inputId}-tooltip` : undefined"
         @input="handleInput"
@@ -88,17 +88,18 @@ const sliderRef = ref<HTMLInputElement>();
 const isTooltipVisible = ref(false);
 const isHovered = ref(false);
 const isFocused = ref(false);
+const localValue = ref(props.modelValue);
 
-const inputId = computed(() => `slider-${Math.random().toString(36).substr(2, 9)}`);
+const inputId = computed(() => `slider-${Math.random().toString(36).substring(2, 11)}`);
 
 const showTooltip = computed(() => props.tooltip !== undefined || isHovered.value || isFocused.value);
 
-const formattedValue = computed(() => formatValue(props.modelValue));
+const formattedValue = computed(() => formatValue(localValue.value));
 
 const tooltipStyle = computed(() => {
   if (!sliderRef.value) return {};
   
-  const percentage = ((props.modelValue - props.min) / (props.max - props.min)) * 100;
+  const percentage = ((localValue.value - props.min) / (props.max - props.min)) * 100;
   return {
     left: `${percentage}%`,
     transform: 'translateX(-50%)',
@@ -108,6 +109,7 @@ const tooltipStyle = computed(() => {
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const value = parseFloat(target.value);
+  localValue.value = value;
   emit('update:modelValue', value);
 };
 
@@ -133,6 +135,11 @@ const showTooltipOnFocus = () => {
 const hideTooltipOnFocus = () => {
   isFocused.value = false;
 };
+
+// Watch for parent updates to modelValue
+watch(() => props.modelValue, (newValue) => {
+  localValue.value = newValue;
+});
 
 watch([isHovered, isFocused], ([hovered, focused]) => {
   isTooltipVisible.value = hovered || focused;

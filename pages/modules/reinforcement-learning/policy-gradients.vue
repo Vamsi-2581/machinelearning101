@@ -4,7 +4,10 @@
     description="Learn how policy gradient methods directly optimize policies using gradient ascent for reinforcement learning"
     difficulty="advanced"
     :estimated-time="45"
+    module-id="policy-gradients"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -189,6 +192,7 @@ import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { PolicyGradient } from '~/algorithms/reinforcement-learning/PolicyGradient';
 import type { GridEnvironment } from '~/algorithms/reinforcement-learning/PolicyGradient';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -562,4 +566,13 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Reinitialize environment if environmentType changed
+  initializeEnvironment();
+  // Trigger training with restored parameters
+  await handleTrain();
+});
 </script>

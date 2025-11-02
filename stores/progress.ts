@@ -169,6 +169,7 @@ export const useProgressStore = defineStore('progress', {
     /**
      * Merge backend data with local data
      * Backend is the source of truth for authenticated users
+     * Requirements: 5.2, 5.3
      */
     mergeBackendData(backendData: {
       completedModules: string[];
@@ -187,13 +188,47 @@ export const useProgressStore = defineStore('progress', {
         }
       }
 
-      // For bookmarks: merge by moduleId (avoid duplicates)
-      const bookmarkMap = new Map(this.bookmarks.map(b => [b.moduleId, b]));
-      for (const bookmark of backendData.bookmarks) {
-        if (!bookmarkMap.has(bookmark.moduleId)) {
-          this.bookmarks.push(bookmark);
+      // For bookmarks: merge by ID with timestamp-based conflict resolution
+      // Create a map of backend bookmarks by ID
+      const backendBookmarkMap = new Map<string, Bookmark>(
+        backendData.bookmarks.map((b: Bookmark) => [b.id, b])
+      );
+      
+      // Create a map of local bookmarks by ID
+      const localBookmarkMap = new Map<string, Bookmark>(
+        this.bookmarks.map((b: Bookmark) => [b.id, b])
+      );
+      
+      // Merge bookmarks using last-write-wins strategy
+      const mergedBookmarks: Bookmark[] = [];
+      
+      // Process all unique bookmark IDs from both sources
+      const allBookmarkIds = new Set([
+        ...Array.from(localBookmarkMap.keys()),
+        ...Array.from(backendBookmarkMap.keys())
+      ]);
+      
+      for (const bookmarkId of allBookmarkIds) {
+        const localBookmark = localBookmarkMap.get(bookmarkId);
+        const backendBookmark = backendBookmarkMap.get(bookmarkId);
+        
+        if (localBookmark && backendBookmark) {
+          // Both exist: use the one with the newer timestamp
+          if (backendBookmark.timestamp > localBookmark.timestamp) {
+            mergedBookmarks.push(backendBookmark);
+          } else {
+            mergedBookmarks.push(localBookmark);
+          }
+        } else if (backendBookmark) {
+          // Only in backend: add it
+          mergedBookmarks.push(backendBookmark);
+        } else if (localBookmark) {
+          // Only local: preserve it
+          mergedBookmarks.push(localBookmark);
         }
       }
+      
+      this.bookmarks = mergedBookmarks;
 
       // Persistence handled automatically by plugin
     },
@@ -236,11 +271,15 @@ export const useProgressStore = defineStore('progress', {
 
     /**
      * Add a bookmark
-     * Requirements: 4.3
+     * Requirements: 4.3, 1.1, 6.1
      */
     addBookmark(bookmark: Omit<Bookmark, 'id' | 'timestamp'>): void {
+      // Deep clone parameters to prevent reference issues
+      const clonedParameters = structuredClone(bookmark.parameters);
+      
       const newBookmark: Bookmark = {
         ...bookmark,
+        parameters: clonedParameters,
         id: `bookmark-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
         timestamp: Date.now(),
       };
@@ -248,6 +287,21 @@ export const useProgressStore = defineStore('progress', {
       // Persistence handled automatically by plugin
       // Sync to cloud if authenticated
       this.triggerSync();
+    },
+
+    /**
+     * Update bookmark name
+     * Requirements: 3.2, 3.3
+     */
+    updateBookmarkName(bookmarkId: string, newName: string): void {
+      const bookmark = this.bookmarks.find((b: Bookmark) => b.id === bookmarkId);
+      if (bookmark) {
+        bookmark.name = newName;
+        bookmark.timestamp = Date.now();
+        // Persistence handled automatically by plugin
+        // Sync to cloud if authenticated
+        this.triggerSync();
+      }
     },
 
     /**

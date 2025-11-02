@@ -1,7 +1,10 @@
 <template>
     <ModuleLayout title="Support Vector Machines (SVM)"
         description="Learn how SVM finds the maximum margin hyperplane and uses kernel functions for non-linear classification"
-        difficulty="advanced" :estimated-time="35" :table-of-contents="tableOfContents">
+        difficulty="advanced" :estimated-time="35" :table-of-contents="tableOfContents"
+        module-id="svm"
+        :parameters="parameters"
+        @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
         <!-- Content Section -->
         <template #content>
             <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -141,6 +144,7 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 import { useAsyncData } from '#app';
 
@@ -471,4 +475,8 @@ const handleQuizComplete = (result: QuizResult) => {
         console.log('Quiz passed! Module marked as complete.');
     }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 </script>

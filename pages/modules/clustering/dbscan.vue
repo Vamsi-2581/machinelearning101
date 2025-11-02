@@ -1,11 +1,9 @@
 <template>
-  <ModuleLayout
-    title="DBSCAN"
+  <ModuleLayout title="DBSCAN"
     description="Learn density-based clustering that finds arbitrarily shaped clusters and identifies outliers"
-    difficulty="intermediate"
-    :estimated-time="40"
-    :table-of-contents="tableOfContents"
-  >
+    difficulty="intermediate" :estimated-time="40" module-id="dbscan" :table-of-contents="tableOfContents"
+    :parameters="parameters" @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
+
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -13,25 +11,13 @@
 
     <!-- Interactive Section -->
     <template #interactive>
-      <InteractiveSection
-        :loading="isTraining"
-        :progress="trainingProgress"
-        loading-message="Clustering data..."
-        :error="error"
-        :on-retry="handleRetry"
-      >
+      <InteractiveSection :loading="isTraining" :progress="trainingProgress" loading-message="Clustering data..."
+        :error="error" :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel
-            :controls="controls"
-            :values="parameters"
-            :loading="isTraining"
-            submit-label="Run DBSCAN"
-            @change="handleParameterChange"
-            @reset="handleReset"
-            @submit="handleTrain"
-          />
-          
+          <ControlPanel :controls="controls" :values="parameters" :loading="isTraining" submit-label="Run DBSCAN"
+            @change="handleParameterChange" @reset="handleReset" @submit="handleTrain" />
+
           <!-- Metrics Display -->
           <div v-if="metrics" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Clustering Results</h3>
@@ -61,16 +47,12 @@
                 <div class="text-lg font-semibold text-gray-900">{{ metrics.totalPoints }}</div>
               </div>
             </div>
-            
+
             <!-- Cluster Sizes -->
             <div v-if="metrics.clusterSizes && metrics.clusterSizes.length > 0" class="mt-4">
               <h4 class="text-xs font-semibold text-gray-700 mb-2">Cluster Sizes</h4>
               <div class="grid grid-cols-3 gap-2 text-center text-sm">
-                <div
-                  v-for="(size, idx) in metrics.clusterSizes"
-                  :key="idx"
-                  class="bg-blue-100 p-2 rounded"
-                >
+                <div v-for="(size, idx) in metrics.clusterSizes" :key="idx" class="bg-blue-100 p-2 rounded">
                   <div class="text-xs text-gray-600">Cluster {{ idx }}</div>
                   <div class="font-semibold">{{ size }} points</div>
                 </div>
@@ -82,16 +64,9 @@
         <!-- Visualization -->
         <template #visualization>
           <div class="space-y-4">
-            <Scatter2D
-              v-if="scatterSeries && scatterSeries.length > 0"
-              :series="scatterSeries"
-              title="DBSCAN Clustering"
-              x-label="Feature 1"
-              y-label="Feature 2"
-              :show-legend="true"
-              height="500px"
-            />
-            
+            <Scatter2D v-if="scatterSeries && scatterSeries.length > 0" :series="scatterSeries"
+              title="DBSCAN Clustering" x-label="Feature 1" y-label="Feature 2" :show-legend="true" height="500px" />
+
             <div v-if="!scatterSeries || scatterSeries.length === 0" class="text-center py-8 text-gray-500">
               Run DBSCAN to see clustering results
             </div>
@@ -104,27 +79,15 @@
     <template #quiz>
       <!-- Loading state -->
       <QuizLoadingState v-if="quizLoading" />
-      
+
       <!-- Error state with retry -->
-      <QuizErrorDisplay
-        v-else-if="quizError"
-        :error="quizError"
-        @retry="retryQuizLoad"
-      />
-      
+      <QuizErrorDisplay v-else-if="quizError" :error="quizError" @retry="retryQuizLoad" />
+
       <!-- Coming soon state -->
-      <QuizErrorDisplay
-        v-else-if="!quizData"
-        :coming-soon="true"
-      />
-      
+      <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
+
       <!-- Quiz component -->
-      <Quiz
-        v-else
-        :quiz="quizData"
-        :passing-score="quizData.passingScore || 70"
-        @quiz-completed="handleQuizComplete"
-      />
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -141,11 +104,11 @@ import Scatter2D from '~/components/visualizations/Scatter2D.vue';
 import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
+import { useAsyncData } from '#app';
 
-import { useAsyncData } from '#app'; 
 
 // Load content from Nuxt Content
-const { data: content } = await useAsyncData(() => 
+const { data: content } = await useAsyncData(() =>
   queryCollection('content').path('/modules/clustering/dbscan/content').first()
 );
 
@@ -238,10 +201,10 @@ const handleQuizComplete = (result: QuizResult) => {
 onMounted(async () => {
   moduleStore.setCurrentModule('dbscan');
   moduleStore.setParameters(parameters.value);
-  
+
   // Load quiz data
   await loadQuiz('dbscan', '/content/modules/clustering/dbscan/quiz.json');
-  
+
   // Load default dataset
   await loadInitialDataset();
 });
@@ -262,7 +225,7 @@ const loadInitialDataset = async () => {
 const handleParameterChange = async (id: string, value: any) => {
   parameters.value[id] = value;
   moduleStore.setParameter(id, value);
-  
+
   // Reload dataset if changed
   if (id === 'dataset') {
     const dataset = await loadDataset(value);
@@ -286,9 +249,9 @@ const handleReset = async () => {
     dataset: 'blobs',
   };
   moduleStore.setParameters(parameters.value);
-  
+
   await loadInitialDataset();
-  
+
   metrics.value = null;
   scatterSeries.value = [];
   error.value = null;
@@ -308,30 +271,30 @@ const handleTrain = async () => {
     if (!dataset || dataset.length === 0) {
       throw new Error('No dataset loaded');
     }
-    
+
     // Prepare data (clustering doesn't need labels)
     const X = dataset.map(d => d.features);
-    
+
     // Create and train algorithm
     algorithm = new DBSCAN({
       eps: parameters.value.eps,
       minPts: parameters.value.minPts,
       metric: parameters.value.metric as 'euclidean' | 'manhattan'
     });
-    
+
     // Train
     const startTime = Date.now();
     await algorithm.fit(X);
     const endTime = Date.now();
-    
+
     console.log(`DBSCAN completed in ${endTime - startTime}ms`);
-    
+
     // Get results
     metrics.value = algorithm.getMetrics();
-    
+
     // Update visualizations
     updateVisualization();
-    
+
     trainingProgress.value = 1;
   } catch (err) {
     console.error('DBSCAN error:', err);
@@ -346,15 +309,15 @@ const handleTrain = async () => {
  */
 const updateVisualization = () => {
   if (!algorithm) return;
-  
+
   const visualizations = algorithm.getVisualizationData();
-  
+
   // Process visualizations
   if (visualizations.length > 0) {
     const scatterViz = visualizations[0];
     if ((scatterViz.type === 'scatter2d' || scatterViz.type === 'scatter3d') && scatterViz.data) {
       const series: ScatterSeries[] = [];
-      
+
       // Add cluster points
       const clusterKeys = Object.keys(scatterViz.data).filter(key => key.startsWith('cluster'));
       for (const clusterKey of clusterKeys) {
@@ -373,7 +336,7 @@ const updateVisualization = () => {
           });
         }
       }
-      
+
       // Add noise points
       if (scatterViz.data.noise) {
         const noiseData = scatterViz.data.noise;
@@ -390,9 +353,31 @@ const updateVisualization = () => {
           }
         });
       }
-      
+
       scatterSeries.value = series;
     }
+  }
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+
+    // Trigger re-training with new parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
   }
 };
 

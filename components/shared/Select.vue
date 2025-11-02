@@ -1,75 +1,40 @@
 <template>
   <div class="select-control">
-    <label
-      v-if="label"
-      :for="selectId"
-      class="block text-sm font-medium text-gray-700 mb-1"
-    >
+    <label v-if="label" :for="selectId" class="block text-sm font-medium text-gray-700 mb-1">
       {{ label }}
       <span v-if="required" class="text-red-500" aria-label="required">*</span>
     </label>
-    
+
     <div class="relative">
-      <select
-        :id="selectId"
-        ref="selectRef"
-        :value="modelValue"
-        :disabled="disabled"
-        :required="required"
-        :aria-label="ariaLabel || label"
-        :aria-describedby="helperText ? `${selectId}-description` : undefined"
-        :class="selectClasses"
-        @change="handleChange"
-        @blur="handleBlur"
-        @focus="handleFocus"
-      >
+      <select :id="selectId" ref="selectRef" :value="localValue" :disabled="disabled" :required="required"
+        :aria-label="ariaLabel || label" :aria-describedby="helperText ? `${selectId}-description` : undefined"
+        :class="selectClasses" @change="handleChange" @blur="handleBlur" @focus="handleFocus">
         <option v-if="placeholder" value="" disabled>
           {{ placeholder }}
         </option>
-        <option
-          v-for="option in options"
-          :key="getOptionValue(option)"
-          :value="getOptionValue(option)"
-          :disabled="isOptionDisabled(option)"
-        >
+        <option v-for="option in options" :key="getOptionValue(option)" :value="getOptionValue(option)"
+          :disabled="isOptionDisabled(option)">
           {{ getOptionLabel(option) }}
         </option>
       </select>
-      
+
       <!-- Dropdown Icon -->
-      <div
-        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-        aria-hidden="true"
-      >
-        <svg
-          class="h-5 w-5 text-gray-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          />
+      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none" aria-hidden="true">
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
     </div>
-    
+
     <!-- Helper Text -->
-    <p
-      v-if="helperText"
-      :id="`${selectId}-description`"
-      class="mt-1 text-sm text-gray-500"
-    >
+    <p v-if="helperText" :id="`${selectId}-description`" class="mt-1 text-sm text-gray-500">
       {{ helperText }}
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 interface SelectOption {
   label: string;
@@ -101,7 +66,8 @@ const emit = defineEmits<{
 }>();
 
 const selectRef = ref<HTMLSelectElement>();
-const selectId = computed(() => `select-${Math.random().toString(36).substr(2, 9)}`);
+const localValue = ref(props.modelValue);
+const selectId = computed(() => `select-${Math.random().toString(36).substring(2, 11)}`);
 
 const selectClasses = computed(() => [
   'block',
@@ -151,10 +117,11 @@ const isOptionDisabled = (option: SelectOption | string | number): boolean => {
 const handleChange = (event: Event) => {
   const target = event.target as HTMLSelectElement;
   const value = target.value;
-  
+
   // Try to parse as number if the original modelValue was a number
   const parsedValue = typeof props.modelValue === 'number' ? parseFloat(value) : value;
-  
+
+  localValue.value = parsedValue;
   emit('update:modelValue', parsedValue);
   emit('change', parsedValue);
 };
@@ -166,6 +133,11 @@ const handleBlur = (event: FocusEvent) => {
 const handleFocus = (event: FocusEvent) => {
   emit('focus', event);
 };
+
+// Watch for parent updates to modelValue
+watch(() => props.modelValue, (newValue) => {
+  localValue.value = newValue;
+});
 
 defineExpose({
   focus: () => selectRef.value?.focus(),

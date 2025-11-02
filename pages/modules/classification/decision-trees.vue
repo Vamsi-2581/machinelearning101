@@ -1,7 +1,10 @@
 <template>
   <ModuleLayout title="Decision Trees"
     description="Learn how decision trees make predictions using if-then-else rules and splitting criteria"
-    difficulty="intermediate" :estimated-time="30" :table-of-contents="tableOfContents">
+    difficulty="intermediate" :estimated-time="30" :table-of-contents="tableOfContents"
+    module-id="decision-trees"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -137,6 +140,7 @@ import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 import { useAsyncData } from '#app';
 
@@ -425,4 +429,8 @@ const handleQuizComplete = (result: QuizResult) => {
     console.log('Quiz passed! Module marked as complete.');
   }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 </script>

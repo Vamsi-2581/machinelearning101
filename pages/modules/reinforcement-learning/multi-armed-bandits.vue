@@ -4,7 +4,10 @@
     description="Learn about the exploration-exploitation tradeoff through epsilon-greedy, UCB, and Thompson Sampling strategies"
     difficulty="beginner"
     :estimated-time="35"
+    module-id="multi-armed-bandits"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -214,6 +217,7 @@ import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { MultiArmedBandits } from '~/algorithms/reinforcement-learning/MultiArmedBandits';
 import type { BanditStrategy } from '~/algorithms/reinforcement-learning/MultiArmedBandits';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -482,4 +486,8 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, handleTrain);
 </script>

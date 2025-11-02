@@ -4,7 +4,10 @@
     description="Learn how to optimize model hyperparameters using grid search, random search, and Bayesian optimization"
     difficulty="advanced"
     :estimated-time="45"
+    module-id="hyperparameter-tuning"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -189,7 +192,6 @@ import type { Metrics } from '~/types/algorithm';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
-import { useAsyncData } from '#app';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -506,5 +508,33 @@ const handleTrain = async () => {
 const handleRetry = () => {
   error.value = null;
   handleTrain();
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Update parameters with bookmark values
+    Object.assign(parameters.value, bookmarkParameters);
+    moduleStore.setParameters(parameters.value);
+    
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset) {
+      await loadInitialDataset();
+    }
+    
+    // Clear previous results to indicate fresh state
+    metrics.value = null;
+    bestParameters.value = null;
+    optimizationProgressSeries.value = [];
+    bestScoreSeries.value = [];
+    parameterSpaceViz.value = null;
+    parameterImportanceViz.value = null;
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
+  }
 };
 </script>

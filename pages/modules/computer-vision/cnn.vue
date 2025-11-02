@@ -1,7 +1,11 @@
 <template>
   <ModuleLayout title="Convolutional Neural Networks"
     description="Learn how CNNs use convolutional layers, pooling, and feature maps to process images"
-    difficulty="advanced" :estimated-time="45" :table-of-contents="tableOfContents">
+    difficulty="advanced" :estimated-time="45" module-id="cnn"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -106,6 +110,7 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 import { useAsyncData } from '#app';
 
@@ -469,4 +474,19 @@ const handleQuizComplete = (result: QuizResult) => {
     console.log('Quiz passed! Module marked as complete.');
   }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Clear previous results
+  metrics.value = null;
+  lossSeries.value = [];
+  accuracySeries.value = [];
+  filters.value = [];
+  featureMaps.value = [];
+  pooledMaps.value = [];
+  
+  // Optionally re-train with new parameters
+  // await handleTrain();
+});
 </script>

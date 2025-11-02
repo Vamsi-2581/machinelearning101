@@ -135,15 +135,9 @@ The component uses Tailwind CSS classes and adapts to your theme. The bookmark i
     difficulty="intermediate"
     :estimated-time="45"
     module-id="gradient-descent"
-  >
-    <template #bookmark-button>
-      <BookmarkButton
-        module-id="gradient-descent"
-        :parameters="parameters"
-        :on-load="handleLoadBookmark"
-      />
-    </template>
-
+    :parameters="parameters"
+    :on-load="handleLoadBookmark"
+  >  
     <template #interactive>
       <InteractiveSection>
         <template #controls>

@@ -1,7 +1,13 @@
 <template>
   <ModuleLayout title="Text Preprocessing & Tokenization"
     description="Learn how to tokenize and preprocess text for natural language processing tasks"
-    difficulty="beginner" :estimated-time="35" :table-of-contents="tableOfContents">
+    difficulty="beginner"
+    :estimated-time="35"
+    module-id="text-preprocessing"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -333,6 +339,24 @@ const handleProcess = async () => {
  */
 const handleRetry = () => {
   error.value = null;
+  handleProcess();
+};
+
+/**
+ * Handle load bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (bookmarkParams: Record<string, any>) => {
+  // Update parameters with bookmark values
+  Object.assign(parameters.value, bookmarkParams);
+  moduleStore.setParameters(parameters.value);
+
+  // Update input text if sample changed
+  if (bookmarkParams.sampleText) {
+    inputText.value = sampleTexts[bookmarkParams.sampleText as keyof typeof sampleTexts];
+  }
+
+  // Reprocess text with loaded parameters
   handleProcess();
 };
 

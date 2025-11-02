@@ -4,7 +4,10 @@
     description="Learn how Actor-Critic algorithms combine policy and value learning for stable and efficient reinforcement learning"
     difficulty="advanced"
     :estimated-time="50"
+    module-id="actor-critic"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -209,6 +212,7 @@ import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { ActorCritic } from '~/algorithms/reinforcement-learning/ActorCritic';
 import type { GridEnvironment } from '~/algorithms/reinforcement-learning/ActorCritic';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -220,6 +224,8 @@ import type { Metrics } from '~/types/algorithm';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
 import { useAsyncData } from '#app';
+
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -587,4 +593,13 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Reinitialize environment if environmentType changed
+  initializeEnvironment();
+  // Trigger training with restored parameters
+  await handleTrain();
+});
 </script>

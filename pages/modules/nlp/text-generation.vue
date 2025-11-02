@@ -1,7 +1,13 @@
 <template>
   <ModuleLayout title="Text Generation & Language Models"
     description="Learn how machines generate text using recurrent neural networks"
-    difficulty="advanced" :estimated-time="45" :table-of-contents="tableOfContents">
+    difficulty="advanced"
+    :estimated-time="45"
+    module-id="text-generation"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -429,6 +435,19 @@ const handleGenerate = async () => {
  */
 const handleRetry = () => {
   error.value = null;
+  handleTrain();
+};
+
+/**
+ * Handle load bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (bookmarkParams: Record<string, any>) => {
+  // Update parameters with bookmark values
+  Object.assign(parameters.value, bookmarkParams);
+  moduleStore.setParameters(parameters.value);
+
+  // Retrain model with loaded parameters
   handleTrain();
 };
 

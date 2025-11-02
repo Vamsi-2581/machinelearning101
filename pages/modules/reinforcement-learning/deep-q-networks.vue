@@ -4,7 +4,10 @@
     description="Learn how Deep Q-Networks combine neural networks with Q-learning to handle large state spaces using experience replay and target networks"
     difficulty="advanced"
     :estimated-time="50"
+    module-id="deep-q-networks"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
     <!-- Content Section -->
     <template #content>
@@ -180,6 +183,7 @@ import { useQuizLoader } from '~/composables/useQuizLoader';
 import type { QuizResult } from '~/types/quiz';
 import { useModuleStore } from '~/stores/module';
 import { useTableOfContents } from '~/composables/useTableOfContents';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { DQN } from '~/algorithms/reinforcement-learning/DQN';
 import type { GridEnvironment } from '~/algorithms/reinforcement-learning/DQN';
 import LineChart from '~/components/visualizations/LineChart.vue';
@@ -190,6 +194,7 @@ import type { Metrics } from '~/types/algorithm';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 
 import { useAsyncData } from '#app';
+
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -643,4 +648,13 @@ const handleRetry = () => {
   error.value = null;
   handleTrain();
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Reinitialize environment if environmentType changed
+  initializeEnvironment();
+  // Trigger training with restored parameters
+  await handleTrain();
+});
 </script>

@@ -23,8 +23,13 @@
                 {{ estimatedTime }} min
               </span>
             </div>
-            <!-- Bookmark button slot -->
-            <slot name="bookmark-button" />
+            <!-- Bookmark button - Requirements: 7.1, 7.2 -->
+            <BookmarkButton
+              v-if="moduleId"
+              :module-id="moduleId"
+              :parameters="currentParameters"
+              :on-load="handleLoadBookmark"
+            />
           </div>
         </div>
 
@@ -105,13 +110,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useBreadcrumbs } from '~/composables/useBreadcrumbs';
 import { useKeyboardShortcuts } from '../../composables/useKeyboardShortcuts';
 import { useModuleNavigation } from '~/composables/useModuleNavigation';
+import { useModuleStore } from '~/stores/module';
 import Breadcrumb from '~/components/shared/Breadcrumb.vue';
 import ModuleNavigation from '~/components/modules/ModuleNavigation.vue';
+import BookmarkButton from '~/components/shared/BookmarkButton.vue';
 import Footer from '../layout/Footer.vue';
 
 interface TocLink {
@@ -134,8 +141,15 @@ const props = withDefaults(defineProps<Props>(), {
   tableOfContents: () => [],
 });
 
+// Emit event for bookmark loading
+// Requirements: 2.2, 2.3
+const emit = defineEmits<{
+  'load-bookmark': [parameters: Record<string, any>]
+}>();
+
 const router = useRouter();
 const { breadcrumbs } = useBreadcrumbs();
+const moduleStore = useModuleStore();
 
 // Get navigation from global composable
 const { previousModule, nextModule, loadNavigation } = useModuleNavigation();
@@ -143,6 +157,21 @@ const { previousModule, nextModule, loadNavigation } = useModuleNavigation();
 const activeTab = ref<'content' | 'interactive' | 'quiz'>('content');
 const isHeaderSticky = ref(false);
 const activeTocId = ref<string>('');
+
+// Get current parameters from module store
+// Requirements: 7.1, 7.2
+const currentParameters = computed(() => {
+  return moduleStore.parameters || {};
+});
+
+/**
+ * Handle bookmark loading
+ * Emits event to parent module page to restore parameters
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (parameters: Record<string, any>) => {
+  emit('load-bookmark', parameters);
+};
 
 // Module-specific keyboard shortcuts
 // Requirements: 1.4 - Keyboard navigation support

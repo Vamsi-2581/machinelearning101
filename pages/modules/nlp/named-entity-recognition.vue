@@ -1,7 +1,8 @@
 <template>
-  <ModuleLayout title="Named Entity Recognition"
-    description="Learn how to identify and classify named entities in text"
-    difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents">
+  <ModuleLayout title="Named Entity Recognition" description="Learn how to identify and classify named entities in text"
+    difficulty="intermediate" :estimated-time="45" module-id="named-entity-recognition"
+    :table-of-contents="tableOfContents" :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -13,8 +14,9 @@
         :on-retry="handleRetry">
         <!-- Controls -->
         <template #controls>
-          <ControlPanel :controls="controls" :values="parameters" :loading="isProcessing" submit-label="Extract Entities"
-            @change="handleParameterChange" @reset="handleReset" @submit="handleExtract" />
+          <ControlPanel :controls="controls" :values="parameters" :loading="isProcessing"
+            submit-label="Extract Entities" @change="handleParameterChange" @reset="handleReset"
+            @submit="handleExtract" />
 
           <!-- Test Text Input -->
           <div class="mt-6">
@@ -35,7 +37,8 @@
           <!-- Entity Results -->
           <div v-if="predictions.length > 0" class="mt-6">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Extracted Entities</h3>
-            <div v-for="(pred, idx) in predictions" :key="idx" class="mb-4 p-4 bg-white rounded-lg border border-gray-200">
+            <div v-for="(pred, idx) in predictions" :key="idx"
+              class="mb-4 p-4 bg-white rounded-lg border border-gray-200">
               <div class="mb-2 text-sm text-gray-600">Text {{ idx + 1 }}:</div>
               <div class="mb-3 p-3 bg-gray-50 rounded text-sm font-mono" v-html="pred.highlightedText"></div>
               <div v-if="pred.entities.length > 0" class="space-y-2">
@@ -43,8 +46,7 @@
                   class="flex items-center justify-between text-sm p-2 bg-gray-50 rounded">
                   <div class="flex items-center space-x-3">
                     <span class="font-semibold text-gray-900">{{ entity.text }}</span>
-                    <span :class="getEntityTypeClass(entity.type)"
-                      class="px-2 py-1 rounded text-xs font-medium">
+                    <span :class="getEntityTypeClass(entity.type)" class="px-2 py-1 rounded text-xs font-medium">
                       {{ entity.type }}
                     </span>
                   </div>
@@ -79,7 +81,8 @@
               </div>
               <div v-if="metrics.averageConfidence !== undefined">
                 <div class="text-xs text-gray-500">Avg Confidence</div>
-                <div class="text-lg font-semibold text-gray-900">{{ (metrics.averageConfidence * 100).toFixed(1) }}%</div>
+                <div class="text-lg font-semibold text-gray-900">{{ (metrics.averageConfidence * 100).toFixed(1) }}%
+                </div>
               </div>
               <div v-if="metrics.averageEntitiesPerText !== undefined">
                 <div class="text-xs text-gray-500">Avg Entities/Text</div>
@@ -108,8 +111,7 @@
       <QuizErrorDisplay v-else-if="!quizData" :coming-soon="true" />
 
       <!-- Quiz component -->
-      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70"
-        @quiz-completed="handleQuizComplete" />
+      <Quiz v-else :quiz="quizData" :passing-score="quizData.passingScore || 70" @quiz-completed="handleQuizComplete" />
     </template>
   </ModuleLayout>
 </template>
@@ -130,9 +132,10 @@ import type { ModuleNavItem } from '~/types/module';
 import type { QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
 
-import { useAsyncData } from '#app';
 
-const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/nlp/named-entity-recognition/content').first())
+const { data: content } = await useAsyncData(() =>
+  queryCollection('content').path('/modules/nlp/named-entity-recognition/content').first()
+)
 
 // Extract table of contents from content
 const tableOfContents = useTableOfContents(content);
@@ -382,6 +385,22 @@ const getEntityTypeClass = (type: string): string => {
     PHONE: 'bg-orange-100 text-orange-800',
   };
   return classes[type] || 'bg-gray-100 text-gray-800';
+};
+
+/**
+ * Handle load bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = (bookmarkParams: Record<string, any>) => {
+  // Update parameters with bookmark values
+  Object.assign(parameters.value, bookmarkParams);
+  moduleStore.setParameters(parameters.value);
+
+  // Reinitialize algorithm with loaded parameters
+  initializeAlgorithm();
+
+  // Re-extract entities with loaded parameters
+  handleExtract();
 };
 
 /**

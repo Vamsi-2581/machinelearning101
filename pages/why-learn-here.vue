@@ -90,14 +90,7 @@
                 Every parameter is at your fingertips. Adjust learning rates, change datasets, modify architectures. 
                 See what happens when you make learning rates too high. Discover why feature scaling matters. 
                 Build intuition through experimentation, not memorization.
-              </p>
-              <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-                <p class="text-sm text-blue-900 font-medium mb-2">
-                  "I finally understand why my models weren't converging. Seeing the optimization path 
-                  oscillate with high learning rates made it click instantly."
-                </p>
-                <p class="text-xs text-blue-700">- Sarah, Data Science Student</p>
-              </div>
+              </p> 
             </div>
           </div>
 
@@ -111,7 +104,7 @@
             <div class="flex-1">
               <h2 class="text-2xl font-bold text-gray-900 mb-3">Clear Learning Path from Basics to Advanced</h2>
               <p class="text-gray-700 mb-4">
-                No more jumping between random tutorials. Our curriculum is carefully structured to build 
+                No more jumping between random tutorials. The modules are carefully structured to build 
                 knowledge progressively. Start with linear regression, master the fundamentals, then advance 
                 to neural networks and deep learning.
               </p>
@@ -182,7 +175,7 @@
                 <td class="px-4 py-3 text-center"><Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 mx-auto" /></td>
               </tr>
               <tr class="border-b border-gray-200">
-                <td class="px-4 py-3 text-gray-900">Structured Curriculum</td>
+                <td class="px-4 py-3 text-gray-900">Structured Modules</td>
                 <td class="px-4 py-3 text-center bg-blue-50"><Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 mx-auto" /></td>
                 <td class="px-4 py-3 text-center"><Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 mx-auto" /></td>
                 <td class="px-4 py-3 text-center"><Icon name="mdi:check-bold" class="w-5 h-5 text-green-600 mx-auto" /></td>
@@ -204,84 +197,7 @@
           <Icon name="mdi:close-bold" class="inline w-4 h-4 text-red-600" /> = No
         </p>
       </section>
-
-      <!-- Social Proof / Testimonials -->
-      <section class="mb-16">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">What Learners Say</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="flex text-yellow-400">
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-              </div>
-            </div>
-            <p class="text-gray-700 mb-4">
-              "Finally, a platform that makes ML concepts click! The interactive visualizations helped me 
-              understand gradient descent in 10 minutes after struggling with textbooks for weeks."
-            </p>
-            <p class="text-sm font-semibold text-gray-900">Alex Chen</p>
-            <p class="text-xs text-gray-600">Computer Science Student</p>
-          </div>
-
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="flex text-yellow-400">
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-              </div>
-            </div>
-            <p class="text-gray-700 mb-4">
-              "The zero-setup approach is brilliant. I was learning within seconds, not hours. Perfect for 
-              busy professionals who want to learn ML without the installation headaches."
-            </p>
-            <p class="text-sm font-semibold text-gray-900">Maria Rodriguez</p>
-            <p class="text-xs text-gray-600">Product Manager</p>
-          </div>
-
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="flex text-yellow-400">
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-              </div>
-            </div>
-            <p class="text-gray-700 mb-4">
-              "I love how I can experiment with different parameters and immediately see the results. 
-              It's like having a ML playground where mistakes are learning opportunities."
-            </p>
-            <p class="text-sm font-semibold text-gray-900">James Wilson</p>
-            <p class="text-xs text-gray-600">Self-Taught Developer</p>
-          </div>
-
-          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="flex text-yellow-400">
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-                <Icon name="mdi:star" class="w-5 h-5" />
-              </div>
-            </div>
-            <p class="text-gray-700 mb-4">
-              "The visual approach makes complex concepts accessible. I recommend this to all my students 
-              as a supplement to our coursework. It bridges theory and intuition perfectly."
-            </p>
-            <p class="text-sm font-semibold text-gray-900">Dr. Emily Park</p>
-            <p class="text-xs text-gray-600">University Professor</p>
-          </div>
-        </div>
-      </section>
+ >
 
       <!-- CTA Section -->
       <section class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 md:p-12 text-center">
@@ -314,7 +230,7 @@
 // SEO
 useSEO({
   title: 'Why Learn Machine Learning Here? - ML Simplified Benefits & Comparison',
-  description: 'Discover why ML Simplified is the best place to learn machine learning. Zero setup, interactive visualizations, hands-on experimentation, and structured curriculum. Compare with other learning resources.',
+  description: 'Discover why ML Simplified is the best place to learn machine learning. Zero setup, interactive visualizations, hands-on experimentation, and structured Modules. Compare with other learning resources.',
   keywords: 'machine learning comparison, best ML learning platform, interactive ML tutorial, ML visualization, learn machine learning online',
   url: '/why-learn-here',
   type: 'website',

@@ -1,7 +1,10 @@
 <template>
   <ModuleLayout title="Learning Rate Scheduling"
     description="Learn how learning rate scheduling improves optimization convergence and stability"
-    difficulty="intermediate" :estimated-time="40" :table-of-contents="tableOfContents">
+    difficulty="intermediate" :estimated-time="40" :table-of-contents="tableOfContents"
+    module-id="learning-rate-scheduling"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }">
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -86,6 +89,7 @@ import Quiz from '~/components/modules/Quiz.vue';
 import QuizLoadingState from '~/components/modules/QuizLoadingState.vue';
 import QuizErrorDisplay from '~/components/modules/QuizErrorDisplay.vue';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() =>
@@ -464,4 +468,8 @@ const handleRetry = () => {
 const handleQuizComplete = (result: QuizResult) => {
   console.log('Quiz completed:', result);
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, initializeAlgorithm);
 </script>

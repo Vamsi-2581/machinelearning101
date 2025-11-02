@@ -1,7 +1,11 @@
 <template>
   <ModuleLayout title="Image Segmentation"
     description="Learn pixel-wise classification for semantic segmentation using clustering algorithms"
-    difficulty="intermediate" :estimated-time="45" :table-of-contents="tableOfContents">
+    difficulty="intermediate" :estimated-time="45" module-id="image-segmentation"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -113,6 +117,7 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 
 import { useAsyncData } from '#app';
 
@@ -389,4 +394,17 @@ const handleQuizComplete = (result: QuizResult) => {
     console.log('Quiz passed! Module marked as complete.');
   }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Clear previous results
+  metrics.value = null;
+  originalImage.value = null;
+  segmentationMask.value = null;
+  inertiaSeries.value = [];
+  
+  // Optionally re-train with new parameters
+  // await handleTrain();
+});
 </script>

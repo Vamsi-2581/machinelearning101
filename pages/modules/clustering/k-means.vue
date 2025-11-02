@@ -4,8 +4,12 @@
     description="Learn how K-Means groups similar data points into clusters using iterative centroid updates"
     difficulty="beginner"
     :estimated-time="35"
+    module-id="k-means"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
+    
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -179,8 +183,8 @@ import type { ControlConfig } from '~/components/modules/ControlPanel.vue';
 import type { Metrics } from '~/types/algorithm';
 import type { ScatterSeries } from '~/components/visualizations/Scatter2D.vue';
 import type { LineSeries } from '~/components/visualizations/LineChart.vue';
+import { useAsyncData } from '#app';
 
-import { useAsyncData } from '#app'; 
 
 // Load content from Nuxt Content
 const { data: content } = await useAsyncData(() => 
@@ -576,6 +580,33 @@ const previousStep = () => {
 const nextStep = () => {
   if (currentStep.value < clusterHistory.value.length - 1) {
     currentStep.value++;
+  }
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+    
+    // Update step-by-step mode if changed
+    if (bookmarkParameters.stepByStep !== undefined) {
+      stepByStepMode.value = bookmarkParameters.stepByStep;
+    }
+    
+    // Trigger re-training with new parameters
+    await handleTrain();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
   }
 };
 

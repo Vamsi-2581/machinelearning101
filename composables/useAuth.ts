@@ -25,8 +25,12 @@ interface SyncProgressData {
     completed_at: number;
   }>;
   bookmarks: Array<{
+    id: string;
     module_id: string;
+    name: string;
+    parameters: Record<string, any>;
     created_at: number;
+    updated_at: number;
   }>;
 }
 
@@ -50,7 +54,10 @@ interface ProgressResponse {
     id: string;
     user_id: string;
     module_id: string;
+    name: string;
+    parameters: string;
     created_at: number;
+    updated_at: number;
   }>;
 }
 
@@ -218,12 +225,19 @@ export const useAuth = () => {
 
   /**
    * Sync local progress data to the cloud
-   * Requirements: 8.7
+   * Requirements: 8.7, 4.1, 5.3, 1.5, 2.5
    */
   const syncProgress = async (): Promise<boolean> => {
     try {
       // Only sync if user is authenticated
       if (!authStore.isAuthenticated || !authStore.token) {
+        return false;
+      }
+
+      // Check if user is offline before attempting sync
+      // Requirements: 2.5
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        console.log('User is offline, skipping sync');
         return false;
       }
 
@@ -238,13 +252,17 @@ export const useAuth = () => {
         })),
         quizzes: Object.entries(progressStore.quizScores).map(([moduleId, score]) => ({
           module_id: moduleId,
-          score: score,
+          score: score as number,
           total: 100, // Assuming 100 is the total score
           completed_at: Date.now(),
         })),
         bookmarks: progressStore.bookmarks.map(bookmark => ({
+          id: bookmark.id,
           module_id: bookmark.moduleId,
+          name: bookmark.name,
+          parameters: bookmark.parameters,
           created_at: bookmark.timestamp,
+          updated_at: bookmark.timestamp,
         })),
       };
 
@@ -265,7 +283,19 @@ export const useAuth = () => {
           toastStore.warning('Session expired. Please sign in again.');
           return false;
         }
-        throw new Error(`Sync failed: ${response.statusText}`);
+        
+        // Handle other errors with user feedback
+        // Requirements: 1.5, 2.5
+        const errorData = await response.json().catch(() => ({ message: response.statusText }));
+        console.error('Sync failed:', errorData);
+        
+        // Show user-friendly error message
+        toastStore.error(
+          'Failed to sync bookmarks to cloud. Changes are saved locally.',
+          'Sync Failed',
+          ['Check your internet connection', 'Try again later']
+        );
+        return false;
       }
 
       const result = await response.json();
@@ -274,7 +304,23 @@ export const useAuth = () => {
       return true;
     } catch (error) {
       console.error('Failed to sync progress:', error);
-      // Don't show error toast for sync failures to avoid annoying users
+      
+      // Handle network errors gracefully
+      // Requirements: 1.5, 2.5
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        // Network error (offline, CORS, etc.)
+        toastStore.warning(
+          'Unable to sync bookmarks. Changes are saved locally and will sync when connection is restored.',
+          'Connection Issue'
+        );
+      } else {
+        // Other errors
+        toastStore.error(
+          'Failed to sync bookmarks. Changes are saved locally.',
+          'Sync Failed',
+          ['Please try again later']
+        );
+      }
       return false;
     } finally {
       authStore.setLoading(false);
@@ -283,7 +329,7 @@ export const useAuth = () => {
 
   /**
    * Fetch progress data from the cloud and merge with local data
-   * Requirements: 8.7
+   * Requirements: 8.7, 5.1, 5.2, 5.4
    */
   const fetchProgress = async (): Promise<boolean> => {
     try {
@@ -322,7 +368,35 @@ export const useAuth = () => {
         }
       });
 
-      // Use the new mergeBackendData method
+      // Deserialize bookmark parameters from backend response
+      const deserializedBookmarks = data.bookmarks.map(b => {
+        let parameters: Record<string, any> = {};
+        
+        // Safely deserialize parameters JSON string
+        try {
+          if (b.parameters && typeof b.parameters === 'string') {
+            parameters = JSON.parse(b.parameters);
+          } else if (typeof b.parameters === 'object') {
+            // Already an object (shouldn't happen but handle gracefully)
+            parameters = b.parameters as any;
+          }
+        } catch (error) {
+          console.error(`Failed to parse bookmark parameters for bookmark ${b.id}:`, error);
+          // Use empty parameters on parse error
+          parameters = {};
+        }
+
+        // Map backend bookmark format to frontend Bookmark interface
+        return {
+          id: b.id,
+          moduleId: b.module_id,
+          name: b.name,
+          parameters: parameters,
+          timestamp: b.updated_at || b.created_at,
+        };
+      });
+
+      // Use the new mergeBackendData method with complete bookmark data
       progressStore.mergeBackendData({
         completedModules: data.modules
           .filter((m: { completed: boolean }) => m.completed)
@@ -330,13 +404,7 @@ export const useAuth = () => {
         quizScores: Object.fromEntries(
           data.quizzes.map((q: { module_id: string; score: number }) => [q.module_id, q.score])
         ),
-        bookmarks: data.bookmarks.map((b: { module_id: string; created_at: number }) => ({
-          id: `bookmark-${b.created_at}`,
-          moduleId: b.module_id,
-          name: `Bookmark for ${b.module_id}`,
-          parameters: {},
-          timestamp: b.created_at,
-        })),
+        bookmarks: deserializedBookmarks,
       });
 
       console.log('Progress fetched and merged successfully');

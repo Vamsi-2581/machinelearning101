@@ -1,7 +1,11 @@
 <template>
   <ModuleLayout title="Image Classification Basics"
     description="Learn how neural networks classify images using extracted features and multi-class classification"
-    difficulty="beginner" :estimated-time="40" :table-of-contents="tableOfContents">
+    difficulty="beginner" :estimated-time="40" module-id="image-classification"
+    :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
+  >
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -109,10 +113,13 @@ import type { LineSeries } from '~/components/visualizations/LineChart.vue';
 import type { ModuleNavItem } from '~/types/module';
 import type { Quiz as QuizType, QuizResult } from '~/types/quiz';
 import { useQuizLoader } from '~/composables/useQuizLoader';
-
+import { useBookmarkRestore } from '~/composables/useBookmarkRestore';
 import { useAsyncData } from '#app';
 
-const { data: content } = await useAsyncData(() => queryCollection('content').path('/modules/computer-vision/image-classification/content').first())
+
+const { data: content } = await useAsyncData(() => 
+  queryCollection('content').path('/modules/computer-vision/image-classification/content').first()
+)
 
 // Extract table of contents from content
 const tableOfContents = useTableOfContents(content);
@@ -418,4 +425,18 @@ const handleQuizComplete = (result: QuizResult) => {
     console.log('Quiz passed! Module marked as complete.');
   }
 };
+
+// Bookmark restoration
+// Requirements: 2.2, 2.3
+const { handleLoadBookmark } = useBookmarkRestore(parameters, async () => {
+  // Clear previous results
+  metrics.value = null;
+  scatterSeries.value = [];
+  lossSeries.value = [];
+  accuracySeries.value = [];
+  confusionMatrixData.value = null;
+  
+  // Optionally re-train with new parameters
+  // await handleTrain();
+});
 </script>

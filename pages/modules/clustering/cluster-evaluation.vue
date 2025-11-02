@@ -4,8 +4,12 @@
     description="Learn to evaluate clustering quality using internal and external metrics"
     difficulty="intermediate"
     :estimated-time="35"
+    module-id="cluster-evaluation"
     :table-of-contents="tableOfContents"
+    :parameters="parameters"
+    @load-bookmark="(val) => { parameters = val; handleLoadBookmark(val); }"
   >
+    
     <!-- Content Section -->
     <template #content>
       <ContentRenderer v-if="content" :value="content" class="prose prose-slate max-w-none" />
@@ -439,6 +443,28 @@ const updateVisualization = (data: number[][], labels: number[]) => {
   }
   
   clusteringSeries.value = series;
+};
+
+/**
+ * Handle loading bookmark
+ * Requirements: 2.2, 2.3
+ */
+const handleLoadBookmark = async (bookmarkParameters: Record<string, any>) => {
+  try {
+    // Reload dataset if dataset parameter changed
+    if (bookmarkParameters.dataset && bookmarkParameters.dataset !== parameters.value.dataset) {
+      const dataset = await loadDataset(bookmarkParameters.dataset);
+      if (dataset) {
+        moduleStore.loadDataset(dataset.data);
+      }
+    }
+    
+    // Trigger evaluation with new parameters
+    await handleEvaluate();
+  } catch (err) {
+    console.error('Error loading bookmark:', err);
+    error.value = 'Failed to load bookmark configuration';
+  }
 };
 
 /**

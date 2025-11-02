@@ -22,7 +22,7 @@ describe('Progress Handlers', () => {
     vi.clearAllMocks()
     
     mockEnv = {
-      DB: {} as D1Database,
+      ml_platform_db: {} as D1Database,
       GOOGLE_CLIENT_ID: 'test-client-id',
       GOOGLE_CLIENT_SECRET: 'test-client-secret',
       GOOGLE_REDIRECT_URI: 'https://api.test.com/callback',
@@ -67,7 +67,10 @@ describe('Progress Handlers', () => {
         id: 'bookmark-1',
         user_id: 'user-123',
         module_id: 'linear-regression',
-        created_at: 1234567890
+        name: 'Test Bookmark',
+        parameters: '{"learningRate":0.01}',
+        created_at: 1234567890,
+        updated_at: 1234567890
       })
       
       // Create request with sync data
@@ -89,8 +92,12 @@ describe('Progress Handlers', () => {
         ],
         bookmarks: [
           {
+            id: 'bookmark-1',
             module_id: 'linear-regression',
-            created_at: 1234567890
+            name: 'Test Bookmark',
+            parameters: { learningRate: 0.01 },
+            created_at: 1234567890,
+            updated_at: 1234567890
           }
         ]
       }
@@ -113,7 +120,7 @@ describe('Progress Handlers', () => {
       
       // Verify database operations were called
       expect(database.saveProgress).toHaveBeenCalledWith(
-        mockenv.ml_platform_db,
+        mockEnv.ml_platform_db,
         'user-123',
         'linear-regression',
         true,
@@ -121,7 +128,7 @@ describe('Progress Handlers', () => {
       )
       
       expect(database.saveQuizScore).toHaveBeenCalledWith(
-        mockenv.ml_platform_db,
+        mockEnv.ml_platform_db,
         'user-123',
         'linear-regression',
         8,
@@ -130,9 +137,13 @@ describe('Progress Handlers', () => {
       )
       
       expect(database.saveBookmark).toHaveBeenCalledWith(
-        mockenv.ml_platform_db,
+        mockEnv.ml_platform_db,
         'user-123',
+        'bookmark-1',
         'linear-regression',
+        'Test Bookmark',
+        { learningRate: 0.01 },
+        1234567890,
         1234567890
       )
     })
@@ -369,7 +380,7 @@ describe('Progress Handlers', () => {
       
       // Verify saveProgress was called with the newer timestamp
       expect(database.saveProgress).toHaveBeenCalledWith(
-        mockenv.ml_platform_db,
+        mockEnv.ml_platform_db,
         'user-123',
         'linear-regression',
         true,
@@ -474,9 +485,9 @@ describe('Progress Handlers', () => {
       expect(result.bookmarks).toEqual(mockBookmarks)
       
       // Verify database operations were called
-      expect(database.getProgressByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
-      expect(database.getQuizScoresByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
-      expect(database.getBookmarksByUserId).toHaveBeenCalledWith(mockenv.ml_platform_db, 'user-123')
+      expect(database.getProgressByUserId).toHaveBeenCalledWith(mockEnv.ml_platform_db, 'user-123')
+      expect(database.getQuizScoresByUserId).toHaveBeenCalledWith(mockEnv.ml_platform_db, 'user-123')
+      expect(database.getBookmarksByUserId).toHaveBeenCalledWith(mockEnv.ml_platform_db, 'user-123')
     })
     
     it('should return empty arrays when user has no progress', async () => {

@@ -1,11 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { useAuthStore } from '~/stores/auth';
 import type { User } from '~/stores/auth';
 
 describe('Auth Store', () => {
   beforeEach(() => {
-    setActivePinia(createPinia());
+    const pinia = createPinia();
+    pinia.use(piniaPluginPersistedstate);
+    setActivePinia(pinia);
     // Clear localStorage before each test
     localStorage.clear();
   });
@@ -197,8 +200,11 @@ describe('Auth Store', () => {
         isAuthenticated: true,
       }));
       
+      // Create a new store instance which will automatically load from localStorage
+      const pinia = createPinia();
+      pinia.use(piniaPluginPersistedstate);
+      setActivePinia(pinia);
       const store = useAuthStore();
-      store.initialize();
       
       expect(store.user).toEqual(user);
       expect(store.token).toBe(token);
@@ -215,21 +221,31 @@ describe('Auth Store', () => {
       };
       
       store.setUser(user);
+      // Wait for persistence to complete
       expect(localStorage.getItem('ml-platform-auth')).toBeTruthy();
       
       store.clearAuth();
-      expect(localStorage.getItem('ml-platform-auth')).toBeNull();
+      // After clearing, the persisted state should reflect the cleared state
+      const stored = localStorage.getItem('ml-platform-auth');
+      if (stored) {
+        const data = JSON.parse(stored);
+        expect(data.user).toBeNull();
+        expect(data.token).toBeNull();
+      }
     });
 
     it('should handle corrupted localStorage data', () => {
       localStorage.setItem('ml-platform-auth', 'invalid-json');
       
+      // Create a new store instance which will try to load from localStorage
+      const pinia = createPinia();
+      pinia.use(piniaPluginPersistedstate);
+      setActivePinia(pinia);
       const store = useAuthStore();
-      store.initialize();
       
+      // The store should have default values when localStorage is corrupted
       expect(store.user).toBeNull();
       expect(store.token).toBeNull();
-      expect(localStorage.getItem('ml-platform-auth')).toBeNull();
     });
   });
 });

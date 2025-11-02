@@ -99,23 +99,4 @@ img:not([alt]) {
   outline: 3px solid red;
 }
 
-/* ARIA live region styling */
-[role="status"],
-[role="alert"],
-[aria-live] {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-/* Visible live regions (for debugging) */
-[role="status"].visible,
-[role="alert"].visible,
-[aria-live].visible {
-  position: static;
-  width: auto;
-  height: auto;
-  overflow: visible;
-}
+ 

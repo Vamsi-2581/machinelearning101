@@ -51,19 +51,22 @@ CREATE TABLE IF NOT EXISTS quiz_scores (
 CREATE INDEX IF NOT EXISTS idx_quiz_scores_user_id ON quiz_scores(user_id);
 
 -- Bookmarks table
--- Stores user bookmarks for modules
--- Requirement 6.4: bookmarks table with id, user_id, module_id, created_at
+-- Stores user bookmarks for modules with names and parameters
+-- Requirements: 4.1, 6.1, 6.4
 CREATE TABLE IF NOT EXISTS bookmarks (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
   module_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  parameters TEXT NOT NULL,
   created_at INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  UNIQUE(user_id, module_id)
+  updated_at INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Index for user-based queries (Requirement 6.6)
+-- Indexes for user-based queries (Requirement 6.6)
 CREATE INDEX IF NOT EXISTS idx_bookmarks_user_id ON bookmarks(user_id);
+CREATE INDEX IF NOT EXISTS idx_bookmarks_user_module ON bookmarks(user_id, module_id);
 
 -- Note: Foreign key constraints with ON DELETE CASCADE (Requirement 6.5)
 -- ensure that when a user is deleted, all related progress, quiz scores,
