@@ -1,4 +1,4 @@
-name = "ml-platform-auth-worker"
+name = "machinelearningsimplified-api"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
