@@ -42,7 +42,7 @@
               <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">GitHub</h3>
                 <a 
-                  href="https://github.com/mlsimplified-app/platform" 
+                  href="https://github.com/marvelefe/machinelearningsimplified" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
@@ -85,7 +85,7 @@
               </li>
               <li>
                 <a 
-                  href="https://github.com/mlsimplified-app/platform/issues" 
+                  href="https://github.com/marvelefe/machinelearningsimplified/issues" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"

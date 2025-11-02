@@ -46,7 +46,7 @@
       <div class="mt-8 pt-8 border-t border-gray-200">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p class="text-sm text-gray-500">
-            © {{ currentYear }} ML Simplified. All rights reserved.
+            © {{ currentYear }}. Made with ❤️ for learners everywhere.
           </p>
           <div class="flex space-x-6">
             <NuxtLink to="/privacy"
@@ -79,7 +79,7 @@ const quickLinks = [
 const socialLinks = [
   {
     name: 'GitHub',
-    url: 'https://github.com',
+    url: 'https://github.com/marvelefe/machinelearningsimplified',
     icon: 'mdi:github',
   }
 ];

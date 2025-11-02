@@ -147,7 +147,7 @@
         </p>
         <div class="flex flex-wrap gap-4">
           <a
-            href="https://github.com/mlsimplified-app/platform"
+            href="https://github.com/marvelefe/machinelearningsimplified"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

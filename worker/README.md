@@ -1,145 +1,310 @@
 # ML Platform Auth Worker
 
-Cloudflare Worker for authentication and progress synchronization for the Machine Learning Simplified platform.
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Hono](https://img.shields.io/badge/Hono-4.x-E36002)](https://hono.dev/)
 
-## Features
+Serverless authentication and progress synchronization backend for [Machine Learning Simplified](../README.md), built on Cloudflare Workers for global edge deployment.
 
-- Google OAuth 2.0 authentication
-- JWT-based session management
-- User progress synchronization
-- Cloudflare D1 database for data persistence
-- Edge computing for low latency
+## ✨ Features
 
-## Setup
+- 🔐 **Google OAuth 2.0**: Secure authentication flow
+- 🎫 **JWT Sessions**: Stateless authentication with 7-day expiration
+- ☁️ **Progress Sync**: Cross-device learning progress synchronization
+- 🗄️ **Cloudflare D1**: SQLite database at the edge
+- ⚡ **Edge Computing**: Sub-50ms response times globally
+- 🛡️ **Security**: CSRF protection, parameterized queries, CORS configuration
+- 🧪 **Tested**: Comprehensive test suite with Vitest
 
-### Quick Start
-
-For complete setup and deployment instructions, see:
-- [../docs/DEPLOYMENT_GUIDE.md](../docs/DEPLOYMENT_GUIDE.md) - Comprehensive deployment guide
-- [SETUP.md](./SETUP.md) - Setup verification checklist
-- [MIGRATIONS.md](./MIGRATIONS.md) - Database migration guide
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ and npm
-- Cloudflare account
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) installed
-- Google OAuth credentials from [Google Cloud Console](https://console.cloud.google.com/)
+- **Node.js** 18+ and npm
+- **Cloudflare Account** ([Sign up free](https://dash.cloudflare.com/sign-up))
+- **Wrangler CLI** ([Installation guide](https://developers.cloudflare.com/workers/wrangler/install-and-update/))
+- **Google OAuth Credentials** ([Google Cloud Console](https://console.cloud.google.com/))
 
 ### Installation
 
 ```bash
+# Navigate to worker directory
+cd worker
+
+# Install dependencies
 npm install
 ```
 
 ### Database Setup
 
-1. Create a D1 database:
 ```bash
+# Create D1 database
 wrangler d1 create ml-platform-db
-```
 
-2. Update `wrangler.toml` with the database ID from the output
+# Copy the database_id from output and update wrangler.toml
+# Update the database_id in the [[d1_databases]] section
 
-3. Run migrations:
-```bash
-# For local development
-./migrate.sh dev
-
-# For production
+# Run migrations
 ./migrate.sh prod
 ```
 
-See [MIGRATIONS.md](./MIGRATIONS.md) for detailed database management instructions.
+See [MIGRATIONS.md](./MIGRATIONS.md) for detailed database management.
 
-### Environment Variables
-
-Set the following secrets using Wrangler:
+### Configure Secrets
 
 ```bash
+# Google OAuth credentials
 wrangler secret put GOOGLE_CLIENT_ID
 wrangler secret put GOOGLE_CLIENT_SECRET
 wrangler secret put GOOGLE_REDIRECT_URI
+
+# JWT secret (generate with: openssl rand -base64 32)
 wrangler secret put JWT_SECRET
+
+# Frontend URL for CORS
 wrangler secret put FRONTEND_URL
 ```
 
-See [.env.example](./.env.example) for detailed descriptions of each variable.
+### Google OAuth Setup
 
-## Development
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable **Google+ API**
+4. Navigate to **Credentials** → **Create Credentials** → **OAuth 2.0 Client ID**
+5. Application type: **Web application**
+6. Add authorized redirect URI: `https://your-worker.workers.dev/api/auth/google/callback`
+7. Copy **Client ID** and **Client Secret**
 
-```bash
-# Start local development server
-npm run dev
-
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-```
-
-## Deployment
+### Deploy
 
 ```bash
 # Deploy to production
 npm run deploy
+
+# Your worker will be available at:
+# https://machinelearningsimplified-api.your-subdomain.workers.dev
 ```
 
-## API Endpoints
+### Configure Frontend
+
+Update the frontend `.env` file:
+
+```bash
+NUXT_PUBLIC_API_URL=https://machinelearningsimplified-api.your-subdomain.workers.dev
+```
+
+## 📖 Documentation
+
+- [SETUP.md](./SETUP.md) - Setup verification checklist
+- [MIGRATIONS.md](./MIGRATIONS.md) - Database migration guide
+- [../docs/DEPLOYMENT_GUIDE.md](../docs/DEPLOYMENT_GUIDE.md) - Complete deployment guide
+
+## 🛠️ Development
+
+### Local Development
+
+```bash
+# Start local development server (http://localhost:8787)
+npm run dev
+```
+
+For local development with the frontend:
+
+```bash
+# Terminal 1: Start worker
+cd worker
+npm run dev
+
+# Terminal 2: Start frontend
+cd ..
+npm run dev
+```
+
+Update frontend `.env`:
+```bash
+NUXT_PUBLIC_API_URL=http://localhost:8787
+```
+
+### Testing
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+```
+
+### Deployment
+
+```bash
+# Deploy to production
+npm run deploy
+
+# Deploy to specific environment
+wrangler deploy --env production
+```
+
+## 🔌 API Endpoints
 
 ### Authentication
 
-- `GET /api/auth/google` - Initiate Google OAuth flow
-- `GET /api/auth/google/callback` - OAuth callback handler
-- `GET /api/auth/me` - Get current user profile (requires JWT)
-- `POST /api/auth/logout` - Logout (client-side token removal)
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `GET` | `/api/auth/google` | Initiate Google OAuth flow | No |
+| `GET` | `/api/auth/google/callback` | OAuth callback handler | No |
+| `GET` | `/api/auth/me` | Get current user profile | Yes (JWT) |
+| `POST` | `/api/auth/logout` | Logout user | No |
 
-### Progress Sync
+### Progress Synchronization
 
-- `POST /api/progress/sync` - Sync user progress (requires JWT)
-- `GET /api/progress` - Get user progress (requires JWT)
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `POST` | `/api/progress/sync` | Sync user progress | Yes (JWT) |
+| `GET` | `/api/progress` | Get user progress | Yes (JWT) |
 
-## Project Structure
+### Authentication Flow
+
+1. Frontend redirects to `/api/auth/google`
+2. User authenticates with Google
+3. Google redirects to `/api/auth/google/callback`
+4. Worker creates JWT and redirects to frontend with token
+5. Frontend stores JWT and includes in subsequent requests via `Authorization: Bearer <token>` header
+
+## 📁 Project Structure
 
 ```
 worker/
 ├── src/
-│   ├── index.ts              # Main entry point
+│   ├── index.ts              # Main entry point & Hono app
 │   ├── router.ts             # Request routing
 │   ├── handlers/             # Request handlers
+│   │   ├── auth.ts          # Authentication handlers
+│   │   └── progress.ts      # Progress sync handlers
 │   ├── middleware/           # Middleware functions
+│   │   ├── auth.ts          # JWT verification
+│   │   └── cors.ts          # CORS configuration
 │   ├── services/             # Business logic
-│   ├── types/                # TypeScript types
+│   │   ├── auth.ts          # OAuth & JWT logic
+│   │   ├── database.ts      # Database operations
+│   │   └── progress.ts      # Progress sync logic
+│   ├── types/                # TypeScript type definitions
 │   └── utils/                # Utility functions
-├── tests/                    # Test files
+├── tests/                    # Test suite
+│   ├── handlers/            # Handler tests
+│   ├── middleware/          # Middleware tests
+│   ├── services/            # Service tests
+│   ├── utils/               # Utility tests
+│   └── integration/         # Integration tests
+├── migrations/               # Database migrations
 ├── schema.sql                # Database schema
+├── migrate.sh                # Migration script
 ├── wrangler.toml             # Cloudflare configuration
 ├── vitest.config.ts          # Test configuration
 └── package.json              # Dependencies
 ```
 
-## Testing
+## 🧪 Testing
 
-The project uses Vitest for unit and integration testing. Tests are organized to mirror the source structure:
+Comprehensive test suite using Vitest:
 
-- `tests/services/` - Service layer tests
-- `tests/handlers/` - Handler tests
-- `tests/middleware/` - Middleware tests
-- `tests/utils/` - Utility tests
-- `tests/integration/` - Integration tests
+- **Unit Tests**: Services, utilities, middleware
+- **Integration Tests**: End-to-end API flows
+- **Coverage**: Aim for >80% code coverage
 
-## Security
+```bash
+# Run all tests
+npm test
 
-- JWT tokens with 7-day expiration
-- CSRF protection via OAuth state parameter
-- Parameterized SQL queries to prevent injection
-- CORS configuration for frontend domain
-- Secure secret management via Cloudflare secrets
+# Watch mode for development
+npm run test:watch
 
-## License
+# Generate coverage report
+npm run test:coverage
+```
 
-MIT
+## 🔒 Security Features
+
+- ✅ **JWT Authentication**: 7-day token expiration with secure signing
+- ✅ **CSRF Protection**: OAuth state parameter validation
+- ✅ **SQL Injection Prevention**: Parameterized queries only
+- ✅ **CORS Configuration**: Restricted to frontend domain
+- ✅ **Secret Management**: Cloudflare Workers secrets (never in code)
+- ✅ **HTTPS Only**: All endpoints require secure connections
+- ✅ **Rate Limiting**: Cloudflare's built-in DDoS protection
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Set via `wrangler secret put`:
+
+| Secret | Description | Example |
+|--------|-------------|---------|
+| `GOOGLE_CLIENT_ID` | Google OAuth client ID | `123456789.apps.googleusercontent.com` |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | `GOCSPX-xxxxxxxxxxxxx` |
+| `GOOGLE_REDIRECT_URI` | OAuth callback URL | `https://your-worker.workers.dev/api/auth/google/callback` |
+| `JWT_SECRET` | JWT signing key (32+ chars) | Generate: `openssl rand -base64 32` |
+| `FRONTEND_URL` | Frontend domain for CORS | `https://yourdomain.com` |
+
+### Database Configuration
+
+D1 database binding in `wrangler.toml`:
+
+```toml
+[[d1_databases]]
+binding = "ml_platform_db"
+database_name = "ml-platform-db"
+database_id = "your-database-id"
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Database not found**
+```bash
+# Ensure database is created and ID matches wrangler.toml
+wrangler d1 list
+```
+
+**OAuth redirect mismatch**
+```bash
+# Verify GOOGLE_REDIRECT_URI matches Google Cloud Console
+wrangler secret list
+```
+
+**CORS errors**
+```bash
+# Ensure FRONTEND_URL matches your frontend domain exactly
+wrangler secret put FRONTEND_URL
+```
+
+**JWT verification fails**
+```bash
+# Regenerate JWT_SECRET and update both worker and clear user sessions
+openssl rand -base64 32
+wrangler secret put JWT_SECRET
+```
+
+## 📚 Additional Resources
+
+- [Cloudflare Workers Docs](https://developers.cloudflare.com/workers/)
+- [Cloudflare D1 Docs](https://developers.cloudflare.com/d1/)
+- [Hono Framework](https://hono.dev/)
+- [Google OAuth 2.0](https://developers.google.com/identity/protocols/oauth2)
+
+## 📄 License
+
+MIT License - see [LICENSE](../LICENSE) for details.
+
+## 🤝 Contributing
+
+Contributions welcome! See the main [Contributing Guide](../docs/CONTRIBUTING.md) for guidelines.
+
+---
+
+Part of [Machine Learning Simplified](../README.md)

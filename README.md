@@ -1,259 +1,230 @@
 # Machine Learning Simplified
 
-An interactive, browser-based machine learning learning platform designed for beginners. Learn ML concepts through hands-on experimentation with zero setup required.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Nuxt](https://img.shields.io/badge/Nuxt-4.x-00DC82?logo=nuxt.js)](https://nuxt.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 
-## Features
+An interactive, browser-based machine learning learning platform designed for beginners. Learn ML concepts through hands-on experimentation with **zero setup required** — everything runs directly in your browser.
+
+## ✨ Features
 
 - 🎯 **Interactive Learning**: Real-time parameter adjustments with immediate visual feedback
-- 📊 **Rich Visualizations**: See algorithms work through interactive charts and graphs
+- 📊 **Rich Visualizations**: See algorithms work through interactive 2D/3D charts powered by Chart.js, D3.js, and Plotly.js
 - 🧪 **Hands-On Experiments**: Train models, adjust parameters, and see results instantly
-- 📚 **Guided Content**: Clear explanations, quizzes, and progress tracking
-- 🔒 **Privacy-Focused**: Optional analytics with full user control
-- 📱 **Responsive Design**: Works on desktop, tablet, and mobile
-
-## Quick Start
-
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
+- 📚 **Guided Content**: Clear explanations, interactive quizzes, and progress tracking
+- 🔒 **Privacy-Focused**: Optional analytics with full user control and GDPR compliance
+- 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
+- ⚡ **Zero Setup**: No installations, no backend dependencies, no barriers to learning
+- 🌐 **Fully Static**: Deployable to any static hosting platform (Netlify, Vercel, GitHub Pages)
+- 🔐 **Auth**: Cloud sync with Cloudflare Workers for cross-device progress tracking
  
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
- 
-
-## Production
-
-Build the application for production (useful for checking that new changes do not introduce errors):
-
-```bash
-# npm (should also be used after making changes to confirm no errors were introduced)
-npm run build 
-
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Authentication Backend Setup
-
-This project includes an optional authentication backend using Cloudflare Workers for user accounts and progress synchronization across devices.
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- [Cloudflare account](https://dash.cloudflare.com/sign-up)
-- [Google OAuth credentials](https://console.cloud.google.com/)
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) installed
+- **Node.js** 18.x or higher
+- **npm** 9.x or higher
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/marvelefe/machinelearningsimplified.git
+cd machinelearningsimplified
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`
+
+### Build for Production
+
+```bash
+# Build the application
+npm run build
+
+# Preview production build locally
+npm run preview
+
+# Generate static site
+npm run generate
+```
+
+### Run Tests
+
+```bash
+# Run unit tests
+npm run test
+
+# Type checking
+npm run type-check
+```
+
+## 🔐 Authentication Backend
+
+The authentication backend enables:
+
+- ☁️ **Cross-Device Sync**: Access your progress from any device
+- 💾 **Cloud Backup**: Never lose your learning progress
+- 👤 **User Accounts**: Persistent profiles with Google OAuth
+
+### Backend Architecture
+
+- **Cloudflare Workers**: Serverless edge computing for low latency
+- **Cloudflare D1**: SQLite-based database at the edge
+- **Google OAuth 2.0**: Secure authentication
+- **JWT Sessions**: Stateless authentication with 7-day expiration
 
 ### Quick Setup
 
-1. **Configure Google OAuth**:
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing one
-   - Enable Google+ API
-   - Create OAuth 2.0 credentials (Web application)
-   - Add authorized redirect URI: `https://api.yourdomain.com/api/auth/google/callback`
-
-2. **Set up Cloudflare Worker**:
-   ```bash
-   cd worker
-   npm install
-   
-   # Create D1 database
-   wrangler d1 create ml-platform-db
-   
-   # Update wrangler.toml with the database ID from output
-   
-   # Run database migrations
-   ./migrate.sh prod
-   ```
-
-3. **Configure secrets**:
-   ```bash
-   # Set Cloudflare Worker secrets
-   wrangler secret put GOOGLE_CLIENT_ID
-   wrangler secret put GOOGLE_CLIENT_SECRET
-   wrangler secret put GOOGLE_REDIRECT_URI
-   wrangler secret put JWT_SECRET
-   wrangler secret put FRONTEND_URL
-   ```
-
-4. **Deploy worker**:
-   ```bash
-   npm run deploy
-   ```
-
-5. **Configure frontend**:
-   ```bash
-   # In project root
-   cp .env.example .env
-   
-   # Edit .env and set your worker URL
-   NUXT_PUBLIC_API_URL=https://your-worker.your-subdomain.workers.dev
-   ```
-
-### Detailed Setup Instructions
-
-For comprehensive setup and deployment instructions, see:
-- [docs/DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) - Complete deployment guide
-- [docs/ENVIRONMENT_SETUP_CHECKLIST.md](docs/ENVIRONMENT_SETUP_CHECKLIST.md) - Setup verification checklist
-- [worker/README.md](worker/README.md) - Worker documentation
-- [worker/SETUP.md](worker/SETUP.md) - Setup verification guide
-- [worker/MIGRATIONS.md](worker/MIGRATIONS.md) - Database migration guide
-
-### Required Cloudflare Worker Secrets
-
-| Secret | Description | Example |
-|--------|-------------|---------|
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID | `123456789.apps.googleusercontent.com` |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | `GOCSPX-xxxxxxxxxxxxx` |
-| `GOOGLE_REDIRECT_URI` | OAuth callback URL | `https://api.yourdomain.com/api/auth/google/callback` |
-| `JWT_SECRET` | Secret key for JWT signing | Generate with `openssl rand -base64 32` |
-| `FRONTEND_URL` | Frontend domain for CORS | `https://yourdomain.com` |
-
-### Local Development
-
-For local development with the auth backend:
+See the [Worker README](worker/README.md) for detailed setup instructions.
 
 ```bash
-# Terminal 1: Start frontend
-npm run dev
-
-# Terminal 2: Start worker
 cd worker
-npm run dev
+
+# Install dependencies
+npm install
+
+# Create D1 database
+wrangler d1 create ml-platform-db
+
+# Run migrations
+./migrate.sh prod
+
+# Configure secrets
+wrangler secret put GOOGLE_CLIENT_ID
+wrangler secret put GOOGLE_CLIENT_SECRET
+wrangler secret put JWT_SECRET
+
+# Deploy
+npm run deploy
 ```
 
-Then set `NUXT_PUBLIC_API_URL=http://localhost:8787` in your `.env` file.
+### Required Secrets
 
-### Without Authentication Backend
+| Secret | Description | How to Get |
+|--------|-------------|------------|
+| `GOOGLE_CLIENT_ID` | OAuth client ID | [Google Cloud Console](https://console.cloud.google.com/) |
+| `GOOGLE_CLIENT_SECRET` | OAuth client secret | [Google Cloud Console](https://console.cloud.google.com/) |
+| `GOOGLE_REDIRECT_URI` | OAuth callback URL | `https://your-worker.workers.dev/api/auth/google/callback` |
+| `JWT_SECRET` | JWT signing key | `openssl rand -base64 32` |
+| `FRONTEND_URL` | Frontend domain | `https://yourdomain.com` |
 
-The platform works fully without the authentication backend - progress is stored locally in the browser. Authentication is only needed for:
-- Syncing progress across devices
-- Persistent user accounts
-- Cloud backup of learning progress
+### Documentation
 
-## Analytics Setup
+- [Worker README](worker/README.md) - Complete worker documentation
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Full deployment instructions
+- [Setup Verification](worker/SETUP.md) - Verify your setup
+- [Database Migrations](worker/MIGRATIONS.md) - Database management
 
-This project uses Google Analytics 4 for usage tracking. To enable analytics:
+## 📊 Analytics (Optional)
 
-1. Create a [Google Analytics 4](https://analytics.google.com) account
-2. Create a new GA4 property and get your Measurement ID (format: G-XXXXXXXXXX)
-3. Set environment variables:
+Analytics with Google Analytics 4:
+
+- **Opt-in by default** - requires explicit user consent
+- **Anonymous data only** - no personal information collected
+- **GDPR compliant** - Google Consent Mode v2
+- **User control** - opt out anytime via privacy settings
+
+### Setup
 
 ```bash
-# Copy the example file (if not already done)
+# Copy environment template
 cp .env.example .env
 
-# Edit .env and add your Measurement ID
+# Add your GA4 Measurement ID
 NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 ```
 
-For detailed setup instructions, see [docs/ANALYTICS_SETUP.md](docs/ANALYTICS_SETUP.md).
+See [Analytics Setup Guide](docs/ANALYTICS_SETUP.md) for detailed instructions.
 
-### Privacy & User Control
-
-- Analytics are **opt-in by default** - users must explicitly consent via a banner
-- Only anonymous usage data is collected (no personal information)
-- Complies with Google Consent Mode v2
-- Users can opt out at any time via the privacy settings page
-- GDPR and privacy-focused implementation
-
-## Documentation
+## 📚 Documentation
 
 ### For Users
-- [User Guide](docs/USER_GUIDE.md) - Complete guide for learners
-- [Getting Started](pages/getting-started.vue) - Quick start guide
+- [User Guide](docs/USER_GUIDE.md) - Complete learning guide
 - [FAQ](pages/faq.vue) - Frequently asked questions
 
 ### For Developers
-- [Developer Guide](docs/DEVELOPER_GUIDE.md) - Comprehensive development guide
-- [Contributing](docs/CONTRIBUTING.md) - Contribution guidelines
-- [Module Creation Guide](docs/MODULE_CREATION_GUIDE.md) - Quick reference for adding modules
-- [Performance Checklist](docs/PERFORMANCE_CHECKLIST.md) - Performance optimization guide
-- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Complete deployment instructions
+- [Developer Guide](docs/DEVELOPER_GUIDE.md) - Development setup and workflow
+- [Contributing Guide](docs/CONTRIBUTING.md) - How to contribute
+- [Module Creation Guide](docs/MODULE_CREATION_GUIDE.md) - Add new learning modules
 
-### Technical Documentation
-- [Analytics Setup Guide](docs/ANALYTICS_SETUP.md) - Configure Google Analytics
-- [Analytics Integration Guide](docs/ANALYTICS_INTEGRATION.md) - Add tracking to new modules
-- [Project Structure](.kiro/steering/structure.md) - Understand the codebase
-- [Technology Stack](.kiro/steering/tech.md) - Technologies used
-- [Implementation Summary](docs/IMPLEMENTATION_SUMMARY.md) - Recent implementation details
-- [Worker Setup](worker/SETUP.md) - Authentication backend setup verification
-- [Database Migrations](worker/MIGRATIONS.md) - Database management guide
+### Architecture
+- [Project Structure](.kiro/steering/structure.md) - Codebase organization
+- [Technology Stack](.kiro/steering/tech.md) - Technologies and tools
 
-## Environment Variables
+## ⚙️ Configuration
 
-### Frontend (.env)
+### Frontend Environment Variables
 
-| Variable | Required | Description | Default |
-|----------|----------|-------------|---------|
-| `NUXT_PUBLIC_GTAG_ID` | No | Google Analytics 4 Measurement ID | - |
-| `NUXT_PUBLIC_API_URL` | No | Cloudflare Worker URL for auth | - |
+Create a `.env` file in the project root:
 
-### Worker Secrets (Cloudflare)
+```bash
+# Optional: Google Analytics 4
+NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 
-Set these using `wrangler secret put SECRET_NAME`:
+# Authentication backend
+NUXT_PUBLIC_API_URL=https://your-worker.workers.dev
+```
 
-| Secret | Required | Description | How to Generate |
-|--------|----------|-------------|-----------------|
-| `GOOGLE_CLIENT_ID` | Yes* | Google OAuth client ID | [Google Cloud Console](https://console.cloud.google.com/) |
-| `GOOGLE_CLIENT_SECRET` | Yes* | Google OAuth client secret | [Google Cloud Console](https://console.cloud.google.com/) |
-| `GOOGLE_REDIRECT_URI` | Yes* | OAuth callback URL | Your worker URL + `/api/auth/google/callback` |
-| `JWT_SECRET` | Yes* | JWT signing secret | `openssl rand -base64 32` |
-| `FRONTEND_URL` | Yes* | Frontend domain for CORS | Your frontend URL |
+### Worker Secrets (Optional)
 
-*Only required if using authentication backend
+Only needed if deploying the authentication backend. See [worker/README.md](worker/README.md) for details.
 
-See [worker/.env.example](worker/.env.example) for detailed configuration instructions.
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 .
 ├── algorithms/          # ML algorithm implementations
+│   ├── advanced/       # Neural networks, PCA, t-SNE
+│   ├── classification/ # KNN, decision trees, SVM
+│   ├── clustering/     # K-means, hierarchical
+│   ├── optimization/   # Gradient descent variants
+│   ├── preprocessing/  # Scaling, encoding, imputation
+│   └── regression/     # Linear, logistic regression
 ├── components/          # Vue components
-│   ├── layout/         # Layout components
-│   ├── modules/        # Module-specific components
-│   ├── shared/         # Shared/reusable components
-│   └── visualizations/ # Visualization components
-├── composables/         # Vue composables
-├── content/            # Module content (markdown + config)
+│   ├── layout/         # Header, footer, navigation
+│   ├── modules/        # Module-specific UI
+│   ├── shared/         # Reusable components
+│   └── visualizations/ # Chart wrappers
+├── composables/         # Vue composables (reusable logic)
+├── content/            # Learning content (markdown + JSON)
+│   └── modules/        # Organized by domain
 ├── pages/              # Nuxt pages (auto-routing)
-├── stores/             # Pinia stores
-├── types/              # TypeScript type definitions
+├── stores/             # Pinia state management
+├── types/              # TypeScript definitions
 ├── utils/              # Utility functions
-├── worker/             # Cloudflare Worker for authentication
-└── service-workers/    # Web Workers for heavy computation
+├── worker/             # Cloudflare Worker (auth backend)
+└── service-workers/    # Web Workers (heavy computation)
 ```
 
-## Contributing
+## 🛠️ Tech Stack
 
-Contributions are welcome! Please read our [Contributing Guide](docs/CONTRIBUTING.md) for:
-- Code of conduct
-- Development workflow
-- Coding standards
-- Testing guidelines
-- Pull request process
+- **Framework**: Nuxt 4 (Vue 3 + TypeScript)
+- **State Management**: Pinia with persistence
+- **Styling**: Tailwind CSS
+- **Visualizations**: Chart.js, D3.js, Plotly.js
+- **Backend**: Cloudflare Workers + D1 (optional)
+- **Testing**: Vitest
+- **Build**: Vite with static site generation
 
-New to the project? Check out the [Developer Guide](docs/DEVELOPER_GUIDE.md) to get started!
+## 🤝 Contributing
 
-## License
+We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
-MIT License - see LICENSE file for details.
+### Contribution Guidelines
+
+- Read the [Contributing Guide](docs/CONTRIBUTING.md) 
+
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+Made with ❤️ for learners everywhere
 
