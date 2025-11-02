@@ -6,7 +6,7 @@
     "build": "NODE_OPTIONS='--max-old-space-size=4168' nuxt build",
     "dev": "nuxt dev",
     "test": "npx vitest run --dir ./tests",
-    "generate": "NODE_OPTIONS='--max-old-space-size=4168' nuxt generate && cp -R content .output/public",
+    "generate": "NODE_OPTIONS='--max-old-space-size=4168' nuxt generate && cp -R content .output/public || cp -R content dist",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "type-check": "npx nuxt typecheck"
