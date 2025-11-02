@@ -75,7 +75,7 @@ onMounted(() => {
     // Show banner after a short delay for better UX
     setTimeout(() => {
       showBanner.value = true;
-    }, 1000);
+    }, 2000);
   } else {
     // If user previously accepted, initialize analytics
     const optedIn = analyticsStore.optedIn;
