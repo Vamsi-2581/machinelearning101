@@ -139,6 +139,7 @@ export default defineNuxtConfig({
     initMode: "manual", // Manual initialization for GDPR compliance
     initCommands: [
       // Setup consent mode v2 - default to denied
+      // Wait for up to 2 seconds for consent update before proceeding
       [
         "consent",
         "default",
@@ -147,7 +148,7 @@ export default defineNuxtConfig({
           ad_personalization: "denied",
           ad_storage: "denied",
           analytics_storage: "denied",
-          wait_for_update: 500,
+          wait_for_update: 5000, // Increased from 500ms to allow time for user choice
         },
       ],
     ],

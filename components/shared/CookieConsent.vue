@@ -55,6 +55,9 @@ import Button from '~/components/shared/Button.vue';
  * Respects user preferences and doesn't show again after choice is made.
  * Integrates with Google Consent Mode v2.
  * 
+ * Key fix: For returning users who accepted, we MUST update consent to 'granted'
+ * BEFORE any analytics calls are made. This ensures Google sees proper consent signals.
+ * 
  * Requirements: 11.6, 11.7
  */
 
@@ -63,31 +66,43 @@ const { gtag, initialize } = useGtag();
 const showBanner = ref(false);
 
 const CONSENT_KEY = 'ml-platform-consent-shown';
+const CONSENT_CHOICE_KEY = 'ml-platform-consent-choice'; // 'granted' or 'denied'
+
+/**
+ * Update consent state in Google Tag
+ */
+const updateConsentState = (analyticsGranted: boolean) => {
+  gtag('consent', 'update', {
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    ad_storage: 'denied',
+    analytics_storage: analyticsGranted ? 'granted' : 'denied',
+  });
+};
 
 /**
  * Check if we should show the banner
  */
 onMounted(() => {
-  // Don't show if user has already made a choice
-  const consentShown = localStorage.getItem(CONSENT_KEY);
+  // Check for existing consent choice
+  const consentChoice = localStorage.getItem(CONSENT_CHOICE_KEY);
   
-  if (!consentShown) {
-    // Show banner after a short delay for better UX
+  if (consentChoice === 'granted') {
+    // User previously accepted - initialize and grant consent immediately
+    // This must happen BEFORE any other analytics code runs
+    initialize();
+    updateConsentState(true);
+  } else if (consentChoice === 'denied') {
+    // User previously declined - just update consent state (no initialize)
+    // The default in gtag config is already 'denied', but we explicitly set it
+    // to ensure consistency
+    updateConsentState(false);
+  } else {
+    // No choice made yet - show the banner after a short delay
+    // Don't initialize gtag until user makes a choice
     setTimeout(() => {
       showBanner.value = true;
-    }, 2000);
-  } else {
-    // If user previously accepted, initialize analytics
-    const optedIn = analyticsStore.optedIn;
-    if (optedIn) {
-      initialize();
-      gtag('consent', 'update', {
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        ad_storage: 'denied',
-        analytics_storage: 'granted',
-      });
-    }
+    }, 1500);
   }
 });
 
@@ -97,15 +112,11 @@ onMounted(() => {
 const handleAccept = () => {
   analyticsStore.setOptIn(true);
   localStorage.setItem(CONSENT_KEY, 'true');
+  localStorage.setItem(CONSENT_CHOICE_KEY, 'granted');
   
   // Initialize Google Analytics and grant consent
   initialize();
-  gtag('consent', 'update', {
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    ad_storage: 'denied',
-    analytics_storage: 'granted',
-  });
+  updateConsentState(true);
   
   showBanner.value = false;
 };
@@ -116,6 +127,11 @@ const handleAccept = () => {
 const handleDecline = () => {
   analyticsStore.setOptIn(false);
   localStorage.setItem(CONSENT_KEY, 'true');
+  localStorage.setItem(CONSENT_CHOICE_KEY, 'denied');
+  
+  // Explicitly update consent to denied (for clarity with Google)
+  updateConsentState(false);
+  
   showBanner.value = false;
 };
 </script>

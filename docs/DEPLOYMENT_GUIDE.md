@@ -226,7 +226,7 @@ wrangler secret put JWT_SECRET
 # Set frontend URL (for CORS)
 wrangler secret put FRONTEND_URL
 # Development: http://localhost:3000
-# Production: https://yourdomain.com
+# production: https://machinelearning101.com
 ```
 
 ### 2. Generate JWT Secret

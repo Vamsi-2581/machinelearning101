@@ -2,20 +2,15 @@ name = "machinelearning101-api"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
-# D1 Database binding
-[[d1_databases]]
-binding = "ml_platform_db"
-database_name = "ml-platform-db"
-database_id = "a881d481-2635-44d9-8bcc-ed0723177e47"
-
-# Environment variables (secrets should be set via wrangler secret put)
-[vars]
-# FRONTEND_URL will be set per environment
-
 # Development environment
 [env.development]
 vars = { FRONTEND_URL = "http://localhost:3000" }
 
 # Production environment
 [env.production]
-# Set FRONTEND_URL via wrangler secret or vars for production
+vars = { FRONTEND_URL = "https://machinelearning101.com", GOOGLE_REDIRECT_URI = "https://api.machinelearning101.com/api/auth/google/callback" }
+
+[[env.production.d1_databases]]
+binding = "ml_platform_db"
+database_name = "ml-platform-db"
+database_id = "a881d481-2635-44d9-8bcc-ed0723177e47"
