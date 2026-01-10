@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design document outlines the architecture and implementation approach for expanding the Machine Learning Simplified platform from 6 domains with ~9 modules to 9 domains with 45+ modules. The expansion maintains the existing architecture patterns while introducing three new domains (Computer Vision, NLP, Reinforcement Learning) and adding modules to all domains.
+This design document outlines the architecture and implementation approach for expanding the Machine Learning 101 platform from 6 domains with ~9 modules to 9 domains with 45+ modules. The expansion maintains the existing architecture patterns while introducing three new domains (Computer Vision, NLP, Reinforcement Learning) and adding modules to all domains.
 
 ### Design Goals
 

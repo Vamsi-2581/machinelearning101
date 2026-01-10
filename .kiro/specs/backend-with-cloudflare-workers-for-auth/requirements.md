@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This feature adds backend authentication capabilities to the Machine Learning Simplified platform using Cloudflare Workers and Google OAuth. Currently, the platform is entirely client-side with no user authentication system. This enhancement will enable user accounts, secure authentication via Google, and personalized experiences while maintaining the platform's zero-setup philosophy for learners. The backend will be serverless, leveraging Cloudflare Workers for edge computing and Cloudflare D1 for data persistence.
+This feature adds backend authentication capabilities to the Machine Learning 101 platform using Cloudflare Workers and Google OAuth. Currently, the platform is entirely client-side with no user authentication system. This enhancement will enable user accounts, secure authentication via Google, and personalized experiences while maintaining the platform's zero-setup philosophy for learners. The backend will be serverless, leveraging Cloudflare Workers for edge computing and Cloudflare D1 for data persistence.
 
 ## Requirements
 

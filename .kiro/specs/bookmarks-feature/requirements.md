@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This document specifies the requirements for completing the Bookmarks feature in the ML Simplified learning platform. The Bookmarks feature allows users to save and manage module configurations (parameter settings) for quick access and reuse. The feature includes both frontend UI components and backend API endpoints for authenticated users to sync bookmarks across devices.
+This document specifies the requirements for completing the Bookmarks feature in the Machine Learning 101 learning platform. The Bookmarks feature allows users to save and manage module configurations (parameter settings) for quick access and reuse. The feature includes both frontend UI components and backend API endpoints for authenticated users to sync bookmarks across devices.
 
 ## Glossary
 
-- **System**: The ML Simplified learning platform
+- **System**: The Machine Learning 101 learning platform
 - **User**: A person using the platform to learn machine learning concepts
 - **Module**: An interactive learning unit focused on a specific ML algorithm or concept
 - **Bookmark**: A saved configuration of module parameters with a user-provided name

@@ -4,7 +4,7 @@
       <!-- Header -->
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          About ML Simplified
+          About Machine Learning 101
         </h1>
         <p class="text-xl text-gray-600">
           Making machine learning accessible through interactive exploration
@@ -20,21 +20,21 @@
             abstract concepts, and setup barriers prevent many curious minds from exploring this fascinating field.
           </p>
           <p class="mb-4">
-            ML Simplified was created to change that. We believe that the best way to learn machine learning is 
+            Machine Learning 101 was created to change that. The best way to learn machine learning is 
             through hands-on experimentation and visual exploration. By removing setup barriers and providing 
-            interactive visualizations, we make ML concepts accessible to everyone.
+            interactive visualizations, ML concepts are accessible to everyone.
           </p>
           <p>
-            ML Simplified runs entirely in your browser with zero setup required. Adjust parameters, see results 
+            Machine Learning 101 runs entirely in your browser with zero setup required. Adjust parameters, see results 
             instantly, and build intuition through experimentation. Whether you're a student, professional, or 
-            curious learner, ML Simplified helps you understand how algorithms really work.
+            curious learner, Machine Learning 101 helps you understand how algorithms really work.
           </p>
         </div>
       </section>
 
       <!-- What Makes Us Different -->
       <section class="mb-12 bg-blue-50 rounded-lg p-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">What Makes Us Different</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">What Makes This Site Different</h2>
         <div class="space-y-6">
           <div class="flex items-start">
             <div class="flex-shrink-0">
@@ -102,7 +102,7 @@
       <section class="mb-12">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Built with Modern Web Technology</h2>
         <p class="text-gray-700 mb-6">
-          ML Simplified leverages cutting-edge web technologies to deliver a fast, responsive, and 
+          Machine Learning 101 leverages cutting-edge web technologies to deliver a fast, responsive, and 
           accessible learning experience:
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -137,7 +137,7 @@
       <section class="mb-12 bg-gray-50 rounded-lg p-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Open Source & Community</h2>
         <p class="text-gray-700 mb-4">
-          ML Simplified is an open-source project built for the learning community. We believe that 
+          Machine Learning 101 is an open-source project built for the learning community. We believe that 
           educational resources should be freely accessible to everyone.
         </p>
         <p class="text-gray-700 mb-6">
@@ -147,7 +147,7 @@
         </p>
         <div class="flex flex-wrap gap-4">
           <a
-            href="https://github.com/marvelefe/machinelearningsimplified"
+            href="https://github.com/marvelefe/machinelearning101"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
@@ -185,9 +185,9 @@
 <script setup lang="ts">
 // SEO
 useSEO({
-  title: 'About ML Simplified - Our Mission to Make Machine Learning Accessible',
-  description: 'Learn about ML Simplified\'s mission to make machine learning accessible through interactive visualizations and hands-on experimentation. Zero setup, visual-first learning for everyone.',
-  keywords: 'about ML Simplified, machine learning education, interactive learning platform, open source ML, educational technology',
+  title: 'About Machine Learning 101 - Our Mission to Make Machine Learning Accessible',
+  description: 'Learn about Machine Learning 101\'s mission to make machine learning accessible through interactive visualizations and hands-on experimentation. Zero setup, visual-first learning for everyone.',
+  keywords: 'about Machine Learning 101, machine learning education, interactive learning platform, open source ML, educational technology',
   url: '/about',
   type: 'website',
 })

@@ -27,7 +27,7 @@
           </ul>
         </div>
 
-        <!-- Social links -->
+        <!-- Social links --> 
         <div>
           <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
             Connect
@@ -39,8 +39,9 @@
               <Icon :name="social.icon" class="w-6 h-6" />
             </a>
           </div>
-        </div>
+        </div> 
       </div>
+      
 
       <!-- Bottom bar -->
       <div class="mt-8 pt-8 border-t border-gray-200">
@@ -69,17 +70,17 @@ const currentYear = computed(() => new Date().getFullYear());
 // Quick links to marketing pages
 const quickLinks = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Why Learn Here', path: '/why-learn-here' },
-  { label: 'Contact', path: '/contact' },
-  { label: 'Modules', path: '/modules' },
+  { label: 'About', path: '/about/' },
+  { label: 'Why Learn Here', path: '/why-learn-here/' },
+  { label: 'Contact', path: '/contact/' },
+  { label: 'Modules', path: '/modules/' },
 ];
 
 // Social media links
 const socialLinks = [
   {
     name: 'GitHub',
-    url: 'https://github.com/marvelefe/machinelearningsimplified',
+    url: 'https://github.com/marvelefe/machinelearning101',
     icon: 'mdi:github',
   }
 ];

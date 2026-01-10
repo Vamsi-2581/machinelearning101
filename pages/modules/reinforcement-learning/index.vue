@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Reinforcement Learning Modules - ML Simplified',
+  title: 'Reinforcement Learning Modules - Machine Learning 101',
   description: 'Learn reinforcement learning algorithms through interactive visualizations. Master Q-Learning, Deep Q-Networks, Policy Gradients, and more with hands-on experimentation.',
   keywords: 'reinforcement learning, Q-learning, deep Q-networks, policy gradients, actor-critic, multi-armed bandits, RL algorithms',
   url: '/modules/reinforcement-learning',

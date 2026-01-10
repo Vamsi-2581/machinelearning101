@@ -137,7 +137,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Advanced Machine Learning Topics - ML Simplified',
+  title: 'Advanced Machine Learning Topics - Machine Learning 101',
   description: 'Explore advanced machine learning topics including PCA, t-SNE, neural networks, deep learning, and more through interactive visualizations and hands-on experimentation.',
   keywords: 'advanced machine learning, PCA, t-SNE, neural networks, deep learning, dimensionality reduction, CNN',
   url: '/modules/advanced',

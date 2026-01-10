@@ -322,7 +322,7 @@ useSEO({
 useCourseStructuredData({
   name: 'Ridge Regression',
   description: 'Learn how Ridge regression prevents overfitting using L2 regularization',
-  provider: 'ML Simplified',
+  provider: 'Machine Learning 101',
   url: '/modules/regression/ridge-regression',
   difficulty: 'intermediate',
   timeRequired: 'PT35M',

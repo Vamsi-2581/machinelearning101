@@ -3,7 +3,7 @@
 # Performance Check Script
 # Runs various checks to ensure optimal performance
 
-echo "🚀 ML Simplified - Performance Check"
+echo "🚀 Machine Learning 101 - Performance Check"
 echo "===================================="
 echo ""
 

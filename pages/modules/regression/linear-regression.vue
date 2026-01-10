@@ -436,7 +436,7 @@ useSEO({
 useCourseStructuredData({
   name: 'Linear Regression',
   description: 'Learn how linear regression finds the best-fit line through data using gradient descent',
-  provider: 'ML Simplified',
+  provider: 'Machine Learning 101',
   url: '/modules/regression/linear-regression',
   difficulty: 'beginner',
   timeRequired: 'PT30M',

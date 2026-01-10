@@ -36,9 +36,9 @@ export interface StructuredDataConfig {
  * Default SEO configuration
  */
 const DEFAULT_SEO = {
-  siteName: 'ML Simplified',
-  siteUrl: 'https://machinelearningsimplified.com',
-  defaultImage: 'https://machinelearningsimplified.com/og-image.png',
+  siteName: 'Machine Learning 101',
+  siteUrl: 'https://machinelearning101.com',
+  defaultImage: 'https://machinelearning101.com/og-image.png',
   // twitterHandle: '@mlsimplified',
   locale: 'en_US',
 }
@@ -47,9 +47,9 @@ const DEFAULT_SEO = {
  * Main SEO composable
  */
 export function useSEO(config: SEOConfig) {
-  const fullTitle = config.title.includes('ML Simplified') 
+  const fullTitle = config.title.includes('Machine Learning 101') 
     ? config.title 
-    : `${config.title} - ML Simplified`
+    : `${config.title} - Machine Learning 101`
   
   const canonicalUrl = config.url 
     ? `${DEFAULT_SEO.siteUrl}${config.url}` 
@@ -179,11 +179,11 @@ export function useOrganizationStructuredData() {
     url: DEFAULT_SEO.siteUrl,
     logo: `${DEFAULT_SEO.siteUrl}/logo.png`,
     // sameAs: [
-    //   'https://github.com/marvelefe/machinelearningsimplified', 
+    //   'https://github.com/marvelefe/machinelearning101', 
     // ],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'hello@machinelearningsimplified.com',
+      email: 'hello@machinelearning101.com',
       contactType: 'Customer Service',
     },
   }

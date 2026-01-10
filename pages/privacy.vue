@@ -204,9 +204,9 @@ import Button from '~/components/shared/Button.vue';
 
 // SEO
 useSEO({
-  title: 'Privacy & Analytics Settings - ML Simplified',
+  title: 'Privacy & Analytics Settings - Machine Learning 101',
   description: 'Control your privacy and analytics settings. Learn what data we collect and how we use it to improve your learning experience. GDPR compliant, privacy-focused analytics.',
-  keywords: 'privacy policy, analytics settings, GDPR, data privacy, cookie consent, ML Simplified privacy',
+  keywords: 'privacy policy, analytics settings, GDPR, data privacy, cookie consent, Machine Learning 101 privacy',
   url: '/privacy',
   type: 'website',
 })

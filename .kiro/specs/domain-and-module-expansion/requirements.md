@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This document specifies the requirements for expanding the Machine Learning Simplified platform from 6 domains to 9 domains, and ensuring each domain contains at least 5 interactive learning modules. The expansion includes three new domains (Computer Vision, Natural Language Processing, and Reinforcement Learning) and additional modules for existing domains (Regression, Classification, Clustering, Preprocessing, Optimization, and Advanced Topics). The system shall maintain browser-only execution, zero-setup user experience, and interactive visual learning capabilities.
+This document specifies the requirements for expanding the Machine Learning 101 platform from 6 domains to 9 domains, and ensuring each domain contains at least 5 interactive learning modules. The expansion includes three new domains (Computer Vision, Natural Language Processing, and Reinforcement Learning) and additional modules for existing domains (Regression, Classification, Clustering, Preprocessing, Optimization, and Advanced Topics). The system shall maintain browser-only execution, zero-setup user experience, and interactive visual learning capabilities.
 
 ## Glossary
 
-- **Platform**: The Machine Learning Simplified web application
+- **Platform**: The Machine Learning 101 web application
 - **Domain**: A high-level category of machine learning topics (e.g., Computer Vision, NLP)
 - **Module**: An individual learning unit within a domain covering a specific algorithm or concept
 - **Algorithm Implementation**: TypeScript class extending BaseAlgorithm with fit(), predict(), and visualization methods

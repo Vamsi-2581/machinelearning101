@@ -1,4 +1,4 @@
-# Machine Learning Simplified
+# Machine Learning 101
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Nuxt](https://img.shields.io/badge/Nuxt-4.x-00DC82?logo=nuxt.js)](https://nuxt.com)
@@ -29,8 +29,8 @@ An interactive, browser-based machine learning learning platform designed for be
 
 ```bash
 # Clone the repository
-git clone https://github.com/marvelefe/machinelearningsimplified.git
-cd machinelearningsimplified
+git clone https://github.com/marvelefe/machinelearning101.git
+cd machinelearning101
 
 # Install dependencies
 npm install

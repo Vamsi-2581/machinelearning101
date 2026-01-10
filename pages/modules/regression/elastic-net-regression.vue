@@ -341,7 +341,7 @@ useSEO({
 useCourseStructuredData({
   name: 'Elastic Net Regression',
   description: 'Learn how Elastic Net combines L1 and L2 regularization for balanced feature selection and coefficient shrinkage',
-  provider: 'ML Simplified',
+  provider: 'Machine Learning 101',
   url: '/modules/regression/elastic-net-regression',
   difficulty: 'advanced',
   timeRequired: 'PT40M',

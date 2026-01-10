@@ -161,7 +161,7 @@
           <div class="flex-shrink-0">
             <div class=" rounded-full flex items-center justify-center"> 
                 <NuxtImg
-                  src="https://media.licdn.com/dms/image/v2/D4D03AQFs46mep4LTWw/profile-displayphoto-shrink_200_200/B4DZbk.iJFH8AY-/0/1747598321396?e=1763596800&v=beta&t=WcRxmcsHPUGer9Y3Ml40AhRQ405nAzkNnyYKJRM3nqA" 
+                  src="https://avatars.githubusercontent.com/u/56586020?v=4" 
                  
                   alt="Author"
                   class="rounded-full "
@@ -176,9 +176,9 @@
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
               Building Intuition Through Interaction
             </h3>
-            <p class="text-gray-700 mb-4">
-              Machine Learning Simplified was created to make machine learning accessible to everyone through interactive, visual learning experiences. No complex setups, no prerequisites.
-            </p> 
+            <!-- <p class="text-gray-700 mb-4">
+              Machine Learning 101 was created to make machine learning accessible to everyone through interactive, visual learning experiences. No complex setups, no prerequisites.
+            </p>  -->
             <p class="text-gray-700">
               Every module is designed to build intuition first, theory second. Because when you truly understand how something works, the math becomes much easier to grasp.
             </p>
@@ -216,7 +216,7 @@ import type { Domain } from '~/types/module';
 
 // SEO
 useSEO({
-  title: 'ML Simplified - Learn Machine Learning Through Interactive Visualizations',
+  title: 'Machine Learning 101 - Learn Machine Learning Through Interactive Visualizations',
   description: 'Master machine learning concepts with zero setup. Interactive visualizations, real-time parameter adjustments, and hands-on experimentation. Learn regression, classification, clustering, and more.',
   keywords: 'machine learning, interactive learning, ML tutorial, data science, visualization, regression, classification, clustering, neural networks',
   url: '/',

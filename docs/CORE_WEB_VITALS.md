@@ -1,6 +1,6 @@
 # Core Web Vitals Optimization
 
-This document outlines the optimizations implemented to improve Core Web Vitals scores for ML Simplified.
+This document outlines the optimizations implemented to improve Core Web Vitals scores for Machine Learning 101.
 
 ## Core Web Vitals Metrics
 
@@ -177,7 +177,7 @@ const PlotlyChart = defineAsyncComponent(() =>
     src="/hero-image.jpg"
     width="1200"
     height="600"
-    alt="ML Simplified Hero"
+    alt="Machine Learning 101 Hero"
     loading="lazy"
     format="webp"
   />

@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Natural Language Processing Modules - ML Simplified',
+  title: 'Natural Language Processing Modules - Machine Learning 101',
   description: 'Learn NLP concepts through interactive modules on tokenization, word embeddings, sentiment analysis, and more.',
   keywords: 'natural language processing, NLP, tokenization, word embeddings, sentiment analysis, text processing',
   url: '/modules/nlp',

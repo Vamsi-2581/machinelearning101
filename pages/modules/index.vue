@@ -139,7 +139,7 @@ const overallProgress = computed(() => {
 
 // SEO
 useSEO({
-  title: 'Learning Modules - ML Simplified',
+  title: 'Learning Modules - Machine Learning 101',
   description: 'Explore interactive machine learning modules covering regression, classification, clustering, preprocessing, optimization, and advanced topics. Learn through hands-on experimentation.',
   keywords: 'machine learning modules, ML courses, interactive ML learning, regression, classification, clustering, neural networks',
   url: '/modules',

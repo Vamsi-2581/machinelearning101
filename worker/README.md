@@ -4,7 +4,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Hono](https://img.shields.io/badge/Hono-4.x-E36002)](https://hono.dev/)
 
-Serverless authentication and progress synchronization backend for [Machine Learning Simplified](../README.md), built on Cloudflare Workers for global edge deployment.
+Serverless authentication and progress synchronization backend for [Machine Learning 101](../README.md), built on Cloudflare Workers for global edge deployment.
 
 ## ✨ Features
 
@@ -82,7 +82,7 @@ wrangler secret put FRONTEND_URL
 npm run deploy
 
 # Your worker will be available at:
-# https://machinelearningsimplified-api.your-subdomain.workers.dev
+# https://machinelearning101-api.your-subdomain.workers.dev
 ```
 
 ### Configure Frontend
@@ -90,7 +90,7 @@ npm run deploy
 Update the frontend `.env` file:
 
 ```bash
-NUXT_PUBLIC_API_URL=https://machinelearningsimplified-api.your-subdomain.workers.dev
+NUXT_PUBLIC_API_URL=https://machinelearning101-api.your-subdomain.workers.dev
 ```
 
 ## 📖 Documentation
@@ -307,4 +307,4 @@ Contributions welcome! See the main [Contributing Guide](../docs/CONTRIBUTING.md
 
 ---
 
-Part of [Machine Learning Simplified](../README.md)
+Part of [Machine Learning 101](../README.md)

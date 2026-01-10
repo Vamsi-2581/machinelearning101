@@ -184,7 +184,7 @@ import type { ModuleMetadata } from '~/types/module';
 
 // SEO
 useSEO({
-  title: 'Your Learning Progress - ML Simplified',
+  title: 'Your Learning Progress - Machine Learning 101',
   description: 'Track your learning progress through machine learning concepts. View completed modules, quiz scores, time spent, and progress by domain.',
   keywords: 'learning progress, ML progress tracking, quiz scores, module completion, learning analytics',
   url: '/progress',

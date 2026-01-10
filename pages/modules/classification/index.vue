@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Classification Modules - ML Simplified',
+  title: 'Classification Modules - Machine Learning 101',
   description: 'Learn classification algorithms through interactive visualizations. Master logistic regression, decision trees, SVM, and more with hands-on experimentation.',
   keywords: 'classification algorithms, logistic regression, decision trees, SVM, machine learning classification, supervised learning',
   url: '/modules/classification',

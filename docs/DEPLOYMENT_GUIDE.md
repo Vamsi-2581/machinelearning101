@@ -1,6 +1,6 @@
 # Deployment Guide
 
-Complete guide for deploying the Machine Learning Simplified platform with authentication backend.
+Complete guide for deploying the Machine Learning 101 platform with authentication backend.
 
 ## Table of Contents
 
@@ -68,7 +68,7 @@ This will open a browser window for authentication.
 2. Select "External" user type
 3. Click "Create"
 4. Fill in required fields:
-   - **App name**: Machine Learning Simplified
+   - **App name**: Machine Learning 101
    - **User support email**: Your email
    - **Developer contact**: Your email
 5. Click "Save and Continue"
@@ -756,4 +756,4 @@ After successful deployment:
 
 **Deployment complete!** 🎉
 
-Your Machine Learning Simplified platform is now live with authentication and progress sync.
+Your Machine Learning 101 platform is now live with authentication and progress sync.

@@ -159,7 +159,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Regression Modules - ML Simplified',
+  title: 'Regression Modules - Machine Learning 101',
   description: 'Learn regression algorithms through interactive visualizations. Master linear regression, logistic regression, and more with hands-on experimentation.',
   keywords: 'regression algorithms, linear regression, logistic regression, machine learning regression, predictive modeling',
   url: '/modules/regression',

@@ -467,7 +467,7 @@ useSEO({
 useCourseStructuredData({
   name: 'Polynomial Regression',
   description: 'Learn how polynomial regression models non-linear relationships by transforming features',
-  provider: 'ML Simplified',
+  provider: 'Machine Learning 101',
   url: '/modules/regression/polynomial-regression',
   difficulty: 'intermediate',
   timeRequired: 'PT35M',

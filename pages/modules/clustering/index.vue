@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Clustering Modules - ML Simplified',
+  title: 'Clustering Modules - Machine Learning 101',
   description: 'Learn clustering algorithms through interactive visualizations. Master K-means, hierarchical clustering, and more with hands-on experimentation in unsupervised learning.',
   keywords: 'clustering algorithms, K-means, hierarchical clustering, unsupervised learning, machine learning clustering',
   url: '/modules/clustering',

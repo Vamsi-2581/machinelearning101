@@ -1,6 +1,6 @@
 # Product Overview
 
-## Machine Learning Simplified
+## Machine Learning 101
 
 An interactive, browser-based machine learning learning platform designed for beginners. The platform provides hands-on, visual learning experiences for core ML concepts with zero setup required.
 

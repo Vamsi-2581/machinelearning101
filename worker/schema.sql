@@ -1,4 +1,4 @@
--- Machine Learning Simplified - Database Schema
+-- Machine Learning 101 - Database Schema
 -- Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6
 
 -- Users table

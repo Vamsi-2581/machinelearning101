@@ -216,7 +216,7 @@ import type { Bookmark } from '~/types/progress';
 
 // SEO
 useSEO({
-  title: 'Your Bookmarks - ML Simplified',
+  title: 'Your Bookmarks - Machine Learning 101',
   description: 'Manage your saved module configurations. Save and organize your favorite parameter setups for quick access.',
   keywords: 'bookmarks, saved configurations, ML module bookmarks, parameter presets',
   url: '/bookmarks',

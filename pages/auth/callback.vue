@@ -175,7 +175,7 @@ onMounted(() => {
 
 // Set page metadata
 useHead({
-  title: 'Completing Sign In - Machine Learning Simplified',
+  title: 'Completing Sign In - Machine Learning 101',
   meta: [
     {
       name: 'description',

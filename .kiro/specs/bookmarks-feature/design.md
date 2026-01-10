@@ -10,7 +10,7 @@ The Bookmarks feature enables users to save and manage module parameter configur
 4. **Database Schema**: Extended bookmarks table to store name and parameters as JSON
 5. **Sync Mechanism**: Automatic background synchronization for authenticated users
 
-The design follows the existing architecture patterns in the ML Simplified platform, leveraging Pinia for state management, Nuxt 4 for routing, and Cloudflare Workers with D1 database for backend persistence.
+The design follows the existing architecture patterns in the Machine Learning 101 platform, leveraging Pinia for state management, Nuxt 4 for routing, and Cloudflare Workers with D1 database for backend persistence.
 
 ## Architecture
 

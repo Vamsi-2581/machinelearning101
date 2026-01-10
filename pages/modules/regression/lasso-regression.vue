@@ -320,7 +320,7 @@ useSEO({
 useCourseStructuredData({
   name: 'Lasso Regression',
   description: 'Learn how Lasso regression performs automatic feature selection using L1 regularization',
-  provider: 'ML Simplified',
+  provider: 'Machine Learning 101',
   url: '/modules/regression/lasso-regression',
   difficulty: 'intermediate',
   timeRequired: 'PT35M',

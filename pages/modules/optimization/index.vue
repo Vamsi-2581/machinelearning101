@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Optimization Modules - ML Simplified',
+  title: 'Optimization Modules - Machine Learning 101',
   description: 'Learn optimization algorithms including gradient descent, Adam, RMSProp, and momentum. Visualize how optimizers navigate loss landscapes to train machine learning models.',
   keywords: 'optimization algorithms, gradient descent, Adam optimizer, RMSProp, momentum, loss functions, machine learning optimization',
   url: '/modules/optimization',

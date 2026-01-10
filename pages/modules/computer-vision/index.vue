@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Computer Vision Modules - ML Simplified',
+  title: 'Computer Vision Modules - Machine Learning 101',
   description: 'Learn computer vision concepts through interactive modules on image classification, CNNs, object detection, and more.',
   keywords: 'computer vision, image classification, CNN, convolutional neural networks, object detection, image segmentation',
   url: '/modules/computer-vision',

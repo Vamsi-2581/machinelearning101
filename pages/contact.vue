@@ -24,16 +24,16 @@
               <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Email</h3>
                 <a 
-                  href="mailto:hello@machinelearningsimplified.com" 
+                  href="mailto:hello@machinelearning101.com" 
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
                 >
-                  hello@machinelearningsimplified.com
+                  hello@machinelearning101.com
                 </a>
                 <p class="text-sm text-gray-600 mt-1">We typically respond within 24-48 hours</p>
               </div>
             </div>
 
-            <div class="flex items-start">
+            <!-- <div class="flex items-start">
               <div class="flex-shrink-0">
                 <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                   <Icon name="mdi:github" class="w-6 h-6 text-purple-600" />
@@ -42,7 +42,7 @@
               <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">GitHub</h3>
                 <a 
-                  href="https://github.com/marvelefe/machinelearningsimplified" 
+                  href="https://github.com/marvelefe/machinelearning101" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
@@ -52,7 +52,7 @@
                 <p class="text-sm text-gray-600 mt-1">Report issues, contribute, or star the project</p>
               </div>
             </div>
- 
+  -->
           </div>
 
           <!-- Quick Links -->
@@ -64,7 +64,7 @@
                   to="/about" 
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
                 >
-                  About ML Simplified
+                  About Machine Learning 101
                 </NuxtLink>
               </li>
               <li>
@@ -85,7 +85,7 @@
               </li>
               <li>
                 <a 
-                  href="https://github.com/marvelefe/machinelearningsimplified/issues" 
+                  href="https://github.com/marvelefe/machinelearning101/issues" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
@@ -108,9 +108,9 @@ import { ref } from 'vue'
 
 // SEO
 useSEO({
-  title: 'Contact Us - ML Simplified',
-  description: 'Get in touch with ML Simplified. Send us your questions, feedback, or subscribe to our newsletter for updates on new modules and ML learning tips.',
-  keywords: 'contact ML Simplified, machine learning support, ML questions, newsletter subscription',
+  title: 'Contact Us - Machine Learning 101',
+  description: 'Get in touch with Machine Learning 101. Send us your questions, feedback, or subscribe to our newsletter for updates on new modules and ML learning tips.',
+  keywords: 'contact Machine Learning 101, machine learning support, ML questions, newsletter subscription',
   url: '/contact',
   type: 'website',
 })
@@ -141,7 +141,7 @@ const handleContactSubmit = async () => {
   try {
     // In a real implementation, this would send to a backend API or email service
     // For now, we'll simulate the submission with mailto link
-    const mailtoLink = `mailto:hello@machinelearningsimplified.com?subject=${encodeURIComponent(contactForm.value.subject)}&body=${encodeURIComponent(
+    const mailtoLink = `mailto:hello@machinelearning101.com?subject=${encodeURIComponent(contactForm.value.subject)}&body=${encodeURIComponent(
       `Name: ${contactForm.value.name}\nEmail: ${contactForm.value.email}\n\nMessage:\n${contactForm.value.message}`
     )}`
     
@@ -161,7 +161,7 @@ const handleContactSubmit = async () => {
       contactSuccess.value = false
     }, 3000)
   } catch (error) {
-    contactError.value = 'Failed to send message. Please try emailing us directly at hello@machinelearningsimplified.com'
+    contactError.value = 'Failed to send message. Please try emailing us directly at hello@machinelearning101.com'
   } finally {
     contactSubmitting.value = false
   }

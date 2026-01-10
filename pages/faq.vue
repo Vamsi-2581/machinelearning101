@@ -155,7 +155,7 @@ const faqs: FAQItem[] = [
     id: 'suggest',
     category: 'Content',
     question: 'Can I suggest new modules or features?',
-    answer: 'Absolutely! We welcome suggestions. Contact us through GitHub issues, email, or our feedback form. Community input helps us improve!'
+    answer: 'Absolutely! We welcome suggestions. Contact us via email. Community input helps us improve!'
   },
   {
     id: 'production',

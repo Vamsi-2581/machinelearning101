@@ -7,7 +7,7 @@
           Why Learn Machine Learning Here?
         </h1>
         <p class="text-xl text-gray-600">
-          Discover what makes ML Simplified the best place to start your machine learning journey
+          Discover what makes Machine Learning 101 the best place to start your machine learning journey
         </p>
       </div>
 
@@ -25,7 +25,7 @@
               <h2 class="text-2xl font-bold text-gray-900 mb-3">Start Learning in Seconds, Not Hours</h2>
               <p class="text-gray-700 mb-4">
                 Traditional ML learning requires installing Python, Jupyter, NumPy, scikit-learn, and more. 
-                That's hours of setup before you write a single line of code. With ML Simplified, you click 
+                That's hours of setup before you write a single line of code. With Machine Learning 101, you click 
                 a link and start learning immediately. Everything runs in your browser with zero configuration.
               </p>
               <div class="bg-gray-50 p-4 rounded-lg">
@@ -37,7 +37,7 @@
                   <li>• Debug installation issues</li>
                   <li>• Finally start learning (maybe)</li>
                 </ul>
-                <p class="text-sm text-blue-600 font-semibold">ML Simplified: Click and learn. That's it.</p>
+                <p class="text-sm text-blue-600 font-semibold">Machine Learning 101: Click and learn. That's it.</p>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@
             <thead>
               <tr class="bg-gray-50">
                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-900 border-b-2 border-gray-200">Feature</th>
-                <th class="px-4 py-3 text-center text-sm font-semibold text-blue-600 border-b-2 border-blue-600 bg-blue-50">ML Simplified</th>
+                <th class="px-4 py-3 text-center text-sm font-semibold text-blue-600 border-b-2 border-blue-600 bg-blue-50">Machine Learning 101</th>
                 <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b-2 border-gray-200">Video Courses</th>
                 <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b-2 border-gray-200">Textbooks</th>
                 <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b-2 border-gray-200">Jupyter Notebooks</th>
@@ -229,8 +229,8 @@
 <script setup lang="ts">
 // SEO
 useSEO({
-  title: 'Why Learn Machine Learning Here? - ML Simplified Benefits & Comparison',
-  description: 'Discover why ML Simplified is the best place to learn machine learning. Zero setup, interactive visualizations, hands-on experimentation, and structured Modules. Compare with other learning resources.',
+  title: 'Why Learn Machine Learning Here? - Machine Learning 101 Benefits & Comparison',
+  description: 'Discover why Machine Learning 101 is the best place to learn machine learning. Zero setup, interactive visualizations, hands-on experimentation, and structured Modules. Compare with other learning resources.',
   keywords: 'machine learning comparison, best ML learning platform, interactive ML tutorial, ML visualization, learn machine learning online',
   url: '/why-learn-here',
   type: 'website',
@@ -239,20 +239,20 @@ useSEO({
 // FAQ Structured Data
 useFAQStructuredData([
   {
-    question: 'Why choose ML Simplified over other learning platforms?',
-    answer: 'ML Simplified offers zero setup, interactive visualizations, real-time parameter adjustments, and hands-on experimentation. Everything runs in your browser with no installations required.',
+    question: 'Why choose Machine Learning 101 over other learning platforms?',
+    answer: 'Machine Learning 101 offers zero setup, interactive visualizations, real-time parameter adjustments, and hands-on experimentation. Everything runs in your browser with no installations required.',
   },
   {
     question: 'Do I need to install Python or any software?',
-    answer: 'No! ML Simplified runs entirely in your browser. Just click a link and start learning immediately with zero setup required.',
+    answer: 'No! Machine Learning 101 runs entirely in your browser. Just click a link and start learning immediately with zero setup required.',
   },
   {
-    question: 'How is ML Simplified different from video courses?',
-    answer: 'Unlike passive video courses, ML Simplified provides interactive visualizations where you can adjust parameters and see results in real-time, building intuition through experimentation.',
+    question: 'How is Machine Learning 101 different from video courses?',
+    answer: 'Unlike passive video courses, Machine Learning 101 provides interactive visualizations where you can adjust parameters and see results in real-time, building intuition through experimentation.',
   },
   {
-    question: 'Is ML Simplified free to use?',
-    answer: 'Yes! ML Simplified is completely free and open source. All learning modules and features are available at no cost.',
+    question: 'Is Machine Learning 101 free to use?',
+    answer: 'Yes! Machine Learning 101 is completely free and open source. All learning modules and features are available at no cost.',
   },
 ])
 </script>

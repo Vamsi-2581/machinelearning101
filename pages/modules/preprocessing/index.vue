@@ -151,7 +151,7 @@ const getDifficultyClass = (difficulty: Difficulty): string => {
 
 // SEO
 useSEO({
-  title: 'Data Preprocessing Modules - ML Simplified',
+  title: 'Data Preprocessing Modules - Machine Learning 101',
   description: 'Learn essential data preprocessing techniques including feature scaling, normalization, standardization, and missing value imputation for machine learning.',
   keywords: 'data preprocessing, feature scaling, normalization, standardization, missing value imputation, data cleaning',
   url: '/modules/preprocessing',

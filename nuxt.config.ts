@@ -3,7 +3,16 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: "append",
+      },
+    },
+  },
+
   modules: [ 
+    "@nuxtjs/seo",
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
@@ -11,10 +20,16 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
     "nuxt-gtag",
-    '@pinia/nuxt', // required
+    // '@pinia/nuxt', // duplication removed
     'pinia-plugin-persistedstate/nuxt',
      "@nuxt/content",
   ],
+
+  site: {
+    url: "https://machinelearning101.com",
+    name: "Machine Learning 101",
+    trailingSlash: true,
+  },
 
   // Component auto-import configuration
   components: [
@@ -107,7 +122,7 @@ export default defineNuxtConfig({
         "/faq",
         "/getting-started",
         "/modules", 
-        "/sitemap.xml",
+        // "/sitemap.xml", // Removed as handled by nuxt-seo
         // "/modules/*",
       ],
       ignore: [ 
