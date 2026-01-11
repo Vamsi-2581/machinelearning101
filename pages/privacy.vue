@@ -157,6 +157,237 @@
         </ul>
       </div>
 
+      <!-- Google User Data Disclosure Section -->
+      <div class="info-card google-data-card">
+        <div class="google-header">
+          <svg class="google-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <h2 class="info-title">Google User Data</h2>
+        </div>
+        <p class="info-description">
+          This application uses Google Sign-In for authentication. Below is a disclosure of how we access, use, and store your Google user data in compliance with the 
+          <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" class="external-link">Google API Services User Data Policy</a>.
+        </p>
+      </div>
+
+      <!-- Data Accessed Card -->
+      <div class="info-card data-disclosure-card">
+        <h2 class="info-title">
+          <span class="section-icon">📋</span>
+          Data Accessed
+        </h2>
+        <p class="info-description">
+          When you sign in with Google, we request access to the following information from your Google account:
+        </p>
+        <ul class="info-list detailed-list">
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Email Address</strong>
+              <span class="data-detail">Your primary Google account email address</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Display Name</strong>
+              <span class="data-detail">Your full name as displayed on your Google profile</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Profile Picture</strong>
+              <span class="data-detail">The URL to your Google profile photo (optional)</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Google User ID</strong>
+              <span class="data-detail">A unique identifier from Google used to link your account</span>
+            </div>
+          </li>
+        </ul>
+        <div class="scope-info">
+          <strong>OAuth Scopes Requested:</strong>
+          <code>openid</code>, <code>email</code>, <code>profile</code>
+        </div>
+      </div>
+
+      <!-- Data Usage Card -->
+      <div class="info-card data-disclosure-card">
+        <h2 class="info-title">
+          <span class="section-icon">⚙️</span>
+          Data Usage
+        </h2>
+        <p class="info-description">
+          We use your Google user data exclusively for the following purposes:
+        </p>
+        <ul class="info-list detailed-list">
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Account Creation & Authentication</strong>
+              <span class="data-detail">Your email and Google ID are used to create and identify your account, enabling secure sign-in without passwords.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Personalized Learning Experience</strong>
+              <span class="data-detail">Your name is displayed in the application interface to provide a personalized experience.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Profile Display</strong>
+              <span class="data-detail">Your profile picture is optionally displayed in the navigation bar and account settings.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Progress Synchronization</strong>
+              <span class="data-detail">Your account is linked to your learning progress, quiz scores, and saved bookmarks to sync across devices.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="important-notice">
+          <svg class="notice-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <strong>We do NOT:</strong>
+            <ul>
+              <li>Share your Google data with third parties</li>
+              <li>Use your data for advertising purposes</li>
+              <li>Access your Google Drive, Gmail, or other Google services</li>
+              <li>Sell or monetize your personal information</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Storage Card -->
+      <div class="info-card data-disclosure-card">
+        <h2 class="info-title">
+          <span class="section-icon">🔒</span>
+          Data Storage & Security
+        </h2>
+        <p class="info-description">
+          Your data is stored securely with the following measures:
+        </p>
+        <ul class="info-list detailed-list">
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Secure Database Storage</strong>
+              <span class="data-detail">Your account data is stored in a secure database with encryption at rest.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Data Stored</strong>
+              <span class="data-detail">Email address, display name, profile picture URL, Google user ID, and account timestamps.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Access Tokens</strong>
+              <span class="data-detail">Google access tokens are used only during authentication and are not stored permanently.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Data Retention</strong>
+              <span class="data-detail">Your data is retained for as long as your account is active. You may request deletion at any time.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>HTTPS Encryption</strong>
+              <span class="data-detail">All data transmission is encrypted using HTTPS/TLS protocols.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Data Deletion Card -->
+      <div class="info-card data-disclosure-card">
+        <h2 class="info-title">
+          <span class="section-icon">🗑️</span>
+          Data Deletion
+        </h2>
+        <p class="info-description">
+          You have the right to request deletion of your data:
+        </p>
+        <ul class="info-list detailed-list">
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Account Deletion</strong>
+              <span class="data-detail">Contact us to request complete deletion of your account and all associated data.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Google Account Revocation</strong>
+              <span class="data-detail">You can revoke access from your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" class="external-link">Google Account Settings</a>.</span>
+            </div>
+          </li>
+          <li>
+            <svg class="list-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="list-content">
+              <strong>Cascade Deletion</strong>
+              <span class="data-detail">When your account is deleted, all associated progress, quiz scores, and bookmarks are automatically removed.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
       <!-- Data Management Card -->
       <div class="info-card">
         <h2 class="info-title">Your Data Rights</h2>
@@ -204,9 +435,9 @@ import Button from '~/components/shared/Button.vue';
 
 // SEO
 useSEO({
-  title: 'Privacy & Analytics Settings - Machine Learning 101',
-  description: 'Control your privacy and analytics settings. Learn what data we collect and how we use it to improve your learning experience. GDPR compliant, privacy-focused analytics.',
-  keywords: 'privacy policy, analytics settings, GDPR, data privacy, cookie consent, Machine Learning 101 privacy',
+  title: 'Privacy Policy & Data Usage - Machine Learning 101',
+  description: 'Comprehensive privacy policy including Google user data disclosure. Learn how we access, use, and store your data. Control analytics settings and understand our data practices.',
+  keywords: 'privacy policy, Google user data, OAuth data usage, data storage, analytics settings, GDPR, data privacy, cookie consent, Machine Learning 101 privacy, Google API compliance',
   url: '/privacy',
   type: 'website',
 })
@@ -488,6 +719,146 @@ const handleClearData = () => {
   .card-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* Google User Data Disclosure Styles */
+.google-data-card {
+  border: 2px solid #4285F4;
+  background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+}
+
+.google-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.google-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.google-header .info-title {
+  margin: 0;
+}
+
+/* Data Disclosure Cards */
+.data-disclosure-card {
+  border-left: 4px solid #3b82f6;
+}
+
+.data-disclosure-card .info-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-icon {
+  font-size: 1.25rem;
+}
+
+/* Detailed List Styles */
+.detailed-list li {
+  padding: 1rem 0;
+}
+
+.list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.list-content strong {
+  color: #111827;
+  font-size: 0.9375rem;
+}
+
+.data-detail {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* OAuth Scope Info */
+.scope-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f3f4f6;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.scope-info code {
+  background: #e5e7eb;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8125rem;
+  color: #1f2937;
+  margin: 0 0.125rem;
+}
+
+/* Important Notice */
+.important-notice {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.notice-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: #d97706;
+}
+
+.important-notice strong {
+  color: #92400e;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.important-notice ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.important-notice li {
+  font-size: 0.875rem;
+  color: #78350f;
+  padding: 0.25rem 0;
+  border-bottom: none;
+}
+
+.important-notice li::marker {
+  color: #d97706;
+}
+
+/* Responsive adjustments for Google data sections */
+@media (max-width: 768px) {
+  .google-header {
+    flex-direction: row;
+  }
+  
+  .google-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .section-icon {
+    font-size: 1rem;
+  }
+  
+  .important-notice {
+    flex-direction: column;
   }
 }
 </style>
