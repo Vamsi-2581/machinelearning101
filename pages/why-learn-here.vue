@@ -215,7 +215,7 @@
             Start Learning for Free
           </NuxtLink>
           <NuxtLink
-            to="/about"
+            to="/about/"
             class="inline-block px-8 py-4 bg-blue-700 text-white text-lg font-semibold rounded-lg hover:bg-blue-800 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
           >
             Learn More About Us

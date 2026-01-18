@@ -17,7 +17,7 @@
             Start Learning Now
           </NuxtLink>
           <NuxtLink
-            to="/about"
+            to="/about/"
             class="inline-block px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
           >
             Learn More

@@ -188,7 +188,7 @@ useSEO({
   title: 'About Machine Learning 101 - Our Mission to Make Machine Learning Accessible',
   description: 'Learn about Machine Learning 101\'s mission to make machine learning accessible through interactive visualizations and hands-on experimentation. Zero setup, visual-first learning for everyone.',
   keywords: 'about Machine Learning 101, machine learning education, interactive learning platform, open source ML, educational technology',
-  url: '/about',
+  url: '/about/',
   type: 'website',
 })
 
