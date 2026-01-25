@@ -70,10 +70,10 @@ const currentYear = computed(() => new Date().getFullYear());
 // Quick links to marketing pages
 const quickLinks = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about/' },
-  { label: 'Why Learn Here', path: '/why-learn-here/' },
-  { label: 'Contact', path: '/contact/' },
-  { label: 'Modules', path: '/modules/' },
+  { label: 'About', path: '/about' },
+  { label: 'Why Learn Here', path: '/why-learn-here' },
+  { label: 'Contact', path: '/contact' },
+  { label: 'Modules', path: '/modules' },
 ];
 
 // Social media links

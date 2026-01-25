@@ -235,11 +235,11 @@ import { useModules } from '~/composables/useModules';
 // Navigation items
 const navItems = [
   { label: 'Home', path: '/' },
-  { label: 'Modules', path: '/modules/' },
-  { label: 'Progress', path: '/progress/' },
-  { label: 'Bookmarks', path: '/bookmarks/' },
-  { label: 'About', path: '/about/' },
-  { label: 'Contact', path: '/contact/' },
+  { label: 'Modules', path: '/modules' },
+  { label: 'Progress', path: '/progress' },
+  { label: 'Bookmarks', path: '/bookmarks' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
 ];
 
 // Mobile state

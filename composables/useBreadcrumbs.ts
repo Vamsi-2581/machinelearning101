@@ -70,15 +70,15 @@ export function useBreadcrumbs() {
     }
     // Handle about page
     else if (path === '/about') {
-      items.push({ label: 'About', path: '/about/', current: true });
+      items.push({ label: 'About', path: '/about', current: true });
     }
     // Handle contact page
     else if (path === '/contact') {
-      items.push({ label: 'Contact', path: '/contact/', current: true });
+      items.push({ label: 'Contact', path: '/contact', current: true });
     }
     // Handle why-learn-here page
     else if (path === '/why-learn-here') {
-      items.push({ label: 'Why Learn Here', path: '/why-learn-here/', current: true });
+      items.push({ label: 'Why Learn Here', path: '/why-learn-here', current: true });
     }
     // Home page
     else if (path === '/') {
