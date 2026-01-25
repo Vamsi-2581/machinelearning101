@@ -3,13 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
-  experimental: {
-    defaults: {
-      nuxtLink: {
-        trailingSlash: "append",
-      },
-    },
-  },
+  // experimental: {
+  //   defaults: {
+  //     nuxtLink: {
+  //       trailingSlash: "append",
+  //     },
+  //   },
+  // },
 
   modules: [ 
     "@nuxtjs/seo",
@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   site: {
     url: "https://machinelearning101.com",
     name: "Machine Learning 101",
-    trailingSlash: true,
+    trailingSlash: false,
   },
 
   // Component auto-import configuration
