@@ -115,13 +115,13 @@ export default defineNuxtConfig({
     prerender: {
       routes: [
         "/",
-        "/about/",
-        "/why-learn-here/",
-        "/contact/",
-        "/privacy/",
-        "/faq/",
-        "/getting-started/",
-        "/modules/", 
+        "/about",
+        "/why-learn-here",
+        "/contact",
+        "/privacy",
+        "/faq",
+        "/getting-started",
+        "/modules", 
         // "/sitemap.xml", // Removed as handled by nuxt-seo
         // "/modules/*",
       ],

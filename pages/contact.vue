@@ -61,7 +61,7 @@
             <ul class="space-y-2">
               <li>
                 <NuxtLink 
-                  to="/about/" 
+                  to="/about" 
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
                 >
                   About Machine Learning 101
@@ -69,7 +69,7 @@
               </li>
               <li>
                 <NuxtLink 
-                  to="/why-learn-here/" 
+                  to="/why-learn-here" 
                   class="text-blue-600 hover:text-blue-700 focus:outline-none focus:underline"
                 >
                   Why Learn Here?
