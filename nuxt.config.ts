@@ -18,17 +18,21 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/scripts",
     "@pinia/nuxt",
-    "@nuxtjs/tailwindcss",
-    "nuxt-gtag",
-    // '@pinia/nuxt', // duplication removed
+    "@nuxtjs/tailwindcss", 
     'pinia-plugin-persistedstate/nuxt',
      "@nuxt/content",
+     "nuxt-gtag",
   ],
 
   site: {
     url: "https://machinelearning101.com",
     name: "Machine Learning 101",
     trailingSlash: false,
+  },
+
+
+  sitemap: {
+    zeroRuntime: true
   },
 
   // Component auto-import configuration
@@ -127,6 +131,7 @@ export default defineNuxtConfig({
       ],
       ignore: [ 
       ],
+       autoSubfolderIndex: false, 
     },
   },
 
